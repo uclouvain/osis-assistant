@@ -154,5 +154,6 @@ urlpatterns = [
             url(r'^edit/$', reviewer_review.review_edit, name='review_edit'),
             url(r'^save/$', reviewer_review.review_save, name='review_save'),
         ])),
+        url(r'^export_pdf/$', export_utils_pdf.export_mandates_for_entity, name='export_mandates_for_entity_pdf'),
     ])),
 ]
