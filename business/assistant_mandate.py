@@ -28,11 +28,13 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import reverse
 from django.views.decorators.http import require_http_methods
 
+from assistant.models.assistant_mandate import find_by_academic_year
 from assistant.models.assistant_mandate import find_mandate_by_id
 from assistant.models.enums import assistant_mandate_state
 from assistant.models.enums import assistant_type
 from assistant.models.enums import review_status
 from assistant.models.enums import reviewer_role
+from assistant.models.mandate_entity import find_by_entity
 from assistant.models.review import find_done_by_supervisor_for_mandate
 from assistant.models.review import get_in_progress_for_mandate
 from assistant.models.review import find_review_for_mandate_by_role
@@ -101,3 +103,9 @@ def add_actions_to_mandates_list(context, reviewer):
         if mandate.state in reviewer.role:
             mandate.edit = True
     return context
+
+
+def find_mandates_for_academic_year_and_entity(academic_year, entity):
+    mandates_id = find_by_entity(entity).values_list(
+        'assistant_mandate_id', flat=True)
+    return find_by_academic_year(academic_year).filter(id__in=mandates_id)
