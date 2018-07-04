@@ -62,6 +62,6 @@ class AssistantURLsTestCase(TestCase):
         self.assertEqual(found.func, find_assistant_mandate_step_backward_state)
 
     def test_url_resolves_to_reviewer_export_mandates(self):
-        found = resolve(reverse('export_mandates_for_entity_pdf'))
+        found = resolve(reverse('export_mandates_for_entity_pdf', args=[1]))
         self.assertEqual(found.func, export_mandates_for_entity)
 
