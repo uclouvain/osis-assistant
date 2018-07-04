@@ -108,10 +108,10 @@ def export_mandates(request):
 
 
 @user_passes_test(users_access.user_is_reviewer_and_procedure_is_open, login_url='access_denied')
-def export_mandates_for_entity(request):
+def export_mandates_for_entity(request, year):
     current_reviewer = reviewer.find_by_person(find_by_user(request.user))
     mandates = find_mandates_for_academic_year_and_entity(
-        academic_year.current_academic_year(),
+        academic_year.find_academic_year_by_year(year),
         current_reviewer.entity
     )
     if mandates:

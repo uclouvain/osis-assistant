@@ -27,6 +27,7 @@ import datetime
 
 from django.utils.translation import ugettext_lazy as _
 from django.test import TestCase, RequestFactory, Client
+from django.urls import reverse
 
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -154,12 +155,12 @@ class ExportPdfTestCase(TestCase):
 
     def test_export_mandates_for_entity(self):
         self.client.force_login(self.reviewer2.person.user)
-        response = self.client.post('/assistants/reviewer/export_pdf/')
+        response = self.client.get(reverse("export_mandates_for_entity_pdf", args=[self.mandate.academic_year.year]))
         self.assertEqual(HTTP_OK, response.status_code)
 
     def test_export_mandates_for_entity_with_no_entity(self):
         self.client.force_login(self.reviewer3.person.user)
-        response = self.client.post('/assistants/reviewer/export_pdf/')
+        response = self.client.get(reverse("export_mandates_for_entity_pdf", args=[self.mandate.academic_year.year]))
         self.assertEqual(HTTP_FOUND, response.status_code)
 
     def test_format_data(self):
