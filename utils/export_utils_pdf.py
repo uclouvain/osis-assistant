@@ -54,12 +54,16 @@ from assistant.models.enums import review_status, assistant_type
 PAGE_SIZE = A4
 MARGIN_SIZE = 15 * mm
 COLS_WIDTH_FOR_REVIEWS = [35*mm, 20*mm, 70*mm, 30*mm, 30*mm]
+COLS_WIDTH_FOR_DECLINED_MANDATES = [100*mm]
 COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 40*mm]
 
 
 @login_required
 def build_doc(request, mandates, show_reviews):
-    year = mandates[0].academic_year
+    if mandates:
+        year = mandates[0].academic_year
+    else:
+        year = academic_year.current_academic_year()
     filename = ('%s_%s_%s.pdf' % (_('assistants_mandates'), year, time.strftime("%Y%m%d_%H%M")))
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="%s"' % filename
@@ -73,8 +77,16 @@ def build_doc(request, mandates, show_reviews):
                               firstLineIndent=0, alignment=TA_JUSTIFY, spaceBefore=25, spaceAfter=5, splitLongWords=1,
                               borderColor='#000000', borderWidth=1, borderPadding=10, ))
     content = []
-    for mandate in mandates:
-        add_mandate_content(content, mandate, styles, show_reviews)
+    if show_reviews is not None:
+        for mandate in mandates:
+            add_mandate_content(content, mandate, styles, show_reviews)
+    else:
+        print(mandates)
+
+        content.append(create_paragraph("%s (%s)<br />" % (_('declined_mandates'), year), '', styles["BodyText"]))
+        if mandates:
+            write_table(content, add_declined_mandates(mandates, styles['Tiny']), COLS_WIDTH_FOR_DECLINED_MANDATES)
+            content.append(PageBreak())
     doc.build(content, add_header_footer)
     pdf = buffer.getvalue()
     buffer.close()
@@ -94,6 +106,23 @@ def export_mandate(request):
 def export_mandates(request):
     mandates = assistant_mandate.find_by_academic_year_by_excluding_declined(academic_year.current_academic_year())
     return build_doc(request, mandates, show_reviews=True)
+
+
+@user_passes_test(manager_access.user_is_manager, login_url='access_denied')
+def export_declined_mandates(request):
+    mandates = assistant_mandate.find_declined_by_academic_year(academic_year.current_academic_year())
+    return build_doc(request, mandates, show_reviews=None)
+
+
+def add_declined_mandates(mandates, style):
+    data = generate_headers(["%s" % (_('ASSISTANT'))], style)
+    for mandate in mandates:
+        person = "{} {}".format(
+            mandate.assistant.person.first_name,
+            mandate.assistant.person.last_name,
+        )
+        data.append([Paragraph(person, style)])
+    return data
 
 
 def add_mandate_content(content, mandate, styles, show_reviews):

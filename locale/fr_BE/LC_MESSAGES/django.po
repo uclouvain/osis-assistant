@@ -229,6 +229,9 @@ msgstr "Décliner"
 msgid "DECLINED"
 msgstr "Décliné par l'assistant"
 
+msgid "declined_mandates"
+msgstr "Assistants qui ont décliné leur demande"
+
 msgid "degrees"
 msgstr "Diplôme(s) obtenu(s)"
 
@@ -243,6 +246,9 @@ msgstr "Gestion de l'envoi des courriels aux assistants et doyens de faculté"
 
 msgid "desc_lnk_export_mandates"
 msgstr "Exportation des dossiers vers un fichier XLSX"
+
+msgid "desc_lnk_export_declined_mandates_pdf"
+msgstr "Exportation de la liste des assistants qui ont décliné leur demande"
 
 msgid "desc_lnk_export_mandates_pdf"
 msgstr "Exportation des données dans un fichier PDF"
@@ -297,6 +303,9 @@ msgstr "Exercices, TP, séminaires - associés aux heures de volume 2, que vous 
 
 msgid "expected_registering_date"
 msgstr "Date prévue d'inscription"
+
+msgid "export_declined_mandates"
+msgstr "Exportation des mandats déclinés"
 
 msgid "export_mandates"
 msgstr "Exportation des mandats des assistants"

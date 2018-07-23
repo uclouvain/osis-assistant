@@ -24,17 +24,21 @@
 #
 ##############################################################################
 import datetime
+
 from django.utils.translation import ugettext_lazy as _
 from django.test import TestCase, RequestFactory, Client
+
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import Paragraph
 from reportlab.lib.units import mm
+
 from base.models.entity import find_versions_from_entites
 from base.models.entity_version import get_last_version
-
+from base.tests.factories.academic_year import AcademicYearFactory
 from base.tests.factories.entity_version import EntityVersionFactory
 from base.tests.factories.person import PersonFactory
+
 from assistant.models import tutoring_learning_unit_year
 from assistant.models.review import find_by_mandate
 from assistant.utils import export_utils_pdf
@@ -46,7 +50,7 @@ from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.review import ReviewFactory
 from assistant.tests.factories.settings import SettingsFactory
 from assistant.tests.factories.tutoring_learning_unit_year import TutoringLearningUnitYearFactory
-from assistant.models.enums import assistant_type, assistant_mandate_renewal, review_status
+from assistant.models.enums import assistant_type, assistant_mandate_renewal, review_status, assistant_mandate_state
 
 COLS_WIDTH_FOR_REVIEWS = [35*mm, 20*mm, 70*mm, 30*mm, 30*mm]
 COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 40*mm]
@@ -59,6 +63,10 @@ class ExportPdfTestCase(TestCase):
         self.settings = SettingsFactory()
         self.manager = ManagerFactory()
         self.factory = RequestFactory()
+        today = datetime.date.today()
+        self.current_academic_year = AcademicYearFactory(start_date=today,
+                                                         end_date=today.replace(year=today.year + 1),
+                                                         year=today.year)
         self.supervisor = PersonFactory()
         self.assistant = AcademicAssistantFactory(
             phd_inscription_date=datetime.date(2015, 10, 2),
@@ -81,6 +89,14 @@ class ExportPdfTestCase(TestCase):
             justification=None,
             external_contract='',
             external_functions='',
+        )
+        self.mandate2 = AssistantMandateFactory(
+            state=assistant_mandate_state.DECLINED,
+            academic_year=self.current_academic_year
+        )
+        self.mandate3 = AssistantMandateFactory(
+            state=assistant_mandate_state.DECLINED,
+            academic_year=self.current_academic_year
         )
         self.tutoring_learning_unit_year = TutoringLearningUnitYearFactory(mandate=self.mandate)
         self.review3 = ReviewFactory(
@@ -140,6 +156,11 @@ class ExportPdfTestCase(TestCase):
     def test_export_mandates(self):
         self.client.force_login(self.manager.person.user)
         response = self.client.post('/assistants/manager/mandates/export_pdf/')
+        self.assertEqual(HTTP_OK, response.status_code)
+
+    def test_export_declined_mandates(self):
+        self.client.force_login(self.manager.person.user)
+        response = self.client.post('/assistants/manager/mandates/export_declined_pdf/')
         self.assertEqual(HTTP_OK, response.status_code)
 
     def test_format_data(self):

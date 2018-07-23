@@ -31,6 +31,7 @@ from django.test import TestCase
 from base.tests.factories.academic_year import AcademicYearFactory
 
 from assistant.models.assistant_mandate import find_by_academic_year_by_excluding_declined
+from assistant.models.assistant_mandate import find_declined_by_academic_year
 from assistant.models.enums import assistant_mandate_state
 from assistant.models import assistant_mandate
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
@@ -63,3 +64,8 @@ class TestAssistantMandateFactory(TestCase):
             [self.mandate]
         )
 
+    def find_declined_by_academic_year(self):
+        self.assertEqual(
+            list(find_declined_by_academic_year(self.researched_academic_year)),
+            [self.mandate3]
+        )
