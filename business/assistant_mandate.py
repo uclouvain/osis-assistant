@@ -28,8 +28,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import reverse
 from django.views.decorators.http import require_http_methods
 
-from assistant.models.assistant_mandate import find_by_academic_year
-from assistant.models.assistant_mandate import find_mandate_by_id
+from assistant.models import assistant_mandate
 from assistant.models.enums import assistant_mandate_state
 from assistant.models.enums import assistant_type
 from assistant.models.enums import review_status
@@ -49,7 +48,7 @@ def mandate_can_go_backward(mandate):
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
 def find_assistant_mandate_step_backward_state(request):
     mandate_id = request.POST.get('mandate_id')
-    mandate = find_mandate_by_id(mandate_id)
+    mandate = assistant_mandate.find_mandate_by_id(mandate_id)
     if mandate.state == assistant_mandate_state.TRTS:
         make_assistant_mandate_step_backward(mandate=mandate, rev_role=None, state_to=assistant_mandate_state.TO_DO)
     elif mandate.state == assistant_mandate_state.PHD_SUPERVISOR:
@@ -108,4 +107,4 @@ def add_actions_to_mandates_list(context, reviewer):
 def find_mandates_for_academic_year_and_entity(academic_year, entity):
     mandates_id = find_by_entity(entity).values_list(
         'assistant_mandate_id', flat=True)
-    return find_by_academic_year(academic_year).filter(id__in=mandates_id)
+    return assistant_mandate.find_by_academic_year(academic_year).filter(id__in=mandates_id)
