@@ -28,6 +28,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from assistant.business.assistant_mandate import find_assistant_mandate_step_backward_state
+from assistant.utils.export_utils_pdf import export_mandates_for_entity
 from assistant.utils.send_email import send_message_to_assistants, send_message_to_reviewers
 from assistant.views.messages import show_history
 from assistant.views.manager_reviews_view import reviews_view
@@ -59,3 +60,8 @@ class AssistantURLsTestCase(TestCase):
     def test_url_resolves_to_manager_assistant_mandate_go_backward(self):
         found = resolve(reverse('assistant_mandate_step_back'))
         self.assertEqual(found.func, find_assistant_mandate_step_backward_state)
+
+    def test_url_resolves_to_reviewer_export_mandates(self):
+        found = resolve(reverse('export_mandates_for_entity_pdf', args=[1]))
+        self.assertEqual(found.func, export_mandates_for_entity)
+

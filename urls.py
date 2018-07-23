@@ -143,16 +143,18 @@ urlpatterns = [
     url(r'^reviewer/', include([
         url(r'^$', reviewer_mandates_list.MandatesListView.as_view(), { 'filter': False },
             name='reviewer_mandates_list'),
-        url(r'^todo/$', reviewer_mandates_list.MandatesListView.as_view(), { 'filter': True },
-            name='reviewer_mandates_list_todo'),
-        url(r'^delegation/$', reviewer_delegation.StructuresListView.as_view(), name='reviewer_delegation'),
-        url(r'^pst_form/$', reviewer_review.pst_form_view, name='pst_form_view'),
         url(r'^delegate/add/$', reviewer_delegation.add_reviewer_for_structure,
             name='reviewer_delegation_add'),
+        url(r'^delegation/$', reviewer_delegation.StructuresListView.as_view(), name='reviewer_delegation'),
+        url(r'^export_pdf/(?P<year>\d+)/$', export_utils_pdf.export_mandates_for_entity,
+            name='export_mandates_for_entity_pdf'),
+        url(r'^pst_form/$', reviewer_review.pst_form_view, name='pst_form_view'),
         url(r'^review/', include([
             url(r'^view/$', reviewer_review.review_view, name='review_view'),
             url(r'^edit/$', reviewer_review.review_edit, name='review_edit'),
             url(r'^save/$', reviewer_review.review_save, name='review_save'),
         ])),
+        url(r'^todo/$', reviewer_mandates_list.MandatesListView.as_view(), {'filter': True},
+            name='reviewer_mandates_list_todo'),
     ])),
 ]
