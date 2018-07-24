@@ -43,9 +43,13 @@ class AssistantFormViewTestCase(TestCase):
         self.client = Client()
         self.settings = SettingsFactory()
         today = datetime.date.today()
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
+
+        self.current_academic_year = AcademicYearFactory(
+            start_date=today.replace(year=today.year-1),
+            end_date=today.replace(year=today.year+1),
+            year=today.year-1,
+        )
+
         self.assistant_mandate = AssistantMandateFactory(academic_year=self.current_academic_year)
         self.assistant_mandate.state = assistant_mandate_state.TRTS
         self.assistant_mandate.save()
