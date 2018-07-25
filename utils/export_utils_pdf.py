@@ -81,8 +81,6 @@ def build_doc(request, mandates, show_reviews):
         for mandate in mandates:
             add_mandate_content(content, mandate, styles, show_reviews)
     else:
-        print(mandates)
-
         content.append(create_paragraph("%s (%s)<br />" % (_('declined_mandates'), year), '', styles["BodyText"]))
         if mandates:
             write_table(content, add_declined_mandates(mandates, styles['Tiny']), COLS_WIDTH_FOR_DECLINED_MANDATES)
