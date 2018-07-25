@@ -27,6 +27,7 @@ import datetime
 
 from django.utils.translation import ugettext_lazy as _
 from django.test import TestCase, RequestFactory, Client
+from django.urls import reverse
 
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -36,6 +37,7 @@ from reportlab.lib.units import mm
 from base.models.entity import find_versions_from_entites
 from base.models.entity_version import get_last_version
 from base.tests.factories.academic_year import AcademicYearFactory
+from base.models.enums import entity_type
 from base.tests.factories.entity_version import EntityVersionFactory
 from base.tests.factories.person import PersonFactory
 
@@ -50,11 +52,13 @@ from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.review import ReviewFactory
 from assistant.tests.factories.settings import SettingsFactory
 from assistant.tests.factories.tutoring_learning_unit_year import TutoringLearningUnitYearFactory
-from assistant.models.enums import assistant_type, assistant_mandate_renewal, review_status, assistant_mandate_state
+from assistant.models.enums import assistant_mandate_state
+from assistant.models.enums import assistant_type, assistant_mandate_renewal, review_status, reviewer_role, user_role
 
 COLS_WIDTH_FOR_REVIEWS = [35*mm, 20*mm, 70*mm, 30*mm, 30*mm]
 COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 40*mm]
 HTTP_OK = 200
+HTTP_FOUND = 302
 
 
 class ExportPdfTestCase(TestCase):
@@ -110,12 +114,16 @@ class ExportPdfTestCase(TestCase):
             assistant_mandate=self.mandate,
             entity=self.entity_version.entity
         )
-        self.entity_version2 = EntityVersionFactory()
+        self.entity_version2 = EntityVersionFactory(
+            entity_type=entity_type.FACULTY,
+            end_date=None
+        )
         self.mandate_entity2 = MandateEntityFactory(
             assistant_mandate=self.mandate,
             entity=self.entity_version2.entity
         )
         self.reviewer = ReviewerFactory(
+            role=reviewer_role.SUPERVISION,
             entity=self.mandate_entity.entity
         )
 
@@ -149,6 +157,7 @@ class ExportPdfTestCase(TestCase):
             mandate=self.mandate,
             reviewer=None
         )
+        self.reviewer3 = ReviewerFactory()
 
     def test_export_mandate(self):
         self.client.force_login(self.assistant.person.user)
@@ -164,6 +173,16 @@ class ExportPdfTestCase(TestCase):
         self.client.force_login(self.manager.person.user)
         response = self.client.post('/assistants/manager/mandates/export_declined_pdf/')
         self.assertEqual(HTTP_OK, response.status_code)
+
+    def test_export_mandates_for_entity(self):
+        self.client.force_login(self.reviewer2.person.user)
+        response = self.client.get(reverse("export_mandates_for_entity_pdf", args=[self.mandate.academic_year.year]))
+        self.assertEqual(HTTP_OK, response.status_code)
+
+    def test_export_mandates_for_entity_with_no_entity(self):
+        self.client.force_login(self.reviewer3.person.user)
+        response = self.client.get(reverse("export_mandates_for_entity_pdf", args=[self.mandate.academic_year.year]))
+        self.assertEqual(HTTP_FOUND, response.status_code)
 
     def test_format_data(self):
         data = 'good example of data.'
@@ -359,4 +378,8 @@ class ExportPdfTestCase(TestCase):
                          Paragraph(rev.remark or '', style),
                          Paragraph(rev.justification or '', style),
                          Paragraph(rev.confidential or '', style)])
-        self.assertEqual(str(data), str(export_utils_pdf.get_reviews_for_mandate(self.mandate, style)))
+        self.assertEqual(str(data), str(export_utils_pdf.get_reviews_for_mandate(
+            user_role.ADMINISTRATOR,
+            self.mandate,
+            style
+        )))

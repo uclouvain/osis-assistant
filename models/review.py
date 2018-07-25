@@ -23,10 +23,11 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+from itertools import takewhile
 from django.db import models
 from django.utils import timezone
 
-from assistant.models.enums import review_status, review_advice_choices
+from assistant.models.enums import review_status, review_advice_choices, reviewer_role
 
 
 class Review(models.Model):
@@ -70,3 +71,19 @@ def get_in_progress_for_mandate(mandate):
         return Review.objects.get(mandate=mandate, status=review_status.IN_PROGRESS)
     except Review.DoesNotExist:
         return None
+
+
+def find_before_mandate_state(mandate, current_role):
+    reviewers_order_list = [
+        reviewer_role.RESEARCH,
+        reviewer_role.SUPERVISION,
+        reviewer_role.VICE_RECTOR
+    ]
+    roles_list_accessible_for_current_rev = [
+        role for role in takewhile(lambda r: r not in current_role, reviewers_order_list)
+    ]
+    roles_list_accessible_for_current_rev.append([role for role in reviewers_order_list if role in current_role][0])
+    return Review.objects.filter(mandate=mandate).filter(
+        models.Q(reviewer__role__in=roles_list_accessible_for_current_rev) |
+        models.Q(reviewer__role=None)
+    ).filter(status=review_status.DONE)

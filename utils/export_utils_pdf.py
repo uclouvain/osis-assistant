@@ -28,7 +28,8 @@ import datetime
 from io import BytesIO
 
 from django.contrib.auth.decorators import user_passes_test, login_required
-from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
@@ -46,10 +47,14 @@ from reportlab.graphics.charts.legends import Legend
 
 from base.models.entity import find_versions_from_entites
 from base.models import academic_year, entity_version
+from base.models.person import find_by_user
 
+from assistant.business import users_access
+from assistant.business.assistant_mandate import find_mandates_for_academic_year_and_entity
 from assistant.utils import assistant_access, manager_access
-from assistant.models import assistant_mandate, review, tutoring_learning_unit_year
-from assistant.models.enums import review_status, assistant_type
+from assistant.models import academic_assistant, assistant_mandate, review, reviewer, tutoring_learning_unit_year
+from assistant.models.enums import review_status, assistant_type, user_role
+from assistant.models.review import find_before_mandate_state
 
 PAGE_SIZE = A4
 MARGIN_SIZE = 15 * mm
@@ -85,6 +90,14 @@ def build_doc(request, mandates, show_reviews):
         if mandates:
             write_table(content, add_declined_mandates(mandates, styles['Tiny']), COLS_WIDTH_FOR_DECLINED_MANDATES)
             content.append(PageBreak())
+    if academic_assistant.find_by_person(find_by_user(request.user)):
+        role = user_role.ASSISTANT
+    elif reviewer.find_by_person(find_by_user(request.user)):
+        role = reviewer.find_by_person(find_by_user(request.user)).role
+    else:
+        role = user_role.ADMINISTRATOR
+    for mandate in mandates:
+        add_mandate_content(content, mandate, styles, role)
     doc.build(content, add_header_footer)
     pdf = buffer.getvalue()
     buffer.close()
@@ -97,13 +110,13 @@ def build_doc(request, mandates, show_reviews):
 def export_mandate(request):
     mandate_id = request.POST.get("mandate_id")
     mandate = assistant_mandate.find_mandate_by_id(mandate_id)
-    return build_doc(request, mandates=[mandate], show_reviews=False)
+    return build_doc(request, mandates=[mandate])
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
 def export_mandates(request):
     mandates = assistant_mandate.find_by_academic_year_by_excluding_declined(academic_year.current_academic_year())
-    return build_doc(request, mandates, show_reviews=True)
+    return build_doc(request, mandates)
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
@@ -123,7 +136,20 @@ def add_declined_mandates(mandates, style):
     return data
 
 
-def add_mandate_content(content, mandate, styles, show_reviews):
+@user_passes_test(users_access.user_is_reviewer_and_procedure_is_open, login_url='access_denied')
+def export_mandates_for_entity(request, year):
+    current_reviewer = reviewer.find_by_person(find_by_user(request.user))
+    mandates = find_mandates_for_academic_year_and_entity(
+        academic_year.find_academic_year_by_year(year),
+        current_reviewer.entity
+    )
+    if mandates:
+        return build_doc(request, mandates)
+    else:
+        return HttpResponseRedirect(reverse('reviewer_mandates_list'))
+
+
+def add_mandate_content(content, mandate, styles, current_user_role):
     content.append(
         create_paragraph(
             "%s (%s)" % (mandate.assistant.person, mandate.academic_year),
@@ -156,9 +182,12 @@ def add_mandate_content(content, mandate, styles, show_reviews):
     content.append(create_paragraph("%s" % (_('summary')), get_summary(mandate), styles['StandardWithBorder']))
     content += [draw_time_repartition(mandate)]
     content.append(PageBreak())
-    if show_reviews:
+    if current_user_role is not user_role.ASSISTANT:
         content.append(create_paragraph("%s<br />" % (_('reviews')), '', styles["BodyText"]))
-        write_table(content, get_reviews_for_mandate(mandate, styles['Tiny']), COLS_WIDTH_FOR_REVIEWS)
+        write_table(
+            content,
+            get_reviews_for_mandate(current_user_role, mandate, styles['Tiny']), COLS_WIDTH_FOR_REVIEWS
+        )
         content.append(PageBreak())
 
 
@@ -292,10 +321,13 @@ def get_formation_activities(mandate):
     return formations
 
 
-def get_reviews_for_mandate(mandate, style):
+def get_reviews_for_mandate(current_user_role, mandate, style):
     data = generate_headers([
         'reviewer', 'review', 'remark', 'justification', 'confidential'], style)
-    reviews = review.find_by_mandate(mandate.id)
+    if current_user_role is user_role.ADMINISTRATOR:
+        reviews = review.find_by_mandate(mandate.id)
+    else:
+        reviews = find_before_mandate_state(mandate, current_user_role)
     for rev in reviews:
         if rev.status == review_status.IN_PROGRESS:
             break
