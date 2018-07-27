@@ -64,8 +64,8 @@ class TestAssistantMandateFactory(TestCase):
             [self.mandate]
         )
 
-    def find_declined_by_academic_year(self):
+    def test_find_declined_by_academic_year(self):
         self.assertEqual(
-            list(find_declined_by_academic_year(self.researched_academic_year)),
+            list(find_declined_by_academic_year(self.mandate3.academic_year)),
             [self.mandate3]
         )

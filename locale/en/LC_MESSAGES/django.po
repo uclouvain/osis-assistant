@@ -248,7 +248,7 @@ msgid "desc_lnk_export_mandates"
 msgstr "Exporting files to an XLSX file"
 
 msgid "desc_lnk_export_declined_mandates_pdf"
-msgstr "Exportating assistants who declined their renewal"
+msgstr "Exporting assistants who declined their renewal"
 
 msgid "desc_lnk_export_mandates_pdf"
 msgstr "Exporting all data to a PDF file"
