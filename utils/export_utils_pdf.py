@@ -64,7 +64,7 @@ COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*m
 
 
 @login_required
-def build_doc(request, mandates, show_reviews):
+def build_doc(request, mandates, type='default'):
     if mandates:
         year = mandates[0].academic_year
     else:
@@ -82,22 +82,20 @@ def build_doc(request, mandates, show_reviews):
                               firstLineIndent=0, alignment=TA_JUSTIFY, spaceBefore=25, spaceAfter=5, splitLongWords=1,
                               borderColor='#000000', borderWidth=1, borderPadding=10, ))
     content = []
-    if show_reviews is not None:
-        for mandate in mandates:
-            add_mandate_content(content, mandate, styles, show_reviews)
-    else:
-        content.append(create_paragraph("%s (%s)<br />" % (_('declined_mandates'), year), '', styles["BodyText"]))
-        if mandates:
-            write_table(content, add_declined_mandates(mandates, styles['Tiny']), COLS_WIDTH_FOR_DECLINED_MANDATES)
-            content.append(PageBreak())
     if academic_assistant.find_by_person(find_by_user(request.user)):
         role = user_role.ASSISTANT
     elif reviewer.find_by_person(find_by_user(request.user)):
         role = reviewer.find_by_person(find_by_user(request.user)).role
     else:
         role = user_role.ADMINISTRATOR
-    for mandate in mandates:
-        add_mandate_content(content, mandate, styles, role)
+    if type is 'default':
+        for mandate in mandates:
+            add_mandate_content(content, mandate, styles, role)
+    else:
+        content.append(create_paragraph("%s (%s)<br />" % (_('declined_mandates'), year), '', styles["BodyText"]))
+        if mandates:
+            write_table(content, add_declined_mandates(mandates, styles['Tiny']), COLS_WIDTH_FOR_DECLINED_MANDATES)
+            content.append(PageBreak())
     doc.build(content, add_header_footer)
     pdf = buffer.getvalue()
     buffer.close()
@@ -122,7 +120,7 @@ def export_mandates(request):
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
 def export_declined_mandates(request):
     mandates = assistant_mandate.find_declined_by_academic_year(academic_year.current_academic_year())
-    return build_doc(request, mandates, show_reviews=None)
+    return build_doc(request, mandates, type='declined')
 
 
 def add_declined_mandates(mandates, style):
