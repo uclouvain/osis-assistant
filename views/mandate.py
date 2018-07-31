@@ -125,6 +125,7 @@ def generate_xls():
                       _("name"),
                       _("firstname"),
                       _("email"),
+                      "FGS",
                       _("age"),
                       _("status"),
                       _("renewal_type"),
@@ -132,6 +133,7 @@ def generate_xls():
                       _("fulltime_equivalent"),
                       _("contract_duration_fte"),
                       _("contract_duration"),
+                      _("entry_date_contract"),
                       _("end_date"),
                       _("comment"),
                       _("absences"),
@@ -154,6 +156,7 @@ def construct_line(mandate):
         str(mandate.assistant.person.last_name),
         str(mandate.assistant.person.first_name),
         str(mandate.assistant.person.email),
+        str(mandate.assistant.person.global_id),
         person.calculate_age(mandate.assistant.person),
     ]
     line += [
@@ -165,6 +168,7 @@ def construct_line(mandate):
         mandate.fulltime_equivalent,
         mandate.contract_duration_fte,
         mandate.contract_duration,
+        mandate.entry_date,
         mandate.end_date,
         mandate.comment,
         mandate.absences if mandate.absences != 'None' else '',
