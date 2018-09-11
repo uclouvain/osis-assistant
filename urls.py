@@ -108,6 +108,8 @@ urlpatterns = [
             url(r'^upload/$', import_xls_file_data.upload_mandates_file, name='upload_mandates_file'),
             url(r'^export/$', mandate.export_mandates, name='export_mandates'),
             url(r'^export_pdf/$', export_utils_pdf.export_mandates, name='export_mandates_pdf'),
+            url(r'^export_declined_pdf/$', export_utils_pdf.export_declined_mandates,
+                name='export_declined_mandates_pdf'),
         ])),
         url(r'^messages/', include([
             url(r'^history/$', messages.show_history, name='messages_history'),

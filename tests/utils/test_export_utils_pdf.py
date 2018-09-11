@@ -36,6 +36,7 @@ from reportlab.lib.units import mm
 
 from base.models.entity import find_versions_from_entites
 from base.models.entity_version import get_last_version
+from base.tests.factories.academic_year import AcademicYearFactory
 from base.models.enums import entity_type
 from base.tests.factories.entity_version import EntityVersionFactory
 from base.tests.factories.person import PersonFactory
@@ -51,6 +52,7 @@ from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.review import ReviewFactory
 from assistant.tests.factories.settings import SettingsFactory
 from assistant.tests.factories.tutoring_learning_unit_year import TutoringLearningUnitYearFactory
+from assistant.models.enums import assistant_mandate_state
 from assistant.models.enums import assistant_type, assistant_mandate_renewal, review_status, reviewer_role, user_role
 
 COLS_WIDTH_FOR_REVIEWS = [35*mm, 20*mm, 70*mm, 30*mm, 30*mm]
@@ -65,6 +67,12 @@ class ExportPdfTestCase(TestCase):
         self.settings = SettingsFactory()
         self.manager = ManagerFactory()
         self.factory = RequestFactory()
+        today = datetime.date.today()
+        self.current_academic_year = AcademicYearFactory(
+            start_date = today.replace(year=today.year - 1),
+            end_date = today.replace(year=today.year + 1),
+            year = today.year - 1,
+        )
         self.supervisor = PersonFactory()
         self.assistant = AcademicAssistantFactory(
             phd_inscription_date=datetime.date(2015, 10, 2),
@@ -87,6 +95,14 @@ class ExportPdfTestCase(TestCase):
             justification=None,
             external_contract='',
             external_functions='',
+        )
+        self.mandate2 = AssistantMandateFactory(
+            state=assistant_mandate_state.DECLINED,
+            academic_year=self.current_academic_year
+        )
+        self.mandate3 = AssistantMandateFactory(
+            state=assistant_mandate_state.DECLINED,
+            academic_year=self.current_academic_year
         )
         self.tutoring_learning_unit_year = TutoringLearningUnitYearFactory(mandate=self.mandate)
         self.review3 = ReviewFactory(
@@ -151,6 +167,11 @@ class ExportPdfTestCase(TestCase):
     def test_export_mandates(self):
         self.client.force_login(self.manager.person.user)
         response = self.client.post('/assistants/manager/mandates/export_pdf/')
+        self.assertEqual(HTTP_OK, response.status_code)
+
+    def test_export_declined_mandates(self):
+        self.client.force_login(self.manager.person.user)
+        response = self.client.post('/assistants/manager/mandates/export_declined_pdf/')
         self.assertEqual(HTTP_OK, response.status_code)
 
     def test_export_mandates_for_entity(self):

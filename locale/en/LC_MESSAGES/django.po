@@ -229,6 +229,9 @@ msgstr "Refuse"
 msgid "DECLINED"
 msgstr "Refused by the assistant"
 
+msgid "declined_mandates"
+msgstr "Assistants who have declined their nenewal"
+
 msgid "degrees"
 msgstr "Diploma(s) obtained"
 
@@ -243,6 +246,9 @@ msgstr "Mail service management to assistants and Deans of Faculty"
 
 msgid "desc_lnk_export_mandates"
 msgstr "Exporting files to an XLSX file"
+
+msgid "desc_lnk_export_declined_mandates_pdf"
+msgstr "Exporting assistants who declined their renewal"
 
 msgid "desc_lnk_export_mandates_pdf"
 msgstr "Exporting all data to a PDF file"
@@ -297,6 +303,9 @@ msgstr "Exercises, workshops, seminars - associated with hours of volume 2, whic
 
 msgid "expected_registering_date"
 msgstr "Scheduled date of registration"
+
+msgid "export_declined_mandates"
+msgstr "Export of the declined assistants mandates"
 
 msgid "export_mandates"
 msgstr "Export of assistants mandates"

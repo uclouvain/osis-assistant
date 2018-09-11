@@ -59,12 +59,16 @@ from assistant.models.review import find_before_mandate_state
 PAGE_SIZE = A4
 MARGIN_SIZE = 15 * mm
 COLS_WIDTH_FOR_REVIEWS = [35*mm, 20*mm, 70*mm, 30*mm, 30*mm]
+COLS_WIDTH_FOR_DECLINED_MANDATES = [100*mm]
 COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 40*mm]
 
 
 @login_required
-def build_doc(request, mandates):
-    year = mandates[0].academic_year
+def build_doc(request, mandates, type='default'):
+    if mandates:
+        year = mandates[0].academic_year
+    else:
+        year = academic_year.current_academic_year()
     filename = ('%s_%s_%s.pdf' % (_('assistants_mandates'), year, time.strftime("%Y%m%d_%H%M")))
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="%s"' % filename
@@ -84,8 +88,14 @@ def build_doc(request, mandates):
         role = reviewer.find_by_person(find_by_user(request.user)).role
     else:
         role = user_role.ADMINISTRATOR
-    for mandate in mandates:
-        add_mandate_content(content, mandate, styles, role)
+    if type is 'default':
+        for mandate in mandates:
+            add_mandate_content(content, mandate, styles, role)
+    else:
+        content.append(create_paragraph("%s (%s)<br />" % (_('declined_mandates'), year), '', styles["BodyText"]))
+        if mandates:
+            write_table(content, add_declined_mandates(mandates, styles['Tiny']), COLS_WIDTH_FOR_DECLINED_MANDATES)
+            content.append(PageBreak())
     doc.build(content, add_header_footer)
     pdf = buffer.getvalue()
     buffer.close()
@@ -107,6 +117,23 @@ def export_mandates(request):
     return build_doc(request, mandates)
 
 
+@user_passes_test(manager_access.user_is_manager, login_url='access_denied')
+def export_declined_mandates(request):
+    mandates = assistant_mandate.find_declined_by_academic_year(academic_year.current_academic_year())
+    return build_doc(request, mandates, type='declined')
+
+
+def add_declined_mandates(mandates, style):
+    data = generate_headers(["%s" % (_('ASSISTANT'))], style)
+    for mandate in mandates:
+        person = "{} {}".format(
+            mandate.assistant.person.first_name,
+            mandate.assistant.person.last_name,
+        )
+        data.append([Paragraph(person, style)])
+    return data
+
+
 @user_passes_test(users_access.user_is_reviewer_and_procedure_is_open, login_url='access_denied')
 def export_mandates_for_entity(request, year):
     current_reviewer = reviewer.find_by_person(find_by_user(request.user))
@@ -118,6 +145,7 @@ def export_mandates_for_entity(request, year):
         return build_doc(request, mandates)
     else:
         return HttpResponseRedirect(reverse('reviewer_mandates_list'))
+
 
 def add_mandate_content(content, mandate, styles, current_user_role):
     content.append(
@@ -154,7 +182,10 @@ def add_mandate_content(content, mandate, styles, current_user_role):
     content.append(PageBreak())
     if current_user_role is not user_role.ASSISTANT:
         content.append(create_paragraph("%s<br />" % (_('reviews')), '', styles["BodyText"]))
-        write_table(content, get_reviews_for_mandate(current_user_role ,mandate, styles['Tiny']), COLS_WIDTH_FOR_REVIEWS)
+        write_table(
+            content,
+            get_reviews_for_mandate(current_user_role, mandate, styles['Tiny']), COLS_WIDTH_FOR_REVIEWS
+        )
         content.append(PageBreak())
 
 
