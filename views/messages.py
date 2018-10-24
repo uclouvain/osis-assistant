@@ -34,4 +34,4 @@ from assistant.utils import manager_access
 
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
 def show_history(request):
-    return render(request,'messages.html', {'sent_messages': find_all(), 'message_type': message_type})
+    return render(request, 'messages.html', {'sent_messages': find_all(), 'message_type': message_type})

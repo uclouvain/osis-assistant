@@ -23,8 +23,6 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from datetime import date
-
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db.models.query import QuerySet
@@ -39,6 +37,7 @@ from base.models.person import Person
 from base.tests.factories.academic_year import AcademicYearFactory
 
 HTTP_OK = 200
+
 
 class MessagesViewTestCase(TestCase):
 
@@ -67,11 +66,9 @@ class MessagesViewTestCase(TestCase):
 
     def test_messages_history_view_basic(self):
         self.client.force_login(self.user)
-        request = self.factory.get('/assistants/manager/messages/history')
-        request.user = self.user
-        with self.assertTemplateUsed('messages.html'):
-            response = show_history(request)
-            self.assertEqual(response.status_code, HTTP_OK)
+        response = self.client.get(reverse(show_history))
+        self.assertEqual(response.status_code, HTTP_OK)
+        self.assertTemplateUsed(response, 'messages.html')
 
     def test_messages_history_view_returns_messages(self):
         self.client.force_login(self.user)
