@@ -118,7 +118,7 @@
                         {% elif "VICE_RECTOR" in review.reviewer.role %}
                             <i class="fa fa-battery-4" style="font-size: 100%;
                         {% endif %}
-                        {% if review.advice == "FAVORABLE" %}
+                        {% if review.advice == review_advice_choices.FAVORABLE %}
                              color: #79C84F;"
                         {% elif review.advice == review_advice_choices.UNFAVOURABLE %}
                              color: #E06D5A;"
