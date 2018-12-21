@@ -35,14 +35,12 @@ from reportlab.platypus import Paragraph
 from reportlab.lib.units import mm
 
 from base.models.entity import find_versions_from_entites
-from base.models.entity_version import get_last_version
 from base.tests.factories.academic_year import AcademicYearFactory
 from base.models.enums import entity_type
 from base.tests.factories.entity_version import EntityVersionFactory
 from base.tests.factories.person import PersonFactory
 
 from assistant.models import tutoring_learning_unit_year
-from assistant.models.review import find_by_mandate
 from assistant.utils import export_utils_pdf
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
@@ -53,7 +51,7 @@ from assistant.tests.factories.review import ReviewFactory
 from assistant.tests.factories.settings import SettingsFactory
 from assistant.tests.factories.tutoring_learning_unit_year import TutoringLearningUnitYearFactory
 from assistant.models.enums import assistant_mandate_state
-from assistant.models.enums import assistant_type, assistant_mandate_renewal, review_status, reviewer_role, user_role
+from assistant.models.enums import assistant_type, assistant_mandate_renewal, review_status, reviewer_role
 
 COLS_WIDTH_FOR_REVIEWS = [35*mm, 20*mm, 70*mm, 30*mm, 30*mm]
 COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 40*mm]
@@ -69,9 +67,9 @@ class ExportPdfTestCase(TestCase):
         self.factory = RequestFactory()
         today = datetime.date.today()
         self.current_academic_year = AcademicYearFactory(
-            start_date = today.replace(year=today.year - 1),
-            end_date = today.replace(year=today.year + 1),
-            year = today.year - 1,
+            start_date=today.replace(year=today.year - 1),
+            end_date=today.replace(year=today.year + 1),
+            year=today.year - 1,
         )
         self.supervisor = PersonFactory()
         self.assistant = AcademicAssistantFactory(
@@ -352,34 +350,3 @@ class ExportPdfTestCase(TestCase):
                          Paragraph(this_tutoring_learning_unit_year.others_delivery or '', style)
                          ])
         self.assertEqual(str(data), str(export_utils_pdf.get_tutoring_learning_unit_year(self.mandate, style)))
-
-    def test_get_reviews_for_mandate(self):
-        style = self.styles['BodyText']
-        data = export_utils_pdf.generate_headers(['reviewer', 'review', 'remark', 'justification', 'confidential'],
-                                                 style)
-        reviews = find_by_mandate(self.mandate.id)
-        for rev in reviews:
-            if rev.status == review_status.IN_PROGRESS:
-                break
-            if rev.reviewer is None:
-                person = "{} {}<br/>({})".format(
-                    self.mandate.assistant.supervisor.first_name,
-                    self.mandate.assistant.supervisor.last_name,
-                    str(_('supervisor'))
-                )
-            else:
-                person = "{} {}<br/>({})".format(
-                    rev.reviewer.person.first_name,
-                    rev.reviewer.person.last_name,
-                    get_last_version(rev.reviewer.entity).acronym
-                )
-            data.append([Paragraph(person, style),
-                         Paragraph(_(rev.advice), style),
-                         Paragraph(rev.remark or '', style),
-                         Paragraph(rev.justification or '', style),
-                         Paragraph(rev.confidential or '', style)])
-        self.assertEqual(str(data), str(export_utils_pdf.get_reviews_for_mandate(
-            user_role.ADMINISTRATOR,
-            self.mandate,
-            style
-        )))
