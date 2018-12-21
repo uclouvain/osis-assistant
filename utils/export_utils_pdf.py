@@ -190,7 +190,7 @@ def add_mandate_content(content, mandate, styles, current_user_role):
             if rev.status == review_status.IN_PROGRESS:
                 break
             content.append(create_paragraph(
-                rev.advice,
+                str(_(rev.advice)),
                 get_review_details_for_mandate(mandate, rev),
                 styles['StandardWithBorder'])
             )
