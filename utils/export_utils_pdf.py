@@ -36,7 +36,7 @@ from django.views.decorators.http import require_http_methods
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT
-from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle, KeepTogether
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.shapes import Drawing
@@ -182,10 +182,18 @@ def add_mandate_content(content, mandate, styles, current_user_role):
     content.append(PageBreak())
     if current_user_role is not user_role.ASSISTANT:
         content.append(create_paragraph("%s<br />" % (_('reviews')), '', styles["BodyText"]))
-        write_table(
-            content,
-            get_reviews_for_mandate(current_user_role, mandate, styles['Tiny']), COLS_WIDTH_FOR_REVIEWS
-        )
+        if current_user_role is user_role.ADMINISTRATOR:
+            reviews = review.find_by_mandate(mandate.id)
+        else:
+            reviews = find_before_mandate_state(mandate, current_user_role)
+        for rev in reviews:
+            if rev.status == review_status.IN_PROGRESS:
+                break
+            content.append(create_paragraph(
+                rev.advice,
+                get_review_details_for_mandate(mandate, rev),
+                styles['StandardWithBorder'])
+            )
         content.append(PageBreak())
 
 
@@ -281,7 +289,7 @@ def get_tutoring_learning_unit_year(mandate, style):
                      Paragraph(str(this_tutoring_learning_unit_year.face_to_face_duration), style),
                      Paragraph(str(this_tutoring_learning_unit_year.attendees), style),
                      Paragraph(str(this_tutoring_learning_unit_year.exams_supervision_duration), style),
-                     Paragraph(this_tutoring_learning_unit_year.others_delivery or '', style)
+                     Paragraph(this_tutoring_learning_unit_year.others_delivery[0:3500] or '', style)
                      ])
     return data
 
@@ -319,34 +327,24 @@ def get_formation_activities(mandate):
     return formations
 
 
-def get_reviews_for_mandate(current_user_role, mandate, style):
-    data = generate_headers([
-        'reviewer', 'review', 'remark', 'justification', 'confidential'], style)
-    if current_user_role is user_role.ADMINISTRATOR:
-        reviews = review.find_by_mandate(mandate.id)
+def get_review_details_for_mandate(mandate, rev):
+    if rev.reviewer is None:
+        person = "{} {}<br/>({})".format(
+            mandate.assistant.supervisor.first_name,
+            mandate.assistant.supervisor.last_name,
+            str(_('supervisor'))
+        )
     else:
-        reviews = find_before_mandate_state(mandate, current_user_role)
-    for rev in reviews:
-        if rev.status == review_status.IN_PROGRESS:
-            break
-        if rev.reviewer is None:
-            person = "{} {}<br/>({})".format(
-                mandate.assistant.supervisor.first_name,
-                mandate.assistant.supervisor.last_name,
-                str(_('supervisor'))
-            )
-        else:
-            person = "{} {}<br/>({})".format(
-                rev.reviewer.person.first_name,
-                rev.reviewer.person.last_name,
-                entity_version.get_last_version(rev.reviewer.entity).acronym
-            )
-        data.append([Paragraph(person, style),
-                     Paragraph(_(rev.advice), style),
-                     Paragraph(rev.remark or '', style),
-                     Paragraph(rev.justification or '', style),
-                     Paragraph(rev.confidential or '', style)])
-    return data
+        person = "{} {}<br/>({})".format(
+            rev.reviewer.person.first_name,
+            rev.reviewer.person.last_name,
+            entity_version.get_last_version(rev.reviewer.entity).acronym
+        )
+    reviewer = format_data(person, 'reviewer')
+    remark = format_data(rev.remark, 'remark')
+    justification = format_data(rev.justification, 'justification')
+    confidential = format_data(rev.confidential, 'confidential')
+    return reviewer + remark + justification + confidential
 
 
 def write_table(content, data, cols_width):
