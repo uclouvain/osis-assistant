@@ -46,6 +46,9 @@ msgstr "Données administratives"
 msgid "advice"
 msgstr "Avis"
 
+msgid "advice_missing_in_form"
+msgstr "Vous devez sélectionner une des trois options"
+
 msgid "age"
 msgstr "Âge"
 
