@@ -128,6 +128,18 @@ $('a').on('click', function(e) {
 		var choice = confirm("{% trans 'save_before_link' %}");
 		if (choice == true) {
 			e.preventDefault();
+			if (document.getElementById('id_mand-tutoring_percent').value == '') {
+			    document.getElementById('id_mand-tutoring_percent').value = 0;
+			}
+			if (document.getElementById('id_mand-research_percent').value == '') {
+			    document.getElementById('id_mand-research_percent').value = 0;
+			}
+			if (document.getElementById('id_mand-service_activities_percent').value == '') {
+			    document.getElementById('id_mand-service_activities_percent').value = 0;
+			}
+			if (document.getElementById('id_mand-formation_activities_percent').value == '') {
+			    document.getElementById('id_mand-formation_activities_percent').value = 0;
+			}
 			$('form#pst-form-part6').submit();
 		} else {
 			window.location.href = hrefLoc;
