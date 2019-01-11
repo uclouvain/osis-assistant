@@ -267,7 +267,7 @@ class ReviewForm(ModelForm):
         super(ReviewForm, self).clean()
         advice = self.cleaned_data.get("advice")
         justification = self.cleaned_data.get('justification')
-        if advice == review_advice_choices.UNFAVOURABLE and advice == review_advice_choices.CONDITIONAL \
+        if (advice == review_advice_choices.UNFAVOURABLE or advice == review_advice_choices.CONDITIONAL) \
                 and not justification:
             msg = _("justification_required_if_conditional_or_negative")
             self.add_error('justification', msg)
