@@ -47,7 +47,7 @@ msgid "advice"
 msgstr "Opinion"
 
 msgid "You must select one of the options"
-msgstr "You must select one of the options"
+msgstr ""
 
 msgid "age"
 msgstr "Age"
