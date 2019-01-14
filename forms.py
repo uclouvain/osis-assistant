@@ -275,6 +275,10 @@ class ReviewForm(ModelForm):
 class AssistantFormPart6(ModelForm):
     activities_report_remark = forms.CharField(
         required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '4'}))
+    tutoring_percent = forms.IntegerField(required=True)
+    service_activities_percent = forms.IntegerField(required=True)
+    formation_activities_percent = forms.IntegerField(required=True)
+    research_percent = forms.IntegerField(required=True)
 
     class Meta:
         model = mdl.assistant_mandate.AssistantMandate
@@ -287,10 +291,10 @@ class AssistantFormPart6(ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
 
     def clean(self):
-        tutoring_percent = self.cleaned_data['tutoring_percent']
-        service_activities_percent = self.cleaned_data['service_activities_percent']
-        formation_activities_percent = self.cleaned_data['formation_activities_percent']
-        research_percent = self.cleaned_data['research_percent']
+        tutoring_percent = self.cleaned_data.get('tutoring_percent', 0)
+        service_activities_percent = self.cleaned_data.get('service_activities_percent', 0)
+        formation_activities_percent = self.cleaned_data.get('formation_activities_percent', 0)
+        research_percent = self.cleaned_data.get('research_percent', 0)
 
         if tutoring_percent + service_activities_percent + formation_activities_percent + research_percent != 100:
             raise ValidationError(_('total_must_be_100_message'))
