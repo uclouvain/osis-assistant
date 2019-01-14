@@ -40,7 +40,8 @@ def send_message_to_assistants(request):
     mandates_for_current_academic_year = assistant_mandate.find_by_academic_year(
         academic_year.current_academic_year())
     for mandate in mandates_for_current_academic_year:
-        if mandate.renewal_type == assistant_mandate_renewal.NORMAL:
+        if mandate.renewal_type == assistant_mandate_renewal.NORMAL or \
+                mandate.renewal_type == assistant_mandate_renewal.SPECIAL:
             html_template_ref = 'assistant_assistants_startup_normal_renewal_html'
             txt_template_ref = 'assistant_assistants_startup_normal_renewal_txt'
         else:

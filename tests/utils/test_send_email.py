@@ -23,49 +23,33 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.test import TestCase, RequestFactory
-from django.contrib.auth.models import User
-from assistant.utils import send_email
-from assistant.models.manager import Manager
-from base.models.person import Person
-from assistant.models.assistant_mandate import AssistantMandate
-from assistant.models.academic_assistant import AcademicAssistant
-from assistant.models.reviewer import Reviewer
-from datetime import date
-from base.tests.factories.academic_year import AcademicYearFactory
-from osis_common.models import message_template
 from unittest.mock import patch
+
+from django.contrib.auth.models import User
+from django.test import TestCase, RequestFactory
 from django.core.mail.message import EmailMultiAlternatives
+
+from base.models.person import Person
+from base.tests.factories.academic_year import AcademicYearFactory
+
+from assistant.models.enums import assistant_mandate_renewal
+from assistant.models.enums import reviewer_role
+from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
+from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
+from assistant.tests.factories.manager import ManagerFactory
+from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.settings import SettingsFactory
+from assistant.utils import send_email
 
 
 class SendEmailTestCase(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username='assistant', email='laurent.buset@uclouvain.be', password='assistant'
-        )
-        self.user.save()
-        self.person = Person.objects.create(user=self.user, first_name='first_name', last_name='last_name')
-        self.person.save()
-        self.academic_assistant = AcademicAssistant.objects.create(person=self.person)
-        self.academic_assistant.save()
-        self.user = User.objects.create_user(
-            username='manager', email='laurent.buset@uclouvain.be', password='manager')
-        self.person = Person.objects.create(user=self.user, first_name='Lodia', last_name='Perzyna')
-        self.person.save()
-        self.manager = Manager.objects.create(person=self.person)
-        self.manager.save()
+        self.academic_assistant = AcademicAssistantFactory()
+        self.manager = ManagerFactory()
         self.client.login(username=self.manager.person.user.username, password=self.manager.person.user.password)
         self.current_academic_year = AcademicYearFactory()
-        self.assistant_mandate = AssistantMandate.objects.create(assistant=self.academic_assistant,
-                                                                 academic_year=self.current_academic_year,
-                                                                 entry_date=date(2015, 9, 1),
-                                                                 end_date=date(2017, 9, 1),
-                                                                 fulltime_equivalent=1,
-                                                                 renewal_type='normal'
-                                                                 )
-
+        self.assistant_mandate = AssistantMandateFactory(assistant=self.academic_assistant)
         self.user = User.objects.create_user(
             username='phd_supervisor', email='phd_supervisor@uclouvain.be', password='phd_supervisor'
         )
@@ -75,20 +59,14 @@ class SendEmailTestCase(TestCase):
         self.academic_assistant.supervisor = self.phd_supervisor
         self.academic_assistant.save()
         self.settings = SettingsFactory()
-        self.user = User.objects.create_user(
-            username='reviewer', email='laurent.buset@uclouvain.be', password='reviewer'
-        )
-        self.user.save()
-        self.person = Person.objects.create(user=self.user, first_name='first_name', last_name='last_name')
-        self.person.save()
-        self.reviewer = Reviewer.objects.create(person=self.person, role='SUPERVISION')
-        self.reviewer.save()
+        self.reviewer = ReviewerFactory(role=reviewer_role.SUPERVISION)
 
     @patch("base.models.academic_year.current_academic_year")
     @patch("osis_common.messaging.send_message.EmailMultiAlternatives", autospec=True)
     def test_with_one_assistant(self, mock_class, mock_current_ac_year):
         mock_current_ac_year.return_value = self.current_academic_year
-        if self.assistant_mandate.renewal_type == 'normal':
+        if self.assistant_mandate.renewal_type == assistant_mandate_renewal.NORMAL \
+                or self.assistant_mandate.renewal_type == assistant_mandate_renewal.SPECIAL:
             html_template_ref = 'assistant_assistants_startup_normal_renewal_html'
             txt_template_ref = 'assistant_assistants_startup_normal_renewal_txt'
         else:
