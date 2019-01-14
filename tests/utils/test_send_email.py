@@ -33,6 +33,7 @@ from base.models.person import Person
 from base.tests.factories.academic_year import AcademicYearFactory
 
 from assistant.models.enums import assistant_mandate_renewal
+from assistant.models.enums import reviewer_role
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.manager import ManagerFactory
@@ -58,7 +59,7 @@ class SendEmailTestCase(TestCase):
         self.academic_assistant.supervisor = self.phd_supervisor
         self.academic_assistant.save()
         self.settings = SettingsFactory()
-        self.reviewer = ReviewerFactory(role='SUPERVISION')
+        self.reviewer = ReviewerFactory(role=reviewer_role.SUPERVISION)
 
     @patch("base.models.academic_year.current_academic_year")
     @patch("osis_common.messaging.send_message.EmailMultiAlternatives", autospec=True)
