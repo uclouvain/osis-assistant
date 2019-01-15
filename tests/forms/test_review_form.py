@@ -55,5 +55,5 @@ class TestReviewForm(TestCase):
             'justification': None,
             'changed': self.review.changed
         }, instance=self.review)
-        self.assertFalse(form.is_valid())
+        self.assertTrue(form.is_valid())
 
