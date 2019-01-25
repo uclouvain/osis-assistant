@@ -313,6 +313,9 @@ msgstr "Exportation des mandats déclinés"
 msgid "export_mandates"
 msgstr "Exportation des mandats des assistants"
 
+msgid "Export mandates to sap"
+msgstr "Exporter tous les dossiers vers un zip"
+
 msgid "external_post"
 msgstr "Mandat demandé à l'extérieur (FNRS, FRIA, ...)"
 
@@ -752,6 +755,9 @@ msgstr "Date de défense de thèse (si déjà connue)"
 
 msgid "thesis_title"
 msgstr "Titre (provisoire) de la thèse"
+
+msgid "This export is used to add assistants form to SAP"
+msgstr "Cette exportation est utilisée pour ajouter les dossiers d'assistants à SAP"
 
 msgid "TO_ALL_ASSISTANTS"
 msgstr "Aux assistants"

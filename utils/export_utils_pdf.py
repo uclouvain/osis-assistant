@@ -26,6 +26,7 @@
 import time
 import datetime
 from io import BytesIO
+import zipfile
 
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.urlresolvers import reverse
@@ -63,13 +64,35 @@ COLS_WIDTH_FOR_DECLINED_MANDATES = [100*mm]
 COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 40*mm]
 
 
+@user_passes_test(manager_access.user_is_manager, login_url='access_denied')
+def export_mandates_to_sap(request):
+    mandates = assistant_mandate.find_by_academic_year_by_excluding_declined(academic_year.current_academic_year())
+    response = HttpResponse(content_type='application/zip')
+    filename = ('%s_%s_%s.zip' % (_('assistants_mandates'), mandates[0].academic_year, time.strftime("%Y%m%d_%H%M")))
+    response['Content-Disposition'] = 'filename="%s"' % filename
+    buffer = BytesIO()
+    zip_file = zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED)
+    for mandate in mandates:
+        file = build_doc(request, mandates=[mandate], type='export_to_sap')
+        zip_file.writestr(('%s_%s_%s.pdf' % (mandate.sap_id, mandate.academic_year, mandate.assistant.person.last_name)), file.content)
+    zip_file.close()
+    buffer.flush()
+    ret_zip = buffer.getvalue()
+    buffer.close()
+    response.write(ret_zip)
+    return response
+
+
 @login_required
 def build_doc(request, mandates, type='default'):
     if mandates:
         year = mandates[0].academic_year
     else:
         year = academic_year.current_academic_year()
-    filename = ('%s_%s_%s.pdf' % (_('assistants_mandates'), year, time.strftime("%Y%m%d_%H%M")))
+    if type is 'export_to_sap':
+        filename = ('%s_%s_%s.pdf' % (mandates[0].sap_id, year, mandates[0].assistant.person))
+    else:
+        filename = ('%s_%s_%s.pdf' % (_('assistants_mandates'), year, time.strftime("%Y%m%d_%H%M")))
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="%s"' % filename
     buffer = BytesIO()
@@ -88,7 +111,7 @@ def build_doc(request, mandates, type='default'):
         role = reviewer.find_by_person(find_by_user(request.user)).role
     else:
         role = user_role.ADMINISTRATOR
-    if type is 'default':
+    if type is 'default' or type is 'export_to_sap':
         for mandate in mandates:
             add_mandate_content(content, mandate, styles, role)
     else:

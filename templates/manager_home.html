@@ -81,6 +81,14 @@
             </div>
         </div>
         <div class="row" style="padding-top: 10px;">
+            <div class="col-md-1"><i class="fa fa-upload" style="font-size: 400%; color: #6699FF;"></i></div>
+            <div class="col-md-11">
+                <h4 class="media-heading"><a href="{% url 'export_mandates_to_sap' %}" id="lnk_export_mandates_to_sap">
+                    {% trans 'Export mandates to sap' %}</a></h4>
+                <p>{% trans 'This export is used to add assistants form to SAP' %}</p>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 10px;">
             <div class="col-md-1"><i class="fa fa-envelope-o" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
                 <h4 class="media-heading"><a href="{% url 'messages_history' %}" id="lnk_emails">{% trans 'emails' %}</a></h4>

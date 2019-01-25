@@ -313,6 +313,9 @@ msgstr "Export of the declined assistants mandates"
 msgid "export_mandates"
 msgstr "Export of assistants mandates"
 
+msgid "Export mandates to sap"
+msgstr ""
+
 msgid "external_post"
 msgstr "Mandate requested externally (FNRS, FRIA, ...)"
 
@@ -751,6 +754,9 @@ msgstr "Date of defense of thesis (if already known)"
 
 msgid "thesis_title"
 msgstr "Title (provisional) of the thesis"
+
+msgid "This export is used to add assistants form to SAP"
+msgstr ""
 
 msgid "TO_ALL_ASSISTANTS"
 msgstr "To the assistants"

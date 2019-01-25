@@ -167,6 +167,11 @@ class ExportPdfTestCase(TestCase):
         response = self.client.post('/assistants/manager/mandates/export_pdf/')
         self.assertEqual(HTTP_OK, response.status_code)
 
+    def test_export_mandates_to_sap(self):
+        self.client.force_login(self.manager.person.user)
+        response = self.client.post('/assistants/manager/mandates/export_mandates_to_sap/')
+        self.assertEqual(HTTP_OK, response.status_code)
+
     def test_export_declined_mandates(self):
         self.client.force_login(self.manager.person.user)
         response = self.client.post('/assistants/manager/mandates/export_declined_pdf/')
