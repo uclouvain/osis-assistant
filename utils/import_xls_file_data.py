@@ -29,12 +29,13 @@ import re
 from openpyxl import load_workbook
 
 from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_http_methods
 
 from base import models as mdl
 from base.models.enums import entity_type
-from base.views import layout
+#from base.views import layout
 from base.views.common import display_error_messages
 
 from assistant import models as assistant_mdl
@@ -255,11 +256,17 @@ def link_mandate_to_entity(mandate, entity=None):
 
 def show_import_result(request):
     global ASSISTANTS_IMPORTED, ASSISTANTS_UPDATED, MANDATES_IMPORTED, MANDATES_UPDATED, PERSONS_NOT_FOUND
-    return layout.render(request, "load_mandates.html", {'imported_assistants': ASSISTANTS_IMPORTED,
-                                                         'imported_mandates': MANDATES_IMPORTED,
-                                                         'updated_mandates': MANDATES_UPDATED,
-                                                         'updated_assistants': ASSISTANTS_UPDATED,
-                                                         'persons_not_found': PERSONS_NOT_FOUND})
+    return render(
+        request,
+        "load_mandates.html",
+        {
+            'imported_assistants': ASSISTANTS_IMPORTED,
+            'imported_mandates': MANDATES_IMPORTED,
+            'updated_mandates': MANDATES_UPDATED,
+            'updated_assistants': ASSISTANTS_UPDATED,
+            'persons_not_found': PERSONS_NOT_FOUND
+        }
+    )
 
 
 def check_file_format(request, titles_rows):
