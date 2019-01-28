@@ -30,7 +30,7 @@ from assistant.models import manager
 def user_is_manager(user):
 
     try:
-        if user.is_authenticated():
+        if user.is_authenticated:
             return manager.find_by_person(person=user.person)
     except ObjectDoesNotExist:
         return False

@@ -29,10 +29,10 @@ from assistant.models import assistant_mandate, reviewer, settings
 
 
 def user_is_reviewer_and_procedure_is_open(user):
-    return user.is_authenticated() and settings.access_to_procedure_is_open() and reviewer.find_by_person(user.person)
+    return user.is_authenticated and settings.access_to_procedure_is_open() and reviewer.find_by_person(user.person)
 
 
 def user_is_phd_supervisor_and_procedure_is_open(user):
-    return user.is_authenticated() and settings.access_to_procedure_is_open() and \
+    return user.is_authenticated and settings.access_to_procedure_is_open() and \
            assistant_mandate.find_for_supervisor_for_academic_year(
                 user.person, academic_year.current_academic_year()).exists()

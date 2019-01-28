@@ -107,6 +107,8 @@ urlpatterns = [
             url(r'^load/$', mandate.load_mandates, name='load_mandates'),
             url(r'^upload/$', import_xls_file_data.upload_mandates_file, name='upload_mandates_file'),
             url(r'^export/$', mandate.export_mandates, name='export_mandates'),
+            url(r'^export_mandates_to_sap/$', export_utils_pdf.export_mandates_to_sap,
+                name='export_mandates_to_sap'),
             url(r'^export_pdf/$', export_utils_pdf.export_mandates, name='export_mandates_pdf'),
             url(r'^export_declined_pdf/$', export_utils_pdf.export_declined_mandates,
                 name='export_declined_mandates_pdf'),

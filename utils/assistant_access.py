@@ -29,7 +29,7 @@ from assistant.models import assistant_mandate, academic_assistant, settings
 
 
 def user_is_assistant_and_procedure_is_open(user):
-    return user.is_authenticated() and settings.access_to_procedure_is_open() and \
+    return user.is_authenticated and settings.access_to_procedure_is_open() and \
            academic_assistant.find_by_person(user.person)
 
 
@@ -42,5 +42,5 @@ def user_is_assistant_and_procedure_is_open_and_workflow_is_assistant(user):
     except assistant_mandate.AssistantMandate.DoesNotExist:
         return False
     else:
-        return user.is_authenticated() and settings.access_to_procedure_is_open() and \
+        return user.is_authenticated and settings.access_to_procedure_is_open() and \
                academic_assistant.find_by_person(user.person)
