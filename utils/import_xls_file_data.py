@@ -35,7 +35,6 @@ from django.views.decorators.http import require_http_methods
 
 from base import models as mdl
 from base.models.enums import entity_type
-#from base.views import layout
 from base.views.common import display_error_messages
 
 from assistant import models as assistant_mdl
