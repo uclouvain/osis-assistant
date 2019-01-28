@@ -545,6 +545,9 @@ msgstr "Back to previous section"
 msgid "previous_renewal_comment"
 msgstr "Comments on previous renewal applications"
 
+msgid "Printing date"
+msgstr ""
+
 msgid "PROGRAM_COMMISSION"
 msgstr "Program commission"
 

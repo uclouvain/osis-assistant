@@ -460,7 +460,7 @@ def header_building(canvas, doc):
 def footer_building(canvas, doc, styles):
     printing_date = timezone.now()
     printing_date = printing_date.strftime("%d/%m/%Y")
-    pageinfo = "%s : %s" % (_('printing_date'), printing_date)
+    pageinfo = "%s : %s" % (_('Printing date'), printing_date)
     footer = Paragraph(''' <para align=right>Page %d - %s </para>''' % (doc.page, pageinfo), styles['Normal'])
     w, h = footer.wrap(doc.width, doc.bottomMargin)
     footer.drawOn(canvas, doc.leftMargin, h)
