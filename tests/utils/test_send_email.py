@@ -62,8 +62,8 @@ class SendEmailTestCase(TestCase):
         self.reviewer = ReviewerFactory(role=reviewer_role.SUPERVISION)
 
     @patch("base.models.academic_year.current_academic_year")
-    @patch("osis_common.messaging.send_message._build_and_send_message")
-    def test_with_one_assistant(self, mock_build_and_send_message, mock_current_ac_year):
+    @patch("osis_common.messaging.send_message.send_messages")
+    def test_with_one_assistant(self, mock_send_messages, mock_current_ac_year):
         mock_current_ac_year.return_value = self.current_academic_year
         if self.assistant_mandate.renewal_type == assistant_mandate_renewal.NORMAL \
                 or self.assistant_mandate.renewal_type == assistant_mandate_renewal.SPECIAL:
@@ -73,15 +73,15 @@ class SendEmailTestCase(TestCase):
             html_template_ref = 'assistant_assistants_startup_except_renewal_html'
             txt_template_ref = 'assistant_assistants_startup_except_renewal_txt'
         send_email.send_message(self.academic_assistant.person, html_template_ref, txt_template_ref)
-        args = mock_build_and_send_message.call_args[0][1]
+        args = mock_send_messages.call_args[0][0]
         self.assertEqual(len(args.get('receivers')), 1)
 
     @patch("base.models.academic_year.current_academic_year")
-    @patch("osis_common.messaging.send_message._build_and_send_message")
-    def test_with_one_phd_supervisor(self, mock_build_and_send_message, mock_current_ac_year):
+    @patch("osis_common.messaging.send_message.send_messages")
+    def test_with_one_phd_supervisor(self, mock_send_messages, mock_current_ac_year):
         mock_current_ac_year.return_value = self.current_academic_year
         html_template_ref = 'assistant_phd_supervisor_html'
         txt_template_ref = 'assistant_phd_supervisor_txt'
         send_email.send_message(self.phd_supervisor, html_template_ref, txt_template_ref)
-        args = mock_build_and_send_message.call_args[0][1]
+        args = mock_send_messages.call_args[0][0]
         self.assertEqual(len(args.get('receivers')), 1)
