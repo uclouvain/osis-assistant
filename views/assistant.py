@@ -51,7 +51,8 @@ class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListVie
     form_class = forms.Form
 
     def test_func(self):
-        return assistant_access.user_is_assistant_and_procedure_is_open(self.request.user)
+        return (assistant_access.user_is_assistant_and_procedure_is_open(self.request.user) or
+                (academic_assistant.find_by_person(self.request.user.person) and settings.assistants_can_see_file()))
 
     def get_login_url(self):
         return reverse('access_denied')
@@ -101,7 +102,10 @@ class AssistantLearningUnitsListView(LoginRequiredMixin, UserPassesTestMixin, Li
     form_class = forms.Form
 
     def test_func(self):
-        return assistant_access.user_is_assistant_and_procedure_is_open_and_workflow_is_assistant(self.request.user)
+        return self.request.user.is_authenticated and \
+               (settings.access_to_procedure_is_open() or settings.assistants_can_see_file()) \
+               and academic_assistant.find_by_person(self.request.user.person)
+        #return assistant_access.user_is_assistant_and_procedure_is_open_and_workflow_is_assistant(self.request.user)
 
     def get_login_url(self):
         return reverse('access_denied')
