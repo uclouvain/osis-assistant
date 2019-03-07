@@ -30,9 +30,9 @@ from base.models import academic_year
 from assistant.models import review, academic_assistant, settings, assistant_mandate
 
 
-def user_is_assistant_and_procedure_is_open(user):
+def user_is_assistant_and_can_see_file(user):
     try:
-        if user.is_authenticated() and settings.access_to_procedure_is_open():
+        if user.is_authenticated() and settings.assistants_can_see_file():
             return academic_assistant.find_by_person(user.person)
         else:
             return False
@@ -40,9 +40,8 @@ def user_is_assistant_and_procedure_is_open(user):
         return False
 
 
-@user_passes_test(user_is_assistant_and_procedure_is_open, login_url='access_denied')
-def reviews_view(request):
-    mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-        academic_assistant.find_by_person(request.user.person), academic_year.current_academic_year())
+@user_passes_test(user_is_assistant_and_can_see_file, login_url='access_denied')
+def reviews_view(request, mandate_id):
+    mandate = assistant_mandate.find_mandate_by_id(mandate_id)
     reviews = review.find_by_mandate(mandate.id)
     return render(request, 'mandate_reviews_view.html', {'reviews': reviews})
