@@ -77,13 +77,13 @@
 						name="bt_mandate_decline" onclick="return confirm('{% trans 'confirm_decline' %}')">
 					<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> {% trans 'decline'%}
 				</button>
-			{% elif mandate.state == "TRTS" and mandate.academic_year == current_academic_year %}
+			{% elif mandate.state == "TRTS" and mandate.academic_year == current_academic_year and not can_see_file %}
 				<a href="{% url 'form_part1_edit' %}">
                     <button type="button" class="btn btn-link btn-lg" title="{% trans 'edit'%}" id="bt_mandate_edit">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> {% trans 'edit'%}
                     </button></a>
             {% elif mandate.state == "DONE"  and can_see_file %}
-                <a href="{% url 'assistant_mandate_reviews' %}">
+                <a href="{% url 'assistant_mandate_reviews' mandate.id %}">
                 <button type="button" class="btn btn-link btn-lg" title="{% trans 'view'%}" id="bt_view">
                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {% trans 'view' %}
                 </button></a>

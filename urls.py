@@ -90,7 +90,7 @@ urlpatterns = [
         ])),
         url(r'^mandate/', include([
             url(r'^change_state/$', assistant.mandate_change_state, name='mandate_change_state'),
-            url(r'^reviews/$', assistant_mandate_reviews.reviews_view,
+            url(r'^reviews/(?P<mandate_id>\d+)/$', assistant_mandate_reviews.reviews_view,
                 name='assistant_mandate_reviews'),
         ])),
     ])),

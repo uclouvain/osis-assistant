@@ -35,7 +35,8 @@ from assistant.utils import manager_access
 
 @login_required
 def assistant_home(request):
-    if settings.access_to_procedure_is_open() and academic_assistant.find_by_person(person=request.user.person):
+    if (settings.access_to_procedure_is_open() or settings.assistants_can_see_file()) \
+            and academic_assistant.find_by_person(person=request.user.person):
         return HttpResponseRedirect(reverse('assistant_mandates'))
     else:
         try:
