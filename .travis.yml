@@ -1,0 +1,42 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=cc2874a77c93c36bd9b4d09402455ede4ce02f8957764d2caa7765009eb9c13d
+
+
+language: python
+python: "3.5.5"
+services:
+  - postgresql
+addons:
+    postgresql: "9.6"
+
+install:
+  - export PROJECT_DIR=`pwd`
+  - cd /tmp
+  - git clone https://github.com/uclouvain/osis.git
+  - cd osis
+  - git checkout qa
+  - git pull origin qa
+  - git submodule init
+  - git submodule update
+  - pip install -r requirements.txt
+  - rm -Rf assistant
+  - ln -s $PROJECT_DIR assistant
+before_script:
+  - cp .env.example .env
+  - echo 'APPS_TO_TEST += ("assistant",)' >> backoffice/settings/local.py
+  - echo >> .env
+  - echo "POSTGRES_USER = 'postgres'" >> .env
+  - echo "POSTGRES_PASSWORD = ''" >> .env
+  - psql -c 'create database osis_local;' -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - python3 manage.py compilemessages && coverage run manage.py test --exclude-tag=selenium
+  - python3 manage.py compilemessages && coverage run manage.py test assistant --exclude-tag=selenium
+
+after_script:
+  - coverage xml
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
