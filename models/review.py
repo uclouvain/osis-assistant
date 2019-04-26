@@ -31,8 +31,8 @@ from assistant.models.enums import review_status, review_advice_choices, reviewe
 
 
 class Review(models.Model):
-    mandate = models.ForeignKey('AssistantMandate')
-    reviewer = models.ForeignKey('Reviewer', null=True)
+    mandate = models.ForeignKey('AssistantMandate', on_delete=models.CASCADE)
+    reviewer = models.ForeignKey('Reviewer', null=True, on_delete=models.CASCADE)
     advice = models.CharField(max_length=20, choices=review_advice_choices.REVIEW_ADVICE_CHOICES)
     status = models.CharField(max_length=15, choices=review_status.REVIEW_STATUS_CHOICES, null=True)
     justification = models.TextField(null=True, blank=True)

@@ -34,7 +34,7 @@ class ManagerAdmin(admin.ModelAdmin):
 
 
 class Manager(models.Model):
-    person = models.ForeignKey('base.Person')
+    person = models.ForeignKey('base.Person', on_delete=models.CASCADE)
     
     def __str__(self):
         return u"%s" % self.person

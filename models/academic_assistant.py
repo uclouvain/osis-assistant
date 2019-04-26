@@ -34,9 +34,9 @@ class AcademicAssistantAdmin(admin.ModelAdmin):
 
 
 class AcademicAssistant(models.Model):
-    
-    person = models.ForeignKey('base.Person')
-    supervisor = models.ForeignKey('base.Person', blank=True, null=True, related_name='person_supervisor')
+    person = models.ForeignKey('base.Person', on_delete=models.CASCADE)
+    supervisor = models.ForeignKey('base.Person', blank=True, null=True, related_name='person_supervisor',
+                                   on_delete=models.CASCADE)
     thesis_title = models.CharField(max_length=255, null=True, blank=True)
     phd_inscription_date = models.DateField(null=True, blank=True)
     confirmation_test_date = models.DateField(null=True, blank=True)
@@ -51,7 +51,7 @@ class AcademicAssistant(models.Model):
 
 
 def find_by_id(assistant_id):
-    return AcademicAssistant.objects.get(id=assistant_id)  
+    return AcademicAssistant.objects.get(id=assistant_id)
 
 
 def find_by_person(person):

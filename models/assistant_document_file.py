@@ -27,8 +27,8 @@ from django.db import models
 
 
 class AssistantDocumentFile(models.Model):
-    document_file = models.ForeignKey('osis_common.documentFile')
-    assistant_mandate = models.ForeignKey('AssistantMandate')
+    document_file = models.ForeignKey('osis_common.documentFile', on_delete=models.CASCADE)
+    assistant_mandate = models.ForeignKey('AssistantMandate', on_delete=models.CASCADE)
 
 
 def search(assistant_mandate=None, description=None):
