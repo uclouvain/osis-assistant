@@ -35,7 +35,7 @@ class ReviewerAdmin(admin.ModelAdmin):
     list_display = ('person', 'entity', 'role')
     fieldsets = (
         (None, {'fields': ('person', 'entity', 'role')}),)
-    raw_id_fields = ('person', )
+    raw_id_fields = ('person',)
     search_fields = ['person__first_name', 'person__last_name',
                      'person__global_id', 'entity__entityversion__acronym']
 
@@ -51,9 +51,9 @@ class ReviewerAdmin(admin.ModelAdmin):
 
 
 class Reviewer(models.Model):
-    person = models.ForeignKey('base.Person')
+    person = models.ForeignKey('base.Person', on_delete=models.CASCADE)
     role = models.CharField(max_length=30, choices=reviewer_role.ROLE_CHOICES)
-    entity = models.ForeignKey('base.Entity', blank=True, null=True)
+    entity = models.ForeignKey('base.Entity', blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         version = entity_version.get_last_version(self.entity)

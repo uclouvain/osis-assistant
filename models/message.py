@@ -31,8 +31,8 @@ from assistant.models.enums import message_type
 
 class Message(models.Model):
 
-    sender = models.ForeignKey('assistant.Manager')
-    academic_year = models.ForeignKey('base.AcademicYear')
+    sender = models.ForeignKey('assistant.Manager', on_delete=models.CASCADE)
+    academic_year = models.ForeignKey('base.AcademicYear', on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now, null=True)
     type = models.CharField(max_length=20, choices=message_type.TYPES)
     

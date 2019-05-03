@@ -37,8 +37,8 @@ class AssistantMandateAdmin(admin.ModelAdmin):
 
 class AssistantMandate(models.Model):
 
-    assistant = models.ForeignKey('AcademicAssistant')
-    academic_year = models.ForeignKey('base.AcademicYear')
+    assistant = models.ForeignKey('AcademicAssistant', on_delete=models.CASCADE)
+    academic_year = models.ForeignKey('base.AcademicYear', on_delete=models.CASCADE)
     fulltime_equivalent = models.DecimalField(max_digits=3, decimal_places=2)
     entry_date = models.DateField()
     end_date = models.DateField()
