@@ -24,26 +24,22 @@
 #
 ##############################################################################
 import datetime
-from unittest import mock
+
 from django.test import TestCase, RequestFactory, Client
-from django.core.urlresolvers import reverse
-from django.contrib import auth
 
-from base.tests.factories.academic_year import AcademicYearFactory
-from base.tests.factories.person import PersonFactory
-from base.tests.factories.entity_version import EntityVersionFactory
-from base.tests.factories.entity import EntityFactory
-from base.models.enums import entity_type
-
-from assistant.views.phd_supervisor_review import generate_phd_supervisor_menu_tabs
-from assistant.views.phd_supervisor_review import user_is_phd_supervisor_and_procedure_is_open
-from assistant.views.phd_supervisor_review import validate_review_and_update_mandate
-from assistant.tests.factories.review import ReviewFactory
+from assistant.models.enums import assistant_mandate_state, review_status
+from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.mandate_entity import MandateEntityFactory
-from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
+from assistant.tests.factories.review import ReviewFactory
 from assistant.tests.factories.settings import SettingsFactory
-from assistant.models.enums import assistant_mandate_state, review_status, review_advice_choices
+from assistant.views.phd_supervisor_review import generate_phd_supervisor_menu_tabs
+from assistant.views.phd_supervisor_review import validate_review_and_update_mandate
+from base.models.enums import entity_type
+from base.tests.factories.academic_year import AcademicYearFactory
+from base.tests.factories.entity import EntityFactory
+from base.tests.factories.entity_version import EntityVersionFactory
+from base.tests.factories.person import PersonFactory
 
 HTTP_OK = 200
 HTTP_FOUND = 302

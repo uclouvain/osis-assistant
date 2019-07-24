@@ -23,8 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.core.urlresolvers import resolve
-from django.core.urlresolvers import reverse
+from django.urls import resolve, reverse
 from django.test import TestCase
 
 from assistant.business.assistant_mandate import find_assistant_mandate_step_backward_state

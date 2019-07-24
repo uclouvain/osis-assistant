@@ -29,7 +29,7 @@ from io import BytesIO
 import zipfile
 
 from django.contrib.auth.decorators import user_passes_test, login_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone

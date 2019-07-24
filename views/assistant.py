@@ -25,7 +25,7 @@
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 from django.forms import forms
 

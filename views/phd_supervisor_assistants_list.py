@@ -24,17 +24,15 @@
 #
 ##############################################################################
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core.urlresolvers import reverse
 from django.forms import forms
+from django.urls import reverse
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
-from base.models import academic_year, entity_version
-from base.models.entity import find_versions_from_entites
-
-from assistant.business.users_access import user_is_phd_supervisor_and_procedure_is_open
 from assistant.business.mandate_entity import add_entities_version_to_mandates_list
+from assistant.business.users_access import user_is_phd_supervisor_and_procedure_is_open
 from assistant.models import assistant_mandate, reviewer
+from base.models import academic_year
 
 
 class AssistantsListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):

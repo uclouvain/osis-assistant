@@ -27,7 +27,7 @@ import json
 from django.db import DataError
 from django.contrib.auth.decorators import login_required
 from django.http import *
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_http_methods
 

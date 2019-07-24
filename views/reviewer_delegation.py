@@ -25,7 +25,7 @@
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_http_methods
@@ -38,7 +38,6 @@ from assistant.forms import ReviewerDelegationForm
 from assistant.models.academic_assistant import is_supervisor
 from assistant.models import reviewer
 from assistant.utils.send_email import send_message
-
 
 
 class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
