@@ -74,20 +74,20 @@ class TestUsersAccess(TestCase):
 
     def test_user_is_reviewer_and_procedure_is_open(self):
         auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
-        self.client.force_login(self.reviewer)
+        self.client.force_login(self.reviewer.person.user)
         self.assertTrue(user_is_reviewer_and_procedure_is_open(self.reviewer.person.user))
 
     def test_user_is_not_reviewer_and_procedure_is_open(self):
         auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
-        self.client.force_login(self.assistant)
+        self.client.force_login(self.assistant.person.user)
         self.assertFalse(user_is_reviewer_and_procedure_is_open(self.assistant.person.user))
 
     def test_user_is_phd_supervisor_and_procedure_is_open(self):
         auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
-        self.client.force_login(self.phd_supervisor)
+        self.client.force_login(self.phd_supervisor.user)
         self.assertTrue(user_is_phd_supervisor_and_procedure_is_open(self.phd_supervisor.user))
 
     def test_user_is_not_phd_supervisor_and_procedure_is_open(self):
         auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
-        self.client.force_login(self.assistant)
+        self.client.force_login(self.assistant.person.user)
         self.assertFalse(user_is_phd_supervisor_and_procedure_is_open(self.assistant.person.user))
