@@ -53,16 +53,16 @@ class TestReviewerForm (TestCase):
 
     def test_without_role(self):
         form = ReviewerForm(data={
-            'entity': find_versions_from_entites([self.entity_factory.id], date=None),
+            'entity': find_versions_from_entites([self.entity_factory.id], date=None)[0].id,
             'role': None,
         }, instance=self.reviewer)
         self.assertFalse(form.is_valid())
 
     def test_with_valid_data(self):
         form = ReviewerForm(data={
-         'entity' : find_versions_from_entites([self.entity_factory.id], date=None),
-         'role' : self.reviewer.role,
+         'entity': find_versions_from_entites([self.entity_factory.id], date=None)[0].id,
+         'role': self.reviewer.role,
         }, instance=self.reviewer)
-        self.assertTrue(form.is_valid())
+        self.assertTrue(form.is_valid(), form.errors)
 
 

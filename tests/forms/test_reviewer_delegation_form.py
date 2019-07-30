@@ -25,7 +25,7 @@
 ##############################################################################
 from django.test import TestCase
 
-from base.models.entity import find_versions_from_entites
+from base.models.entity import find_versions_from_entites, Entity
 from base.models.enums import entity_type
 from base.tests.factories.entity import EntityFactory
 from base.tests.factories.entity_version import EntityVersionFactory
@@ -35,6 +35,7 @@ from assistant.forms import ReviewerDelegationForm
 from assistant.models.enums import reviewer_role
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.reviewer import ReviewerFactory
+
 
 class TestReviewerDelegationForm(TestCase):
 
@@ -46,22 +47,22 @@ class TestReviewerDelegationForm(TestCase):
                                                    entity=self.entity_factory)
         self.entity_factory2 = EntityFactory()
         self.entity_version2 = EntityVersionFactory(entity_type=entity_type.SECTOR,
-                                                   end_date=None,
-                                                   entity=self.entity_factory2)
+                                                    end_date=None,
+                                                    entity=self.entity_factory2)
         self.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
                                         entity=self.entity_version.entity)
         self.delegate = PersonFactory()
 
     def test_with_valid_data(self):
         form = ReviewerDelegationForm(data={
-            'entity': find_versions_from_entites([self.entity_factory.id], date=None),
+            'entity': find_versions_from_entites([self.entity_factory.id], date=None)[0].id,
             'role': self.reviewer.role
         })
-        self.assertTrue(form.is_valid())
+        self.assertTrue(form.is_valid(), form.errors)
 
     def test_with_invalid_data(self):
         form = ReviewerDelegationForm(data={
-            'entity': find_versions_from_entites([self.entity_factory2.id], date=None),
+            'entity': find_versions_from_entites([self.entity_factory2.id], date=None)[0].id,
             'role': self.reviewer.role
         })
         self.assertFalse(form.is_valid())
