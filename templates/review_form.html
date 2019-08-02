@@ -181,7 +181,7 @@
             </div>
         {% endif %}
         <button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_mandate_save"
-                name="save"><span class="glyphicon glyphicon-save" aria-hidden="true">
+                name="save"><span class="far fa-save" aria-hidden="true">
         </span> {% trans 'save'%}</button>
         {% if menu_type == 'phd_supervisor_menu' %}
             <a class="btn btn-default" id="lnk_mandate_cancel"
@@ -189,12 +189,12 @@
         {% else %}
             <a class="btn btn-default" id="lnk_mandate_cancel" href="{% url 'reviewer_mandates_list' %}">
         {% endif %}
-        <span class="glyphicon glyphicon-cancel" aria-hidden="true"></span> {% trans 'cancel'%}</a>
+        <span class="fas fa-times" aria-hidden="true"></span> {% trans 'cancel'%}</a>
         {% if can_validate %}
             <button type="submit" class="btn btn-success" title="{% trans 'validate_and_submit'%}"
                     id="bt_pstform_validate_and_submit" name="validate_and_submit"
                     onclick="return confirm('{% trans 'confirm_validation' %}')">
-            <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>{% trans 'validate_and_submit'%}</button>
+            <span class="far fa-saved" aria-hidden="true"></span>{% trans 'validate_and_submit'%}</button>
         {% endif %}
         <input type="hidden" name="mandate_id" value="{{mandate_id | default_if_none:''}}">
         <input type="hidden" name="review_id" value="{{review.id | default_if_none:''}}">

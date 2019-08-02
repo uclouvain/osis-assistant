@@ -128,11 +128,11 @@
             </label>
             <div class="controls">
                 {% if review.advice == "FAVORABLE" %}
-                    <span class="glyphicon glyphicon-thumbs-up" style="font-size: 14pt; color: green" aria-hidden="true"></span>
+                    <span class="far fa-thumbs-up" style="font-size: 14pt; color: green" aria-hidden="true"></span>
                 {% elif review.advice == "UNFAVOURABLE" %}
-                    <span class="glyphicon glyphicon-thumbs-down" style="font-size: 14pt; color: red" aria-hidden="true"></span>
+                    <span class="far fa-thumbs-down" style="font-size: 14pt; color: red" aria-hidden="true"></span>
                 {% else %}
-                    <span class="glyphicon glyphicon-alert" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
+                    <span class="fas fa-exclamation-triangle" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
                 {% endif %}
                 {% trans review.advice %}
             </div>

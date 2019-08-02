@@ -59,9 +59,9 @@
                 <dd class="col-sm-10">
                     <p>
                     {% if review.status == 'DONE' %}
-                        <span class="glyphicon glyphicon-check" style="font-size: 14pt" aria-hidden="true"></span>
+                        <span class="far fa-check-square" style="font-size: 14pt" aria-hidden="true"></span>
                     {% else %}
-                        <span class="glyphicon glyphicon-pencil" style="font-size: 14pt" aria-hidden="true"></span>
+                        <span class="fas fa-pencil-alt" style="font-size: 14pt" aria-hidden="true"></span>
                     {% endif %}
                     {% if review.reviewer is None %}
                         {{ review.mandate.assistant.supervisor }} - {% trans 'supervisor' %}
@@ -77,12 +77,12 @@
                 <dd class="col-sm-10">
                     <p>
                     {% if review.advice == "FAVORABLE" %}
-                        <span class="glyphicon glyphicon-thumbs-up"
+                        <span class="far fa-thumbs-up"
                               style="font-size: 14pt; color: green" aria-hidden="true"></span>
                     {% elif review.advice == "UNFAVOURABLE" %}
-                        <span class="glyphicon glyphicon-thumbs-down" style="font-size: 14pt; color: red" aria-hidden="true"></span>
+                        <span class="far fa-thumbs-down" style="font-size: 14pt; color: red" aria-hidden="true"></span>
                     {% else %}
-                        <span class="glyphicon glyphicon-alert" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
+                        <span class="fas fa-exclamation-triangle" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
                     {% endif %}
                     {% trans review.advice %}
                     </p>
@@ -129,7 +129,7 @@
             <input type="hidden" value="{{ mandate_id }}" name="mandate_id" >
             <button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_add_reviewer_save"
                     {% if can_go_backward %}onclick="return confirm_click();"{% else %}disabled{% endif %}>
-                <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span> {% trans 'step_back'%}
+                <span class="fas fa-step-backward" aria-hidden="true"></span> {% trans 'step_back'%}
             </button>
         </form>
     </div>

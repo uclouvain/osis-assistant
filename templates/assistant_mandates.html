@@ -72,24 +72,24 @@
 			{% if mandate.state == "TO_DO" %}
 				<button type="submit" class="btn btn-success" title="{% trans 'accept'%}" id="bt_mandate_accept"
 						name="bt_mandate_accept" onclick="return confirm('{% trans 'confirm_accept' %}')">
-					<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> {% trans 'accept'%}</button>
+					<span class="fas fa-check-circle" aria-hidden="true"></span> {% trans 'accept'%}</button>
 				<button type="submit" class="btn btn-danger" title="{% trans 'decline'%}" id="bt_mandate_decline"
 						name="bt_mandate_decline" onclick="return confirm('{% trans 'confirm_decline' %}')">
-					<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> {% trans 'decline'%}
+					<span class="fas fa-times-circle" aria-hidden="true"></span> {% trans 'decline'%}
 				</button>
 			{% elif mandate.state == "TRTS" and mandate.academic_year == current_academic_year and not can_see_file %}
 				<a href="{% url 'form_part1_edit' %}">
                     <button type="button" class="btn btn-link btn-lg" title="{% trans 'edit'%}" id="bt_mandate_edit">
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> {% trans 'edit'%}
+                        <span class="far fa-edit" aria-hidden="true"></span> {% trans 'edit'%}
                     </button></a>
             {% elif mandate.state == "DONE"  and can_see_file %}
                 <a href="{% url 'assistant_mandate_reviews' mandate.id %}">
                 <button type="button" class="btn btn-link btn-lg" title="{% trans 'view'%}" id="bt_view">
-                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {% trans 'view' %}
+                    <span class="far fa-eye" aria-hidden="true"></span> {% trans 'view' %}
                 </button></a>
             {% else %}
                 <button type="button" class="btn btn-link btn-lg" title="{% trans 'view'%}" id="bt_nothing" disabled>
-                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    <span class="fas fa-eye-slash" aria-hidden="true"></span>
                 </button>
 			{% endif %}
             <input type="hidden" value="{{mandate.id | default_if_none:''}}" id="hdn_current_mandate_id"
@@ -102,7 +102,7 @@
                         {% csrf_token %}
                         <button type="submit" class="btn btn-link btn-lg" title="{% trans 'generate_PDF' %}"
                                 id="bt_generate_pdf">
-                            <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> PDF
+                            <span class="far fa-file-download-file" aria-hidden="true"></span> PDF
                         </button>
                         <input type="hidden" value="{{mandate.id | default_if_none:''}}" id="hdn_mandate_id"
                             name="mandate_id" title="mandate_id" >

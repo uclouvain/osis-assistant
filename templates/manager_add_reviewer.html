@@ -64,9 +64,9 @@
 		<input type="hidden" name="reviewer_id" id="reviewer.id" value="{{ reviewer.id }}">
 		<button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_add_reviewer_save"
 				onclick="return confirm('{% trans 'confirm_reviewer_addition' %}')">
-			<span class="glyphicon glyphicon-save" aria-hidden="true"></span> {% trans 'save'%}</button>
+			<span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}</button>
 			<a class="btn btn-default" id="lnk_upload_cancel" href="{% url 'reviewers_list' %}">
-				<span class="glyphicon glyphicon-cancel" aria-hidden="true"></span> {% trans 'cancel'%}</a>
+				<span class="fas fa-times" aria-hidden="true"></span> {% trans 'cancel'%}</a>
     	</form>
     </div>
 </div>

@@ -120,7 +120,7 @@
                     <a class="btn btn-default btn-danger btn-sm" id="btn_delete_file" style="margin-right: 5px;"
                        title="{% trans 'delete_file'%}"
                        onclick="location.href='{% url 'assistant_file_delete' file.id 'form_part3_edit' %}';">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" id="spn_delete_file"></span>
+                    <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
                         {% trans 'delete' %}</a>
                 </div>
                 <div class="col-md-10" id="hdn_filename" style="text-align: left">
@@ -131,7 +131,7 @@
 		<div class="form-group" style="padding-top: 15px;">
 			<a class="btn btn-default" data-toggle="modal" data-target="#pnl_upload_documents"
                id="btn_add_file" style="margin-right: 5px;" title="{% trans 'add_file'%}">
-                <span class="glyphicon glyphicon-upload" aria-hidden="true" id="spn_add_file"></span>
+                <span class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></span>
                 {% trans 'upload' %}</a>
 		</div>
         <hr>
@@ -142,7 +142,7 @@
 		<div class="form-group">
      			<button type="submit" class="btn btn-primary" title="{% trans 'save'%}"
                         id="bt_pstform_part3_save">
-     			<span class="glyphicon glyphicon-save" aria-hidden="true"></span> {% trans 'save'%}</button>
+     			<span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}</button>
 		</div>
     	</form>
 	</div>
