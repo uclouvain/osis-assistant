@@ -66,7 +66,7 @@
                     <form action=" {% url 'reviewer_mandates_list' %} " method="GET">
                     {{ form.academic_year }}
                     <button type="submit" class="btn btn-default btn-xs" title="{% trans 'apply'%}" id="bt_filter">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {% trans 'apply'%}</button>
+                        <span class="fas fa-check" aria-hidden="true"></span> {% trans 'apply'%}</button>
                     </form>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                         {% csrf_token %}
                         <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
                         <button type="submit" class="btn btn-link" title="{% trans 'edit'%}">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            <span class="far fa-edit" aria-hidden="true"></span>
                             {% trans 'edit'%}
                         </button>
                     </form>
@@ -152,13 +152,13 @@
                         <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
                         <input type="hidden" name="role" value="{{ reviewer.role }}">
                         <button type="submit" class="btn btn-link" title="{% trans 'view'%}">
-                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            <span class="far fa-eye" aria-hidden="true"></span>
                             {% trans 'view'%}
                         </button>
                     </form>
                 </td>
             {% else %}
-                <td align="center"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></td>
+                <td align="center"><span class="fas fa-ban" aria-hidden="true"></span></td>
             {% endif %}
             </tr>
         {% endfor %}
