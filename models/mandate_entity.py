@@ -24,7 +24,9 @@
 #
 ##############################################################################
 from django.db import models
+
 from base.models import entity_version
+
 
 class MandateEntity(models.Model):
     assistant_mandate = models.ForeignKey('AssistantMandate', on_delete=models.CASCADE)
