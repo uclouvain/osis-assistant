@@ -23,18 +23,19 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Prefetch
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 import base.models.entity
-from base.models import academic_year
-
 from assistant.forms import MandatesArchivesForm
 from assistant.models import assistant_mandate
-from assistant.utils import manager_access
 from assistant.models.enums import assistant_mandate_state, review_advice_choices, review_status
+from assistant.models.review import Review
+from assistant.utils import manager_access
+from base.models import academic_year
 
 
 class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
@@ -67,6 +68,15 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
                 'selected_academic_year'] = selected_academic_year.id
             queryset = assistant_mandate.AssistantMandate.objects.filter(
                 academic_year=selected_academic_year)
+        queryset = queryset.select_related(
+            'academic_year', 'assistant__person', 'assistant__supervisor'
+        ).prefetch_related(
+            Prefetch(
+                'review_set',
+                queryset=Review.objects.all().select_related('reviewer__person')
+            )
+        )
+
         return queryset
 
     def get_context_data(self, **kwargs):
