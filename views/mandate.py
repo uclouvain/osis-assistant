@@ -64,9 +64,13 @@ def mandate_edit(request):
                                 }, prefix="mand", instance=mandate)
     formset = entity_inline_formset(instance=mandate, prefix="entity")
     
-    return render(request, 'mandate_form.html', {'mandate': mandate, 'form': form, 'formset': formset,
-                                                        'assistant_mandate_state': assistant_mandate_state,
-                                                        'supervisor': supervisor})
+    return render(request, 'mandate_form.html', {
+        'mandate': mandate,
+        'form': form,
+        'formset': formset,
+        'assistant_mandate_state': assistant_mandate_state,
+        'supervisor': supervisor
+    })
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')

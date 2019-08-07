@@ -48,9 +48,7 @@ def settings_edit(request):
     else:
         form = SettingsForm(prefix="set", instance=global_settings)
     year = academic_year.current_academic_year().year
-    return render(request, 'settings.html', {'year': year,
-                                                    'form': form,
-                                                    })
+    return render(request, 'settings.html', {'year': year, 'form': form})
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
@@ -62,5 +60,4 @@ def settings_save(request):
         return settings_edit(request)
     else:
         year = academic_year.current_academic_year().year
-        return render(request, 'settings.html', {'year': year,
-                                                        'form': form})
+        return render(request, 'settings.html', {'year': year, 'form': form})
