@@ -61,7 +61,9 @@ class Reviewer(models.Model):
 
 
 def find_reviewers():
-    return Reviewer.objects.all().order_by('person__last_name')
+    return Reviewer.objects.all().order_by('person__last_name').select_related(
+        'entity', 'person'
+    )
 
 
 def find_by_id(reviewer_id):

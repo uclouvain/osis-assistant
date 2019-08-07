@@ -11,7 +11,7 @@ class ReviewForm(ModelForm):
     justification = forms.CharField(help_text=_("justification_required_if_conditional_or_negative"),
                                     required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'}))
     remark = forms.CharField(required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'}))
-    comment_vice_rector = forms.CharField(help_text=("information_only_for_DAS_CAS_and_VICE_RECTOR"),
+    comment_vice_rector = forms.CharField(help_text=_("information_only_for_DAS_CAS_and_VICE_RECTOR"),
                                           required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'}))
     confidential = forms.CharField(help_text=_("information_not_provided_to_assistant"),
                                    required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'}))
