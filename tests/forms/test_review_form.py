@@ -25,9 +25,10 @@
 ##############################################################################
 from django.test import TestCase
 
-from assistant.forms import ReviewForm
+from assistant.forms.review import ReviewForm
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.review import ReviewFactory
+
 
 class TestReviewForm(TestCase):
 

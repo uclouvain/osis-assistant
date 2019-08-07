@@ -24,11 +24,12 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
-from assistant.forms import SettingsForm
-from base.views import layout
+from django.shortcuts import render
+
+from assistant.forms.settings import SettingsForm
 from assistant.models import settings
-from base.models import academic_year
 from assistant.utils import manager_access
+from base.models import academic_year
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
@@ -47,7 +48,7 @@ def settings_edit(request):
     else:
         form = SettingsForm(prefix="set", instance=global_settings)
     year = academic_year.current_academic_year().year
-    return layout.render(request, 'settings.html', {'year': year,
+    return render(request, 'settings.html', {'year': year,
                                                     'form': form,
                                                     })
 
@@ -61,5 +62,5 @@ def settings_save(request):
         return settings_edit(request)
     else:
         year = academic_year.current_academic_year().year
-        return layout.render(request, 'settings.html', {'year': year,
+        return render(request, 'settings.html', {'year': year,
                                                         'form': form})

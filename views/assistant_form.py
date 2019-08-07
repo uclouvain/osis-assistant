@@ -24,20 +24,23 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.views.decorators.http import require_http_methods
-from django.urls import reverse
 from django.http import JsonResponse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_http_methods
+
+from assistant.forms.assistant import AssistantFormPart1, AssistantFormPart3, AssistantFormPart4, AssistantFormPart5, \
+    AssistantFormPart6
+from assistant.forms.tutoring_learning_unit import TutoringLearningUnitForm
+from assistant.models import *
+from assistant.models.enums import assistant_mandate_state, assistant_phd_inscription
+from assistant.models.enums import document_type
+from assistant.utils.assistant_access import user_is_assistant_and_procedure_is_open_and_workflow_is_assistant
+from assistant.utils.send_email import send_message
 from base.models import person_address, person, learning_unit_year
 from base.models.learning_unit_year import search
-from assistant.models import *
-from assistant.utils.send_email import send_message
-from assistant.forms import *
-from assistant.models.enums import document_type
-from assistant.models.enums import assistant_mandate_state, assistant_phd_inscription
-from assistant.utils.assistant_access import user_is_assistant_and_procedure_is_open_and_workflow_is_assistant
 
 
 @login_required
