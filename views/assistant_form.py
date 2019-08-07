@@ -24,20 +24,25 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.views.decorators.http import require_http_methods
-from django.urls import reverse
 from django.http import JsonResponse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils.translation import ugettext as _
-from base.models import person_address, person, learning_unit_year
-from base.models.learning_unit_year import search
+from django.views.decorators.http import require_http_methods
+
+from assistant import models as mdl
+from assistant.forms.assistant import AssistantFormPart1, AssistantFormPart3, AssistantFormPart4, AssistantFormPart5, \
+    AssistantFormPart6
+from assistant.forms.tutoring_learning_unit import TutoringLearningUnitForm
 from assistant.models import *
-from assistant.utils.send_email import send_message
-from assistant.forms import *
-from assistant.models.enums import document_type
 from assistant.models.enums import assistant_mandate_state, assistant_phd_inscription
+from assistant.models.enums import document_type
 from assistant.utils.assistant_access import user_is_assistant_and_procedure_is_open_and_workflow_is_assistant
+from assistant.utils.send_email import send_message
+from base.models import person_address, person, learning_unit_year, academic_year
+from base.models.enums import entity_type
+from base.models.learning_unit_year import search
 
 
 @login_required
@@ -46,11 +51,11 @@ def get_learning_units_year(request):
         q = request.GET.get('term')
         learning_units_year = search(acronym=q)[:50]
         response_data = []
-        for learning_unit_year in learning_units_year:
-            response_data.append({'value': learning_unit_year.acronym,
-                                  'title': learning_unit_year.complete_title,
-                                  'academic_year': str(learning_unit_year.academic_year),
-                                  'id': learning_unit_year.id
+        for luy in learning_units_year:
+            response_data.append({'value': luy.acronym,
+                                  'title': luy.complete_title,
+                                  'academic_year': str(luy.academic_year),
+                                  'id': luy.id
                                   })
     else:
         response_data = []

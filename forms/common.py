@@ -15,7 +15,7 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    A copy of this license - GNU General Public License - is available
@@ -23,29 +23,20 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.test import TestCase
+from django import forms
+from django.forms import ModelChoiceField
 
-from assistant.forms.assistant import AssistantFormPart6
+
+class EntityChoiceField(ModelChoiceField):
+    def label_from_instance(self, obj):
+        return "{0} ({1})".format(obj.acronym, obj.title)
+
+    def __init__(self, *args, **kwargs):
+        super(EntityChoiceField, self).__init__(*args, **kwargs)
+        self.widget.attrs['class'] = 'form-control'
 
 
-class TestAssistantFormPart6(TestCase):
-
-    def test_with_valid_data(self):
-        form = AssistantFormPart6(data={
-            'tutoring_percent': 30,
-            'service_activities_percent': 20,
-            'formation_activities_percent': 40,
-            'research_percent': 10,
-            'activities_report_remark': None
-        })
-        self.assertTrue(form.is_valid())
-
-    def test_with_invalid_data(self):
-        form = AssistantFormPart6(data={
-            'tutoring_percent': 30,
-            'service_activities_percent': 20,
-            'formation_activities_percent': 30,
-            'research_percent': 10,
-            'activities_report_remark': None
-        })
-        self.assertFalse(form.is_valid())
+RADIO_SELECT_REQUIRED = dict(
+    required=False,
+    widget=forms.RadioSelect(attrs={'onChange': 'Hide()'})
+)

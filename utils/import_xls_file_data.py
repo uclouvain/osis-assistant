@@ -26,22 +26,20 @@
 import datetime
 import re
 
-from openpyxl import load_workbook
-
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_http_methods
+from openpyxl import load_workbook
 
+from assistant import models as assistant_mdl
+from assistant.forms.mandate_file import MandateFileForm
+from assistant.models.enums import assistant_mandate_state
+from assistant.models.enums import assistant_type, assistant_phd_inscription, assistant_mandate_renewal
+from assistant.utils import manager_access
 from base import models as mdl
 from base.models.enums import entity_type
 from base.views.common import display_error_messages
-
-from assistant import models as assistant_mdl
-from assistant.forms import MandateFileForm
-from assistant.models.enums import assistant_type, assistant_phd_inscription, assistant_mandate_renewal
-from assistant.models.enums import assistant_mandate_state
-from assistant.utils import manager_access
 
 COLS_NUMBER = 23
 ASSISTANTS_IMPORTED = 0

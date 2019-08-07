@@ -26,23 +26,22 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.utils import ErrorList
-from django.views.decorators.http import require_http_methods
-from django.urls import reverse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
+from django.views.decorators.http import require_http_methods
 
-from base.models import entity_version
-from base.models.enums import entity_type
-
-from assistant.business.users_access import user_is_reviewer_and_procedure_is_open
 from assistant.business.mandate_entity import get_entities_for_mandate
-from assistant.forms import ReviewForm
+from assistant.business.users_access import user_is_reviewer_and_procedure_is_open
+from assistant.forms.review import ReviewForm
 from assistant.models import assistant_mandate, review, mandate_entity, tutoring_learning_unit_year
 from assistant.models import reviewer, assistant_document_file
-from assistant.models.enums import review_status, assistant_mandate_state, reviewer_role, document_type
 from assistant.models.enums import assistant_mandate_renewal
+from assistant.models.enums import review_status, assistant_mandate_state, reviewer_role, document_type
+from base.models import entity_version
+from base.models.enums import entity_type
 
 
 @require_http_methods(["POST"])

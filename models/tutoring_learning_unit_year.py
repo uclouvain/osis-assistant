@@ -48,7 +48,11 @@ def find_for_mandate_for_academic_year(mandate, academic_year):
 
 
 def find_by_mandate(mandate):
-    return TutoringLearningUnitYear.objects.filter(mandate=mandate).order_by('learning_unit_year__academic_year')
+    return TutoringLearningUnitYear.objects.filter(mandate=mandate).select_related(
+        'learning_unit_year__academic_year', 'learning_unit_year__learning_container_year'
+    ).order_by(
+        'learning_unit_year__academic_year'
+    )
 
 
 def find_by_mandate_and_learning_unit(mandate, learning_unit):

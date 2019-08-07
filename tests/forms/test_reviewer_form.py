@@ -25,14 +25,14 @@
 ##############################################################################
 from django.test import TestCase
 
+from assistant.forms.reviewer import ReviewerForm
+from assistant.models.enums import reviewer_role
+from assistant.tests.factories.reviewer import ReviewerFactory
 from base.models.entity import find_versions_from_entites
 from base.models.enums import entity_type
 from base.tests.factories.entity import EntityFactory
 from base.tests.factories.entity_version import EntityVersionFactory
 
-from assistant.forms import ReviewerForm
-from assistant.models.enums import reviewer_role
-from assistant.tests.factories.reviewer import ReviewerFactory
 
 class TestReviewerForm (TestCase):
 

@@ -25,19 +25,18 @@
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView
 
-from base.models import academic_year, person, entity, entity_version
-
 from assistant.business.users_access import user_is_reviewer_and_procedure_is_open
-from assistant.forms import ReviewerDelegationForm
-from assistant.models.academic_assistant import is_supervisor
+from assistant.forms.reviewer import ReviewerDelegationForm
 from assistant.models import reviewer
+from assistant.models.academic_assistant import is_supervisor
 from assistant.utils.send_email import send_message
+from base.models import academic_year, person, entity, entity_version
 
 
 class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):

@@ -15,7 +15,7 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    A copy of this license - GNU General Public License - is available
@@ -23,29 +23,26 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.test import TestCase
+from django import forms
+from django.forms import ModelForm
 
-from assistant.forms.assistant import AssistantFormPart6
+from assistant import models as mdl
 
 
-class TestAssistantFormPart6(TestCase):
+class SettingsForm(ModelForm):
+    starting_date = forms.DateField(required=True)
+    ending_date = forms.DateField(required=True)
+    assistants_starting_date = forms.DateField(required=True)
+    assistants_ending_date = forms.DateField(required=True)
+    assistants_contract_end_starting_date = forms.DateField(required=True)
+    assistants_contract_end_ending_date = forms.DateField(required=True)
 
-    def test_with_valid_data(self):
-        form = AssistantFormPart6(data={
-            'tutoring_percent': 30,
-            'service_activities_percent': 20,
-            'formation_activities_percent': 40,
-            'research_percent': 10,
-            'activities_report_remark': None
-        })
-        self.assertTrue(form.is_valid())
+    class Meta:
+        model = mdl.settings.Settings
+        fields = ('starting_date', 'ending_date', 'assistants_starting_date', 'assistants_ending_date',
+                  'assistants_contract_end_starting_date', 'assistants_contract_end_ending_date')
 
-    def test_with_invalid_data(self):
-        form = AssistantFormPart6(data={
-            'tutoring_percent': 30,
-            'service_activities_percent': 20,
-            'formation_activities_percent': 30,
-            'research_percent': 10,
-            'activities_report_remark': None
-        })
-        self.assertFalse(form.is_valid())
+    def __init__(self, *args, **kwargs):
+        super(SettingsForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'

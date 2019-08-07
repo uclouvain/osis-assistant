@@ -15,7 +15,7 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    A copy of this license - GNU General Public License - is available
@@ -23,29 +23,17 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.test import TestCase
+from django import forms
+from django.utils.translation import ugettext as _
 
-from assistant.forms.assistant import AssistantFormPart6
 
+class MandateFileForm(forms.Form):
+    file = forms.FileField(error_messages={'required': _('no_file_submitted')})
 
-class TestAssistantFormPart6(TestCase):
-
-    def test_with_valid_data(self):
-        form = AssistantFormPart6(data={
-            'tutoring_percent': 30,
-            'service_activities_percent': 20,
-            'formation_activities_percent': 40,
-            'research_percent': 10,
-            'activities_report_remark': None
-        })
-        self.assertTrue(form.is_valid())
-
-    def test_with_invalid_data(self):
-        form = AssistantFormPart6(data={
-            'tutoring_percent': 30,
-            'service_activities_percent': 20,
-            'formation_activities_percent': 30,
-            'research_percent': 10,
-            'activities_report_remark': None
-        })
-        self.assertFalse(form.is_valid())
+    def clean_file(self):
+        file = self.cleaned_data['file']
+        content_type = file.content_type.split('/')[1]
+        valid_content_type = 'vnd.openxmlformats-officedocument.spreadsheetml.sheet' in content_type
+        if ".xlsx" not in file.name or not valid_content_type:
+            self.add_error('file', forms.ValidationError(_('file_must_be_xlsx'), code='invalid'))
+        return file

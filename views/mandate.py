@@ -24,25 +24,27 @@
 #
 ##############################################################################
 import time
+
 from django.contrib.auth.decorators import user_passes_test
-from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
+from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from openpyxl import Workbook
 from openpyxl.writer.excel import save_virtual_workbook
-from base.models.enums import entity_type
-from base.models import academic_year, entity, person
-from base.views import layout
-from assistant.utils.send_email import send_message
-from assistant.forms import MandateForm, entity_inline_formset
+
 from assistant import models as assistant_mdl
+from assistant.forms.mandate import MandateForm, entity_inline_formset
 from assistant.models import assistant_mandate, review
 from assistant.models.enums import reviewer_role, assistant_mandate_state
+from assistant.utils.send_email import send_message
+from base.models import academic_year, entity, person
+from base.models.enums import entity_type
 
 
 def user_is_manager(user):
     try:
-        if user.is_authenticated():
+        if user.is_authenticated:
             return assistant_mdl.manager.Manager.objects.get(person=user.person)
     except ObjectDoesNotExist:
         return False
@@ -62,9 +64,13 @@ def mandate_edit(request):
                                 }, prefix="mand", instance=mandate)
     formset = entity_inline_formset(instance=mandate, prefix="entity")
     
-    return layout.render(request, 'mandate_form.html', {'mandate': mandate, 'form': form, 'formset': formset,
-                                                        'assistant_mandate_state': assistant_mandate_state,
-                                                        'supervisor': supervisor})
+    return render(request, 'mandate_form.html', {
+        'mandate': mandate,
+        'form': form,
+        'formset': formset,
+        'assistant_mandate_state': assistant_mandate_state,
+        'supervisor': supervisor
+    })
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')
@@ -94,14 +100,14 @@ def mandate_save(request):
             formset.save()
             return mandate_edit(request)
         else:
-            return layout.render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
+            return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
     else:
-        return layout.render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
+        return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')
 def load_mandates(request):
-    return layout.render(request, "load_mandates.html", {})
+    return render(request, "load_mandates.html", {})
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')
