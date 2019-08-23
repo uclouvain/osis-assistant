@@ -74,7 +74,7 @@ def read_xls_mandates(request, file_name):
     try:
         workbook = load_workbook(file_name, read_only=True, data_only=True)
     except KeyError:
-        display_error_messages(request, _('file_must_be_xlsx'))
+        display_error_messages(request, _('File must be xlsx'))
         return False
     first_sheet = workbook.get_sheet_names()[0]
     worksheet = workbook.get_sheet_by_name(first_sheet)
@@ -90,7 +90,9 @@ def read_xls_mandates(request, file_name):
             end_date = check_date_format(current_record.get('END_DATE'))
             entry_date = check_date_format(current_record.get('ENTRY_DATE'))
             if end_date is False or entry_date is False:
-                display_error_messages(request, _('date_format_error') + _('line_nbr') + str(current_row))
+                display_error_messages(request,
+                                       _('A date is invalid in the file') + _(' at line number : ') + str(current_row)
+                                       )
                 return False
             assistant = create_academic_assistant_if_not_exists(current_record)
             if assistant:
@@ -268,10 +270,10 @@ def show_import_result(request):
 
 def check_file_format(request, titles_rows):
     if len(titles_rows) != COLS_NUMBER:
-        display_error_messages(request, _('columns_number_error'))
+        display_error_messages(request, _('The number of cols is wrong.'))
         return False
     if titles_rows != COLS_TITLES:
-        display_error_messages(request, _('columns_title_error'))
+        display_error_messages(request, _('The cols title are wrong.'))
         return False
     return True
 

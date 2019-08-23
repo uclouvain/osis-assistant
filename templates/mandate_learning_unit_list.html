@@ -30,27 +30,27 @@
     <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-    <li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'my_mandates' %}</a></li>
-    <li class="active">{% trans 'renewal_form' %}</li>
+    <li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
+    <li class="active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
     <ul class="nav nav-tabs ">
-        <li><a href="{% url 'assistant_mandates' %}">{% trans 'my_mandates' %}</a></li>
-        <li><a href="{% url 'form_part1_edit' %}">{% trans 'assistant_form_part1' %}</a></li>
-        <li class="active"><a href="{% url 'mandate_learning_units' %}">{% trans 'learning_units' %}</a></li>
+        <li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
+        <li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
+        <li class="active"><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
         {% if assistant_type == "ASSISTANT" %}
-            <li><a href="{% url 'form_part3_edit' %}">{% trans 'assistant_form_part3' %}</a></li>
-            <li><a href="{% url 'form_part4_edit' %}">{% trans 'assistant_form_part4' %}</a></li>
+            <li><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
+            <li><a href="{% url 'form_part4_edit' %}">{% trans 'Research' %}</a></li>
         {% endif %}
-        <li><a href="{% url 'form_part5_edit' %}">{% trans 'assistant_form_part5' %}</a></li>
-        <li><a href="{% url 'form_part6_edit' %}">{% trans 'assistant_form_part6' %}</a></li>
+        <li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
+        <li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
     </ul>
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="panel-default">
                 <div class="panel-heading">
-                    <h4>{% trans 'learning_units' %}</h4>
-                    <h5>{% trans 'learning_units_description' %}</h5>
+                    <h4>{% trans 'Learning units' %}</h4>
+                    <h5>{% trans 'Exercises, workshops, seminars - associated with hours of volume 2, which you personally assume' %}</h5>
                 </div>
             </div>
             <p>
@@ -59,11 +59,11 @@
                        width="100%">
                     <thead>
                     <tr>
-                        <th>{% trans 'academic_year' %}</th>
-                        <th>{% trans 'acronym' %}</th>
-                        <th>{% trans 'title' %}</th>
-                        <th>{% trans 'edit' %}</th>
-                        <th>{% trans 'delete' %}</th>
+                        <th>{% trans 'Academic year' %}</th>
+                        <th>{% trans 'Acronym' %}</th>
+                        <th>{% trans 'Title' %}</th>
+                        <th>{% trans 'Edit' %}</th>
+                        <th>{% trans 'Delete' %}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -73,31 +73,31 @@
                             <td>{{ learning_unit.learning_unit_year.acronym }}</td>
                             <td>{{ learning_unit.learning_unit_year.complete_title }}</td>
                             <td><a href="{% url 'tutoring_learning_unit_edit' learning_unit.id %}">
-                                <button type="button" class="btn btn-link btn-lg" title="{% trans 'edit' %}"
+                                <button type="button" class="btn btn-link btn-lg" title="{% trans 'Edit' %}"
                                         id="bt_learning_unit_edit">
                                     <span class="far fa-edit" aria-hidden="true"></span>
                                 </button>
-                                {% trans 'edit' %}</a></td>
+                                {% trans 'Edit' %}</a></td>
                             <td><a href="{% url 'tutoring_learning_unit_delete' learning_unit.id %}"
-                                   onclick="return confirm('{% trans 'confirm_removal' %}')">
-                                <button type="button" class="btn btn-link btn-lg" title="{% trans 'delete' %}"
+                                   onclick="return confirm('{% trans 'Are you sure you want to delete this course?' %}')">
+                                <button type="button" class="btn btn-link btn-lg" title="{% trans 'Delete' %}"
                                         id="bt_learning_unit_delete">
                                     <span class="fas fa-times" aria-hidden="true"></span>
                                 </button>
-                                {% trans 'delete' %}</a></td>
+                                {% trans 'Delete' %}</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
             <a href="{% url 'tutoring_learning_unit_add' %}">
-                <button type="button" class="btn btn-link btn-lg" title="{% trans 'add' %}" id="bt_reviewer_add">
+                <button type="button" class="btn btn-link btn-lg" title="{% trans 'Add' %}" id="bt_reviewer_add">
                     <span class="fas fa-plus" aria-hidden="true"></span>
                 </button>
-                {% trans 'add_tutoring_learning_unit' %}</a>
+                {% trans 'Add a teaching unit' %}</a>
             <div class="panel-default">
                 <div class="panel-heading">
-                    <h4>{% trans 'tutoring_reports' %}</h4>
+                    <h4>{% trans 'Evaluations (optional)' %}</h4>
                 </div>
             </div>
             <form id="pst-form-learning-units" method="POST" enctype="multipart/form-data"
@@ -108,10 +108,10 @@
                     <div class="row" style="padding-top: 15px;">
                         <div class="col-md-2" style="text-align: left">
                             <a class="btn btn-default btn-danger btn-sm" id="btn_delete_file" style="margin-right: 5px;"
-                               title="{% trans 'delete' %}"
+                               title="{% trans 'Delete' %}"
                                onclick="location.href='{% url 'assistant_file_delete' file.id 'mandate_learning_units' %}';">
                                 <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
-                                {% trans 'delete' %}</a>
+                                {% trans 'Delete' %}</a>
                         </div>
                         <div class="col-md-10" id="hdn_filename" style="text-align: left">
                             <a href="{% url 'assistant_file_download' document_file_id=file.id %}">{{ file.document_file }}</a>
@@ -120,9 +120,9 @@
                 {% endfor %}
                 <div class="form-group" style="padding-top: 15px;">
                     <a class="btn btn-default" data-toggle="modal" data-target="#pnl_upload_documents"
-                       id="btn_add_file" style="margin-right: 5px;" title="{% trans 'add_file' %}">
+                       id="btn_add_file" style="margin-right: 5px;" title="{% trans 'Add file' %}">
                         <span class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></span>
-                        {% trans 'upload' %}</a>
+                        {% trans 'Attach a PDF file' %}</a>
                 </div>
                 <input type="hidden" value="{{ mandate_id | default_if_none:'' }}" id="hdn_current_mandate_id"
                        name="mandate_id" title="mandate_id">
@@ -152,7 +152,7 @@
             fileName = file.name;
             $("#hdn_filename").val(fileName);
             if (fileName.length > 100) {
-                document.getElementById("error_modal_upload").innerHTML = "{% trans 'maxlength_filename'%}";
+                document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
                 $("#txt_file").val('')
                 $('#pnl_upload_error').remove();
                 event.preventDefault();
@@ -163,7 +163,7 @@
             }
             res = /.*[()%$,;:/=+].*/i.test(fileName);
             if (res) {
-                document.getElementById("error_modal_upload").innerHTML = "{% trans 'bad_filename'%}";
+                document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
                 $("#txt_file").val('')
                 $('#pnl_upload_error').remove();
                 event.preventDefault();
@@ -217,7 +217,7 @@
                     });
                     return true;
                 } else {
-                    document.getElementById("error_modal_upload").innerHTML = "{% trans 'only_pdf_file'%}";
+                    document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
                     $("#txt_file").val('')
                     $('#pnl_upload_error').remove();
                     event.preventDefault();

@@ -3,11 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-22 15:14+0200\n"
+"POT-Creation-Date: 2019-08-22 14:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,810 +17,1511 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "2nd_renewal"
-msgstr "(for the 2nd renewal)"
-
-msgid "absences"
-msgstr "Absences"
-
-msgid "accept"
-msgstr "Accept"
-
-msgid "accepted"
-msgstr "Accepted"
-
-msgid "action"
-msgstr "Action"
-
-msgid "activities_report_remark"
-msgstr "Remark concerning the activity report"
-
-msgid "add_tutoring_learning_unit"
-msgstr "Add a teaching unit"
-
-msgid "address"
-msgstr "Address"
-
-msgid "administrative_data"
-msgstr "Administrative data"
-
-msgid "advice"
-msgstr "Opinion"
-
-msgid "You must select one of the options"
+#: utils/import_xls_file_data.py:94
+msgid " at line number : "
 msgstr ""
 
-msgid "age"
-msgstr "Age"
-
-msgid "app_dates"
-msgstr "Mandates renewal procedure dates"
-
-msgid "apply"
-msgstr "Apply"
-
-msgid "assistants_contract_end_dates"
-msgstr "Assistants contract ending dates"
-
-msgid "assistant_form"
-msgstr "Assistant file"
-
-msgid "ASSISTANT"
-msgstr "Assistant"
-
-msgid "TEACHING_ASSISTANT"
-msgstr "Teaching assistant"
-
-msgid "assistant_form_part1"
-msgstr "Administrative"
-
-msgid "assistant_form_part3"
-msgstr "Ph.D."
-
-msgid "assistant_form_part4"
-msgstr "Research"
-
-msgid "assistant_form_part5"
-msgstr "Activities"
-
-msgid "assistant_form_part6"
-msgstr "Summary"
-
-msgid "assistant_mandates_renewal"
-msgstr "Assistant mandate renewal application"
-
-msgid "assistant_mandates_renewals"
-msgstr "Assistant mandate renewal application processing"
-
-msgid "assistant_title"
-msgstr "Assistant"
-
-msgid "assistant_type"
-msgstr "Assistant type"
-
-msgid "assistants"
-msgstr "Assistants"
-
-msgid "assistants_dates"
-msgstr "Assessment access dates for assistants"
-
-msgid "at_least_one_learning_unit"
-msgstr "You must add at least one teaching unit under the heading \"Teaching Units\""
-
-msgid "attendees"
-msgstr "Number of students per series"
-
-msgid "awards"
-msgstr "Prize(s) and/or distinction(s)"
-
-msgid "bad_filename"
-msgstr "Filename can not contains : ( ) % $ , ; : / = +"
-
-msgid "bad_person_msg"
-msgstr "Please enter the last name and first name of the person you are looking for and select the corresponding choice in the drop-down list"
-
-msgid "beginning"
-msgstr "Beginning"
-
-msgid "birth_date"
-msgstr "Date of birth"
-
-msgid "birthdate"
-msgstr "Date of birth"
-
-msgid "cancel"
-msgstr "Cancel"
-
-msgid "choice"
-msgstr "Choice"
-
-msgid "choose_person_as_reviewer_for"
-msgstr "Choose a person as reviewer for"
-
-msgid "columns_title_error"
-msgstr "The cols title are wrong."
-
-msgid "columns_number_error"
-msgstr "The number of cols is wrong."
-
-msgid "comment"
-msgstr "Comment"
-
-msgid "comment_vice_rector"
-msgstr "Comment DAS/CAS - Vice-Rector"
-
-msgid "CONDITIONAL"
-msgstr "Conditional"
-
-msgid "conferences_contributor"
-msgstr "Conference(s) to which I have contributed by communication or post, alone or with others."
-
-msgid "confidential"
-msgstr "Confidential"
-
-msgid "confirm_accept"
-msgstr "Are you sure you want to accept the renewal request? This action is irreversible."
-
-msgid "confirm_decline"
-msgstr "Are you sure you want to decline the renewal request? This action is irreversible."
-
-msgid "confirm_mandate_step_back"
-msgstr "Are you sure you want to step back the mandate? This action is irreversible."
-
-msgid "confirm_removal"
-msgstr "Are you sure you want to delete this course?"
-
-msgid "confirm_reviewer_addition"
-msgstr "Are you sure you want to add this reviewer? This action is irreversible."
-
-msgid "confirm_reviewer_delegation"
-msgstr "Are you sure you want to delegate your role? This action is irreversible."
-
-msgid "confirm_send_emails"
-msgstr "Are you sure you want to send these emails? This action is irreversible."
-
-msgid "confirm_validation"
-msgstr "Are you sure you want to validate and submit? This action is irreversible."
-
-msgid "confirmatory_test_date"
-msgstr "Date of confirmation test"
-
-msgid "connected_as"
-msgstr "You are connected as"
-
-msgid "contact_details"
-msgstr "Administrative information"
-
-msgid "contract_duration"
-msgstr "Contract length"
-
-msgid "contract"
-msgstr "Contract"
-
-msgid "contract_duration_fte"
-msgstr "Full-time equivalent"
-
-msgid "corsci_representation"
-msgstr "Within the CORSCI"
-
-msgid "course"
-msgstr "Course"
-
-msgid "course_code"
-msgstr "Course code"
-
-msgid "dashboard"
-msgstr "Dashboard"
-
-msgid "data_not_saved"
-msgstr "A problem occured, data have not been saved"
-
-msgid "date_format_error"
-msgstr "A date is invalid in the file"
-
-msgid "date_of_first_nomination"
-msgstr "Date of first nomination"
-
-msgid "dean"
-msgstr "Dean of Faculty"
-
-msgid "deans"
-msgstr "Deans of Faculty"
-
-msgid "decline"
-msgstr "Refuse"
-
-msgid "DECLINED"
-msgstr "Refused by the assistant"
-
-msgid "declined_mandates"
-msgstr "Assistants who have declined their nenewal"
-
-msgid "degrees"
-msgstr "Diploma(s) obtained"
-
-msgid "delete"
-msgstr "Delete"
-
-msgid "desc_lnk_dashboard"
-msgstr "Table listing all the files"
-
-msgid "desc_lnk_emails"
-msgstr "Mail service management to assistants and Deans of Faculty"
-
-msgid "desc_lnk_export_mandates"
-msgstr "Exporting files to an XLSX file"
-
-msgid "desc_lnk_export_declined_mandates_pdf"
-msgstr "Exporting assistants who declined their renewal"
-
-msgid "desc_lnk_export_mandates_pdf"
-msgstr "Exporting all data to a PDF file"
-
-msgid "desc_lnk_import_mandates"
-msgstr "Importing files from an XLSX file"
-
-msgid "desc_lnk_reviewers"
-msgstr "Adding, replacing and deleting reviewers"
-
-msgid "desc_lnk_settings"
-msgstr "Management of application access dates"
-
-msgid "dial_publications"
-msgstr "List of publications in PDF format (DIAL)"
-
-msgid "doctorate"
-msgstr "Ph.D."
-
-msgid "DONE"
-msgstr "Completed"
-
-msgid "emails"
-msgstr "Emails"
-
-msgid "end"
-msgstr "End"
-
-msgid "end_date_contract"
-msgstr "Contract end date"
-
-msgid "entry_date_contract"
-msgstr "Contract start date"
-
-msgid "eq_fte"
-msgstr "Duration of contract (FTE)"
-
-msgid "events_organisation_service"
-msgstr "Organization of seminars, conferences, visits, study tours, grounds, seminars… (not taken in account in the \"Teaching units\" section)"
-
-msgid "exams_supervision_duration"
-msgstr "Preparation, coordination and evaluation (h)"
-
-msgid "EXCEPTIONAL"
-msgstr "Exceptional"
-
-msgid "exceptional_justification"
-msgstr "Should you no longer fulfill the requirements for a 'normal' renewal, can you specify the circumstances justifying an exceptional renewal application (art. 51 of the RAMCS)"
-
-msgid "exercises_tp"
-msgstr "Exercises, workshops, seminars - associated with hours of volume 2, which you personally assume"
-
-msgid "expected_registering_date"
-msgstr "Scheduled date of registration"
-
-msgid "export_declined_mandates"
-msgstr "Export of the declined assistants mandates"
-
-msgid "export_mandates"
-msgstr "Export of assistants mandates"
-
+#: templates/mandates_list.html:63
+#, python-format
+msgid "%% FTE"
+msgstr "%% FTE"
+
+#: templates/assistant_form_part3.html:98
+#: templates/manager_assistant_form_view.html:159
+#: templates/pst_form_view.html:216
+msgid "(for the 2nd renewal)"
+msgstr ""
+
+#: utils/import_xls_file_data.py:94
+msgid "A date is invalid in the file"
+msgstr ""
+
+#: forms/review.py:12 forms/review.py:44
+msgid ""
+"A justification is required if the opinion is unfavourable or conditional"
+msgstr ""
+
+#: views/assistant_form.py:97 views/assistant_form.py:233
+#: views/assistant_form.py:337 views/assistant_form.py:377
+msgid "A problem occured, data have not been saved"
+msgstr ""
+
+#: views/reviewers_management.py:158
+msgid "A reviewer having the same role for this entity already exists"
+msgstr ""
+
+#: templates/mandate_form.html:127 templates/review_form.html:134
+#: utils/export_utils_pdf.py:188 views/mandate.py:145
+msgid "Absences"
+msgstr ""
+
+#: templates/assistant_mandates.html:46
+#: templates/manager_assistant_form_view.html:292
+#: templates/mandate_learning_unit_list.html:62
+#: templates/pst_form_view.html:353
+msgid "Academic year"
+msgstr ""
+
+#: templates/assistant_mandates.html:73 templates/assistant_mandates.html:75
+msgid "Accept"
+msgstr ""
+
+#: templates/access_denied.html:34
+msgid "Access denied!"
+msgstr ""
+
+#: templates/manager_reviews_view.html:132
+msgid "Accomplish a workflow step back"
+msgstr ""
+
+#: templates/assistants.html:41 templates/assistants.html:42
+#: templates/assistants.html:84 templates/manager_assistant_form_view.html:293
+#: templates/mandate_learning_unit_list.html:63
+#: templates/pst_form_view.html:354 templates/reviewer_structures_list.html:57
+msgid "Acronym"
+msgstr ""
+
+#: templates/assistant_mandates.html:50
+#: templates/phd_supervisor_assistants_list.html:66
+#: templates/reviewer_mandates_list.html:87 templates/reviewers_list.html:52
+msgid "Action"
+msgstr ""
+
+#: templates/assistant_form_part1.html:42
+#: templates/assistant_form_part3.html:43
+#: templates/assistant_form_part4.html:40
+#: templates/assistant_form_part5.html:42
+#: templates/assistant_form_part6.html:42
+#: templates/mandate_learning_unit_list.html:45
+#: templates/tutoring_learning_unit_year.html:41
+msgid "Activities"
+msgstr ""
+
+#: templates/assistant_form_part5.html:119
+#: templates/manager_assistant_form_view.html:418
+#: templates/pst_form_view.html:481 tests/utils/test_export_utils_pdf.py:327
+#: utils/export_utils_pdf.py:375
+msgid "Activities in the field of publishing (editorial board,...)"
+msgstr ""
+
+#: templates/manager_add_reviewer.html:36
+#: templates/mandate_learning_unit_list.html:94
+#: templates/reviewer_structures_list.html:75 templates/reviewers_list.html:69
+msgid "Add"
+msgstr ""
+
+#: templates/reviewer_add_reviewer.html:36
+msgid "Add a delegate"
+msgstr ""
+
+#: templates/mandate_learning_unit_list.html:97
+msgid "Add a teaching unit"
+msgstr ""
+
+#: templates/assistant_form_part3.html:133
+#: templates/assistant_form_part4.html:104
+#: templates/mandate_learning_unit_list.html:123
+msgid "Add file"
+msgstr ""
+
+#: templates/reviewers_list.html:71
+msgid "Add reviewer"
+msgstr ""
+
+#: templates/manager_home.html:52
+msgid "Adding, replacing and deleting reviewers"
+msgstr ""
+
+#: templates/assistant_form_part1.html:36
+#: templates/assistant_form_part3.html:39
+#: templates/assistant_form_part4.html:36
+#: templates/assistant_form_part5.html:36
+#: templates/assistant_form_part6.html:36
+#: templates/mandate_learning_unit_list.html:39
+#: templates/tutoring_learning_unit_year.html:35
+msgid "Administrative"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:45
+#: templates/manager_assistant_form_view.html:46
+#: templates/manager_reviews_view.html:45
+#: templates/manager_reviews_view.html:46 templates/mandate_form.html:43
+msgid "Administrative data"
+msgstr ""
+
+#: templates/assistant_form_part1.html:55
+msgid "Administrative information"
+msgstr ""
+
+#: models/enums/user_role.py:35
+msgid "Administrator"
+msgstr ""
+
+#: views/reviewer_review.py:140
+msgid "Advice missing in form"
+msgstr ""
+
+#: views/mandate.py:135
+msgid "Age"
+msgstr ""
+
+#: models/enums/assistant_mandate_appeal.py:38
+msgid "Appeal in progress"
+msgstr ""
+
+#: templates/mandates_list.html:46 templates/mandates_list.html:47
+#: templates/reviewer_mandates_list.html:68
+#: templates/reviewer_mandates_list.html:69
+msgid "Apply"
+msgstr ""
+
+#: templates/assistant_mandates.html:74
+msgid ""
+"Are you sure you want to accept the renewal request? This action is "
+"irreversible."
+msgstr ""
+
+#: templates/manager_add_reviewer.html:66
+msgid ""
+"Are you sure you want to add this reviewer? This action is irreversible."
+msgstr ""
+
+#: templates/assistant_mandates.html:77
+msgid ""
+"Are you sure you want to decline the renewal request? This action is "
+"irreversible."
+msgstr ""
+
+#: templates/reviewer_add_reviewer.html:60
+msgid ""
+"Are you sure you want to delegate your role? This action is irreversible."
+msgstr ""
+
+#: templates/mandate_learning_unit_list.html:82
+msgid "Are you sure you want to delete this course?"
+msgstr ""
+
+#: templates/messages.html:48 templates/messages.html:56
+msgid ""
+"Are you sure you want to send these emails? This action is irreversible."
+msgstr ""
+
+#: templates/manager_reviews_view.html:141
+msgid ""
+"Are you sure you want to step back the mandate? This action is irreversible."
+msgstr ""
+
+#: templates/assistant_form_part6.html:110 templates/review_form.html:196
+msgid ""
+"Are you sure you want to validate and submit? This action is irreversible."
+msgstr ""
+
+#: templates/settings.html:69
+msgid "Assessment access dates for assistants"
+msgstr ""
+
+#: models/enums/assistant_mandate_state.py:40 models/enums/assistant_type.py:32
+#: models/enums/user_role.py:33 templates/mandates_list.html:56
+#: templates/phd_supervisor_assistants_list.html:60
+#: templates/reviewer_mandates_list.html:78 utils/export_utils_pdf.py:156
+msgid "Assistant"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:34
+#: templates/manager_assistant_form_view.html:50
+#: templates/manager_reviews_view.html:34
+#: templates/manager_reviews_view.html:50 templates/mandate_form.html:44
+#: templates/pst_form_view.html:39 templates/pst_form_view.html:57
+#: templates/pst_form_view.html:68 templates/review_form.html:58
+#: templates/review_form.html:69 templates/review_view.html:57
+#: templates/review_view.html:68
+msgid "Assistant file"
+msgstr ""
+
+#: templates/review_view.html:39
+msgid "Assistant file and opinion"
+msgstr ""
+
+#: templates/assistant_mandates.html:38 templates/mandate_reviews_view.html:37
+msgid "Assistant mandate renewal application"
+msgstr ""
+
+#: templates/load_mandates.html:38 templates/manager_add_reviewer.html:40
+#: templates/manager_assistant_form_view.html:38 templates/manager_home.html:38
+#: templates/manager_replace_reviewer.html:40
+#: templates/manager_reviews_view.html:38 templates/mandate_form.html:41
+#: templates/mandates_list.html:38 templates/messages.html:38
+#: templates/phd_supervisor_assistants_list.html:41
+#: templates/pst_form_view.html:48 templates/review_form.html:49
+#: templates/review_view.html:48 templates/reviewer_add_reviewer.html:41
+#: templates/reviewer_mandates_list.html:38
+#: templates/reviewer_structures_list.html:40 templates/reviewers_list.html:38
+#: templates/settings.html:38 utils/export_utils_pdf.py:493
+msgid "Assistant mandate renewal application processing"
+msgstr ""
+
+#: templates/load_mandates.html:78
+msgid "Assistant mandates importation"
+msgstr ""
+
+#: templates/mandate_form.html:57 templates/mandates_list.html:58
+#: templates/phd_supervisor_assistants_list.html:62
+#: templates/reviewer_mandates_list.html:80
+#: tests/utils/test_export_utils_pdf.py:205 utils/export_utils_pdf.py:249
+#: views/mandate.py:138
+msgid "Assistant type"
+msgstr ""
+
+#: templates/assistants.html:30 templates/assistants.html:34
+#: templates/load_mandates.html:33 templates/manager_add_reviewer.html:34
+#: templates/manager_assistant_form_view.html:32 templates/manager_home.html:34
+#: templates/manager_replace_reviewer.html:34
+#: templates/manager_reviews_view.html:32 templates/mandate_form.html:34
+#: templates/mandates_list.html:33 templates/messages.html:33
+#: templates/messages.html:44 templates/reviewers_list.html:33
+#: templates/settings.html:33
+msgid "Assistants"
+msgstr ""
+
+#: templates/settings.html:88
+msgid "Assistants contract ending dates"
+msgstr ""
+
+#: utils/export_utils_pdf.py:121
+msgid "Assistants who have declined their renewal"
+msgstr ""
+
+#: templates/assistant_form_part3.html:135
+#: templates/assistant_form_part4.html:106
+#: templates/mandate_learning_unit_list.html:125
+msgid "Attach a PDF file"
+msgstr ""
+
+#: templates/settings.html:55 templates/settings.html:72
+#: templates/settings.html:91
+msgid "Beginning"
+msgstr ""
+
+#: templates/load_mandates.html:88 templates/manager_add_reviewer.html:69
+#: templates/manager_replace_reviewer.html:76 templates/mandate_form.html:137
+#: templates/new_document.html:54 templates/review_form.html:192
+#: templates/reviewer_add_reviewer.html:63 templates/settings.html:106
+#: templates/tutoring_learning_unit_year.html:118
+msgid "Cancel"
+msgstr ""
+
+#: templates/load_mandates.html:81
+msgid "Choose a file"
+msgstr ""
+
+#: templates/reviewer_add_reviewer.html:45
+msgid "Choose a person as reviewer for"
+msgstr ""
+
+#: templates/assistant_form_part1.html:133
+#: templates/assistant_form_part3.html:221
+#: templates/assistant_form_part4.html:213
+#: templates/assistant_form_part5.html:154
+#: templates/assistant_form_part6.html:128
+msgid ""
+"Click OK to save the modified data before moving to another section.  Click "
+"Cancel to continue without saving."
+msgstr ""
+
+#: templates/mandate_form.html:123 templates/review_form.html:135
+#: utils/export_utils_pdf.py:190 views/mandate.py:144 views/mandate.py:148
+msgid "Comment"
+msgstr ""
+
+#: templates/review_form.html:178
+msgid "Comment DAS/CAS - Vice-Rector"
+msgstr ""
+
+#: templates/review_form.html:136
+msgid "Comments on previous renewal applications"
+msgstr ""
+
+#: models/enums/assistant_mandate_state.py:45 models/enums/review_status.py:32
+msgid "Completed"
+msgstr ""
+
+#: models/enums/review_advice_choices.py:33
+msgid "Conditional"
+msgstr ""
+
+#: templates/assistant_form_part4.html:59
+#: templates/manager_assistant_form_view.html:205
+#: templates/pst_form_view.html:264 tests/utils/test_export_utils_pdf.py:274
+#: utils/export_utils_pdf.py:305
+msgid ""
+"Conference(s) to which I have contributed by communication or post, alone or "
+"with others."
+msgstr ""
+
+#: templates/manager_reviews_view.html:112 templates/review_form.html:171
+#: templates/review_view.html:154 utils/export_utils_pdf.py:404
+#: views/mandate.py:149
+msgid "Confidential"
+msgstr ""
+
+#: templates/manager_replace_reviewer.html:73
+msgid "Confirm reviewer replacement"
+msgstr ""
+
+#: templates/assistant_form_part1.html:63
+#: templates/manager_assistant_form_view.html:59
+#: templates/pst_form_view.html:120
+msgid "Contract"
+msgstr ""
+
+#: tests/utils/test_export_utils_pdf.py:208 utils/export_utils_pdf.py:252
+msgid "Contract end date"
+msgstr ""
+
+#: templates/mandate_form.html:75
+#: templates/phd_supervisor_assistants_list.html:63
+#: templates/reviewer_mandates_list.html:82
+#: tests/utils/test_export_utils_pdf.py:209 utils/export_utils_pdf.py:253
+#: views/mandate.py:141
+msgid "Contract length"
+msgstr ""
+
+#: tests/utils/test_export_utils_pdf.py:207 utils/export_utils_pdf.py:251
+#: views/mandate.py:142
+msgid "Contract start date"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:285
+#: templates/pst_form_view.html:346 utils/export_utils_pdf.py:199
+msgid "Course units"
+msgstr ""
+
+#: templates/assistants.html:68
+msgid "Create an organization"
+msgstr ""
+
+#: templates/assistant_form_part1.html:95
+#: templates/manager_assistant_form_view.html:268
+#: templates/pst_form_view.html:329 tests/utils/test_export_utils_pdf.py:227
+#: utils/export_utils_pdf.py:264
+#, python-format
+msgid "Current positions outside the University and %% of time spent"
+msgstr ""
+
+#: models/enums/reviewer_role.py:42
+msgid "DAF"
+msgstr ""
+
+#: models/enums/reviewer_role.py:43
+msgid "DAF representative"
+msgstr ""
+
+#: models/enums/reviewer_role.py:47
+msgid "DAS/CAS"
+msgstr ""
+
+#: templates/manager_home.html:45
+msgid "Dashboard"
+msgstr ""
+
+#: templates/messages.html:66
+msgid "Date"
+msgstr ""
+
+#: templates/assistant_form_part3.html:97
+#: templates/manager_assistant_form_view.html:159
+#: templates/pst_form_view.html:216 tests/utils/test_export_utils_pdf.py:257
+#: utils/export_utils_pdf.py:291
+msgid "Date of confirmation test"
+msgstr ""
+
+#: templates/assistant_form_part3.html:103
+#: templates/manager_assistant_form_view.html:167
+#: templates/pst_form_view.html:224 tests/utils/test_export_utils_pdf.py:259
+#: utils/export_utils_pdf.py:292
+msgid "Date of defense of thesis (if already known)"
+msgstr ""
+
+#: templates/assistant_form_part3.html:87 templates/pst_form_view.html:208
+#: tests/utils/test_export_utils_pdf.py:255 utils/export_utils_pdf.py:290
+msgid "Date of doctoral enrollment"
+msgstr ""
+
+#: templates/assistant_form_part1.html:81
+#: templates/manager_assistant_form_view.html:101
+#: templates/pst_form_view.html:162
+msgid "Date of first nomination"
+msgstr ""
+
+#: models/enums/assistant_mandate_state.py:43 models/enums/reviewer_role.py:40
+msgid "Dean of Faculty"
+msgstr ""
+
+#: models/enums/reviewer_role.py:41
+msgid "Dean of Faculty representative"
+msgstr ""
+
+#: templates/phd_supervisor_assistants_list.html:48
+#: templates/reviewer_add_reviewer.html:35
+#: templates/reviewer_mandates_list.html:52
+#: templates/reviewer_structures_list.html:35
+#: templates/reviewer_structures_list.html:47
+#: templates/reviewer_structures_list.html:58
+msgid "Delegation(s)"
+msgstr ""
+
+#: forms/reviewer.py:91 templates/assistant_form_part3.html:124
+#: templates/assistant_form_part4.html:92 templates/mandate_form.html:103
+#: templates/mandate_form.html:115 templates/mandate_learning_unit_list.html:66
+#: templates/mandate_learning_unit_list.html:83
+#: templates/mandate_learning_unit_list.html:87
+#: templates/mandate_learning_unit_list.html:111
+#: templates/mandate_learning_unit_list.html:114
+#: views/reviewers_management.py:79
+msgid "Delete"
+msgstr ""
+
+#: templates/assistant_form_part3.html:121
+#: templates/assistant_form_part4.html:95
+msgid "Delete file"
+msgstr ""
+
+#: templates/pst_form_view.html:103 templates/review_form.html:104
+#: templates/review_view.html:103
+msgid "Doctorate opinion"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:295
+#: templates/pst_form_view.html:356
+#: templates/tutoring_learning_unit_year.html:81
+msgid "Duration of a session (h)"
+msgstr ""
+
+#: templates/phd_supervisor_assistants_list.html:64
+#: templates/reviewer_mandates_list.html:83
+msgid "Duration of contract (FTE)"
+msgstr ""
+
+#: templates/assistant_mandates.html:82 templates/assistant_mandates.html:83
+#: templates/mandate_learning_unit_list.html:65
+#: templates/mandate_learning_unit_list.html:76
+#: templates/mandate_learning_unit_list.html:80 templates/mandates_list.html:76
+#: templates/mandates_list.html:77
+#: templates/phd_supervisor_assistants_list.html:92
+#: templates/phd_supervisor_assistants_list.html:94
+#: templates/pst_form_view.html:81 templates/pst_form_view.html:93
+#: templates/review_form.html:82 templates/review_form.html:94
+#: templates/review_view.html:81 templates/review_view.html:93
+#: templates/reviewer_mandates_list.html:142
+#: templates/reviewer_mandates_list.html:144
+#: templates/reviewer_structures_list.html:74
+msgid "Edit"
+msgstr ""
+
+#: views/mandate.py:133
+msgid "Email"
+msgstr ""
+
+#: templates/manager_home.html:94
+msgid "Emails"
+msgstr ""
+
+#: templates/settings.html:60 templates/settings.html:77
+#: templates/settings.html:96
+msgid "End"
+msgstr ""
+
+#: views/mandate.py:143
+msgid "End date"
+msgstr ""
+
+#: templates/assistant_form_part3.html:63
+#: templates/manager_assistant_form_view.html:125
+#: templates/pst_form_view.html:186 tests/utils/test_export_utils_pdf.py:264
+#: utils/export_utils_pdf.py:295
+msgid "Enrolled in the Ph.D. program"
+msgstr ""
+
+#: templates/assistant_mandates.html:47 templates/mandate_form.html:111
+#: templates/mandates_list.html:57
+#: templates/phd_supervisor_assistants_list.html:61
+#: templates/reviewer_mandates_list.html:79 utils/export_utils_pdf.py:187
+msgid "Entities"
+msgstr ""
+
+#: templates/manager_add_reviewer.html:57
+#: templates/manager_replace_reviewer.html:63 templates/reviewers_list.html:50
+msgid "Entity"
+msgstr ""
+
+#: views/upload_assistant_file.py:65 views/upload_assistant_file.py:99
+msgid "Error during saving the file, try again"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:324
+#: templates/mandate_learning_unit_list.html:100
+#: templates/pst_form_view.html:386
+msgid "Evaluations (optional)"
+msgstr ""
+
+#: models/enums/assistant_mandate_renewal.py:34
+msgid "Exceptional"
+msgstr ""
+
+#: templates/mandate_learning_unit_list.html:53
+msgid ""
+"Exercises, workshops, seminars - associated with hours of volume 2, which "
+"you personally assume"
+msgstr ""
+
+#: templates/manager_home.html:87
 msgid "Export mandates to sap"
 msgstr ""
 
-msgid "external_post"
-msgstr "Mandate requested externally (FNRS, FRIA, ...)"
-
-msgid "face_to_face"
-msgstr "Number of face-to-face hours (calculated automatically)"
-
-msgid "face_to_face_duration"
-msgstr "Number of face-to-face hours"
-
-msgid "faculty"
-msgstr "Faculty"
-
-msgid "faculty_representation"
-msgstr "Within the faculty (program committees, faculty board, faculty council)"
-
-msgid "FAVORABLE"
-msgstr "Favourable"
-
-msgid "field"
-msgstr "Mandate type"
-
-msgid "file_uploaded"
-msgstr "has been correctly uploaded"
-
-msgid "formation_activities"
-msgstr "Training activities"
-
-msgid "formation_activities_percent"
-msgstr "Percentage of involvement as beneficiary in training activities"
-
-msgid "formations"
-msgstr "Scientific, pedagogical or other training you have attended \
-(LLL, SMCS, RHUM, Summer School)"
-
-msgid "framing_participation"
-msgstr "Participation in thesis and/or dissertation"
-
-msgid "fulltime_equivalent"
-msgstr "Full-time equivalent"
-
-msgid "fulltime_equivalent_percentage"
-msgstr "Percentage of occupancy"
-
-msgid "function_outside_university"
-msgstr "Current positions outside the University and % of time spent"
-
-msgid "gender"
-msgstr "Sex"
-
-msgid "general_comment"
-msgstr "General comment"
-
-msgid "generate_PDF"
-msgstr "Generate a PDF file"
-
-msgid "global_id"
-msgstr "Registration number"
-
-msgid "governing_body_representation"
-msgstr "Within the organs of the University (academic council, other councils or commissions,...)"
-
-msgid "grade"
-msgstr "Grade"
-
-msgid "head_institute"
-msgstr "President of Institute"
-
-msgid "help_mandates_selectedfiles"
-msgstr "Please select the XLSX file"
-
-msgid "hours_per_year"
-msgstr "number of hours per year"
-
-msgid "hours_per_year_message"
-msgstr "Please enter the number of hours per year"
-
-msgid "import"
-msgstr "Import"
-
-msgid "import_mandates"
-msgstr "Import assistant mandates"
-
-msgid "in_progress"
-msgstr "In progress"
-
-msgid "IN_PROGRESS"
-msgstr "In progress"
-
-msgid "information_not_provided_to_assistant"
-msgstr "This information will not be transmitted to the assistant"
-
-msgid "information_only_for_DAS_CAS_and_VICE_RECTOR"
-msgstr "This information is only transmitted to DAS/CAS and Vice-Rector"
-
-msgid "infrastructure_mgmt_service"
-msgstr "Management of collective facilities (lab, workshop, library, IT department, website,...)"
-
-msgid "institute"
-msgstr "Institute"
-
-msgid "institute_representation"
-msgstr "Within the institute (institute board, institute council,...)"
-
-msgid "institution"
-msgstr "Institution"
-
-msgid "justification_required_if_conditional_or_negative"
-msgstr "A justification is required if the opinion is unfavourable or conditional"
-
-msgid "learning_unit_required"
-msgstr "The \"Teaching Units\" must be completed"
-
-msgid "learning_units_description"
-msgstr "Exercises, workshops, seminars - associated with hours of volume 2, which you personally assume"
-
-msgid "line_nbr"
-msgstr " at line number : "
-
-msgid "mandate"
-msgstr "Mandate"
-
-msgid "mandate_edit"
-msgstr "Mandate edition"
-
-msgid "mandate_reviews_view"
-msgstr "Reviews"
-
-msgid "mandate_view"
-msgstr "Assistant file and opinion"
-
-msgid "mandates"
-msgstr "Mandates"
-
-msgid "mandates_injection"
-msgstr "Assistant mandates importation"
-
-msgid "mandates_list"
-msgstr "List of mandates"
-
-msgid "matricule_number"
-msgstr "Registration number"
-
-msgid "maxlength_filename"
-msgstr "The length of filename may not exceed 100 characters."
-
-msgid "must_enter_learning_unit_year"
-msgstr "You must add one learning unit"
-
-msgid "must_enter_supervisor_if_registered_or_in_progress"
-msgstr "The promoter must be identified"
-
-msgid "my_mandates"
-msgstr "My mandates"
-
-msgid "name_firstame"
-msgstr "Last name and first name"
-
-msgid "next_course"
-msgstr "Encode another course"
-
-msgid "next_part"
-msgstr "Next part"
-
-msgid "no"
-msgstr "No"
-
-msgid "NO"
-msgstr "No"
-
-msgid "no_answer"
-msgstr "not answered"
-
-msgid "no_supervisor"
-msgstr "No promoter"
-
-msgid "NORMAL"
-msgstr "Normal"
-
-msgid "object_not_saved"
-msgstr "Error during saving the file, try again"
-
-msgid "only_pdf_file"
-msgstr "You must select a PDF file"
-
-msgid "other_status"
-msgstr "Other status"
-
-msgid "others_delivery"
-msgstr "Other types of services associated with this course"
-
-msgid "percentage_equivalent_full_time"
-msgstr "% FTE"
-
-msgid "period_covered"
-msgstr "Period covered by the report (since the first appointment or the previous renewal application)"
-
-msgid "person_already_reviewer_msg"
-msgstr "This person is already a reviewer, please select another person"
-
-msgid "person_who_will_be_replacing"
-msgstr "Substitute reviewer"
-
-msgid "phd"
-msgstr "Ph.D."
-
-msgid "phd_inscription"
-msgstr "Enrolment at the doctorate"
-
-msgid "phd_inscription_choice_required"
-msgstr "The \"Doctorate\" section must be completed"
-
-msgid "phd_inscription_date"
-msgstr "Date of doctoral enrolment"
-
-msgid "PHD_SUPERVISOR"
-msgstr "Thesis promoter"
-
-msgid "phd_supervisor_review"
-msgstr "Doctorate opinion"
-
-msgid "phd_supervisor_assistants_list"
-msgstr "List of files (as a thesis promoter)"
-
-msgid "previous_part"
-msgstr "Back to previous section"
-
-msgid "previous_renewal_comment"
-msgstr "Comments on previous renewal applications"
-
+#: templates/manager_home.html:65 templates/manager_home.html:73
+msgid "Export of assistants mandates"
+msgstr ""
+
+#: templates/manager_home.html:79
+msgid "Export of the declined assistants mandates"
+msgstr ""
+
+#: templates/manager_home.html:74 templates/reviewer_mandates_list.html:62
+msgid "Exporting all data to a PDF file"
+msgstr ""
+
+#: templates/manager_home.html:80
+msgid "Exporting assistants who declined their renewal"
+msgstr ""
+
+#: templates/manager_home.html:66
+msgid "Exporting files to an XLSX file"
+msgstr ""
+
+#: models/enums/review_advice_choices.py:32
+msgid "Favourable"
+msgstr ""
+
+#: forms/mandate_file.py:38 utils/import_xls_file_data.py:77
+msgid "File must be xlsx"
+msgstr ""
+
+#: templates/assistant_form_part3.html:249
+#: templates/assistant_form_part4.html:143
+#: templates/mandate_learning_unit_list.html:166
+#, python-format
+msgid "Filename can not contains : ( ) %% $ , ; : / = +"
+msgstr ""
+
+#: templates/phd_supervisor_assistants_list.html:45
+#: templates/reviewer_mandates_list.html:43
+#: templates/reviewer_mandates_list.html:46
+#: templates/reviewer_structures_list.html:43
+msgid "Files that can be treated"
+msgstr ""
+
+#: views/mandate.py:132
+msgid "Firstname"
+msgstr ""
+
+#: templates/assistant_form_part1.html:78 templates/assistant_mandates.html:48
+#: templates/manager_assistant_form_view.html:93 templates/mandate_form.html:79
+#: templates/mandates_list.html:62 templates/pst_form_view.html:154
+#: tests/utils/test_export_utils_pdf.py:212 utils/export_utils_pdf.py:254
+#: views/mandate.py:139 views/mandate.py:140
+msgid "Full-time equivalent"
+msgstr ""
+
+#: templates/assistant_form_part6.html:94
+#: templates/manager_assistant_form_view.html:491
+#: templates/pst_form_view.html:554
+msgid "General comment"
+msgstr ""
+
+#: templates/assistant_mandates.html:103
+msgid "Generate a PDF file"
+msgstr ""
+
+#: templates/load_mandates.html:34 templates/manager_home.html:59
+msgid "Import assistant mandates"
+msgstr ""
+
+#: templates/load_mandates.html:39 templates/manager_home.html:60
+msgid "Importing files from an XLSX file"
+msgstr ""
+
+#: models/enums/assistant_phd_inscription.py:34
+#: models/enums/review_status.py:31
+msgid "In progress"
+msgstr ""
+
+#: templates/assistant_form_part5.html:101
+#: templates/manager_assistant_form_view.html:394
+#: templates/pst_form_view.html:457 tests/utils/test_export_utils_pdf.py:314
+#: utils/export_utils_pdf.py:364
+msgid ""
+"Information for future students (CIO, shows, Campus Days, Midi Masters,...)"
+msgstr ""
+
+#: templates/load_mandates.html:89
+msgid "Inject"
+msgstr ""
+
+#: templates/load_mandates.html:64
+msgid "Inject xls file"
+msgstr ""
+
+#: templates/manager_home.html:32
+msgid "Institution"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:74
+#: templates/manager_reviews_view.html:92
+#: templates/mandate_reviews_view.html:62 templates/pst_form_view.html:135
+#: templates/review_form.html:160 templates/review_view.html:142
+#: utils/export_utils_pdf.py:403 views/mandate.py:147
+msgid "Justification"
+msgstr ""
+
+#: templates/tutoring_learning_unit_year.html:53
+#: templates/tutoring_learning_unit_year.html:58
+msgid "Learning unit"
+msgstr ""
+
+#: templates/assistant_form_part1.html:37
+#: templates/assistant_form_part3.html:40
+#: templates/assistant_form_part4.html:37
+#: templates/assistant_form_part5.html:37
+#: templates/assistant_form_part6.html:37
+#: templates/mandate_learning_unit_list.html:40
+#: templates/mandate_learning_unit_list.html:52
+#: templates/tutoring_learning_unit_year.html:36
+msgid "Learning units"
+msgstr ""
+
+#: templates/phd_supervisor_assistants_list.html:44
+#: templates/pst_form_view.html:34 templates/review_form.html:35
+#: templates/review_view.html:34 templates/reviewer_add_reviewer.html:34
+#: templates/reviewer_mandates_list.html:33
+#: templates/reviewer_mandates_list.html:42
+#: templates/reviewer_mandates_list.html:45
+#: templates/reviewer_structures_list.html:33
+#: templates/reviewer_structures_list.html:42
+msgid "List of files"
+msgstr ""
+
+#: templates/phd_supervisor_assistants_list.html:33
+#: templates/phd_supervisor_assistants_list.html:46
+#: templates/pst_form_view.html:37 templates/review_form.html:38
+#: templates/review_view.html:37 templates/reviewer_mandates_list.html:49
+#: templates/reviewer_structures_list.html:45
+msgid "List of files (as a thesis promoter)"
+msgstr ""
+
+#: templates/assistant_mandates.html:34
+#: templates/manager_assistant_form_view.html:33
+#: templates/manager_reviews_view.html:33 templates/mandate_form.html:35
+#: templates/mandates_list.html:34
+msgid "List of mandates"
+msgstr ""
+
+#: templates/assistant_form_part4.html:85
+#: templates/manager_assistant_form_view.html:246
+#: templates/pst_form_view.html:306
+msgid "List of publications in PDF format (DIAL)"
+msgstr ""
+
+#: templates/manager_home.html:95
+msgid "Mail service management to assistants and Deans of Faculty"
+msgstr ""
+
+#: templates/manager_home.html:100
+msgid "Management of application access dates"
+msgstr ""
+
+#: templates/assistant_form_part5.html:107
+#: templates/manager_assistant_form_view.html:402
+#: templates/pst_form_view.html:465 tests/utils/test_export_utils_pdf.py:318
+#: utils/export_utils_pdf.py:367
+msgid ""
+"Management of collective facilities (lab, workshop, library, IT department, "
+"website,...)"
+msgstr ""
+
+#: templates/mandates_list.html:61
+msgid "Mandate"
+msgstr ""
+
+#: templates/mandate_form.html:36
+msgid "Mandate edition"
+msgstr ""
+
+#: templates/assistant_form_part1.html:102
+#: templates/manager_assistant_form_view.html:276
+#: templates/pst_form_view.html:337 tests/utils/test_export_utils_pdf.py:224
+#: utils/export_utils_pdf.py:262
+msgid "Mandate requested externally (FNRS, FRIA, ...)"
+msgstr ""
+
+#: templates/assistant_form_part1.html:83
+#: templates/manager_assistant_form_view.html:109
+#: templates/pst_form_view.html:170
+msgid "Mandate type"
+msgstr ""
+
+#: templates/manager_home.html:33
+msgid "Mandates"
+msgstr ""
+
+#: templates/settings.html:52
+msgid "Mandates renewal procedure dates"
+msgstr ""
+
+#: templates/messages.html:34
+msgid "Messages"
+msgstr ""
+
+#: templates/assistant_form_part1.html:90
+#: templates/manager_assistant_form_view.html:262
+#: templates/pst_form_view.html:323
+msgid "Miscellaneous"
+msgstr ""
+
+#: templates/assistant_form_part1.html:30
+#: templates/assistant_form_part1.html:35
+#: templates/assistant_form_part3.html:33
+#: templates/assistant_form_part3.html:38
+#: templates/assistant_form_part4.html:30
+#: templates/assistant_form_part4.html:35
+#: templates/assistant_form_part5.html:30
+#: templates/assistant_form_part5.html:35
+#: templates/assistant_form_part6.html:30
+#: templates/assistant_form_part6.html:35
+#: templates/mandate_learning_unit_list.html:33
+#: templates/mandate_learning_unit_list.html:38
+#: templates/mandate_reviews_view.html:32
+#: templates/tutoring_learning_unit_year.html:29
+#: templates/tutoring_learning_unit_year.html:34
+msgid "My mandates"
+msgstr ""
+
+#: templates/assistants.html:46 templates/assistants.html:47
+#: templates/assistants.html:85 templates/reviewers_list.html:49
+#: views/mandate.py:131
+msgid "Name"
+msgstr ""
+
+#: models/enums/assistant_mandate_appeal.py:37
+msgid "Negative appeal"
+msgstr ""
+
+#: models/enums/assistant_phd_inscription.py:33
+msgid "No"
+msgstr ""
+
+#: models/enums/assistant_mandate_appeal.py:39
+msgid "No appeal"
+msgstr ""
+
+#: forms/mandate_file.py:31
+msgid "No file submitted"
+msgstr ""
+
+#: templates/mandate_form.html:90
+msgid "No promoter"
+msgstr ""
+
+#: templates/assistants.html:80
+msgid "No result"
+msgstr ""
+
+#: models/enums/assistant_mandate_appeal.py:35
+msgid "None"
+msgstr ""
+
+#: models/enums/assistant_mandate_renewal.py:32
+msgid "Normal"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:298
+#: templates/pst_form_view.html:359
+#: templates/tutoring_learning_unit_year.html:93
+msgid "Number of face-to-face hours"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:297
+#: templates/pst_form_view.html:358
+#: templates/tutoring_learning_unit_year.html:87
+msgid "Number of series"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:296
+#: templates/pst_form_view.html:357
+#: templates/tutoring_learning_unit_year.html:75
+msgid "Number of sessions planned for this course"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:299
+#: templates/pst_form_view.html:360
+#: templates/tutoring_learning_unit_year.html:99
+msgid "Number of students per series"
+msgstr ""
+
+#: templates/manager_reviews_view.html:75
+#: templates/mandate_reviews_view.html:49 templates/review_form.html:155
+#: templates/review_view.html:127
+msgid "Opinion"
+msgstr ""
+
+#: templates/pst_form_view.html:109 templates/review_form.html:110
+#: templates/review_view.html:109 views/mandate.py:146
+msgid "Opinion of the sector vice-rector"
+msgstr ""
+
+#: templates/pst_form_view.html:107 templates/review_form.html:108
+#: templates/review_view.html:107
+msgid "Opinion of the steering commitee"
+msgstr ""
+
+#: templates/mandates_list.html:64 templates/reviewer_mandates_list.html:86
+#: utils/export_utils_pdf.py:214
+msgid "Opinions"
+msgstr ""
+
+#: templates/assistant_form_part5.html:113
+#: templates/manager_assistant_form_view.html:410
+#: templates/pst_form_view.html:473 tests/utils/test_export_utils_pdf.py:322
+#: utils/export_utils_pdf.py:371
+msgid ""
+"Organization of seminars, conferences, visits, study tours, grounds, "
+"seminars… (not taken in account in the 'Teaching units' section)"
+msgstr ""
+
+#: templates/mandate_form.html:131 tests/utils/test_export_utils_pdf.py:216
+#: utils/export_utils_pdf.py:256
+msgid "Other status"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:301
+#: templates/pst_form_view.html:362
+#: templates/tutoring_learning_unit_year.html:111
+msgid "Other types of services associated with this course"
+msgstr ""
+
+#: templates/assistant_form_part5.html:125
+#: templates/manager_assistant_form_view.html:426
+#: templates/pst_form_view.html:489 tests/utils/test_export_utils_pdf.py:331
+#: utils/export_utils_pdf.py:377
+msgid "Participation in juries and/or scientific committees"
+msgstr ""
+
+#: templates/assistant_form_part4.html:74
+#: templates/manager_assistant_form_view.html:229
+#: templates/pst_form_view.html:288 tests/utils/test_export_utils_pdf.py:278
+#: utils/export_utils_pdf.py:309
+msgid "Participation in thesis and/or dissertation"
+msgstr ""
+
+#: templates/assistant_form_part6.html:73
+#: templates/manager_assistant_form_view.html:465
+#: templates/pst_form_view.html:528
+msgid "Percentage for research and Ph.D."
+msgstr ""
+
+#: templates/assistant_form_part6.html:82
+#: templates/manager_assistant_form_view.html:474
+#: templates/pst_form_view.html:537
+msgid "Percentage for service activities"
+msgstr ""
+
+#: templates/assistant_form_part6.html:66
+#: templates/manager_assistant_form_view.html:456
+#: templates/pst_form_view.html:519
+msgid "Percentage for teaching"
+msgstr ""
+
+#: templates/assistant_form_part6.html:88
+#: templates/manager_assistant_form_view.html:482
+#: templates/pst_form_view.html:545
+msgid "Percentage of involvement as beneficiary in training activities"
+msgstr ""
+
+#: templates/mandate_form.html:83 templates/reviewer_mandates_list.html:84
+#: tests/utils/test_export_utils_pdf.py:215 utils/export_utils_pdf.py:255
+msgid "Percentage of occupancy"
+msgstr ""
+
+#: templates/manager_add_reviewer.html:51
+#: templates/reviewer_add_reviewer.html:54
+msgid "Person"
+msgstr ""
+
+#: templates/assistant_form_part1.html:39
+#: templates/assistant_form_part3.html:41
+#: templates/assistant_form_part3.html:59
+#: templates/assistant_form_part4.html:38
+#: templates/assistant_form_part5.html:39
+#: templates/assistant_form_part6.html:39
+#: templates/manager_assistant_form_view.html:119
+#: templates/mandate_learning_unit_list.html:42 templates/mandates_list.html:60
+#: templates/pst_form_view.html:180
+#: templates/tutoring_learning_unit_year.html:38 utils/export_utils_pdf.py:194
+msgid "Ph.D."
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:151
+msgid "Ph.D. date"
+msgstr ""
+
+#: models/enums/document_type.py:32
+msgid "Ph.D. document"
+msgstr ""
+
+#: views/reviewers_management.py:136 views/reviewers_management.py:165
+msgid ""
+"Please enter the last name and first name of the person you are looking for "
+"and select the corresponding choice in the drop-down list"
+msgstr ""
+
+#: templates/assistant_form_part5.html:58
+#: templates/assistant_form_part5.html:96
+msgid "Please enter the number of hours per year"
+msgstr ""
+
+#: templates/load_mandates.html:84
+msgid "Please select the XLSX file"
+msgstr ""
+
+#: models/enums/assistant_mandate_appeal.py:36
+msgid "Positive appeal"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:300
+#: templates/pst_form_view.html:361
+#: templates/tutoring_learning_unit_year.html:105
+msgid "Preparation, coordination and evaluation (h)"
+msgstr ""
+
+#: models/enums/assistant_mandate_state.py:42 models/enums/reviewer_role.py:44
+msgid "President of Institute"
+msgstr ""
+
+#: utils/export_utils_pdf.py:499
 msgid "Printing date"
 msgstr ""
 
-msgid "PROGRAM_COMMISSION"
-msgstr "Program commission"
-
-msgid "publications_in_progress"
-msgstr "Publication(s) in preparation"
-
-msgid "publishing_field_service"
-msgstr "Activities in the field of publishing (editorial board,...)"
-
-msgid "refused"
-msgstr "Refused"
-
-msgid "registered_phd"
-msgstr "Enrolled in the Ph.D. program"
-
-msgid "remark"
-msgstr "Remark"
-
-msgid "renewal"
-msgstr "Renewal"
-
-msgid "renewal_form"
-msgstr "Renewal application form"
-
-msgid "renewal_short_name"
-msgstr "Status"
-
-msgid "renewal_type"
-msgstr "Renewal type"
-
-msgid "replace"
-msgstr "Replace"
-
-msgid "replacement"
-msgstr "Replacement"
-
-msgid "representation_activities"
-msgstr "Representation activities at UCL"
-
-msgid "research"
-msgstr "Research"
-
-msgid "RESEARCH"
-msgstr "President of Institute"
-
-msgid "RESEARCH_ASSISTANT"
-msgstr "Representative of the Institute President"
-
-msgid "research_percent"
-msgstr "Percentage for research and Ph.D."
-
-msgid "research_review"
-msgstr "Research opinion"
-
-msgid "research_short_name"
-msgstr "RES"
-
-msgid "review_edit"
-msgstr "Submit an opinion"
-
-msgid "reviewer_delegation"
-msgstr "Delegation(s)"
-
-msgid "reviewer_delegation_add"
-msgstr "Add a delegate"
-
-msgid "reviewer_mandates_list"
-msgstr "List of files"
-
-msgid "review"
-msgstr "Opinion"
-
-msgid "reviews"
-msgstr "Opinions"
-
-msgid "reviewer"
-msgstr "Reviewer"
-
-msgid "reviewer_todo"
-msgstr "Files that can be treated"
-
-msgid "reviewer_with_same_role_already_exists_msg"
-msgstr "A reviewer having the same role for this entity already exists"
-
-msgid "reviewers"
-msgstr "Reviewers"
-
-msgid "role"
-msgstr "Role"
-
-msgid "save"
-msgstr "Save"
-
-msgid "save_before_link"
-msgstr "Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving."
-
-msgid "scientific_internships"
-msgstr "Scientific stay(s) and/or course(s)"
-
-msgid "scientific_jury_service"
-msgstr "Participation in juries and/or scientific committees"
-
-msgid "search_by_acronym"
-msgstr "search by course acronym"
-
-msgid "search_by_email_or_last_name"
-msgstr "search by email or last name"
-
-msgid "sector"
-msgstr "Sector"
-
-msgid "sector_representation"
-msgstr "Within the sector (board and/or council)"
-
-msgid "sector_vice_rector_review"
-msgstr "Opinion of the sector vice-rector"
-
-msgid "sector_vice-rector_short_name"
-msgstr "VRS"
-
-msgid "sender"
-msgstr "Sender"
-
-msgid "send_email_to_all_assistants"
-msgstr "Send an email to all assistants"
-
-msgid "send_email_to_all_deans"
-msgstr "Send an email to Deans of Faculty"
-
-msgid "send_email_to_reviewers"
-msgstr "Send an email to reviewers"
-
-msgid "series_number"
-msgstr "Number of series"
-
-msgid "service_activities"
-msgstr "Service activities"
-
-msgid "service_activities_percent"
-msgstr "Percentage for service activites"
-
-msgid "sessions_duration"
-msgstr "Duration of a session (h)"
-
-msgid "sessions_number"
-msgstr "Number of sessions planned for this course"
-
-msgid "structures"
-msgstr "Structures"
-
-msgid "settings"
-msgstr "settings"
-
-msgid "SPECIAL"
-msgstr "Special"
-
-msgid "startup_precedure"
-msgstr "Startup procedure"
-
-msgid "step_back"
-msgstr "Accomplish a workflow step back"
-
-msgid "students_service"
-msgstr "Information for future students (CIO, shows, Campus Days, Midi Masters,...)"
-
-msgid "substitute_supervisor"
-msgstr "Substitute promoter"
-
-msgid "summary"
-msgstr "Summary"
-
-msgid "supervision"
-msgstr "Steering"
-
-msgid "SUPERVISION"
-msgstr "Dean of Faculty"
-
-msgid "SUPERVISION_ASSISTANT"
-msgstr "Dean of Faculty representative"
-
-msgid "supervisor"
-msgstr "Promoter"
-
-msgid "supervisor_email_address"
-msgstr "Email address  of the promoter"
-
-msgid "supervision_review"
-msgstr "Opinion of the steering commitee"
-
-msgid "SUPERVISION_DAF"
-msgstr "DAF"
-
-msgid "SUPERVISION_DAF_ASSISTANT"
-msgstr "DAF representative"
-
-msgid "support_committee_reports"
-msgstr "Report of the steering committee (mandatory from the second renewal application)"
-
-msgid "TRTS"
-msgstr "Assistant"
-
-msgid "svr"
-msgstr "VRS"
-
-msgid "thesis_defence_date"
-msgstr "Date of defense of thesis (if already known)"
-
-msgid "thesis_title"
-msgstr "Title (provisional) of the thesis"
-
+#: templates/assistant_form_part4.html:69
+#: templates/manager_assistant_form_view.html:221
+#: templates/pst_form_view.html:280 tests/utils/test_export_utils_pdf.py:277
+#: utils/export_utils_pdf.py:308
+msgid "Prize(s) and/or distinction(s)"
+msgstr ""
+
+#: templates/assistant_form_part3.html:70
+#: templates/assistant_form_part3.html:76
+#: templates/manager_assistant_form_view.html:143
+#: templates/manager_reviews_view.html:67 templates/mandate_form.html:90
+#: templates/mandate_form.html:92 templates/mandate_form.html:101
+#: templates/mandate_form.html:106 templates/pst_form_view.html:200
+#: utils/export_utils_pdf.py:393
+msgid "Promoter"
+msgstr ""
+
+#: templates/assistant_form_part4.html:64
+#: templates/manager_assistant_form_view.html:213
+#: templates/pst_form_view.html:272 tests/utils/test_export_utils_pdf.py:276
+#: utils/export_utils_pdf.py:307
+msgid "Publication(s) in preparation"
+msgstr ""
+
+#: templates/assistant_mandates.html:76 templates/assistant_mandates.html:78
+msgid "Refuse"
+msgstr ""
+
+#: models/enums/assistant_mandate_state.py:38
+msgid "Refused by the assistant"
+msgstr ""
+
+#: templates/mandate_form.html:61 templates/mandates_list.html:55
+#: templates/phd_supervisor_assistants_list.html:59
+#: tests/utils/test_export_utils_pdf.py:206 utils/export_utils_pdf.py:250
+#: views/mandate.py:130
+msgid "Registration number"
+msgstr ""
+
+#: templates/assistant_form_part3.html:108
+#: templates/assistant_form_part4.html:79
+#: templates/manager_assistant_form_view.html:237
+#: templates/manager_reviews_view.html:102
+#: templates/mandate_reviews_view.html:67 templates/pst_form_view.html:296
+#: templates/review_form.html:166 templates/review_view.html:148
+#: tests/utils/test_export_utils_pdf.py:266
+#: tests/utils/test_export_utils_pdf.py:279 utils/export_utils_pdf.py:296
+#: utils/export_utils_pdf.py:310 utils/export_utils_pdf.py:402
+msgid "Remark"
+msgstr ""
+
+#: templates/assistant_form_part6.html:99
+#: templates/manager_assistant_form_view.html:497
+#: templates/pst_form_view.html:560 tests/utils/test_export_utils_pdf.py:308
+#: utils/export_utils_pdf.py:244
+msgid "Remark concerning the activity report"
+msgstr ""
+
+#: templates/assistant_form_part1.html:31
+#: templates/assistant_form_part3.html:34
+#: templates/assistant_form_part4.html:31
+#: templates/assistant_form_part5.html:31
+#: templates/assistant_form_part6.html:31
+#: templates/mandate_learning_unit_list.html:34
+#: templates/tutoring_learning_unit_year.html:30
+msgid "Renewal application form"
+msgstr ""
+
+#: templates/assistant_form_part1.html:67
+#: templates/manager_assistant_form_view.html:65 templates/mandate_form.html:65
+#: templates/pst_form_view.html:126 templates/reviewer_mandates_list.html:81
+#: tests/utils/test_export_utils_pdf.py:217 utils/export_utils_pdf.py:257
+#: views/mandate.py:137
+msgid "Renewal type"
+msgstr ""
+
+#: forms/reviewer.py:92 views/reviewers_management.py:80
+#: views/reviewers_management.py:82
+msgid "Replace"
+msgstr ""
+
+#: templates/manager_replace_reviewer.html:36
+msgid "Replacement"
+msgstr ""
+
+#: templates/assistant_form_part3.html:114
+#: templates/manager_assistant_form_view.html:176
+#: templates/pst_form_view.html:234
+msgid ""
+"Report of the steering committee (mandatory from the second renewal "
+"application)"
+msgstr ""
+
+#: templates/assistant_form_part5.html:55
+#: templates/manager_assistant_form_view.html:339
+#: templates/pst_form_view.html:402 utils/export_utils_pdf.py:202
+msgid "Representation activities at UCL"
+msgstr ""
+
+#: models/enums/reviewer_role.py:45
+msgid "Representative of the Institute President"
+msgstr ""
+
+#: templates/assistant_form_part1.html:40
+#: templates/assistant_form_part3.html:42
+#: templates/assistant_form_part4.html:39
+#: templates/assistant_form_part4.html:50
+#: templates/assistant_form_part5.html:40
+#: templates/assistant_form_part6.html:40
+#: templates/manager_assistant_form_view.html:191
+#: templates/mandate_learning_unit_list.html:43
+#: templates/pst_form_view.html:250
+#: templates/tutoring_learning_unit_year.html:40 utils/export_utils_pdf.py:196
+msgid "Research"
+msgstr ""
+
+#: models/enums/document_type.py:34
+msgid "Research document"
+msgstr ""
+
+#: templates/pst_form_view.html:105 templates/review_form.html:106
+#: templates/review_view.html:105
+msgid "Research opinion"
+msgstr ""
+
+#: models/enums/user_role.py:34 templates/manager_replace_reviewer.html:59
+#: templates/manager_reviews_view.html:58 utils/export_utils_pdf.py:401
+msgid "Reviewer"
+msgstr ""
+
+#: templates/manager_add_reviewer.html:35 templates/manager_home.html:51
+#: templates/manager_replace_reviewer.html:35 templates/messages.html:52
+#: templates/reviewers_list.html:34
+msgid "Reviewers"
+msgstr ""
+
+#: templates/mandate_reviews_view.html:33
+msgid "Reviews"
+msgstr ""
+
+#: templates/manager_add_reviewer.html:61
+#: templates/manager_replace_reviewer.html:67 templates/reviewers_list.html:51
+msgid "Role"
+msgstr ""
+
+#: templates/assistant_form_part1.html:116
+#: templates/assistant_form_part1.html:117
+#: templates/assistant_form_part3.html:143
+#: templates/assistant_form_part3.html:145
+#: templates/assistant_form_part4.html:112
+#: templates/assistant_form_part4.html:113
+#: templates/assistant_form_part5.html:139
+#: templates/assistant_form_part5.html:140
+#: templates/assistant_form_part6.html:105
+#: templates/assistant_form_part6.html:106
+#: templates/manager_add_reviewer.html:65
+#: templates/manager_add_reviewer.html:67
+#: templates/manager_replace_reviewer.html:72
+#: templates/manager_replace_reviewer.html:74
+#: templates/manager_reviews_view.html:130 templates/mandate_form.html:135
+#: templates/new_document.html:55 templates/review_form.html:183
+#: templates/review_form.html:185 templates/reviewer_add_reviewer.html:59
+#: templates/reviewer_add_reviewer.html:61 templates/settings.html:103
+#: templates/settings.html:104 templates/tutoring_learning_unit_year.html:115
+#: templates/tutoring_learning_unit_year.html:116
+msgid "Save"
+msgstr ""
+
+#: templates/assistant_form_part3.html:81
+#: templates/manager_assistant_form_view.html:135
+#: templates/pst_form_view.html:192 tests/utils/test_export_utils_pdf.py:261
+#: utils/export_utils_pdf.py:293
+msgid "Scheduled date of registration"
+msgstr ""
+
+#: templates/assistant_form_part4.html:54
+#: templates/manager_assistant_form_view.html:197
+#: templates/pst_form_view.html:256 tests/utils/test_export_utils_pdf.py:271
+#: utils/export_utils_pdf.py:302
+msgid "Scientific stay(s) and/or course(s)"
+msgstr ""
+
+#: templates/assistant_form_part5.html:135
+#: templates/manager_assistant_form_view.html:441
+#: templates/pst_form_view.html:504 tests/utils/test_export_utils_pdf.py:340
+#: utils/export_utils_pdf.py:384
+msgid ""
+"Scientific, pedagogical or other training you have attended (LLL, SMCS, "
+"RHUM, Summer School)"
+msgstr ""
+
+#: templates/assistant_form_part3.html:72
+#: templates/manager_add_reviewer.html:53
+#: templates/manager_replace_reviewer.html:53 templates/mandate_form.html:98
+#: templates/reviewer_add_reviewer.html:56
+msgid "Search by email or last name"
+msgstr ""
+
+#: templates/assistants.html:64
+msgid "Search for an organization"
+msgstr ""
+
+#: templates/load_mandates.html:63
+msgid "Select Excel file to inject mandates"
+msgstr ""
+
+#: templates/messages.html:49
+msgid "Send an email to all assistants"
+msgstr ""
+
+#: templates/messages.html:57
+msgid "Send an email to reviewers"
+msgstr ""
+
+#: templates/messages.html:64
+msgid "Sender"
+msgstr ""
+
+#: templates/assistant_form_part5.html:93
+#: templates/manager_assistant_form_view.html:387
+#: templates/pst_form_view.html:450 utils/export_utils_pdf.py:205
+msgid "Service activities"
+msgstr ""
+
+#: templates/manager_home.html:99 templates/settings.html:34
+msgid "Settings"
+msgstr ""
+
+#: templates/assistant_form_part1.html:110
+msgid ""
+"Should you no longer fulfill the requirements for a \"normal\" renewal, can "
+"you specify the circumstances justifying an exceptional renewal application "
+"(art. 51 of the RAMCS)"
+msgstr ""
+
+#: tests/utils/test_export_utils_pdf.py:220 utils/export_utils_pdf.py:259
+msgid ""
+"Should you no longer fulfill the requirements for a 'normal' renewal, can "
+"you specify the circumstances justifying an exceptional renewal application "
+"(art. 51 of the RAMCS)"
+msgstr ""
+
+#: models/enums/assistant_mandate_renewal.py:33
+msgid "Special"
+msgstr ""
+
+#: models/enums/assistant_mandate_state.py:39
+msgid "Start"
+msgstr ""
+
+#: templates/messages.html:45 templates/messages.html:53
+msgid "Startup procedure"
+msgstr ""
+
+#: templates/assistant_mandates.html:49
+#: templates/phd_supervisor_assistants_list.html:65
+#: templates/reviewer_mandates_list.html:85
+msgid "State"
+msgstr ""
+
+#: templates/mandates_list.html:59 views/mandate.py:136
+msgid "Status"
+msgstr ""
+
+#: templates/review_form.html:40
+msgid "Submit an opinion"
+msgstr ""
+
+#: templates/mandate_form.html:95
+msgid "Substitute promoter"
+msgstr ""
+
+#: templates/manager_replace_reviewer.html:51
+msgid "Substitute reviewer"
+msgstr ""
+
+#: templates/assistant_form_part1.html:43
+#: templates/assistant_form_part3.html:44
+#: templates/assistant_form_part4.html:41
+#: templates/assistant_form_part5.html:43
+#: templates/assistant_form_part6.html:43
+#: templates/assistant_form_part6.html:58
+#: templates/manager_assistant_form_view.html:450
+#: templates/mandate_learning_unit_list.html:46
+#: templates/pst_form_view.html:513
+#: templates/tutoring_learning_unit_year.html:42 utils/export_utils_pdf.py:210
+msgid "Summary"
+msgstr ""
+
+#: templates/manager_home.html:46
+msgid "Table listing all the files"
+msgstr ""
+
+#: models/enums/assistant_type.py:33
+msgid "Teaching assistant"
+msgstr ""
+
+#: views/assistant_form.py:219 views/assistant_form.py:306
+msgid "The 'Doctorate' section must be completed"
+msgstr ""
+
+#: utils/import_xls_file_data.py:276
+msgid "The cols title are wrong."
+msgstr ""
+
+#: templates/assistant_form_part3.html:236
+#: templates/assistant_form_part4.html:130
+#: templates/mandate_learning_unit_list.html:155
+#: views/upload_assistant_file.py:72
+msgid "The length of filename may not exceed 100 characters."
+msgstr ""
+
+#: utils/import_xls_file_data.py:273
+msgid "The number of cols is wrong."
+msgstr ""
+
+#: views/assistant_form.py:214
+msgid "The promoter must be identified"
+msgstr ""
+
+#: forms/assistant.py:153 templates/assistant_form_part6.html:61
+msgid "The total must be equal to 100"
+msgstr ""
+
+#: models/enums/assistant_mandate_state.py:41 models/enums/reviewer_role.py:39
+#: templates/mandate_reviews_view.html:45 templates/mandates_list.html:126
+#: templates/review_view.html:46 templates/reviewer_mandates_list.html:131
+msgid "Thesis promoter"
+msgstr ""
+
+#: templates/manager_home.html:88
 msgid "This export is used to add assistants form to SAP"
 msgstr ""
 
-msgid "TO_ALL_ASSISTANTS"
-msgstr "To the assistants"
+#: forms/review.py:17
+msgid "This information is only transmitted to DAS/CAS and Vice-Rector"
+msgstr ""
 
-msgid "TO_ALL_DEANS"
-msgstr "To the Deans of Faculty"
+#: forms/review.py:20
+msgid "This information will not be transmitted to the assistant"
+msgstr ""
 
-msgid "TO_ALL_REVIEWERS"
-msgstr "to all reviewers"
+#: views/reviewer_delegation.py:88 views/reviewers_management.py:129
+#: views/reviewers_management.py:155
+msgid "This person is already a reviewer, please select another person"
+msgstr ""
 
-msgid "TO_DO"
-msgstr "Start"
+#: templates/manager_assistant_form_view.html:294
+#: templates/mandate_learning_unit_list.html:64
+#: templates/pst_form_view.html:355 templates/reviewer_structures_list.html:56
+msgid "Title"
+msgstr ""
 
-msgid "total_must_be_100_message"
-msgstr "The total must be equal to 100"
+#: templates/assistant_form_part3.html:92
+#: tests/utils/test_export_utils_pdf.py:253 utils/export_utils_pdf.py:289
+msgid "Title (provisional) of the thesis"
+msgstr ""
 
-msgid "tutoring_learning_units"
-msgstr "Course units"
+#: models/enums/message_type.py:36
+msgid "To Ph.D. promoter"
+msgstr ""
 
-msgid "tutoring_percent"
-msgstr "Percentage for teaching"
+#: models/enums/message_type.py:38
+msgid "To all reviewers"
+msgstr ""
 
-msgid "tutoring_reports"
-msgstr "Evaluations (optional)"
+#: models/enums/message_type.py:37
+msgid "To one Dean"
+msgstr ""
 
-msgid "tutoring_short_name"
-msgstr "TEA"
+#: models/enums/message_type.py:35
+msgid "To the Deans of Faculty"
+msgstr ""
 
-msgid "type_of_renewal"
-msgstr "Renewal type"
+#: models/enums/message_type.py:34
+msgid "To the assistants"
+msgstr ""
 
-msgid "UNFAVOURABLE"
-msgstr "Unfavourable"
+#: templates/assistant_form_part5.html:131
+#: templates/manager_assistant_form_view.html:435
+#: templates/pst_form_view.html:498 utils/export_utils_pdf.py:207
+msgid "Training activities"
+msgstr ""
 
-msgid "upload"
-msgstr "Attach a PDF file"
+#: models/enums/document_type.py:33
+msgid "Tutoring document"
+msgstr ""
 
-msgid "validate_and_submit"
-msgstr "Validate and submit"
+#: templates/assistants.html:51 templates/assistants.html:86
+#: templates/messages.html:65
+msgid "Type"
+msgstr ""
 
-msgid "various"
-msgstr "Miscellaneous"
+#: templates/assistants.html:53
+msgid "Types"
+msgstr ""
 
-msgid "vice_rector"
-msgstr "Vice-rector"
+#: models/enums/review_advice_choices.py:34
+msgid "Unfavourable"
+msgstr ""
 
-msgid "VICE_RECTOR"
-msgstr "Vice-rector of sector"
+#: templates/assistant_form_part6.html:108
+#: templates/assistant_form_part6.html:112 templates/review_form.html:194
+#: templates/review_form.html:197
+msgid "Validate and submit"
+msgstr ""
 
-msgid "VICE_RECTOR_ASSISTANT"
-msgstr "DAS/CAS"
+#: models/enums/assistant_mandate_state.py:44 models/enums/reviewer_role.py:46
+msgid "Vice-rector of sector"
+msgstr ""
 
-msgid "view"
-msgstr "View"
+#: templates/assistant_mandates.html:87 templates/assistant_mandates.html:88
+#: templates/assistant_mandates.html:91
+#: templates/phd_supervisor_assistants_list.html:103
+#: templates/phd_supervisor_assistants_list.html:105
+#: templates/pst_form_view.html:56 templates/pst_form_view.html:67
+#: templates/pst_form_view.html:86 templates/pst_form_view.html:99
+#: templates/review_form.html:57 templates/review_form.html:68
+#: templates/review_form.html:87 templates/review_form.html:100
+#: templates/review_view.html:56 templates/review_view.html:67
+#: templates/review_view.html:86 templates/review_view.html:99
+#: templates/reviewer_mandates_list.html:154
+#: templates/reviewer_mandates_list.html:156
+msgid "View"
+msgstr ""
 
-msgid "workflow_and_reviews"
-msgstr "Workflow and reviews"
+#: templates/assistant_form_part5.html:87
+#: templates/manager_assistant_form_view.html:378
+#: templates/pst_form_view.html:441 tests/utils/test_export_utils_pdf.py:301
+msgid "Within the CORSCI"
+msgstr ""
 
-msgid "yes"
-msgstr "Yes"
+#: templates/assistant_form_part5.html:63
+#: templates/manager_assistant_form_view.html:346
+#: templates/pst_form_view.html:409 tests/utils/test_export_utils_pdf.py:286
+#: utils/export_utils_pdf.py:346
+msgid "Within the faculty (program committees, faculty board, faculty council)"
+msgstr ""
 
-msgid "YES"
-msgstr "Yes"
+#: templates/assistant_form_part5.html:69
+#: templates/manager_assistant_form_view.html:354
+#: templates/pst_form_view.html:417 tests/utils/test_export_utils_pdf.py:290
+#: utils/export_utils_pdf.py:349
+msgid "Within the institute (institute board, institute council,...)"
+msgstr ""
+
+#: templates/assistant_form_part5.html:81
+#: templates/manager_assistant_form_view.html:370
+#: templates/pst_form_view.html:433 tests/utils/test_export_utils_pdf.py:298
+#: utils/export_utils_pdf.py:355
+msgid ""
+"Within the organs of the University (academic council, other councils or "
+"commissions,...)"
+msgstr ""
+
+#: templates/assistant_form_part5.html:75
+#: templates/manager_assistant_form_view.html:362
+#: templates/pst_form_view.html:425 tests/utils/test_export_utils_pdf.py:294
+#: utils/export_utils_pdf.py:352
+msgid "Within the sector (board and/or council)"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:51
+#: templates/manager_reviews_view.html:51 templates/mandate_form.html:45
+msgid "Workflow and reviews"
+msgstr ""
+
+#: models/enums/assistant_phd_inscription.py:32
+msgid "Yes"
+msgstr ""
+
+#: templates/phd_supervisor_assistants_list.html:38
+#: templates/pst_form_view.html:44 templates/pst_form_view.html:46
+#: templates/review_form.html:45 templates/review_form.html:47
+#: templates/review_view.html:44 templates/review_view.html:46
+#: templates/reviewer_add_reviewer.html:40
+#: templates/reviewer_mandates_list.html:37
+#: templates/reviewer_structures_list.html:39
+msgid "You are connected as"
+msgstr ""
+
+#: views/assistant_form.py:311
+msgid ""
+"You must add at least one teaching unit under the heading 'Teaching Units'"
+msgstr ""
+
+#: views/assistant_form.py:161
+msgid "You must add one learning unit"
+msgstr ""
+
+#: templates/assistant_form_part3.html:306
+#: templates/assistant_form_part4.html:199
+#: templates/mandate_learning_unit_list.html:220
+#: views/upload_assistant_file.py:77
+msgid "You must select a PDF file"
+msgstr ""
+
+#: utils/export_utils_pdf.py:71 utils/export_utils_pdf.py:98
+msgid "assistants_mandates"
+msgstr ""
+
+#: views/upload_assistant_file.py:95
+msgid "file uploaded"
+msgstr ""
+
+#: templates/manager_assistant_form_view.html:340
+#: templates/manager_assistant_form_view.html:388
+#: templates/pst_form_view.html:403 templates/pst_form_view.html:451
+#: utils/export_utils_pdf.py:204 utils/export_utils_pdf.py:206
+msgid "number of hours per year"
+msgstr ""
+
+#: templates/tutoring_learning_unit_year.html:67
+msgid "search by course acronym"
+msgstr ""

@@ -32,8 +32,8 @@ APPEAL_IN_PROGRESS = 'APPEAL_IN_PROGRESS'
 NO_APPEAL = 'NO_APPEAL'
 
 ASSISTANT_MANDATE_APPEALS = (
-    (NONE, _(NONE)),
-    (POSITIVE_APPEAL, _(POSITIVE_APPEAL)),
-    (NEGATIVE_APPEAL, _(NEGATIVE_APPEAL)),
-    (APPEAL_IN_PROGRESS, _(APPEAL_IN_PROGRESS)),
-    (NO_APPEAL, _(NO_APPEAL)))
+    (NONE, _('None')),
+    (POSITIVE_APPEAL, _('Positive appeal')),
+    (NEGATIVE_APPEAL, _('Negative appeal')),
+    (APPEAL_IN_PROGRESS, _('Appeal in progress')),
+    (NO_APPEAL, _('No appeal')))

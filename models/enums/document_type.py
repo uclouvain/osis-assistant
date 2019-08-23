@@ -23,11 +23,12 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+from django.utils.translation import ugettext_lazy as _
 
 PHD_DOCUMENT = 'PHD_DOCUMENT'
 TUTORING_DOCUMENT = 'TUTORING_DOCUMENT'
 RESEARCH_DOCUMENT = 'RESEARCH_DOCUMENT'
 
-DOCUMENT_TYPE_CHOICES = ((PHD_DOCUMENT, PHD_DOCUMENT),
-                         (TUTORING_DOCUMENT, TUTORING_DOCUMENT),
-                         (RESEARCH_DOCUMENT, RESEARCH_DOCUMENT))
+DOCUMENT_TYPE_CHOICES = ((PHD_DOCUMENT, _('Ph.D. document')),
+                         (TUTORING_DOCUMENT, _('Tutoring document')),
+                         (RESEARCH_DOCUMENT, _('Research document')))

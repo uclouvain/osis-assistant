@@ -29,6 +29,6 @@ YES = 'YES'
 NO = 'NO'
 IN_PROGRESS = 'IN_PROGRESS'
 
-PHD_INSCRIPTION_CHOICES = ((YES, _(YES)),
-                           (NO, _(NO)),
-                           (IN_PROGRESS, _(IN_PROGRESS)))
+PHD_INSCRIPTION_CHOICES = ((YES, _('Yes')),
+                           (NO, _('No')),
+                           (IN_PROGRESS, _('In progress')))

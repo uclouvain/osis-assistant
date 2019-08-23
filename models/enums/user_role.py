@@ -30,6 +30,7 @@ REVIEWER = 'REVIEWER'
 ADMINISTRATOR = 'ADMINISTRATOR'
 
 ROLE_CHOICES = (
-    (ASSISTANT, _(ASSISTANT)),
-    (REVIEWER, _(REVIEWER)),
-    (ADMINISTRATOR, _(ADMINISTRATOR)))
+    (ASSISTANT, _('Assistant')),
+    (REVIEWER, _('Reviewer')),
+    (ADMINISTRATOR, _('Administrator'))
+)

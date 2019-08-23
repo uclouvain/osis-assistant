@@ -28,12 +28,12 @@ from django.utils.translation import ugettext as _
 
 
 class MandateFileForm(forms.Form):
-    file = forms.FileField(error_messages={'required': _('no_file_submitted')})
+    file = forms.FileField(error_messages={'required': _('No file submitted')})
 
     def clean_file(self):
         file = self.cleaned_data['file']
         content_type = file.content_type.split('/')[1]
         valid_content_type = 'vnd.openxmlformats-officedocument.spreadsheetml.sheet' in content_type
         if ".xlsx" not in file.name or not valid_content_type:
-            self.add_error('file', forms.ValidationError(_('file_must_be_xlsx'), code='invalid'))
+            self.add_error('file', forms.ValidationError(_('File must be xlsx'), code='invalid'))
         return file

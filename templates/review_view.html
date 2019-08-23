@@ -31,21 +31,21 @@
 {% block breadcrumb %}
 {% if role != "PHD_SUPERVISOR" %}
     <li><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_mandates_list">
-        {% trans 'reviewer_mandates_list' %}</a></li>
+        {% trans 'List of files' %}</a></li>
 {% else %}
     <li><a href="{% url 'phd_supervisor_assistants_list' %}" id="lnk_phd_supervisor_assistants_list">
-        {% trans 'phd_supervisor_assistants_list' %}</a></li>
+        {% trans 'List of files (as a thesis promoter)' %}</a></li>
 {% endif %}
-<li class="active">{% trans 'mandate_view' %}</li>
+<li class="active">{% trans 'Assistant file and opinion' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
     {% if current_reviewer %}
-        <h6>{% trans 'connected_as' %} {{ current_reviewer.person }} ({% trans current_reviewer.role %}) - {{ entity.acronym }}</h6>
+        <h6>{% trans 'You are connected as' %} {{ current_reviewer.person }} ({% trans current_reviewer.role %}) - {{ entity.acronym }}</h6>
     {% else %}
-        <h6>{% trans 'connected_as' %} {{ assistant.supervisor }} ({% trans 'PHD_SUPERVISOR' %})</h6>
+        <h6>{% trans 'You are connected as' %} {{ assistant.supervisor }} ({% trans 'Thesis promoter' %})</h6>
     {% endif %}
-    <h3>{% trans 'assistant_mandates_renewals' %} ({{ year }})</h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} ({{ year }})</h3>
     <h4>{{ assistant.person }}</h4>
     <ul class="nav nav-tabs">
 	    {% if menu_type == 'phd_supervisor_menu' %}
@@ -53,8 +53,8 @@
                 <form method="POST" action="{% url 'phd_supervisor_pst_form_view' %}">
                     {% csrf_token %}
                     <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                    <button type="submit" class="btn btn-link" title="{% trans 'view'%}">
-                        {% trans 'assistant_form' %}
+                    <button type="submit" class="btn btn-link" title="{% trans 'View'%}">
+                        {% trans 'Assistant file' %}
                     </button>
                 </form>
                 </a>
@@ -64,8 +64,8 @@
                 <form method="POST" action="{% url 'pst_form_view' %}">
                     {% csrf_token %}
                     <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                    <button type="submit" class="btn btn-link" title="{% trans 'view'%}">
-                        {% trans 'assistant_form' %}
+                    <button type="submit" class="btn btn-link" title="{% trans 'View'%}">
+                        {% trans 'Assistant file' %}
                     </button>
                 </form>
                 </a>
@@ -78,35 +78,35 @@
                         <form method="POST" action="{% url 'phd_supervisor_review_edit' %}">
                             {% csrf_token %}
                             <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                            <button type="submit" class="btn btn-link" title="{% trans 'edit'%}">
+                            <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
                     {% elif dict.action == 'view' %}
                         <form method="POST" action="{% url 'phd_supervisor_review_view' %}">
                             {% csrf_token %}
                             <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                            <button type="submit" class="btn btn-link" title="{% trans 'view'%}">
+                            <button type="submit" class="btn btn-link" title="{% trans 'View'%}">
                     {% endif %}
                 {% else %}
                     {% if dict.action == 'edit' %}
                         <form method="POST" action="{% url 'review_edit' %}">
                             {% csrf_token %}
                             <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                            <button type="submit" class="btn btn-link" title="{% trans 'edit'%}">
+                            <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
                     {% elif dict.action == 'view' %}
                         <form method="POST" action="{% url 'review_view' %}">
                             {% csrf_token %}
                             <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
                             <input type="hidden" name="role" value="{{ dict.item }}">
-                            <button type="submit" class="btn btn-link" title="{% trans 'view'%}">
+                            <button type="submit" class="btn btn-link" title="{% trans 'View'%}">
                     {% endif %}
                 {% endif %}
                 {% if dict.item == 'PHD_SUPERVISOR' %}
-                    {% trans 'phd_supervisor_review' %}
+                    {% trans 'Doctorate opinion' %}
                 {% elif dict.item == 'RESEARCH' %}
-                    {% trans 'research_review' %}
+                    {% trans 'Research opinion' %}
                 {% elif dict.item == 'SUPERVISION' %}
-                    {% trans 'supervision_review' %}
+                    {% trans 'Opinion of the steering commitee' %}
                 {% elif dict.item == 'VICE_RECTOR' %}
-                    {% trans 'sector_vice_rector_review' %}
+                    {% trans 'Opinion of the sector vice-rector' %}
                 {% endif %}
                 </button></form></a>
             </li>
@@ -124,7 +124,7 @@
         </h4>
         <div class="form-group">
             <label for="txt_advice">
-                {% trans 'advice' %}
+                {% trans 'Opinion' %}
             </label>
             <div class="controls">
                 {% if review.advice == "FAVORABLE" %}
@@ -139,19 +139,19 @@
         </div>
         {% if review.justification %}
             <div class="form-group">
-                <label id="justification_label" for="txt_justification">{% trans 'justification' %}</label>
+                <label id="justification_label" for="txt_justification">{% trans 'Justification' %}</label>
                 <div class="controls">{{ review.justification }}</div>
             </div>
         {% endif %}
         {% if review.remark %}
             <div class="form-group">
-                <label for="txt_remark">{% trans 'remark' %}</label>
+                <label for="txt_remark">{% trans 'Remark' %}</label>
                 <div class="controls">{{ review.remark }}</div>
             </div>
         {% endif %}
         {% if review.confidential %}
             <div class="form-group">
-                <label for="txt_confidential">{% trans 'confidential' %}</label>
+                <label for="txt_confidential">{% trans 'Confidential' %}</label>
                 <div class="controls">{{ review.confidential }}</div>
             </div>
         {% endif %}

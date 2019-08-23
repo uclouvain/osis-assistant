@@ -29,6 +29,6 @@ FAVORABLE = 'FAVORABLE'
 CONDITIONAL = 'CONDITIONAL'
 UNFAVOURABLE = 'UNFAVOURABLE'
 
-REVIEW_ADVICE_CHOICES = ((FAVORABLE, _(FAVORABLE)),
-                         (CONDITIONAL, _(CONDITIONAL)),
-                         (UNFAVOURABLE, _(UNFAVOURABLE)))
+REVIEW_ADVICE_CHOICES = ((FAVORABLE, _('Favourable')),
+                         (CONDITIONAL, _('Conditional')),
+                         (UNFAVOURABLE, _('Unfavourable')))
