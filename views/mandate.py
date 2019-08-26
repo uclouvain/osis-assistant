@@ -113,7 +113,7 @@ def load_mandates(request):
 @user_passes_test(user_is_manager, login_url='access_denied')
 def export_mandates(request):
     xls = generate_xls()
-    filename = 'assistants_mandates_{}.xlsx'.format(time.strftime("%Y%m%d_%H%M"))
+    filename = '{}_{}.xlsx'.format(_('assistants_mandates'), time.strftime("%Y%m%d_%H%M"))
     response = HttpResponse(xls, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = "%s%s" % ("attachment; filename=", filename)
     return response
