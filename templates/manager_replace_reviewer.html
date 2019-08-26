@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% load staticfiles %}
-{% load i18n %}
+{% load i18n display_role %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -65,7 +65,7 @@
 		</div>
 		<div class="form-group">
 			<label for="{{ role.auto_id }}">{% trans 'Role' %}</label>
-			<div class="controls">{{ reviewer.role }}</div>
+			<div class="controls">{{ reviewer.role | display }}</div>
 		</div>
 			{{ form.id.as_hidden }}
 		<input type="hidden" name="reviewer_id" id="reviewer.id" value="{{ reviewer.id }}">

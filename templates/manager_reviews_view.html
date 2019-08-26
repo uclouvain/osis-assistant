@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% load staticfiles %}
-{% load i18n %}
+{% load i18n display_role %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -66,7 +66,7 @@
                     {% if review.reviewer is None %}
                         {{ review.mandate.assistant.supervisor }} - {% trans 'Promoter' %}
                     {% else %}
-                        {{ review.reviewer.person }} ({% trans review.reviewer.role %}) -
+                        {{ review.reviewer.person }} ({{  review.reviewer.role | display }}) -
                         {{ review.reviewer.entity.most_recent_acronym }}
                     {% endif %}
                     </p>

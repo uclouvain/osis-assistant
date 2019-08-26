@@ -50,8 +50,8 @@ from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.review import ReviewFactory
 from assistant.tests.factories.settings import SettingsFactory
 from assistant.tests.factories.tutoring_learning_unit_year import TutoringLearningUnitYearFactory
-from assistant.models.enums import assistant_mandate_state
-from assistant.models.enums import assistant_type, assistant_mandate_renewal, review_status, reviewer_role
+from assistant.models.enums import assistant_mandate_state,  assistant_phd_inscription, assistant_type, \
+    assistant_mandate_renewal, review_status, reviewer_role
 
 COLS_WIDTH_FOR_REVIEWS = [35*mm, 20*mm, 70*mm, 30*mm, 30*mm]
 COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 40*mm]
@@ -202,7 +202,10 @@ class ExportPdfTestCase(TestCase):
         self.assertEqual(str(export_utils_pdf.create_paragraph(title, data, style, subtitle)), str(paragraph))
 
     def test_get_administrative_data(self):
-        assistant_type = export_utils_pdf.format_data(_(self.mandate.assistant_type), _('Assistant type'))
+        assistant_typ = export_utils_pdf.format_data(
+            dict(assistant_type.ASSISTANT_TYPES).get(self.mandate.assistant_type),
+            _('Assistant type')
+        )
         matricule = export_utils_pdf.format_data(self.mandate.sap_id, _('Registration number'))
         entry_date = export_utils_pdf.format_data(self.mandate.entry_date, _('Contract start date'))
         end_date = export_utils_pdf.format_data(self.mandate.end_date, _('Contract end date'))
@@ -214,7 +217,10 @@ class ExportPdfTestCase(TestCase):
         fulltime_equivalent = export_utils_pdf.format_data(int(self.mandate.fulltime_equivalent * 100),
                                                            _('Percentage of occupancy'))
         other_status = export_utils_pdf.format_data(self.mandate.other_status, _('Other status'))
-        renewal_type = export_utils_pdf.format_data(_(self.mandate.renewal_type), _('Renewal type'))
+        renewal_type = export_utils_pdf.format_data(
+            dict(assistant_mandate_renewal.ASSISTANT_MANDATE_RENEWAL_TYPES).get(self.mandate.renewal_type),
+            _('Renewal type')
+        )
         justification = export_utils_pdf.format_data(
             self.mandate.justification,
             _("Should you no longer fulfill the requirements for a 'normal' renewal, can you specify the circumstances "
@@ -227,7 +233,7 @@ class ExportPdfTestCase(TestCase):
             _('Current positions outside the University and %% of time spent')
         )
         self.assertEqual(
-            assistant_type + matricule + entry_date + end_date + contract_duration + contract_duration_fte
+            assistant_typ + matricule + entry_date + end_date + contract_duration + contract_duration_fte
             + fulltime_equivalent + other_status + renewal_type + justification + external_contract +
             external_functions,
             export_utils_pdf.get_administrative_data(self.mandate)
@@ -238,7 +244,10 @@ class ExportPdfTestCase(TestCase):
         entities = find_versions_from_entites(entities_id, self.mandate.academic_year.start_date)
         entities_data = ""
         for entity in entities:
-            entities_data += "<strong>{} : </strong>{}<br />".format(_(entity.entity_type), entity.acronym)
+            entities_data += "<strong>{} : </strong>{}<br />".format(
+                dict(entity_type.ENTITY_TYPES).get(entity.entity_type),
+                entity.acronym
+            )
         self.assertEqual(entities_data, export_utils_pdf.get_entities(self.mandate))
 
     def test_get_absences(self):
@@ -260,7 +269,7 @@ class ExportPdfTestCase(TestCase):
         expected_phd_date = export_utils_pdf.format_data(self.assistant.expected_phd_date,
                                                          _('Scheduled date of registration'))
         inscription = export_utils_pdf.format_data(
-            _(self.assistant.inscription) if self.assistant.inscription else None,
+            dict(assistant_phd_inscription.PHD_INSCRIPTION_CHOICES).get(self.assistant.inscription, ''),
             _('Enrolled in the Ph.D. program')
         )
         remark = export_utils_pdf.format_data(self.assistant.remark, _('Remark'))

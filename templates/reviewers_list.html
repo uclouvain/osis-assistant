@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% load staticfiles %}
-{% load i18n %}
+{% load i18n display_role %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -57,7 +57,7 @@
             <tr>
             <td>{{ reviewer.person.value.last_name|upper }} {{ reviewer.person.value.first_name }}{{ reviewer.access }}</td>
             <td>{{ reviewer.entity_version.value.acronym }} - {{ reviewer.entity_version.value.title }}</td>
-            <td>{% trans reviewer.role.value %}</td>
+            <td>{{ reviewer.role.value | display  }}</td>
             <td>{{ reviewer.action }}</td>
             {{ reviewer.id.as_hidden }}
             {{ reviewer.entity_version.as_hidden }}
