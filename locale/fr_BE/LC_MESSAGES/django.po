@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-22 14:01+0200\n"
+"POT-Creation-Date: 2019-08-26 15:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,166 +17,99 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: utils/import_xls_file_data.py:94
 msgid " at line number : "
 msgstr " à la ligne numéro : "
 
-#: templates/mandates_list.html:63
 #, python-format
 msgid "%% FTE"
 msgstr "%% FTE"
 
-#: templates/assistant_form_part3.html:98
-#: templates/manager_assistant_form_view.html:159
-#: templates/pst_form_view.html:216
 msgid "(for the 2nd renewal)"
 msgstr "(pour le 2ème renouvellement)"
 
-#: utils/import_xls_file_data.py:94
 msgid "A date is invalid in the file"
 msgstr "Une date est invalide dans le fichier"
 
-#: forms/review.py:12 forms/review.py:44
 msgid ""
 "A justification is required if the opinion is unfavourable or conditional"
 msgstr ""
 "Une justification est requise si l'avis est défavorable ou conditionnel"
 
-#: views/assistant_form.py:97 views/assistant_form.py:233
-#: views/assistant_form.py:337 views/assistant_form.py:377
 msgid "A problem occured, data have not been saved"
 msgstr "Un problème est survenu, les données n'ont pas pu être sauvegardées"
 
-#: views/reviewers_management.py:158
 msgid "A reviewer having the same role for this entity already exists"
 msgstr "Un évaluateur pour ce rôle et cette entité existe déjà"
 
-#: templates/mandate_form.html:127 templates/review_form.html:134
-#: utils/export_utils_pdf.py:188 views/mandate.py:145
 msgid "Absences"
 msgstr "Absences"
 
-#: templates/assistant_mandates.html:46
-#: templates/manager_assistant_form_view.html:292
-#: templates/mandate_learning_unit_list.html:62
-#: templates/pst_form_view.html:353
 msgid "Academic year"
 msgstr "Année académique"
 
-#: templates/assistant_mandates.html:73 templates/assistant_mandates.html:75
 msgid "Accept"
 msgstr "Accepter"
 
-#: templates/access_denied.html:34
 msgid "Access denied!"
 msgstr "Accès refusé!"
 
-#: templates/manager_reviews_view.html:132
 msgid "Accomplish a workflow step back"
 msgstr "Effectuer un retour en arrière d'une étape dans le workflow"
 
-#: templates/assistants.html:41 templates/assistants.html:42
-#: templates/assistants.html:84 templates/manager_assistant_form_view.html:293
-#: templates/mandate_learning_unit_list.html:63
-#: templates/pst_form_view.html:354 templates/reviewer_structures_list.html:57
 msgid "Acronym"
 msgstr "Acronyme"
 
-#: templates/assistant_mandates.html:50
-#: templates/phd_supervisor_assistants_list.html:66
-#: templates/reviewer_mandates_list.html:87 templates/reviewers_list.html:52
 msgid "Action"
 msgstr "Action"
 
-#: templates/assistant_form_part1.html:42
-#: templates/assistant_form_part3.html:43
-#: templates/assistant_form_part4.html:40
-#: templates/assistant_form_part5.html:42
-#: templates/assistant_form_part6.html:42
-#: templates/mandate_learning_unit_list.html:45
-#: templates/tutoring_learning_unit_year.html:41
 msgid "Activities"
 msgstr "Activités"
 
-#: templates/assistant_form_part5.html:119
-#: templates/manager_assistant_form_view.html:418
-#: templates/pst_form_view.html:481 tests/utils/test_export_utils_pdf.py:327
-#: utils/export_utils_pdf.py:375
 msgid "Activities in the field of publishing (editorial board,...)"
 msgstr "Activités dans le domaine de l’édition (comité(s) de rédaction...)"
 
-#: templates/manager_add_reviewer.html:36
-#: templates/mandate_learning_unit_list.html:94
-#: templates/reviewer_structures_list.html:75 templates/reviewers_list.html:69
 msgid "Add"
 msgstr "Ajouter"
 
-#: templates/reviewer_add_reviewer.html:36
 msgid "Add a delegate"
 msgstr "Ajout d'un délégué"
 
-#: templates/mandate_learning_unit_list.html:97
 msgid "Add a teaching unit"
 msgstr "Ajouter une unité d'enseignement"
 
-#: templates/assistant_form_part3.html:133
-#: templates/assistant_form_part4.html:104
-#: templates/mandate_learning_unit_list.html:123
 msgid "Add file"
 msgstr "Ajouter un fichier"
 
-#: templates/reviewers_list.html:71
 msgid "Add reviewer"
 msgstr "Ajouter évaluateur"
 
-#: templates/manager_home.html:52
 msgid "Adding, replacing and deleting reviewers"
 msgstr "Ajout, remplacement et suppression des évaluateurs"
 
-#: templates/assistant_form_part1.html:36
-#: templates/assistant_form_part3.html:39
-#: templates/assistant_form_part4.html:36
-#: templates/assistant_form_part5.html:36
-#: templates/assistant_form_part6.html:36
-#: templates/mandate_learning_unit_list.html:39
-#: templates/tutoring_learning_unit_year.html:35
 msgid "Administrative"
 msgstr "Administratif"
 
-#: templates/manager_assistant_form_view.html:45
-#: templates/manager_assistant_form_view.html:46
-#: templates/manager_reviews_view.html:45
-#: templates/manager_reviews_view.html:46 templates/mandate_form.html:43
 msgid "Administrative data"
 msgstr "Données administratives"
 
-#: templates/assistant_form_part1.html:55
 msgid "Administrative information"
 msgstr "Coordonnées administratives"
 
-#: models/enums/user_role.py:35
 msgid "Administrator"
 msgstr "Administrateur"
 
-#: views/reviewer_review.py:140
 msgid "Advice missing in form"
 msgstr "Opinion manquante dans le formulaire"
 
-#: views/mandate.py:135
 msgid "Age"
 msgstr "Âge"
 
-#: models/enums/assistant_mandate_appeal.py:38
 msgid "Appeal in progress"
 msgstr "Appel en cours"
 
-#: templates/mandates_list.html:46 templates/mandates_list.html:47
-#: templates/reviewer_mandates_list.html:68
-#: templates/reviewer_mandates_list.html:69
 msgid "Apply"
 msgstr "Appliquer"
 
-#: templates/assistant_mandates.html:74
 msgid ""
 "Are you sure you want to accept the renewal request? This action is "
 "irreversible."
@@ -184,14 +117,12 @@ msgstr ""
 "Êtes-vous certain de vouloir accepter la demande de renouvellement ? Cette "
 "action est irréversible."
 
-#: templates/manager_add_reviewer.html:66
 msgid ""
 "Are you sure you want to add this reviewer? This action is irreversible."
 msgstr ""
 "Êtes-vous certain de vouloir ajouter cet évaluateur ? Cette action est "
 "irréversible."
 
-#: templates/assistant_mandates.html:77
 msgid ""
 "Are you sure you want to decline the renewal request? This action is "
 "irreversible."
@@ -199,145 +130,81 @@ msgstr ""
 "Êtes-vous certain de vouloir décliner la demande de renouvellement ? Cette "
 "action est irréversible."
 
-#: templates/reviewer_add_reviewer.html:60
 msgid ""
 "Are you sure you want to delegate your role? This action is irreversible."
 msgstr ""
 "Êtes-vous certain de vouloir déléguer votre rôle ? Cette action est "
 "irréversible."
 
-#: templates/mandate_learning_unit_list.html:82
 msgid "Are you sure you want to delete this course?"
 msgstr "Êtes-vous certain de vouloir supprimer ce cours ?"
 
-#: templates/messages.html:48 templates/messages.html:56
 msgid ""
 "Are you sure you want to send these emails? This action is irreversible."
 msgstr ""
 "Êtes-vous certain de vouloir envoyer ces courriels ? Cette action est "
 "irréversible."
 
-#: templates/manager_reviews_view.html:141
 msgid ""
 "Are you sure you want to step back the mandate? This action is irreversible."
 msgstr ""
 "Êtes-vous certain de vouloir reculer d'une étape ? Cette action est "
 "irréversible."
 
-#: templates/assistant_form_part6.html:110 templates/review_form.html:196
 msgid ""
 "Are you sure you want to validate and submit? This action is irreversible."
 msgstr ""
 "Êtes-vous certain de vouloir valider et soumettre ? Cette action ne pourra "
 "pas être annulée."
 
-#: templates/settings.html:69
 msgid "Assessment access dates for assistants"
 msgstr "Dates d'accès aux évaluations pour les assistants"
 
-#: models/enums/assistant_mandate_state.py:40 models/enums/assistant_type.py:32
-#: models/enums/user_role.py:33 templates/mandates_list.html:56
-#: templates/phd_supervisor_assistants_list.html:60
-#: templates/reviewer_mandates_list.html:78 utils/export_utils_pdf.py:156
 msgid "Assistant"
 msgstr "Assistant·e"
 
-#: templates/manager_assistant_form_view.html:34
-#: templates/manager_assistant_form_view.html:50
-#: templates/manager_reviews_view.html:34
-#: templates/manager_reviews_view.html:50 templates/mandate_form.html:44
-#: templates/pst_form_view.html:39 templates/pst_form_view.html:57
-#: templates/pst_form_view.html:68 templates/review_form.html:58
-#: templates/review_form.html:69 templates/review_view.html:57
-#: templates/review_view.html:68
 msgid "Assistant file"
 msgstr "Dossier assistant"
 
-#: templates/review_view.html:39
 msgid "Assistant file and opinion"
 msgstr "Dossier d'assistant et avis"
 
-#: templates/assistant_mandates.html:38 templates/mandate_reviews_view.html:37
 msgid "Assistant mandate renewal application"
 msgstr "Demande de renouvellement du mandat d'assistant·e"
 
-#: templates/load_mandates.html:38 templates/manager_add_reviewer.html:40
-#: templates/manager_assistant_form_view.html:38 templates/manager_home.html:38
-#: templates/manager_replace_reviewer.html:40
-#: templates/manager_reviews_view.html:38 templates/mandate_form.html:41
-#: templates/mandates_list.html:38 templates/messages.html:38
-#: templates/phd_supervisor_assistants_list.html:41
-#: templates/pst_form_view.html:48 templates/review_form.html:49
-#: templates/review_view.html:48 templates/reviewer_add_reviewer.html:41
-#: templates/reviewer_mandates_list.html:38
-#: templates/reviewer_structures_list.html:40 templates/reviewers_list.html:38
-#: templates/settings.html:38 utils/export_utils_pdf.py:493
 msgid "Assistant mandate renewal application processing"
 msgstr "Gestion des demandes de renouvellement des mandats d'assistant·e"
 
-#: templates/load_mandates.html:78
 msgid "Assistant mandates importation"
 msgstr "Importation des mandats d'assistant"
 
-#: templates/mandate_form.html:57 templates/mandates_list.html:58
-#: templates/phd_supervisor_assistants_list.html:62
-#: templates/reviewer_mandates_list.html:80
-#: tests/utils/test_export_utils_pdf.py:205 utils/export_utils_pdf.py:249
-#: views/mandate.py:138
 msgid "Assistant type"
 msgstr "Type d'assistant·e"
 
-#: templates/assistants.html:30 templates/assistants.html:34
-#: templates/load_mandates.html:33 templates/manager_add_reviewer.html:34
-#: templates/manager_assistant_form_view.html:32 templates/manager_home.html:34
-#: templates/manager_replace_reviewer.html:34
-#: templates/manager_reviews_view.html:32 templates/mandate_form.html:34
-#: templates/mandates_list.html:33 templates/messages.html:33
-#: templates/messages.html:44 templates/reviewers_list.html:33
-#: templates/settings.html:33
 msgid "Assistants"
 msgstr "Assistants"
 
-#: templates/settings.html:88
 msgid "Assistants contract ending dates"
 msgstr "Dates de fin de contrat des assistants"
 
-#: utils/export_utils_pdf.py:121
 msgid "Assistants who have declined their renewal"
 msgstr "Assistants qui ont décliné leur demande"
 
-#: templates/assistant_form_part3.html:135
-#: templates/assistant_form_part4.html:106
-#: templates/mandate_learning_unit_list.html:125
 msgid "Attach a PDF file"
 msgstr "Joindre un document PDF"
 
-#: templates/settings.html:55 templates/settings.html:72
-#: templates/settings.html:91
 msgid "Beginning"
 msgstr "Début"
 
-#: templates/load_mandates.html:88 templates/manager_add_reviewer.html:69
-#: templates/manager_replace_reviewer.html:76 templates/mandate_form.html:137
-#: templates/new_document.html:54 templates/review_form.html:192
-#: templates/reviewer_add_reviewer.html:63 templates/settings.html:106
-#: templates/tutoring_learning_unit_year.html:118
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/load_mandates.html:81
 msgid "Choose a file"
 msgstr "Choisir un fichier"
 
-#: templates/reviewer_add_reviewer.html:45
 msgid "Choose a person as reviewer for"
 msgstr "Choisissez une personne comme évaluateur pour"
 
-#: templates/assistant_form_part1.html:133
-#: templates/assistant_form_part3.html:221
-#: templates/assistant_form_part4.html:213
-#: templates/assistant_form_part5.html:154
-#: templates/assistant_form_part6.html:128
 msgid ""
 "Click OK to save the modified data before moving to another section.  Click "
 "Cancel to continue without saving."
@@ -345,31 +212,21 @@ msgstr ""
 "Cliquez sur OK pour sauvegarder les données modifiées avant de changer de "
 "rubrique. Cliquez sur Annuler pour continuer sans sauvegarder."
 
-#: templates/mandate_form.html:123 templates/review_form.html:135
-#: utils/export_utils_pdf.py:190 views/mandate.py:144 views/mandate.py:148
 msgid "Comment"
 msgstr "Commentaire"
 
-#: templates/review_form.html:178
 msgid "Comment DAS/CAS - Vice-Rector"
 msgstr "Commentaire DAS/CAS - Vice-Recteur"
 
-#: templates/review_form.html:136
 msgid "Comments on previous renewal applications"
 msgstr "Commentaires des demandes de renouvellement précédentes"
 
-#: models/enums/assistant_mandate_state.py:45 models/enums/review_status.py:32
 msgid "Completed"
 msgstr "Terminé"
 
-#: models/enums/review_advice_choices.py:33
 msgid "Conditional"
 msgstr "Conditionnel"
 
-#: templates/assistant_form_part4.html:59
-#: templates/manager_assistant_form_view.html:205
-#: templates/pst_form_view.html:264 tests/utils/test_export_utils_pdf.py:274
-#: utils/export_utils_pdf.py:305
 msgid ""
 "Conference(s) to which I have contributed by communication or post, alone or "
 "with others."
@@ -377,219 +234,120 @@ msgstr ""
 "Conférence(s) auxquelle(s) j'ai contribué par communication ou poster, "
 "seul·e ou avec d'autres"
 
-#: templates/manager_reviews_view.html:112 templates/review_form.html:171
-#: templates/review_view.html:154 utils/export_utils_pdf.py:404
-#: views/mandate.py:149
 msgid "Confidential"
 msgstr "Confidentiel"
 
-#: templates/manager_replace_reviewer.html:73
 msgid "Confirm reviewer replacement"
 msgstr "Êtes-vous certain de vouloir remplacer l'évaluateur?"
 
-#: templates/assistant_form_part1.html:63
-#: templates/manager_assistant_form_view.html:59
-#: templates/pst_form_view.html:120
 msgid "Contract"
 msgstr "Contrat"
 
-#: tests/utils/test_export_utils_pdf.py:208 utils/export_utils_pdf.py:252
 msgid "Contract end date"
 msgstr "Date de fin du contrat"
 
-#: templates/mandate_form.html:75
-#: templates/phd_supervisor_assistants_list.html:63
-#: templates/reviewer_mandates_list.html:82
-#: tests/utils/test_export_utils_pdf.py:209 utils/export_utils_pdf.py:253
-#: views/mandate.py:141
 msgid "Contract length"
 msgstr "Durée contrat"
 
-#: tests/utils/test_export_utils_pdf.py:207 utils/export_utils_pdf.py:251
-#: views/mandate.py:142
 msgid "Contract start date"
 msgstr "Date de début du contrat"
 
-#: templates/manager_assistant_form_view.html:285
-#: templates/pst_form_view.html:346 utils/export_utils_pdf.py:199
 msgid "Course units"
 msgstr "Unités de cours"
 
-#: templates/assistants.html:68
 msgid "Create an organization"
 msgstr "Créer une organisation"
 
-#: templates/assistant_form_part1.html:95
-#: templates/manager_assistant_form_view.html:268
-#: templates/pst_form_view.html:329 tests/utils/test_export_utils_pdf.py:227
-#: utils/export_utils_pdf.py:264
 #, python-format
 msgid "Current positions outside the University and %% of time spent"
 msgstr ""
 "Fonctions actuelles exercées en dehors de l'Université et %% de temps "
 "consacré"
 
-#: models/enums/reviewer_role.py:42
 msgid "DAF"
 msgstr "DAF"
 
-#: models/enums/reviewer_role.py:43
 msgid "DAF representative"
 msgstr "Délégué de DAF"
 
-#: models/enums/reviewer_role.py:47
 msgid "DAS/CAS"
 msgstr "DAS/CAS"
 
-#: templates/manager_home.html:45
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: templates/messages.html:66
 msgid "Date"
 msgstr "Date"
 
-#: templates/assistant_form_part3.html:97
-#: templates/manager_assistant_form_view.html:159
-#: templates/pst_form_view.html:216 tests/utils/test_export_utils_pdf.py:257
-#: utils/export_utils_pdf.py:291
 msgid "Date of confirmation test"
 msgstr "Date de l'épreuve de confirmation"
 
-#: templates/assistant_form_part3.html:103
-#: templates/manager_assistant_form_view.html:167
-#: templates/pst_form_view.html:224 tests/utils/test_export_utils_pdf.py:259
-#: utils/export_utils_pdf.py:292
 msgid "Date of defense of thesis (if already known)"
 msgstr "Date de défense de thèse (si déjà connue)"
 
-#: templates/assistant_form_part3.html:87 templates/pst_form_view.html:208
-#: tests/utils/test_export_utils_pdf.py:255 utils/export_utils_pdf.py:290
 msgid "Date of doctoral enrollment"
 msgstr "Date d'inscription au doctorat"
 
-#: templates/assistant_form_part1.html:81
-#: templates/manager_assistant_form_view.html:101
-#: templates/pst_form_view.html:162
 msgid "Date of first nomination"
 msgstr "Date de la première nomination"
 
-#: models/enums/assistant_mandate_state.py:43 models/enums/reviewer_role.py:40
 msgid "Dean of Faculty"
 msgstr "Doyen de faculté"
 
-#: models/enums/reviewer_role.py:41
 msgid "Dean of Faculty representative"
 msgstr "Délégué de doyen de faculté"
 
-#: templates/phd_supervisor_assistants_list.html:48
-#: templates/reviewer_add_reviewer.html:35
-#: templates/reviewer_mandates_list.html:52
-#: templates/reviewer_structures_list.html:35
-#: templates/reviewer_structures_list.html:47
-#: templates/reviewer_structures_list.html:58
 msgid "Delegation(s)"
 msgstr "Délégation(s)"
 
-#: forms/reviewer.py:91 templates/assistant_form_part3.html:124
-#: templates/assistant_form_part4.html:92 templates/mandate_form.html:103
-#: templates/mandate_form.html:115 templates/mandate_learning_unit_list.html:66
-#: templates/mandate_learning_unit_list.html:83
-#: templates/mandate_learning_unit_list.html:87
-#: templates/mandate_learning_unit_list.html:111
-#: templates/mandate_learning_unit_list.html:114
-#: views/reviewers_management.py:79
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/assistant_form_part3.html:121
-#: templates/assistant_form_part4.html:95
 msgid "Delete file"
 msgstr "Supprimer fichier"
 
-#: templates/pst_form_view.html:103 templates/review_form.html:104
-#: templates/review_view.html:103
 msgid "Doctorate opinion"
 msgstr "Avis doctorat"
 
-#: templates/manager_assistant_form_view.html:295
-#: templates/pst_form_view.html:356
-#: templates/tutoring_learning_unit_year.html:81
 msgid "Duration of a session (h)"
 msgstr "Durée d'une séance (h)"
 
-#: templates/phd_supervisor_assistants_list.html:64
-#: templates/reviewer_mandates_list.html:83
 msgid "Duration of contract (FTE)"
 msgstr "Durée contrat (ETP)"
 
-#: templates/assistant_mandates.html:82 templates/assistant_mandates.html:83
-#: templates/mandate_learning_unit_list.html:65
-#: templates/mandate_learning_unit_list.html:76
-#: templates/mandate_learning_unit_list.html:80 templates/mandates_list.html:76
-#: templates/mandates_list.html:77
-#: templates/phd_supervisor_assistants_list.html:92
-#: templates/phd_supervisor_assistants_list.html:94
-#: templates/pst_form_view.html:81 templates/pst_form_view.html:93
-#: templates/review_form.html:82 templates/review_form.html:94
-#: templates/review_view.html:81 templates/review_view.html:93
-#: templates/reviewer_mandates_list.html:142
-#: templates/reviewer_mandates_list.html:144
-#: templates/reviewer_structures_list.html:74
 msgid "Edit"
 msgstr "Editer"
 
-#: views/mandate.py:133
 msgid "Email"
 msgstr "Email"
 
-#: templates/manager_home.html:94
 msgid "Emails"
 msgstr "Courriels"
 
-#: templates/settings.html:60 templates/settings.html:77
-#: templates/settings.html:96
 msgid "End"
 msgstr "Fin"
 
-#: views/mandate.py:143
 msgid "End date"
 msgstr "Date de fin"
 
-#: templates/assistant_form_part3.html:63
-#: templates/manager_assistant_form_view.html:125
-#: templates/pst_form_view.html:186 tests/utils/test_export_utils_pdf.py:264
-#: utils/export_utils_pdf.py:295
 msgid "Enrolled in the Ph.D. program"
 msgstr "Inscrit·e au doctorat"
 
-#: templates/assistant_mandates.html:47 templates/mandate_form.html:111
-#: templates/mandates_list.html:57
-#: templates/phd_supervisor_assistants_list.html:61
-#: templates/reviewer_mandates_list.html:79 utils/export_utils_pdf.py:187
 msgid "Entities"
 msgstr "Entités"
 
-#: templates/manager_add_reviewer.html:57
-#: templates/manager_replace_reviewer.html:63 templates/reviewers_list.html:50
 msgid "Entity"
 msgstr "Entité"
 
-#: views/upload_assistant_file.py:65 views/upload_assistant_file.py:99
 msgid "Error during saving the file, try again"
 msgstr "Erreur durant la sauvegarde du fichier, veuillez réessayer"
 
-#: templates/manager_assistant_form_view.html:324
-#: templates/mandate_learning_unit_list.html:100
-#: templates/pst_form_view.html:386
 msgid "Evaluations (optional)"
 msgstr "Evaluations (facultatif)"
 
-#: models/enums/assistant_mandate_renewal.py:34
 msgid "Exceptional"
 msgstr "Exceptionnel"
 
-#: templates/mandate_learning_unit_list.html:53
 msgid ""
 "Exercises, workshops, seminars - associated with hours of volume 2, which "
 "you personally assume"
@@ -597,176 +355,99 @@ msgstr ""
 "Exercices, TP, séminaires - associés aux heures de volume 2, que vous "
 "assumez personnellement"
 
-#: templates/manager_home.html:87
 msgid "Export mandates to sap"
 msgstr "Exporter tous les dossiers vers un zip"
 
-#: templates/manager_home.html:65 templates/manager_home.html:73
 msgid "Export of assistants mandates"
 msgstr "Exportation des mandats des assistants"
 
-#: templates/manager_home.html:79
 msgid "Export of the declined assistants mandates"
 msgstr "Exportation des mandats déclinés"
 
-#: templates/manager_home.html:74 templates/reviewer_mandates_list.html:62
 msgid "Exporting all data to a PDF file"
 msgstr "Exportation des données dans un fichier PDF"
 
-#: templates/manager_home.html:80
 msgid "Exporting assistants who declined their renewal"
 msgstr "Exportation de la liste des assistants qui ont décliné leur demande"
 
-#: templates/manager_home.html:66
 msgid "Exporting files to an XLSX file"
 msgstr "Exportation des dossiers vers un fichier XLSX"
 
-#: models/enums/review_advice_choices.py:32
 msgid "Favourable"
 msgstr "Favorable"
 
-#: forms/mandate_file.py:38 utils/import_xls_file_data.py:77
 msgid "File must be xlsx"
 msgstr "Le fichier doit être un xlsx"
 
-#: templates/assistant_form_part3.html:249
-#: templates/assistant_form_part4.html:143
-#: templates/mandate_learning_unit_list.html:166
 #, python-format
 msgid "Filename can not contains : ( ) %% $ , ; : / = +"
 msgstr "Le nom du fichier ne peut pas contenir : ( ) %% $ , ; : / = +"
 
-#: templates/phd_supervisor_assistants_list.html:45
-#: templates/reviewer_mandates_list.html:43
-#: templates/reviewer_mandates_list.html:46
-#: templates/reviewer_structures_list.html:43
 msgid "Files that can be treated"
 msgstr "Dossiers pouvant être traités"
 
-#: views/mandate.py:132
 msgid "Firstname"
 msgstr "Prénom"
 
-#: templates/assistant_form_part1.html:78 templates/assistant_mandates.html:48
-#: templates/manager_assistant_form_view.html:93 templates/mandate_form.html:79
-#: templates/mandates_list.html:62 templates/pst_form_view.html:154
-#: tests/utils/test_export_utils_pdf.py:212 utils/export_utils_pdf.py:254
-#: views/mandate.py:139 views/mandate.py:140
 msgid "Full-time equivalent"
 msgstr "Equivalent temps plein"
 
-#: templates/assistant_form_part6.html:94
-#: templates/manager_assistant_form_view.html:491
-#: templates/pst_form_view.html:554
 msgid "General comment"
 msgstr "Commentaire général"
 
-#: templates/assistant_mandates.html:103
 msgid "Generate a PDF file"
 msgstr "Générer un fichier PDF"
 
-#: templates/load_mandates.html:34 templates/manager_home.html:59
 msgid "Import assistant mandates"
 msgstr "Importer les mandats d'assistant"
 
-#: templates/load_mandates.html:39 templates/manager_home.html:60
 msgid "Importing files from an XLSX file"
 msgstr "Importation des dossiers depuis un fichier XLSX"
 
-#: models/enums/assistant_phd_inscription.py:34
-#: models/enums/review_status.py:31
 msgid "In progress"
 msgstr "En cours"
 
-#: templates/assistant_form_part5.html:101
-#: templates/manager_assistant_form_view.html:394
-#: templates/pst_form_view.html:457 tests/utils/test_export_utils_pdf.py:314
-#: utils/export_utils_pdf.py:364
 msgid ""
 "Information for future students (CIO, shows, Campus Days, Midi Masters,...)"
 msgstr ""
 "Informations aux futurs étudiants (CIO, salons, Campus Days, Midi Masters...)"
 
-#: templates/load_mandates.html:89
 msgid "Inject"
 msgstr "Injecter"
 
-#: templates/load_mandates.html:64
 msgid "Inject xls file"
 msgstr "Injecter le fichier xls"
 
-#: templates/manager_home.html:32
 msgid "Institution"
 msgstr "Institution"
 
-#: templates/manager_assistant_form_view.html:74
-#: templates/manager_reviews_view.html:92
-#: templates/mandate_reviews_view.html:62 templates/pst_form_view.html:135
-#: templates/review_form.html:160 templates/review_view.html:142
-#: utils/export_utils_pdf.py:403 views/mandate.py:147
 msgid "Justification"
 msgstr "Justification"
 
-#: templates/tutoring_learning_unit_year.html:53
-#: templates/tutoring_learning_unit_year.html:58
 msgid "Learning unit"
 msgstr "Unité d'enseignement"
 
-#: templates/assistant_form_part1.html:37
-#: templates/assistant_form_part3.html:40
-#: templates/assistant_form_part4.html:37
-#: templates/assistant_form_part5.html:37
-#: templates/assistant_form_part6.html:37
-#: templates/mandate_learning_unit_list.html:40
-#: templates/mandate_learning_unit_list.html:52
-#: templates/tutoring_learning_unit_year.html:36
 msgid "Learning units"
 msgstr "Unités d'enseignement"
 
-#: templates/phd_supervisor_assistants_list.html:44
-#: templates/pst_form_view.html:34 templates/review_form.html:35
-#: templates/review_view.html:34 templates/reviewer_add_reviewer.html:34
-#: templates/reviewer_mandates_list.html:33
-#: templates/reviewer_mandates_list.html:42
-#: templates/reviewer_mandates_list.html:45
-#: templates/reviewer_structures_list.html:33
-#: templates/reviewer_structures_list.html:42
 msgid "List of files"
 msgstr "Liste des dossiers"
 
-#: templates/phd_supervisor_assistants_list.html:33
-#: templates/phd_supervisor_assistants_list.html:46
-#: templates/pst_form_view.html:37 templates/review_form.html:38
-#: templates/review_view.html:37 templates/reviewer_mandates_list.html:49
-#: templates/reviewer_structures_list.html:45
 msgid "List of files (as a thesis promoter)"
 msgstr "Liste des dossiers (en tant que promoteur de thèse)"
 
-#: templates/assistant_mandates.html:34
-#: templates/manager_assistant_form_view.html:33
-#: templates/manager_reviews_view.html:33 templates/mandate_form.html:35
-#: templates/mandates_list.html:34
 msgid "List of mandates"
 msgstr "Liste des mandats"
 
-#: templates/assistant_form_part4.html:85
-#: templates/manager_assistant_form_view.html:246
-#: templates/pst_form_view.html:306
 msgid "List of publications in PDF format (DIAL)"
 msgstr "Liste de publications au format PDF (DIAL)"
 
-#: templates/manager_home.html:95
 msgid "Mail service management to assistants and Deans of Faculty"
 msgstr "Gestion de l'envoi des courriels aux assistants et doyens de faculté"
 
-#: templates/manager_home.html:100
 msgid "Management of application access dates"
 msgstr "Gestion des dates d'accès à l'application"
 
-#: templates/assistant_form_part5.html:107
-#: templates/manager_assistant_form_view.html:402
-#: templates/pst_form_view.html:465 tests/utils/test_export_utils_pdf.py:318
-#: utils/export_utils_pdf.py:367
 msgid ""
 "Management of collective facilities (lab, workshop, library, IT department, "
 "website,...)"
@@ -774,150 +455,84 @@ msgstr ""
 "Gestion d’équipements collectifs (labo, atelier, bibliothèque, service "
 "informatique, site web...)"
 
-#: templates/mandates_list.html:61
 msgid "Mandate"
 msgstr "Mandat"
 
-#: templates/mandate_form.html:36
 msgid "Mandate edition"
 msgstr "Édition mandat"
 
-#: templates/assistant_form_part1.html:102
-#: templates/manager_assistant_form_view.html:276
-#: templates/pst_form_view.html:337 tests/utils/test_export_utils_pdf.py:224
-#: utils/export_utils_pdf.py:262
 msgid "Mandate requested externally (FNRS, FRIA, ...)"
 msgstr "Mandat demandé à l'extérieur (FNRS, FRIA, ...)"
 
-#: templates/assistant_form_part1.html:83
-#: templates/manager_assistant_form_view.html:109
-#: templates/pst_form_view.html:170
 msgid "Mandate type"
 msgstr "Type de mandat"
 
-#: templates/manager_home.html:33
 msgid "Mandates"
 msgstr "Mandats"
 
-#: templates/settings.html:52
 msgid "Mandates renewal procedure dates"
 msgstr "Dates de la procédure de renouvellement des mandats"
 
-#: templates/messages.html:34
 msgid "Messages"
 msgstr "Messages"
 
-#: templates/assistant_form_part1.html:90
-#: templates/manager_assistant_form_view.html:262
-#: templates/pst_form_view.html:323
 msgid "Miscellaneous"
 msgstr "Divers"
 
-#: templates/assistant_form_part1.html:30
-#: templates/assistant_form_part1.html:35
-#: templates/assistant_form_part3.html:33
-#: templates/assistant_form_part3.html:38
-#: templates/assistant_form_part4.html:30
-#: templates/assistant_form_part4.html:35
-#: templates/assistant_form_part5.html:30
-#: templates/assistant_form_part5.html:35
-#: templates/assistant_form_part6.html:30
-#: templates/assistant_form_part6.html:35
-#: templates/mandate_learning_unit_list.html:33
-#: templates/mandate_learning_unit_list.html:38
-#: templates/mandate_reviews_view.html:32
-#: templates/tutoring_learning_unit_year.html:29
-#: templates/tutoring_learning_unit_year.html:34
 msgid "My mandates"
 msgstr "Mes mandats"
 
-#: templates/assistants.html:46 templates/assistants.html:47
-#: templates/assistants.html:85 templates/reviewers_list.html:49
-#: views/mandate.py:131
 msgid "Name"
 msgstr "Nom"
 
-#: models/enums/assistant_mandate_appeal.py:37
 msgid "Negative appeal"
 msgstr "Appel négatif"
 
-#: models/enums/assistant_phd_inscription.py:33
 msgid "No"
 msgstr "Non"
 
-#: models/enums/assistant_mandate_appeal.py:39
 msgid "No appeal"
 msgstr "Pas d'appel"
 
-#: forms/mandate_file.py:31
 msgid "No file submitted"
 msgstr "Aucun fichier soumis"
 
-#: templates/mandate_form.html:90
 msgid "No promoter"
 msgstr "Pas de promoteur"
 
-#: templates/assistants.html:80
 msgid "No result"
 msgstr "Aucun résultat!"
 
-#: models/enums/assistant_mandate_appeal.py:35
 msgid "None"
 msgstr ""
 
-#: models/enums/assistant_mandate_renewal.py:32
 msgid "Normal"
 msgstr "Normal"
 
-#: templates/manager_assistant_form_view.html:298
-#: templates/pst_form_view.html:359
-#: templates/tutoring_learning_unit_year.html:93
 msgid "Number of face-to-face hours"
 msgstr "Nombre d'heures en présentiel"
 
-#: templates/manager_assistant_form_view.html:297
-#: templates/pst_form_view.html:358
-#: templates/tutoring_learning_unit_year.html:87
 msgid "Number of series"
 msgstr "Nombre de séries"
 
-#: templates/manager_assistant_form_view.html:296
-#: templates/pst_form_view.html:357
-#: templates/tutoring_learning_unit_year.html:75
 msgid "Number of sessions planned for this course"
 msgstr "Nombre de séances prévues pour ce cours"
 
-#: templates/manager_assistant_form_view.html:299
-#: templates/pst_form_view.html:360
-#: templates/tutoring_learning_unit_year.html:99
 msgid "Number of students per series"
 msgstr "Nombre d'étudiants par série"
 
-#: templates/manager_reviews_view.html:75
-#: templates/mandate_reviews_view.html:49 templates/review_form.html:155
-#: templates/review_view.html:127
 msgid "Opinion"
 msgstr "Avis"
 
-#: templates/pst_form_view.html:109 templates/review_form.html:110
-#: templates/review_view.html:109 views/mandate.py:146
 msgid "Opinion of the sector vice-rector"
 msgstr "Avis vice-recteur de secteur"
 
-#: templates/pst_form_view.html:107 templates/review_form.html:108
-#: templates/review_view.html:107
 msgid "Opinion of the steering commitee"
 msgstr "Avis encadrement"
 
-#: templates/mandates_list.html:64 templates/reviewer_mandates_list.html:86
-#: utils/export_utils_pdf.py:214
 msgid "Opinions"
 msgstr "Avis"
 
-#: templates/assistant_form_part5.html:113
-#: templates/manager_assistant_form_view.html:410
-#: templates/pst_form_view.html:473 tests/utils/test_export_utils_pdf.py:322
-#: utils/export_utils_pdf.py:371
 msgid ""
 "Organization of seminars, conferences, visits, study tours, grounds, "
 "seminars… (not taken in account in the 'Teaching units' section)"
@@ -925,89 +540,47 @@ msgstr ""
 "Organisation de stages, colloques, visites, voyages d’études, terrains, "
 "séminaires... (non pris en compte dans la section 'Unités d'enseignement')"
 
-#: templates/mandate_form.html:131 tests/utils/test_export_utils_pdf.py:216
-#: utils/export_utils_pdf.py:256
 msgid "Other status"
 msgstr "Autre statut"
 
-#: templates/manager_assistant_form_view.html:301
-#: templates/pst_form_view.html:362
-#: templates/tutoring_learning_unit_year.html:111
 msgid "Other types of services associated with this course"
 msgstr "Autres types de prestations associées à ce cours"
 
-#: templates/assistant_form_part5.html:125
-#: templates/manager_assistant_form_view.html:426
-#: templates/pst_form_view.html:489 tests/utils/test_export_utils_pdf.py:331
-#: utils/export_utils_pdf.py:377
 msgid "Participation in juries and/or scientific committees"
 msgstr "Participation à des jurys et/ou des commissions scientifiques"
 
-#: templates/assistant_form_part4.html:74
-#: templates/manager_assistant_form_view.html:229
-#: templates/pst_form_view.html:288 tests/utils/test_export_utils_pdf.py:278
-#: utils/export_utils_pdf.py:309
 msgid "Participation in thesis and/or dissertation"
 msgstr "Participation à l'encadrement de thèse et/ou de mémoire"
 
-#: templates/assistant_form_part6.html:73
-#: templates/manager_assistant_form_view.html:465
-#: templates/pst_form_view.html:528
 msgid "Percentage for research and Ph.D."
 msgstr "Pourcentage pour la recherche et le doctorat"
 
-#: templates/assistant_form_part6.html:82
-#: templates/manager_assistant_form_view.html:474
-#: templates/pst_form_view.html:537
 msgid "Percentage for service activities"
 msgstr "Pourcentage pour les activités de service"
 
-#: templates/assistant_form_part6.html:66
-#: templates/manager_assistant_form_view.html:456
-#: templates/pst_form_view.html:519
 msgid "Percentage for teaching"
 msgstr "Pourcentage pour l'enseignement"
 
-#: templates/assistant_form_part6.html:88
-#: templates/manager_assistant_form_view.html:482
-#: templates/pst_form_view.html:545
 msgid "Percentage of involvement as beneficiary in training activities"
 msgstr ""
 "Pourcentage de participation, comme bénéficiaire, à des activités de "
 "formation"
 
-#: templates/mandate_form.html:83 templates/reviewer_mandates_list.html:84
-#: tests/utils/test_export_utils_pdf.py:215 utils/export_utils_pdf.py:255
 msgid "Percentage of occupancy"
 msgstr "Pourcentage d'occupation"
 
-#: templates/manager_add_reviewer.html:51
-#: templates/reviewer_add_reviewer.html:54
 msgid "Person"
 msgstr "Personne"
 
-#: templates/assistant_form_part1.html:39
-#: templates/assistant_form_part3.html:41
-#: templates/assistant_form_part3.html:59
-#: templates/assistant_form_part4.html:38
-#: templates/assistant_form_part5.html:39
-#: templates/assistant_form_part6.html:39
-#: templates/manager_assistant_form_view.html:119
-#: templates/mandate_learning_unit_list.html:42 templates/mandates_list.html:60
-#: templates/pst_form_view.html:180
-#: templates/tutoring_learning_unit_year.html:38 utils/export_utils_pdf.py:194
 msgid "Ph.D."
 msgstr "PhD"
 
-#: templates/manager_assistant_form_view.html:151
 msgid "Ph.D. date"
 msgstr "PhD date"
 
-#: models/enums/document_type.py:32
 msgid "Ph.D. document"
 msgstr "Ph.D. document"
 
-#: views/reviewers_management.py:136 views/reviewers_management.py:165
 msgid ""
 "Please enter the last name and first name of the person you are looking for "
 "and select the corresponding choice in the drop-down list"
@@ -1015,121 +588,60 @@ msgstr ""
 "Veuillez sélectionner une personne dans la liste après avoir effectué une "
 "recherche"
 
-#: templates/assistant_form_part5.html:58
-#: templates/assistant_form_part5.html:96
 msgid "Please enter the number of hours per year"
 msgstr "Veuillez introduire le nombre d'heures par an"
 
-#: templates/load_mandates.html:84
 msgid "Please select the XLSX file"
 msgstr "Veuillez sélectionner le fichier XLSX"
 
-#: models/enums/assistant_mandate_appeal.py:36
 msgid "Positive appeal"
 msgstr "Appel positif"
 
-#: templates/manager_assistant_form_view.html:300
-#: templates/pst_form_view.html:361
-#: templates/tutoring_learning_unit_year.html:105
 msgid "Preparation, coordination and evaluation (h)"
 msgstr "Préparation, coordination et évaluation (h)"
 
-#: models/enums/assistant_mandate_state.py:42 models/enums/reviewer_role.py:44
 msgid "President of Institute"
 msgstr "Président d'institut"
 
-#: utils/export_utils_pdf.py:499
 msgid "Printing date"
 msgstr "Date d'impression"
 
-#: templates/assistant_form_part4.html:69
-#: templates/manager_assistant_form_view.html:221
-#: templates/pst_form_view.html:280 tests/utils/test_export_utils_pdf.py:277
-#: utils/export_utils_pdf.py:308
 msgid "Prize(s) and/or distinction(s)"
 msgstr "Prix et/ou distinction(s)"
 
-#: templates/assistant_form_part3.html:70
-#: templates/assistant_form_part3.html:76
-#: templates/manager_assistant_form_view.html:143
-#: templates/manager_reviews_view.html:67 templates/mandate_form.html:90
-#: templates/mandate_form.html:92 templates/mandate_form.html:101
-#: templates/mandate_form.html:106 templates/pst_form_view.html:200
-#: utils/export_utils_pdf.py:393
 msgid "Promoter"
 msgstr "Promoteur"
 
-#: templates/assistant_form_part4.html:64
-#: templates/manager_assistant_form_view.html:213
-#: templates/pst_form_view.html:272 tests/utils/test_export_utils_pdf.py:276
-#: utils/export_utils_pdf.py:307
 msgid "Publication(s) in preparation"
 msgstr "Publication(s) en préparation"
 
-#: templates/assistant_mandates.html:76 templates/assistant_mandates.html:78
 msgid "Refuse"
 msgstr "Décliner"
 
-#: models/enums/assistant_mandate_state.py:38
 msgid "Refused by the assistant"
 msgstr "Décliné par l'assistant"
 
-#: templates/mandate_form.html:61 templates/mandates_list.html:55
-#: templates/phd_supervisor_assistants_list.html:59
-#: tests/utils/test_export_utils_pdf.py:206 utils/export_utils_pdf.py:250
-#: views/mandate.py:130
 msgid "Registration number"
 msgstr "Matricule"
 
-#: templates/assistant_form_part3.html:108
-#: templates/assistant_form_part4.html:79
-#: templates/manager_assistant_form_view.html:237
-#: templates/manager_reviews_view.html:102
-#: templates/mandate_reviews_view.html:67 templates/pst_form_view.html:296
-#: templates/review_form.html:166 templates/review_view.html:148
-#: tests/utils/test_export_utils_pdf.py:266
-#: tests/utils/test_export_utils_pdf.py:279 utils/export_utils_pdf.py:296
-#: utils/export_utils_pdf.py:310 utils/export_utils_pdf.py:402
 msgid "Remark"
 msgstr "Remarque"
 
-#: templates/assistant_form_part6.html:99
-#: templates/manager_assistant_form_view.html:497
-#: templates/pst_form_view.html:560 tests/utils/test_export_utils_pdf.py:308
-#: utils/export_utils_pdf.py:244
 msgid "Remark concerning the activity report"
 msgstr "Remarque concernant le rapport d'activités"
 
-#: templates/assistant_form_part1.html:31
-#: templates/assistant_form_part3.html:34
-#: templates/assistant_form_part4.html:31
-#: templates/assistant_form_part5.html:31
-#: templates/assistant_form_part6.html:31
-#: templates/mandate_learning_unit_list.html:34
-#: templates/tutoring_learning_unit_year.html:30
 msgid "Renewal application form"
 msgstr "Formulaire de demande de renouvellement"
 
-#: templates/assistant_form_part1.html:67
-#: templates/manager_assistant_form_view.html:65 templates/mandate_form.html:65
-#: templates/pst_form_view.html:126 templates/reviewer_mandates_list.html:81
-#: tests/utils/test_export_utils_pdf.py:217 utils/export_utils_pdf.py:257
-#: views/mandate.py:137
 msgid "Renewal type"
 msgstr "Type de renouvellement"
 
-#: forms/reviewer.py:92 views/reviewers_management.py:80
-#: views/reviewers_management.py:82
 msgid "Replace"
 msgstr "Remplacer"
 
-#: templates/manager_replace_reviewer.html:36
 msgid "Replacement"
 msgstr "Remplacement"
 
-#: templates/assistant_form_part3.html:114
-#: templates/manager_assistant_form_view.html:176
-#: templates/pst_form_view.html:234
 msgid ""
 "Report of the steering committee (mandatory from the second renewal "
 "application)"
@@ -1137,99 +649,42 @@ msgstr ""
 "Rapport du comité d'encadrement (obligatoire à partir de la deuxième demande "
 "de renouvellement)"
 
-#: templates/assistant_form_part5.html:55
-#: templates/manager_assistant_form_view.html:339
-#: templates/pst_form_view.html:402 utils/export_utils_pdf.py:202
 msgid "Representation activities at UCL"
 msgstr "Activités de représentation à l'UCL"
 
-#: models/enums/reviewer_role.py:45
 msgid "Representative of the Institute President"
 msgstr "Délégue de président d'institut"
 
-#: templates/assistant_form_part1.html:40
-#: templates/assistant_form_part3.html:42
-#: templates/assistant_form_part4.html:39
-#: templates/assistant_form_part4.html:50
-#: templates/assistant_form_part5.html:40
-#: templates/assistant_form_part6.html:40
-#: templates/manager_assistant_form_view.html:191
-#: templates/mandate_learning_unit_list.html:43
-#: templates/pst_form_view.html:250
-#: templates/tutoring_learning_unit_year.html:40 utils/export_utils_pdf.py:196
 msgid "Research"
 msgstr "Recherche"
 
-#: models/enums/document_type.py:34
 msgid "Research document"
 msgstr "Document de recherche"
 
-#: templates/pst_form_view.html:105 templates/review_form.html:106
-#: templates/review_view.html:105
 msgid "Research opinion"
 msgstr "Avis recherche"
 
-#: models/enums/user_role.py:34 templates/manager_replace_reviewer.html:59
-#: templates/manager_reviews_view.html:58 utils/export_utils_pdf.py:401
 msgid "Reviewer"
 msgstr "Évaluateur"
 
-#: templates/manager_add_reviewer.html:35 templates/manager_home.html:51
-#: templates/manager_replace_reviewer.html:35 templates/messages.html:52
-#: templates/reviewers_list.html:34
 msgid "Reviewers"
 msgstr "Évaluateurs"
 
-#: templates/mandate_reviews_view.html:33
 msgid "Reviews"
 msgstr "Opinions"
 
-#: templates/manager_add_reviewer.html:61
-#: templates/manager_replace_reviewer.html:67 templates/reviewers_list.html:51
 msgid "Role"
 msgstr "Rôle"
 
-#: templates/assistant_form_part1.html:116
-#: templates/assistant_form_part1.html:117
-#: templates/assistant_form_part3.html:143
-#: templates/assistant_form_part3.html:145
-#: templates/assistant_form_part4.html:112
-#: templates/assistant_form_part4.html:113
-#: templates/assistant_form_part5.html:139
-#: templates/assistant_form_part5.html:140
-#: templates/assistant_form_part6.html:105
-#: templates/assistant_form_part6.html:106
-#: templates/manager_add_reviewer.html:65
-#: templates/manager_add_reviewer.html:67
-#: templates/manager_replace_reviewer.html:72
-#: templates/manager_replace_reviewer.html:74
-#: templates/manager_reviews_view.html:130 templates/mandate_form.html:135
-#: templates/new_document.html:55 templates/review_form.html:183
-#: templates/review_form.html:185 templates/reviewer_add_reviewer.html:59
-#: templates/reviewer_add_reviewer.html:61 templates/settings.html:103
-#: templates/settings.html:104 templates/tutoring_learning_unit_year.html:115
-#: templates/tutoring_learning_unit_year.html:116
 msgid "Save"
 msgstr "Sauver"
 
-#: templates/assistant_form_part3.html:81
-#: templates/manager_assistant_form_view.html:135
-#: templates/pst_form_view.html:192 tests/utils/test_export_utils_pdf.py:261
-#: utils/export_utils_pdf.py:293
 msgid "Scheduled date of registration"
 msgstr "Date prévue d'inscription"
 
-#: templates/assistant_form_part4.html:54
-#: templates/manager_assistant_form_view.html:197
-#: templates/pst_form_view.html:256 tests/utils/test_export_utils_pdf.py:271
-#: utils/export_utils_pdf.py:302
 msgid "Scientific stay(s) and/or course(s)"
 msgstr "Séjour(s) et/ou stage(s) scientifiques"
 
-#: templates/assistant_form_part5.html:135
-#: templates/manager_assistant_form_view.html:441
-#: templates/pst_form_view.html:504 tests/utils/test_export_utils_pdf.py:340
-#: utils/export_utils_pdf.py:384
 msgid ""
 "Scientific, pedagogical or other training you have attended (LLL, SMCS, "
 "RHUM, Summer School)"
@@ -1237,44 +692,30 @@ msgstr ""
 "Formations scientifiques, pédagogiques ou autres auxquelles vous avez "
 "participé (LLL, SMCS, RHUM, Summer School)"
 
-#: templates/assistant_form_part3.html:72
-#: templates/manager_add_reviewer.html:53
-#: templates/manager_replace_reviewer.html:53 templates/mandate_form.html:98
-#: templates/reviewer_add_reviewer.html:56
 msgid "Search by email or last name"
 msgstr "recherche par email ou nom de famille"
 
-#: templates/assistants.html:64
 msgid "Search for an organization"
 msgstr "Recherche une organisation"
 
-#: templates/load_mandates.html:63
 msgid "Select Excel file to inject mandates"
 msgstr "Choisir un fichier Excel pour injecter les mandats"
 
-#: templates/messages.html:49
 msgid "Send an email to all assistants"
 msgstr "Envoyer un email à tous les assistants"
 
-#: templates/messages.html:57
 msgid "Send an email to reviewers"
 msgstr "Envoyer un email aux évaluateurs"
 
-#: templates/messages.html:64
 msgid "Sender"
 msgstr "Expéditeur"
 
-#: templates/assistant_form_part5.html:93
-#: templates/manager_assistant_form_view.html:387
-#: templates/pst_form_view.html:450 utils/export_utils_pdf.py:205
 msgid "Service activities"
 msgstr "Activités de services"
 
-#: templates/manager_home.html:99 templates/settings.html:34
 msgid "Settings"
 msgstr "Réglages"
 
-#: templates/assistant_form_part1.html:110
 msgid ""
 "Should you no longer fulfill the requirements for a \"normal\" renewal, can "
 "you specify the circumstances justifying an exceptional renewal application "
@@ -1284,7 +725,6 @@ msgstr ""
 "d'un renouvellement 'normal', pouvez-vous préciser les circonstances "
 "justifiant une demande de renouvellement exceptionnel (art. 51 du RAMCS)"
 
-#: tests/utils/test_export_utils_pdf.py:220 utils/export_utils_pdf.py:259
 msgid ""
 "Should you no longer fulfill the requirements for a 'normal' renewal, can "
 "you specify the circumstances justifying an exceptional renewal application "
@@ -1294,217 +734,129 @@ msgstr ""
 "d'un renouvellement 'normal', pouvez-vous préciser les circonstances "
 "justifiant une demande de renouvellement exceptionnel (art. 51 du RAMCS)"
 
-#: models/enums/assistant_mandate_renewal.py:33
 msgid "Special"
 msgstr "Spécial"
 
-#: models/enums/assistant_mandate_state.py:39
 msgid "Start"
 msgstr "Début"
 
-#: templates/messages.html:45 templates/messages.html:53
 msgid "Startup procedure"
 msgstr "Procédure de démarrage"
 
-#: templates/assistant_mandates.html:49
-#: templates/phd_supervisor_assistants_list.html:65
-#: templates/reviewer_mandates_list.html:85
 msgid "State"
 msgstr "État"
 
-#: templates/mandates_list.html:59 views/mandate.py:136
 msgid "Status"
 msgstr "Statut"
 
-#: templates/review_form.html:40
 msgid "Submit an opinion"
 msgstr "Remettre un avis"
 
-#: templates/mandate_form.html:95
 msgid "Substitute promoter"
 msgstr "Promoteur de remplacement"
 
-#: templates/manager_replace_reviewer.html:51
 msgid "Substitute reviewer"
 msgstr "Évaluateur remplaçant"
 
-#: templates/assistant_form_part1.html:43
-#: templates/assistant_form_part3.html:44
-#: templates/assistant_form_part4.html:41
-#: templates/assistant_form_part5.html:43
-#: templates/assistant_form_part6.html:43
-#: templates/assistant_form_part6.html:58
-#: templates/manager_assistant_form_view.html:450
-#: templates/mandate_learning_unit_list.html:46
-#: templates/pst_form_view.html:513
-#: templates/tutoring_learning_unit_year.html:42 utils/export_utils_pdf.py:210
 msgid "Summary"
 msgstr "Récapitulatif"
 
-#: templates/manager_home.html:46
 msgid "Table listing all the files"
 msgstr "Tableau reprenant l'ensemble des dossiers"
 
-#: models/enums/assistant_type.py:33
 msgid "Teaching assistant"
 msgstr "Assistant d'enseignement"
 
-#: views/assistant_form.py:219 views/assistant_form.py:306
 msgid "The 'Doctorate' section must be completed"
 msgstr "La rubrique 'Doctorat' doit être complétée"
 
-#: utils/import_xls_file_data.py:276
 msgid "The cols title are wrong."
 msgstr "Les titres des colonnes sont incorrects."
 
-#: templates/assistant_form_part3.html:236
-#: templates/assistant_form_part4.html:130
-#: templates/mandate_learning_unit_list.html:155
-#: views/upload_assistant_file.py:72
 msgid "The length of filename may not exceed 100 characters."
 msgstr "Le nom du fichier ne doit pas excéder 100 caractères."
 
-#: utils/import_xls_file_data.py:273
 msgid "The number of cols is wrong."
 msgstr "Le nombre de colonnes est erroné."
 
-#: views/assistant_form.py:214
 msgid "The promoter must be identified"
 msgstr "Le promoteur doit être identifé"
 
-#: forms/assistant.py:153 templates/assistant_form_part6.html:61
 msgid "The total must be equal to 100"
 msgstr "Le total doit être égal à 100"
 
-#: models/enums/assistant_mandate_state.py:41 models/enums/reviewer_role.py:39
-#: templates/mandate_reviews_view.html:45 templates/mandates_list.html:126
-#: templates/review_view.html:46 templates/reviewer_mandates_list.html:131
 msgid "Thesis promoter"
 msgstr "Promoteur de thèse"
 
-#: templates/manager_home.html:88
 msgid "This export is used to add assistants form to SAP"
 msgstr ""
 "Cette exportation est utilisée pour ajouter les dossiers d'assistants à SAP"
 
-#: forms/review.py:17
 msgid "This information is only transmitted to DAS/CAS and Vice-Rector"
 msgstr "Cette information n'est transmise qu'aux DAS/CAS et Vice-Recteur"
 
-#: forms/review.py:20
 msgid "This information will not be transmitted to the assistant"
 msgstr "Cette information ne sera pas transmise à l'assistant"
 
-#: views/reviewer_delegation.py:88 views/reviewers_management.py:129
-#: views/reviewers_management.py:155
 msgid "This person is already a reviewer, please select another person"
 msgstr "Cette personne est déjà évaluateur, veuillez choisir quelqu'un d'autre"
 
-#: templates/manager_assistant_form_view.html:294
-#: templates/mandate_learning_unit_list.html:64
-#: templates/pst_form_view.html:355 templates/reviewer_structures_list.html:56
 msgid "Title"
 msgstr "Intitulé"
 
-#: templates/assistant_form_part3.html:92
-#: tests/utils/test_export_utils_pdf.py:253 utils/export_utils_pdf.py:289
 msgid "Title (provisional) of the thesis"
 msgstr "Titre (provisoire) de la thèse"
 
-#: models/enums/message_type.py:36
 msgid "To Ph.D. promoter"
 msgstr "Au promoteur de doctorat"
 
-#: models/enums/message_type.py:38
 msgid "To all reviewers"
 msgstr "À tous les évaluateurs"
 
-#: models/enums/message_type.py:37
 msgid "To one Dean"
 msgstr "A un doyen"
 
-#: models/enums/message_type.py:35
 msgid "To the Deans of Faculty"
 msgstr "Aux doyens de faculté"
 
-#: models/enums/message_type.py:34
 msgid "To the assistants"
 msgstr "Aux assistants"
 
-#: templates/assistant_form_part5.html:131
-#: templates/manager_assistant_form_view.html:435
-#: templates/pst_form_view.html:498 utils/export_utils_pdf.py:207
 msgid "Training activities"
 msgstr "Activités de formation"
 
-#: models/enums/document_type.py:33
 msgid "Tutoring document"
 msgstr "Teaching document"
 
-#: templates/assistants.html:51 templates/assistants.html:86
-#: templates/messages.html:65
 msgid "Type"
 msgstr "Type"
 
-#: templates/assistants.html:53
 msgid "Types"
 msgstr "Types"
 
-#: models/enums/review_advice_choices.py:34
 msgid "Unfavourable"
 msgstr "Défavorable"
 
-#: templates/assistant_form_part6.html:108
-#: templates/assistant_form_part6.html:112 templates/review_form.html:194
-#: templates/review_form.html:197
 msgid "Validate and submit"
 msgstr "Valider et soumettre"
 
-#: models/enums/assistant_mandate_state.py:44 models/enums/reviewer_role.py:46
 msgid "Vice-rector of sector"
 msgstr "Vice-recteur de secteur"
 
-#: templates/assistant_mandates.html:87 templates/assistant_mandates.html:88
-#: templates/assistant_mandates.html:91
-#: templates/phd_supervisor_assistants_list.html:103
-#: templates/phd_supervisor_assistants_list.html:105
-#: templates/pst_form_view.html:56 templates/pst_form_view.html:67
-#: templates/pst_form_view.html:86 templates/pst_form_view.html:99
-#: templates/review_form.html:57 templates/review_form.html:68
-#: templates/review_form.html:87 templates/review_form.html:100
-#: templates/review_view.html:56 templates/review_view.html:67
-#: templates/review_view.html:86 templates/review_view.html:99
-#: templates/reviewer_mandates_list.html:154
-#: templates/reviewer_mandates_list.html:156
 msgid "View"
 msgstr "Voir"
 
-#: templates/assistant_form_part5.html:87
-#: templates/manager_assistant_form_view.html:378
-#: templates/pst_form_view.html:441 tests/utils/test_export_utils_pdf.py:301
 msgid "Within the CORSCI"
 msgstr "Au sein du CORSCI"
 
-#: templates/assistant_form_part5.html:63
-#: templates/manager_assistant_form_view.html:346
-#: templates/pst_form_view.html:409 tests/utils/test_export_utils_pdf.py:286
-#: utils/export_utils_pdf.py:346
 msgid "Within the faculty (program committees, faculty board, faculty council)"
 msgstr ""
 "Au sein de la faculté (commissions de programme, bureau de faculté, conseil "
 "de faculté)"
 
-#: templates/assistant_form_part5.html:69
-#: templates/manager_assistant_form_view.html:354
-#: templates/pst_form_view.html:417 tests/utils/test_export_utils_pdf.py:290
-#: utils/export_utils_pdf.py:349
 msgid "Within the institute (institute board, institute council,...)"
 msgstr "Au sein de l’institut (bureau d’institut, conseil d’institut...)"
 
-#: templates/assistant_form_part5.html:81
-#: templates/manager_assistant_form_view.html:370
-#: templates/pst_form_view.html:433 tests/utils/test_export_utils_pdf.py:298
-#: utils/export_utils_pdf.py:355
 msgid ""
 "Within the organs of the University (academic council, other councils or "
 "commissions,...)"
@@ -1512,65 +864,38 @@ msgstr ""
 "Au sein des organes de l’Université (conseil académique, autres conseils ou "
 "commissions...)"
 
-#: templates/assistant_form_part5.html:75
-#: templates/manager_assistant_form_view.html:362
-#: templates/pst_form_view.html:425 tests/utils/test_export_utils_pdf.py:294
-#: utils/export_utils_pdf.py:352
 msgid "Within the sector (board and/or council)"
 msgstr "Au sein du secteur (bureau et/ou conseil)"
 
-#: templates/manager_assistant_form_view.html:51
-#: templates/manager_reviews_view.html:51 templates/mandate_form.html:45
 msgid "Workflow and reviews"
 msgstr "Workflow et évaluations"
 
-#: models/enums/assistant_phd_inscription.py:32
 msgid "Yes"
 msgstr "Oui"
 
-#: templates/phd_supervisor_assistants_list.html:38
-#: templates/pst_form_view.html:44 templates/pst_form_view.html:46
-#: templates/review_form.html:45 templates/review_form.html:47
-#: templates/review_view.html:44 templates/review_view.html:46
-#: templates/reviewer_add_reviewer.html:40
-#: templates/reviewer_mandates_list.html:37
-#: templates/reviewer_structures_list.html:39
 msgid "You are connected as"
 msgstr "Vous êtes connecté en tant que"
 
-#: views/assistant_form.py:311
 msgid ""
 "You must add at least one teaching unit under the heading 'Teaching Units'"
 msgstr ""
 "Vous devez ajouter au moins une unité d'enseignement dans la rubrique "
 "'Unités d'enseignement'"
 
-#: views/assistant_form.py:161
 msgid "You must add one learning unit"
 msgstr "Vous devez ajouter une unité d'enseignement"
 
-#: templates/assistant_form_part3.html:306
-#: templates/assistant_form_part4.html:199
-#: templates/mandate_learning_unit_list.html:220
-#: views/upload_assistant_file.py:77
 msgid "You must select a PDF file"
 msgstr "Vous devez sélectionner un fichier PDF"
 
-#: utils/export_utils_pdf.py:71 utils/export_utils_pdf.py:98
 msgid "assistants_mandates"
 msgstr "assistants_mandats"
 
-#: views/upload_assistant_file.py:95
 msgid "file uploaded"
 msgstr "a été correctement téléchargé"
 
-#: templates/manager_assistant_form_view.html:340
-#: templates/manager_assistant_form_view.html:388
-#: templates/pst_form_view.html:403 templates/pst_form_view.html:451
-#: utils/export_utils_pdf.py:204 utils/export_utils_pdf.py:206
 msgid "number of hours per year"
 msgstr "nombre d'heures par an"
 
-#: templates/tutoring_learning_unit_year.html:67
 msgid "search by course acronym"
 msgstr "recherche par acronyme du cours"
