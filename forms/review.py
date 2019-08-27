@@ -8,12 +8,16 @@ from assistant.models.enums import review_advice_choices
 
 
 class ReviewForm(ModelForm):
-    justification = forms.CharField(help_text=_("justification_required_if_conditional_or_negative"),
-                                    required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'}))
+    justification = forms.CharField(
+        help_text=_("A justification is required if the opinion is unfavourable or conditional"),
+        required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'})
+    )
     remark = forms.CharField(required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'}))
-    comment_vice_rector = forms.CharField(help_text=_("information_only_for_DAS_CAS_and_VICE_RECTOR"),
-                                          required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'}))
-    confidential = forms.CharField(help_text=_("information_not_provided_to_assistant"),
+    comment_vice_rector = forms.CharField(
+        help_text=_("This information is only transmitted to DAS/CAS and Vice-Rector"),
+        required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'})
+    )
+    confidential = forms.CharField(help_text=_("This information will not be transmitted to the assistant"),
                                    required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '5'}))
     advice = forms.ChoiceField(choices=review_advice_choices.REVIEW_ADVICE_CHOICES, **RADIO_SELECT_REQUIRED)
 
@@ -37,5 +41,5 @@ class ReviewForm(ModelForm):
         justification = self.cleaned_data.get('justification')
         if (advice == review_advice_choices.UNFAVOURABLE or advice == review_advice_choices.CONDITIONAL) \
                 and not justification:
-            msg = _("justification_required_if_conditional_or_negative")
+            msg = _("A justification is required if the opinion is unfavourable or conditional")
             self.add_error('justification', msg)

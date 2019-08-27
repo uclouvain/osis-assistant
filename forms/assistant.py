@@ -150,6 +150,6 @@ class AssistantFormPart6(ModelForm):
         research_percent = self.cleaned_data.get('research_percent', 0)
 
         if tutoring_percent + service_activities_percent + formation_activities_percent + research_percent != 100:
-            raise ValidationError(_('total_must_be_100_message'))
+            raise ValidationError(_('The total must be equal to 100'))
         else:
             return self.cleaned_data

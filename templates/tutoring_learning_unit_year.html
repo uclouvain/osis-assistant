@@ -26,20 +26,20 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-<li><a href="{% url 'assistant_mandates' %}" id="lnk_assistant_mandates">{% trans 'my_mandates' %}</a></li>
-<li class="active">{% trans 'renewal_form' %}</li>
+<li><a href="{% url 'assistant_mandates' %}" id="lnk_assistant_mandates">{% trans 'My mandates' %}</a></li>
+<li class="active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
 <ul class="nav nav-tabs ">
-<li><a href="{% url 'assistant_mandates' %}">{% trans 'my_mandates' %}</a></li>
-<li><a href="{% url 'form_part1_edit' %}">{% trans 'assistant_form_part1' %}</a></li>
-<li class="active"><a href="{% url 'mandate_learning_units' %}">{% trans 'learning_units' %}</a></li>
+<li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
+<li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
+<li class="active"><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
 {% if assistant_type == "ASSISTANT" %}
-    <li><a href="{% url 'form_part3_edit' %}">{% trans 'assistant_form_part3' %}</a></li>
+    <li><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
 {% endif %}
-<li><a href="{% url 'form_part4_edit'%}">{% trans 'assistant_form_part4' %}</a></li>
-<li><a href="{% url 'form_part5_edit' %}">{% trans 'assistant_form_part5' %}</a></li>
-<li><a href="{% url 'form_part6_edit' %}">{% trans 'assistant_form_part6' %}</a></li>
+<li><a href="{% url 'form_part4_edit'%}">{% trans 'Research' %}</a></li>
+<li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
+<li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
 </ul>
     <div class="panel panel-default">
         <div class="panel-body">
@@ -50,12 +50,12 @@
 		{% endfor %}
         <div class="panel-info">
             <div class="panel-heading">
-                <h4>{% trans 'learning_unit' %}</h4>
+                <h4>{% trans 'Learning unit' %}</h4>
             </div>
         </div>
         <div class="form-group">
             <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit">
-                {% trans 'learning_unit' %}</label>
+                {% trans 'Learning unit' %}</label>
             {% if search_learning_units_year %}
                 <div class="controls">{{ search_learning_units_year }}</div>
                 <input type="hidden" name="learning_unit_year_id" id="learning_unit_year_id"
@@ -64,7 +64,7 @@
                 <input id="search_learning_units_year"
                        class="form-control"
                        name="search_learning_units_year" size="100"
-                       placeholder="{% trans 'search_by_acronym' %}">
+                       placeholder="{% trans 'search by course acronym' %}">
                 <input type="hidden" name="learning_unit_year_id" id="learning_unit_year_id" />
             {% endif %}
 
@@ -72,50 +72,50 @@
         </div>
         <div class="form-group">
             <label for="{{ form.sessions_number.id_for_label }}">
-                {% trans 'sessions_number' %}</label>
+                {% trans 'Number of sessions planned for this course' %}</label>
             {{ form.sessions_number }}
             <span class="error">{{ form.sessions_number.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.sessions_duration.id_for_label }}">
-                {% trans 'sessions_duration' %}</label>
+                {% trans 'Duration of a session (h)' %}</label>
             {{ form.sessions_duration }}
             <span class="error">{{ form.sessions_duration.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.series_number.id_for_label }}">
-                {% trans 'series_number' %}</label>
+                {% trans 'Number of series' %}</label>
             {{ form.series_number }}
             <span class="error">{{ form.series_number.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.face_to_face_duration.id_for_label }}">
-                {% trans 'face_to_face_duration' %}</label>
+                {% trans 'Number of face-to-face hours' %}</label>
             {{ form.face_to_face_duration }}
             <span class="error">{{ form.face_to_face_duration.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.attendees.id_for_label }}">
-                {% trans 'attendees' %}</label>
+                {% trans 'Number of students per series' %}</label>
             {{ form.attendees }}
             <span class="error">{{ form.attendees.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.exams_supervision_duration.id_for_label }}">
-                {% trans 'exams_supervision_duration' %}</label>
+                {% trans 'Preparation, coordination and evaluation (h)' %}</label>
             {{ form.exams_supervision_duration }}
             <span class="error">{{ form.exams_supervision_duration.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.others_delivery.id_for_label }}">
-                {% trans 'others_delivery' %}</label>
+                {% trans 'Other types of services associated with this course' %}</label>
             {{ form.others_delivery }}
             <span class="error">{{ form.others_delivery.errors }}</span>
         </div>
-        <button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_save_tutoring_learning_unit">
-        <span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}</button>
+        <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_save_tutoring_learning_unit">
+        <span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
         <a class="btn btn-default" id="lnk_cancel" href="{% url 'mandate_learning_units' %}">
-        <span class="fas fa-times" aria-hidden="true"></span> {% trans 'cancel'%}</a>
+        <span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
         <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
     </form>
     </div>

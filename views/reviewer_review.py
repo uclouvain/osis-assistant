@@ -137,7 +137,7 @@ def review_save(request):
         if 'validate_and_submit' in request.POST:
             if current_review.advice not in assistant_mandate_renewal.ASSISTANT_MANDATE_RENEWAL_TYPES:
                 errors = form._errors.setdefault("advice", ErrorList())
-                errors.append(_('advice_missing_in_form'))
+                errors.append(_('Advice missing in form'))
                 return render(request, "review_form.html", {'review': rev,
                                                             'role': mandate.state,
                                                             'year': mandate.academic_year.year + 1,

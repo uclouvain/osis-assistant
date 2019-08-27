@@ -85,7 +85,7 @@ def add_reviewer_for_structure(request):
         new_reviewer = form.save(commit=False)
         this_person = person.find_by_id(request.POST.get('person_id'))
         if reviewer.find_by_person(this_person):
-            msg = _("person_already_reviewer_msg")
+            msg = _("This person is already a reviewer, please select another person")
             form.add_error(None, msg)
             return render(request, "reviewer_add_reviewer.html", {
                 'form': form,

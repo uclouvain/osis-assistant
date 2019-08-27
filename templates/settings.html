@@ -30,12 +30,12 @@
 <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'assistants' %}</a></li>
-<li class="active">{% trans 'settings' %}</li>
+<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li class="active">{% trans 'Settings' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h3>{% trans 'assistant_mandates_renewals' %} {{ year|add:1 }}</h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -49,15 +49,15 @@
             <div class="col-md-6">
 	            <div class="panel-default">
 		            <div class="panel-heading">
-                        <h4>{% trans 'app_dates' %}</h4>
+                        <h4>{% trans 'Mandates renewal procedure dates' %}</h4>
 		            </div>
 	                <div class="form-group" style="padding-top: 5px;">
-                        <label for="txt_starting_date">{% trans 'beginning' %}</label>
+                        <label for="txt_starting_date">{% trans 'Beginning' %}</label>
                         {{ form.starting_date }}
                         <span class="error">{{ form.starting_date.errors }}</span>
                     </div>
                     <div class="form-group" style="padding-top: 5px;">
-                        <label for="txt_ending_date">{% trans 'end' %}</label>
+                        <label for="txt_ending_date">{% trans 'End' %}</label>
                         {{ form.ending_date }}
                         <span class="error">{{ form.ending_date.errors }}</span>
                     </div>
@@ -66,15 +66,15 @@
             <div class="col-md-6">
                 <div class="panel-default">
 		            <div class="panel-heading">
-                        <h4>{% trans 'assistants_dates' %}</h4>
+                        <h4>{% trans 'Assessment access dates for assistants' %}</h4>
 		            </div>
                     <div class="form-group" style="padding-top: 5px;">
-                        <label for="txt_assistants_starting_date">{% trans 'beginning' %}</label>
+                        <label for="txt_assistants_starting_date">{% trans 'Beginning' %}</label>
                         {{ form.assistants_starting_date }}
                         <span class="error">{{ form.assistants_starting_date.errors }}</span>
                     </div>
                     <div class="form-group" style="padding-top: 5px;">
-                        <label for="txt_assistants_ending_date">{% trans 'end' %}</label>
+                        <label for="txt_assistants_ending_date">{% trans 'End' %}</label>
                         {{ form.assistants_ending_date }}
                         <span class="error">{{ form.assistants_ending_date.errors }}</span>
                     </div>
@@ -85,25 +85,25 @@
             <div class="col-md-12">
                 <div class="panel-default">
 		            <div class="panel-heading">
-                        <h4>{% trans 'assistants_contract_end_dates' %}</h4>
+                        <h4>{% trans 'Assistants contract ending dates' %}</h4>
 		            </div>
                     <div class="form-group" style="padding-top: 5px;">
-                        <label for="txt_assistants_starting_date">{% trans 'beginning' %}</label>
+                        <label for="txt_assistants_starting_date">{% trans 'Beginning' %}</label>
                         {{ form.assistants_contract_end_starting_date }}
                         <span class="error">{{ form.assistants_contract_end_starting_date.errors }}</span>
                     </div>
                     <div class="form-group" style="padding-top: 5px;">
-                        <label for="txt_assistants_ending_date">{% trans 'end' %}</label>
+                        <label for="txt_assistants_ending_date">{% trans 'End' %}</label>
                         {{ form.assistants_contract_end_ending_date }}
                         <span class="error">{{ form.assistants_contract_end_ending_date.errors }}</span>
                     </div>
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_settings_save">
-            <span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}</button>
+        <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_settings_save">
+            <span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
             <a class="btn btn-default" id="lnk_cancel" href="{% url 'manager_home' %}">
-            <span class="fas fa-times" aria-hidden="true"></span> {% trans 'cancel'%}</a>
+            <span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
         </form>
     </div>
 </div>

@@ -30,18 +30,18 @@
 <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'my_mandates' %}</a></li>
-<li class="active">{% trans 'renewal_form' %}</li>
+<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
+<li class="active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
 <ul class="nav nav-tabs ">
-<li><a href="{% url 'assistant_mandates' %}">{% trans 'my_mandates' %}</a></li>
-<li><a href="{% url 'form_part1_edit' %}">{% trans 'assistant_form_part1' %}</a></li>
-<li><a href="{% url 'mandate_learning_units' %}">{% trans 'learning_units' %}</a></li>
-<li class="active"><a href="{% url 'form_part3_edit' %}">{% trans 'assistant_form_part3' %}</a></li>
-<li><a href="{% url 'form_part4_edit' %}">{% trans 'assistant_form_part4' %}</a></li>
-<li><a href="{% url 'form_part5_edit' %}">{% trans 'assistant_form_part5' %}</a></li>
-<li><a href="{% url 'form_part6_edit' %}">{% trans 'assistant_form_part6' %}</a></li>
+<li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
+<li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
+<li><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
+<li class="active"><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
+<li><a href="{% url 'form_part4_edit' %}">{% trans 'Research' %}</a></li>
+<li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
+<li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
 </ul>
 <div class="panel panel-default">
 	<div class="panel-body">
@@ -56,72 +56,72 @@
 		{% endfor %}
  		<div class="panel-default">
   			<div class="panel-heading">
-  				<h4>{% trans 'doctorate' %}</h4>
+  				<h4>{% trans 'Ph.D.' %}</h4>
     		</div>
     	</div>
     	<div class="form-group">
-			<label for="registered_phd">{% trans 'registered_phd' %}</label>
+			<label for="registered_phd">{% trans 'Enrolled in the Ph.D. program' %}</label>
 			{{ form.inscription }}
             <span class="error">{{ form.inscription.errors }}</span>
         </div>
         {% if not supervisor %}
             <div class="form-group">
 				<label id="label_for_search_persons" for="search_persons">
-					{% trans 'supervisor' %}</label>
+					{% trans 'Promoter' %}</label>
 				<input id="search_persons" name="search_persons" size="100" class="form-control"
-                       placeholder="{% trans 'search_by_email_or_last_name' %}">
+                       placeholder="{% trans 'Search by email or last name' %}">
                 <input type="hidden" name="person_id" id="person_id">
             </div>
         {% else %}
-            <label>{% trans 'supervisor' %}</label>
+            <label>{% trans 'Promoter' %}</label>
             <div class="form-group">{{ supervisor }}</div>
 		{% endif %}
         <div class="form-group">
 			<label id="label_for_expected_phd_date" for="expected_phd_date">
-                {% trans 'expected_registering_date' %}</label>
+                {% trans 'Scheduled date of registration' %}</label>
 			{{ form.expected_phd_date }}
             <span class="error">{{ form.expected_phd_date.errors }}</span>
         </div>
         <div class="form-group">
             <label id="label_for_phd_inscription_date"
-                   for="phd_inscription_date">{% trans 'phd_inscription_date' %}</label>
+                   for="phd_inscription_date">{% trans 'Date of doctoral enrollment' %}</label>
 			{{ form.phd_inscription_date }}
 			<span class="error">{{ form.phd_inscription_date.errors }}</span>
         </div>
         <div class="form-group">
-			<label for="thesis_title">{% trans 'thesis_title' %}</label>
+			<label for="thesis_title">{% trans 'Title (provisional) of the thesis' %}</label>
 			{{ form.thesis_title }}
 			<span class="error">{{ form.thesis_title.errors }}</span>
         </div>
         <div class="form-group">
-			<label for="confirmatory_test_date">{% trans 'confirmatory_test_date' %}
-				{% trans '2nd_renewal' %}</label>
+			<label for="confirmatory_test_date">{% trans 'Date of confirmation test' %}
+				{% trans '(for the 2nd renewal)' %}</label>
 			{{ form.confirmation_test_date }}
 			<span class="error">{{ form.confirmation_test_date.errors }}</span>
         </div>
         <div class="form-group">
-			<label for="thesis_defence_date">{% trans 'thesis_defence_date' %}</label>
+			<label for="thesis_defence_date">{% trans 'Date of defense of thesis (if already known)' %}</label>
 			{{ form.thesis_date }}
             <span class="error">{{ form.thesis_date.errors }}</span>
         </div>
         <div class="form-group">
-			<label for="remark">{% trans 'remark' %}</label>
+			<label for="remark">{% trans 'Remark' %}</label>
 			{{ form.remark }}
 			<span class="error">{{ form.remark.errors }}</span>
         </div>
         <div class="panel-default">
   			<div class="panel-heading">
-  				<h4>{% trans 'support_committee_reports' %}</h4>
+  				<h4>{% trans 'Report of the steering committee (mandatory from the second renewal application)' %}</h4>
     		</div>
     	</div>
         {% for file in files %}
             <div class="row" style="padding-top: 15px;">
                 <div class="col-md-2" style="text-align: left">
                     <a class="btn btn-default btn-danger btn-sm" id="btn_delete_file" style="margin-right: 5px;"
-                       title="{% trans 'delete_file'%}"
+                       title="{% trans 'Delete file'%}"
                        onclick="location.href='{% url 'assistant_file_delete' file.id 'form_part3_edit' %}';">
                     <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
-                        {% trans 'delete' %}</a>
+                        {% trans 'Delete' %}</a>
                 </div>
                 <div class="col-md-10" id="hdn_filename" style="text-align: left">
                    <a href="{% url 'assistant_file_download' document_file_id=file.id %}">{{ file.document_file }}</a>
@@ -130,9 +130,9 @@
         {% endfor %}
 		<div class="form-group" style="padding-top: 15px;">
 			<a class="btn btn-default" data-toggle="modal" data-target="#pnl_upload_documents"
-               id="btn_add_file" style="margin-right: 5px;" title="{% trans 'add_file'%}">
+               id="btn_add_file" style="margin-right: 5px;" title="{% trans 'Add file'%}">
                 <span class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></span>
-                {% trans 'upload' %}</a>
+                {% trans 'Attach a PDF file' %}</a>
 		</div>
         <hr>
         <input type="hidden" value="{{mandate.id | default_if_none:''}}" id="hdn_current_mandate_id"
@@ -140,9 +140,9 @@
 	    <input type="hidden" value="{{ document_type }}" id="hdn_description" name="description"
                title="description">
 		<div class="form-group">
-     			<button type="submit" class="btn btn-primary" title="{% trans 'save'%}"
+     			<button type="submit" class="btn btn-primary" title="{% trans 'Save'%}"
                         id="bt_pstform_part3_save">
-     			<span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}</button>
+     			<span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
 		</div>
     	</form>
 	</div>
@@ -218,7 +218,7 @@ $("#pst-form-part3 :input").change(function() {
 });
 $('a').on('click', function(e) {
     if ($("#pst-form-part3").data("changed")) {
-        var choice = confirm("{% trans 'save_before_link' %}");
+        var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
         if (choice == true) {
             e.preventDefault();
             $('form#pst-form-part3').submit();
@@ -233,7 +233,7 @@ $("#txt_file").on("change", function() {
     fileName = file.name;
     $("#hdn_filename").val(fileName);
     if(fileName.length > 100){
-        document.getElementById("error_modal_upload").innerHTML = "{% trans 'maxlength_filename'%}";
+        document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
         $("#txt_file").val('')
         $('#pnl_upload_error').remove();
         event.preventDefault();
@@ -246,7 +246,7 @@ $("#txt_file").on("change", function() {
     res = /.*[()%$,;:/=+].*/i.test(fileName);
     if(res)
         {
-        document.getElementById("error_modal_upload").innerHTML = "{% trans 'bad_filename'%}";
+        document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
         $("#txt_file").val('')
         $('#pnl_upload_error').remove();
         event.preventDefault();
@@ -303,7 +303,7 @@ $("#bt_upload_document").click(function(event) {
             return true;
         }
         else {
-            document.getElementById("error_modal_upload").innerHTML = "{% trans 'only_pdf_file'%}";
+            document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
             $("#txt_file").val('')
             $('#pnl_upload_error').remove();
             event.preventDefault();

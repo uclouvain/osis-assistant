@@ -28,5 +28,5 @@ from django.utils.translation import ugettext_lazy as _
 IN_PROGRESS = 'IN_PROGRESS'
 DONE = 'DONE'
 
-REVIEW_STATUS_CHOICES = ((IN_PROGRESS, _(IN_PROGRESS)),
-                         (DONE, _(DONE)))
+REVIEW_STATUS_CHOICES = ((IN_PROGRESS, _('In progress')),
+                         (DONE, _('Completed')))

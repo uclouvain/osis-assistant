@@ -76,10 +76,10 @@ def reviewers_index(request):
     for form in reviewers_formset:
         current_reviewer = reviewer.find_by_id(form['id'].value())
         if review.find_by_reviewer(current_reviewer).count() == 0:
-            form.fields['action'].choices = (('-----', _('-----')), ('DELETE', _('delete')),
-                                             ('REPLACE', _('replace')))
+            form.fields['action'].choices = (('-----', '-----'), ('DELETE', _('Delete')),
+                                             ('REPLACE', _('Replace')))
         else:
-            form.fields['action'].choices = (('-----', _('-----')), ('REPLACE', _('replace')))
+            form.fields['action'].choices = (('-----', '-----'), ('REPLACE', _('Replace')))
     return render(request, "reviewers_list.html", {'reviewers_formset': reviewers_formset
                                                    })
 
@@ -126,14 +126,15 @@ def reviewer_replace(request):
     if form.is_valid() and this_person:
         this_person = person.find_by_id(this_person)
         if reviewer.find_by_person(this_person):
-            msg = _("person_already_reviewer_msg")
+            msg = _("This person is already a reviewer, please select another person")
             form.add_error(None, msg)
         else:
             reviewer_to_replace.person = this_person
             reviewer_to_replace.save()
             return redirect('reviewers_list')
     else:
-        msg = _("bad_person_msg")
+        msg = _("Please enter the last name and first name of the person you are looking for and select the "
+                "corresponding choice in the drop-down list")
         form.add_error(None, msg)
     return render(request, "manager_replace_reviewer.html", {'reviewer': reviewer_to_replace,
                                                              'entity': entity,
@@ -151,17 +152,18 @@ def reviewer_add(request):
             this_person = person.find_by_id(this_person)
             new_reviewer = form.save(commit=False)
             if reviewer.find_by_person(this_person):
-                msg = _("person_already_reviewer_msg")
+                msg = _("This person is already a reviewer, please select another person")
                 form.add_error(None, msg)
             if reviewer.find_by_entity_and_role(new_reviewer.entity, new_reviewer.role):
-                msg = _("reviewer_with_same_role_already_exists_msg")
+                msg = _("A reviewer having the same role for this entity already exists")
                 form.add_error(None, msg)
             if not form.has_error(field=NON_FIELD_ERRORS):
                 new_reviewer.person = this_person
                 new_reviewer.save()
                 return redirect('reviewers_list')
         else:
-            msg = _("bad_person_msg")
+            msg = _("Please enter the last name and first name of the person you are looking for and select the "
+                    "corresponding choice in the drop-down list")
             form.add_error(None, msg)
     else:
         form = ReviewerForm(initial={'year': year})

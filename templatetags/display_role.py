@@ -1,4 +1,4 @@
-##############################################################################
+#############################################################################
 #
 #    OSIS stands for Open Student Information System. It's an application
 #    designed to manage the core business of higher education institutions,
@@ -23,14 +23,12 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.utils.translation import ugettext_lazy as _
+from django import template
+from assistant.models.enums import reviewer_role
 
-ASSISTANT = 'ASSISTANT'
-REVIEWER = 'REVIEWER'
-ADMINISTRATOR = 'ADMINISTRATOR'
+register = template.Library()
 
-ROLE_CHOICES = (
-    (ASSISTANT, _('Assistant')),
-    (REVIEWER, _('Reviewer')),
-    (ADMINISTRATOR, _('Administrator'))
-)
+
+@register.filter
+def display(value):
+    return dict(reviewer_role.ROLE_CHOICES).get(value, '') if value else ''

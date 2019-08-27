@@ -31,13 +31,13 @@
 <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'assistants' %}</a></li>
-<li><a href="{% url 'reviewers_list' %}" id="lnk_reviewers_list">{% trans 'reviewers' %}</a></li>
-<li class="active">{% trans 'add' %}</li>
+<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li><a href="{% url 'reviewers_list' %}" id="lnk_reviewers_list">{% trans 'Reviewers' %}</a></li>
+<li class="active">{% trans 'Add' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h3>{% trans 'assistant_mandates_renewals' %} {{ year|add:1 }}</h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -48,25 +48,25 @@
 			    {{ hidden }}
 		    {% endfor %}
 	    <div class="form-group">
-		    <label for="search_persons">{% trans 'person' %}</label>
+		    <label for="search_persons">{% trans 'Person' %}</label>
 			<input id="search_persons" name="search_persons" size="100" class="form-control"
-										  placeholder="{% trans 'search_by_email_or_last_name' %}" required>
+										  placeholder="{% trans 'Search by email or last name' %}" required>
 			<input type="hidden" name="person_id" id="person_id">
 		</div>
 		<div class="form-group">
-			<label for="{{ form.entity.auto_id }}">{% trans 'entity' %}</label>
+			<label for="{{ form.entity.auto_id }}">{% trans 'Entity' %}</label>
 			{{ form.entity }}<span class="error">{{ form.entity.errors }}</span>
 		</div>
 		<div class="form-group">
-			<label for="{{ form.role.auto_id }}">{% trans 'role' %}</label>
+			<label for="{{ form.role.auto_id }}">{% trans 'Role' %}</label>
 			{{ form.role }}<span class="error">{{ form.role.errors }}</span>
 		</div>
 		<input type="hidden" name="reviewer_id" id="reviewer.id" value="{{ reviewer.id }}">
-		<button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_add_reviewer_save"
-				onclick="return confirm('{% trans 'confirm_reviewer_addition' %}')">
-			<span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}</button>
+		<button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_add_reviewer_save"
+				onclick="return confirm('{% trans 'Are you sure you want to add this reviewer? This action is irreversible.' %}')">
+			<span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
 			<a class="btn btn-default" id="lnk_upload_cancel" href="{% url 'reviewers_list' %}">
-				<span class="fas fa-times" aria-hidden="true"></span> {% trans 'cancel'%}</a>
+				<span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
     	</form>
     </div>
 </div>

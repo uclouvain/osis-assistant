@@ -3,11 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-22 15:14+0200\n"
+"POT-Creation-Date: 2019-08-26 15:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,810 +17,836 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "2nd_renewal"
-msgstr "(for the 2nd renewal)"
-
-msgid "absences"
-msgstr "Absences"
-
-msgid "accept"
-msgstr "Accept"
-
-msgid "accepted"
-msgstr "Accepted"
-
-msgid "action"
-msgstr "Action"
-
-msgid "activities_report_remark"
-msgstr "Remark concerning the activity report"
-
-msgid "add_tutoring_learning_unit"
-msgstr "Add a teaching unit"
-
-msgid "address"
-msgstr "Address"
-
-msgid "administrative_data"
-msgstr "Administrative data"
-
-msgid "advice"
-msgstr "Opinion"
-
-msgid "You must select one of the options"
+msgid " at line number : "
 msgstr ""
 
-msgid "age"
-msgstr "Age"
+#, python-format
+msgid "%% FTE"
+msgstr "%% FTE"
 
-msgid "app_dates"
-msgstr "Mandates renewal procedure dates"
+msgid "(for the 2nd renewal)"
+msgstr ""
 
-msgid "apply"
-msgstr "Apply"
+msgid "A date is invalid in the file"
+msgstr ""
 
-msgid "assistants_contract_end_dates"
-msgstr "Assistants contract ending dates"
+msgid ""
+"A justification is required if the opinion is unfavourable or conditional"
+msgstr ""
 
-msgid "assistant_form"
-msgstr "Assistant file"
+msgid "A problem occured, data have not been saved"
+msgstr ""
 
-msgid "ASSISTANT"
-msgstr "Assistant"
+msgid "A reviewer having the same role for this entity already exists"
+msgstr ""
 
-msgid "TEACHING_ASSISTANT"
-msgstr "Teaching assistant"
+msgid "Absences"
+msgstr ""
 
-msgid "assistant_form_part1"
-msgstr "Administrative"
+msgid "Academic year"
+msgstr ""
 
-msgid "assistant_form_part3"
-msgstr "Ph.D."
+msgid "Accept"
+msgstr ""
 
-msgid "assistant_form_part4"
-msgstr "Research"
+msgid "Access denied!"
+msgstr ""
 
-msgid "assistant_form_part5"
-msgstr "Activities"
+msgid "Accomplish a workflow step back"
+msgstr ""
 
-msgid "assistant_form_part6"
-msgstr "Summary"
+msgid "Acronym"
+msgstr ""
 
-msgid "assistant_mandates_renewal"
-msgstr "Assistant mandate renewal application"
+msgid "Action"
+msgstr ""
 
-msgid "assistant_mandates_renewals"
-msgstr "Assistant mandate renewal application processing"
+msgid "Activities"
+msgstr ""
 
-msgid "assistant_title"
-msgstr "Assistant"
+msgid "Activities in the field of publishing (editorial board,...)"
+msgstr ""
 
-msgid "assistant_type"
-msgstr "Assistant type"
+msgid "Add"
+msgstr ""
 
-msgid "assistants"
-msgstr "Assistants"
+msgid "Add a delegate"
+msgstr ""
 
-msgid "assistants_dates"
-msgstr "Assessment access dates for assistants"
+msgid "Add a teaching unit"
+msgstr ""
 
-msgid "at_least_one_learning_unit"
-msgstr "You must add at least one teaching unit under the heading \"Teaching Units\""
+msgid "Add file"
+msgstr ""
 
-msgid "attendees"
-msgstr "Number of students per series"
+msgid "Add reviewer"
+msgstr ""
 
-msgid "awards"
-msgstr "Prize(s) and/or distinction(s)"
+msgid "Adding, replacing and deleting reviewers"
+msgstr ""
 
-msgid "bad_filename"
-msgstr "Filename can not contains : ( ) % $ , ; : / = +"
+msgid "Administrative"
+msgstr ""
 
-msgid "bad_person_msg"
-msgstr "Please enter the last name and first name of the person you are looking for and select the corresponding choice in the drop-down list"
+msgid "Administrative data"
+msgstr ""
 
-msgid "beginning"
-msgstr "Beginning"
+msgid "Administrative information"
+msgstr ""
 
-msgid "birth_date"
-msgstr "Date of birth"
+msgid "Administrator"
+msgstr ""
 
-msgid "birthdate"
-msgstr "Date of birth"
+msgid "Advice missing in form"
+msgstr ""
 
-msgid "cancel"
-msgstr "Cancel"
+msgid "Age"
+msgstr ""
 
-msgid "choice"
-msgstr "Choice"
+msgid "Appeal in progress"
+msgstr ""
 
-msgid "choose_person_as_reviewer_for"
-msgstr "Choose a person as reviewer for"
+msgid "Apply"
+msgstr ""
 
-msgid "columns_title_error"
-msgstr "The cols title are wrong."
+msgid ""
+"Are you sure you want to accept the renewal request? This action is "
+"irreversible."
+msgstr ""
 
-msgid "columns_number_error"
-msgstr "The number of cols is wrong."
+msgid ""
+"Are you sure you want to add this reviewer? This action is irreversible."
+msgstr ""
 
-msgid "comment"
-msgstr "Comment"
+msgid ""
+"Are you sure you want to decline the renewal request? This action is "
+"irreversible."
+msgstr ""
 
-msgid "comment_vice_rector"
-msgstr "Comment DAS/CAS - Vice-Rector"
+msgid ""
+"Are you sure you want to delegate your role? This action is irreversible."
+msgstr ""
 
-msgid "CONDITIONAL"
-msgstr "Conditional"
+msgid "Are you sure you want to delete this course?"
+msgstr ""
 
-msgid "conferences_contributor"
-msgstr "Conference(s) to which I have contributed by communication or post, alone or with others."
+msgid ""
+"Are you sure you want to send these emails? This action is irreversible."
+msgstr ""
 
-msgid "confidential"
-msgstr "Confidential"
+msgid ""
+"Are you sure you want to step back the mandate? This action is irreversible."
+msgstr ""
 
-msgid "confirm_accept"
-msgstr "Are you sure you want to accept the renewal request? This action is irreversible."
+msgid ""
+"Are you sure you want to validate and submit? This action is irreversible."
+msgstr ""
 
-msgid "confirm_decline"
-msgstr "Are you sure you want to decline the renewal request? This action is irreversible."
+msgid "Assessment access dates for assistants"
+msgstr ""
 
-msgid "confirm_mandate_step_back"
-msgstr "Are you sure you want to step back the mandate? This action is irreversible."
+msgid "Assistant"
+msgstr ""
 
-msgid "confirm_removal"
-msgstr "Are you sure you want to delete this course?"
+msgid "Assistant file"
+msgstr ""
 
-msgid "confirm_reviewer_addition"
-msgstr "Are you sure you want to add this reviewer? This action is irreversible."
+msgid "Assistant file and opinion"
+msgstr ""
 
-msgid "confirm_reviewer_delegation"
-msgstr "Are you sure you want to delegate your role? This action is irreversible."
+msgid "Assistant mandate renewal application"
+msgstr ""
 
-msgid "confirm_send_emails"
-msgstr "Are you sure you want to send these emails? This action is irreversible."
+msgid "Assistant mandate renewal application processing"
+msgstr ""
 
-msgid "confirm_validation"
-msgstr "Are you sure you want to validate and submit? This action is irreversible."
+msgid "Assistant mandates importation"
+msgstr ""
 
-msgid "confirmatory_test_date"
-msgstr "Date of confirmation test"
+msgid "Assistant type"
+msgstr ""
 
-msgid "connected_as"
-msgstr "You are connected as"
+msgid "Assistants"
+msgstr ""
 
-msgid "contact_details"
-msgstr "Administrative information"
+msgid "Assistants contract ending dates"
+msgstr ""
 
-msgid "contract_duration"
-msgstr "Contract length"
+msgid "Assistants who have declined their renewal"
+msgstr ""
 
-msgid "contract"
-msgstr "Contract"
+msgid "Attach a PDF file"
+msgstr ""
 
-msgid "contract_duration_fte"
-msgstr "Full-time equivalent"
+msgid "Beginning"
+msgstr ""
 
-msgid "corsci_representation"
-msgstr "Within the CORSCI"
+msgid "Cancel"
+msgstr ""
 
-msgid "course"
-msgstr "Course"
+msgid "Choose a file"
+msgstr ""
 
-msgid "course_code"
-msgstr "Course code"
+msgid "Choose a person as reviewer for"
+msgstr ""
 
-msgid "dashboard"
-msgstr "Dashboard"
+msgid ""
+"Click OK to save the modified data before moving to another section.  Click "
+"Cancel to continue without saving."
+msgstr ""
 
-msgid "data_not_saved"
-msgstr "A problem occured, data have not been saved"
+msgid "Comment"
+msgstr ""
 
-msgid "date_format_error"
-msgstr "A date is invalid in the file"
+msgid "Comment DAS/CAS - Vice-Rector"
+msgstr ""
 
-msgid "date_of_first_nomination"
-msgstr "Date of first nomination"
+msgid "Comments on previous renewal applications"
+msgstr ""
 
-msgid "dean"
-msgstr "Dean of Faculty"
+msgid "Completed"
+msgstr ""
 
-msgid "deans"
-msgstr "Deans of Faculty"
+msgid "Conditional"
+msgstr ""
 
-msgid "decline"
-msgstr "Refuse"
+msgid ""
+"Conference(s) to which I have contributed by communication or post, alone or "
+"with others."
+msgstr ""
 
-msgid "DECLINED"
-msgstr "Refused by the assistant"
+msgid "Confidential"
+msgstr ""
 
-msgid "declined_mandates"
-msgstr "Assistants who have declined their nenewal"
+msgid "Confirm reviewer replacement"
+msgstr ""
 
-msgid "degrees"
-msgstr "Diploma(s) obtained"
+msgid "Contract"
+msgstr ""
 
-msgid "delete"
-msgstr "Delete"
+msgid "Contract end date"
+msgstr ""
 
-msgid "desc_lnk_dashboard"
-msgstr "Table listing all the files"
+msgid "Contract length"
+msgstr ""
 
-msgid "desc_lnk_emails"
-msgstr "Mail service management to assistants and Deans of Faculty"
+msgid "Contract start date"
+msgstr ""
 
-msgid "desc_lnk_export_mandates"
-msgstr "Exporting files to an XLSX file"
+msgid "Course units"
+msgstr ""
 
-msgid "desc_lnk_export_declined_mandates_pdf"
-msgstr "Exporting assistants who declined their renewal"
+msgid "Create an organization"
+msgstr ""
 
-msgid "desc_lnk_export_mandates_pdf"
-msgstr "Exporting all data to a PDF file"
+#, python-format
+msgid "Current positions outside the University and %% of time spent"
+msgstr ""
 
-msgid "desc_lnk_import_mandates"
-msgstr "Importing files from an XLSX file"
+msgid "DAF"
+msgstr ""
 
-msgid "desc_lnk_reviewers"
-msgstr "Adding, replacing and deleting reviewers"
+msgid "DAF representative"
+msgstr ""
 
-msgid "desc_lnk_settings"
-msgstr "Management of application access dates"
+msgid "DAS/CAS"
+msgstr ""
 
-msgid "dial_publications"
-msgstr "List of publications in PDF format (DIAL)"
+msgid "Dashboard"
+msgstr ""
 
-msgid "doctorate"
-msgstr "Ph.D."
+msgid "Date"
+msgstr ""
 
-msgid "DONE"
-msgstr "Completed"
+msgid "Date of confirmation test"
+msgstr ""
 
-msgid "emails"
-msgstr "Emails"
+msgid "Date of defense of thesis (if already known)"
+msgstr ""
 
-msgid "end"
-msgstr "End"
+msgid "Date of doctoral enrollment"
+msgstr ""
 
-msgid "end_date_contract"
-msgstr "Contract end date"
+msgid "Date of first nomination"
+msgstr ""
 
-msgid "entry_date_contract"
-msgstr "Contract start date"
+msgid "Dean of Faculty"
+msgstr ""
 
-msgid "eq_fte"
-msgstr "Duration of contract (FTE)"
+msgid "Dean of Faculty representative"
+msgstr ""
 
-msgid "events_organisation_service"
-msgstr "Organization of seminars, conferences, visits, study tours, grounds, seminars… (not taken in account in the \"Teaching units\" section)"
+msgid "Delegation(s)"
+msgstr ""
 
-msgid "exams_supervision_duration"
-msgstr "Preparation, coordination and evaluation (h)"
+msgid "Delete"
+msgstr ""
 
-msgid "EXCEPTIONAL"
-msgstr "Exceptional"
+msgid "Delete file"
+msgstr ""
 
-msgid "exceptional_justification"
-msgstr "Should you no longer fulfill the requirements for a 'normal' renewal, can you specify the circumstances justifying an exceptional renewal application (art. 51 of the RAMCS)"
+msgid "Doctorate opinion"
+msgstr ""
 
-msgid "exercises_tp"
-msgstr "Exercises, workshops, seminars - associated with hours of volume 2, which you personally assume"
+msgid "Duration of a session (h)"
+msgstr ""
 
-msgid "expected_registering_date"
-msgstr "Scheduled date of registration"
+msgid "Duration of contract (FTE)"
+msgstr ""
 
-msgid "export_declined_mandates"
-msgstr "Export of the declined assistants mandates"
+msgid "Edit"
+msgstr ""
 
-msgid "export_mandates"
-msgstr "Export of assistants mandates"
+msgid "Email"
+msgstr ""
+
+msgid "Emails"
+msgstr ""
+
+msgid "End"
+msgstr ""
+
+msgid "End date"
+msgstr ""
+
+msgid "Enrolled in the Ph.D. program"
+msgstr ""
+
+msgid "Entities"
+msgstr ""
+
+msgid "Entity"
+msgstr ""
+
+msgid "Error during saving the file, try again"
+msgstr ""
+
+msgid "Evaluations (optional)"
+msgstr ""
+
+msgid "Exceptional"
+msgstr ""
+
+msgid ""
+"Exercises, workshops, seminars - associated with hours of volume 2, which "
+"you personally assume"
+msgstr ""
 
 msgid "Export mandates to sap"
 msgstr ""
 
-msgid "external_post"
-msgstr "Mandate requested externally (FNRS, FRIA, ...)"
+msgid "Export of assistants mandates"
+msgstr ""
 
-msgid "face_to_face"
-msgstr "Number of face-to-face hours (calculated automatically)"
+msgid "Export of the declined assistants mandates"
+msgstr ""
 
-msgid "face_to_face_duration"
-msgstr "Number of face-to-face hours"
+msgid "Exporting all data to a PDF file"
+msgstr ""
 
-msgid "faculty"
-msgstr "Faculty"
+msgid "Exporting assistants who declined their renewal"
+msgstr ""
 
-msgid "faculty_representation"
-msgstr "Within the faculty (program committees, faculty board, faculty council)"
+msgid "Exporting files to an XLSX file"
+msgstr ""
 
-msgid "FAVORABLE"
-msgstr "Favourable"
+msgid "Favourable"
+msgstr ""
 
-msgid "field"
-msgstr "Mandate type"
+msgid "File must be xlsx"
+msgstr ""
 
-msgid "file_uploaded"
-msgstr "has been correctly uploaded"
+#, python-format
+msgid "Filename can not contains : ( ) %% $ , ; : / = +"
+msgstr ""
 
-msgid "formation_activities"
-msgstr "Training activities"
+msgid "Files that can be treated"
+msgstr ""
 
-msgid "formation_activities_percent"
-msgstr "Percentage of involvement as beneficiary in training activities"
+msgid "Firstname"
+msgstr ""
 
-msgid "formations"
-msgstr "Scientific, pedagogical or other training you have attended \
-(LLL, SMCS, RHUM, Summer School)"
+msgid "Full-time equivalent"
+msgstr ""
 
-msgid "framing_participation"
-msgstr "Participation in thesis and/or dissertation"
+msgid "General comment"
+msgstr ""
 
-msgid "fulltime_equivalent"
-msgstr "Full-time equivalent"
+msgid "Generate a PDF file"
+msgstr ""
 
-msgid "fulltime_equivalent_percentage"
-msgstr "Percentage of occupancy"
+msgid "Import assistant mandates"
+msgstr ""
 
-msgid "function_outside_university"
-msgstr "Current positions outside the University and % of time spent"
+msgid "Importing files from an XLSX file"
+msgstr ""
 
-msgid "gender"
-msgstr "Sex"
+msgid "In progress"
+msgstr ""
 
-msgid "general_comment"
-msgstr "General comment"
+msgid ""
+"Information for future students (CIO, shows, Campus Days, Midi Masters,...)"
+msgstr ""
 
-msgid "generate_PDF"
-msgstr "Generate a PDF file"
+msgid "Inject"
+msgstr ""
 
-msgid "global_id"
-msgstr "Registration number"
+msgid "Inject xls file"
+msgstr ""
 
-msgid "governing_body_representation"
-msgstr "Within the organs of the University (academic council, other councils or commissions,...)"
+msgid "Institution"
+msgstr ""
 
-msgid "grade"
-msgstr "Grade"
+msgid "Justification"
+msgstr ""
 
-msgid "head_institute"
-msgstr "President of Institute"
+msgid "Learning unit"
+msgstr ""
 
-msgid "help_mandates_selectedfiles"
-msgstr "Please select the XLSX file"
+msgid "Learning units"
+msgstr ""
 
-msgid "hours_per_year"
-msgstr "number of hours per year"
+msgid "List of files"
+msgstr ""
 
-msgid "hours_per_year_message"
-msgstr "Please enter the number of hours per year"
+msgid "List of files (as a thesis promoter)"
+msgstr ""
 
-msgid "import"
-msgstr "Import"
+msgid "List of mandates"
+msgstr ""
 
-msgid "import_mandates"
-msgstr "Import assistant mandates"
+msgid "List of publications in PDF format (DIAL)"
+msgstr ""
 
-msgid "in_progress"
-msgstr "In progress"
+msgid "Mail service management to assistants and Deans of Faculty"
+msgstr ""
 
-msgid "IN_PROGRESS"
-msgstr "In progress"
+msgid "Management of application access dates"
+msgstr ""
 
-msgid "information_not_provided_to_assistant"
-msgstr "This information will not be transmitted to the assistant"
+msgid ""
+"Management of collective facilities (lab, workshop, library, IT department, "
+"website,...)"
+msgstr ""
 
-msgid "information_only_for_DAS_CAS_and_VICE_RECTOR"
-msgstr "This information is only transmitted to DAS/CAS and Vice-Rector"
+msgid "Mandate"
+msgstr ""
 
-msgid "infrastructure_mgmt_service"
-msgstr "Management of collective facilities (lab, workshop, library, IT department, website,...)"
+msgid "Mandate edition"
+msgstr ""
 
-msgid "institute"
-msgstr "Institute"
+msgid "Mandate requested externally (FNRS, FRIA, ...)"
+msgstr ""
 
-msgid "institute_representation"
-msgstr "Within the institute (institute board, institute council,...)"
+msgid "Mandate type"
+msgstr ""
 
-msgid "institution"
-msgstr "Institution"
+msgid "Mandates"
+msgstr ""
 
-msgid "justification_required_if_conditional_or_negative"
-msgstr "A justification is required if the opinion is unfavourable or conditional"
+msgid "Mandates renewal procedure dates"
+msgstr ""
 
-msgid "learning_unit_required"
-msgstr "The \"Teaching Units\" must be completed"
+msgid "Messages"
+msgstr ""
 
-msgid "learning_units_description"
-msgstr "Exercises, workshops, seminars - associated with hours of volume 2, which you personally assume"
+msgid "Miscellaneous"
+msgstr ""
 
-msgid "line_nbr"
-msgstr " at line number : "
+msgid "My mandates"
+msgstr ""
 
-msgid "mandate"
-msgstr "Mandate"
+msgid "Name"
+msgstr ""
 
-msgid "mandate_edit"
-msgstr "Mandate edition"
+msgid "Negative appeal"
+msgstr ""
 
-msgid "mandate_reviews_view"
-msgstr "Reviews"
+msgid "No"
+msgstr ""
 
-msgid "mandate_view"
-msgstr "Assistant file and opinion"
+msgid "No appeal"
+msgstr ""
 
-msgid "mandates"
-msgstr "Mandates"
+msgid "No file submitted"
+msgstr ""
 
-msgid "mandates_injection"
-msgstr "Assistant mandates importation"
+msgid "No promoter"
+msgstr ""
 
-msgid "mandates_list"
-msgstr "List of mandates"
+msgid "No result"
+msgstr ""
 
-msgid "matricule_number"
-msgstr "Registration number"
+msgid "None"
+msgstr ""
 
-msgid "maxlength_filename"
-msgstr "The length of filename may not exceed 100 characters."
+msgid "Normal"
+msgstr ""
 
-msgid "must_enter_learning_unit_year"
-msgstr "You must add one learning unit"
+msgid "Number of face-to-face hours"
+msgstr ""
 
-msgid "must_enter_supervisor_if_registered_or_in_progress"
-msgstr "The promoter must be identified"
+msgid "Number of series"
+msgstr ""
 
-msgid "my_mandates"
-msgstr "My mandates"
+msgid "Number of sessions planned for this course"
+msgstr ""
 
-msgid "name_firstame"
-msgstr "Last name and first name"
+msgid "Number of students per series"
+msgstr ""
 
-msgid "next_course"
-msgstr "Encode another course"
+msgid "Opinion"
+msgstr ""
 
-msgid "next_part"
-msgstr "Next part"
+msgid "Opinion of the sector vice-rector"
+msgstr ""
 
-msgid "no"
-msgstr "No"
+msgid "Opinion of the steering commitee"
+msgstr ""
 
-msgid "NO"
-msgstr "No"
+msgid "Opinions"
+msgstr ""
 
-msgid "no_answer"
-msgstr "not answered"
+msgid ""
+"Organization of seminars, conferences, visits, study tours, grounds, "
+"seminars… (not taken in account in the 'Teaching units' section)"
+msgstr ""
 
-msgid "no_supervisor"
-msgstr "No promoter"
+msgid "Other status"
+msgstr ""
 
-msgid "NORMAL"
-msgstr "Normal"
+msgid "Other types of services associated with this course"
+msgstr ""
 
-msgid "object_not_saved"
-msgstr "Error during saving the file, try again"
+msgid "Participation in juries and/or scientific committees"
+msgstr ""
 
-msgid "only_pdf_file"
-msgstr "You must select a PDF file"
+msgid "Participation in thesis and/or dissertation"
+msgstr ""
 
-msgid "other_status"
-msgstr "Other status"
+msgid "Percentage for research and Ph.D."
+msgstr ""
 
-msgid "others_delivery"
-msgstr "Other types of services associated with this course"
+msgid "Percentage for service activities"
+msgstr ""
 
-msgid "percentage_equivalent_full_time"
-msgstr "% FTE"
+msgid "Percentage for teaching"
+msgstr ""
 
-msgid "period_covered"
-msgstr "Period covered by the report (since the first appointment or the previous renewal application)"
+msgid "Percentage of involvement as beneficiary in training activities"
+msgstr ""
 
-msgid "person_already_reviewer_msg"
-msgstr "This person is already a reviewer, please select another person"
+msgid "Percentage of occupancy"
+msgstr ""
 
-msgid "person_who_will_be_replacing"
-msgstr "Substitute reviewer"
+msgid "Person"
+msgstr ""
 
-msgid "phd"
-msgstr "Ph.D."
+msgid "Ph.D."
+msgstr ""
 
-msgid "phd_inscription"
-msgstr "Enrolment at the doctorate"
+msgid "Ph.D. date"
+msgstr ""
 
-msgid "phd_inscription_choice_required"
-msgstr "The \"Doctorate\" section must be completed"
+msgid "Ph.D. document"
+msgstr ""
 
-msgid "phd_inscription_date"
-msgstr "Date of doctoral enrolment"
+msgid ""
+"Please enter the last name and first name of the person you are looking for "
+"and select the corresponding choice in the drop-down list"
+msgstr ""
 
-msgid "PHD_SUPERVISOR"
-msgstr "Thesis promoter"
+msgid "Please enter the number of hours per year"
+msgstr ""
 
-msgid "phd_supervisor_review"
-msgstr "Doctorate opinion"
+msgid "Please select the XLSX file"
+msgstr ""
 
-msgid "phd_supervisor_assistants_list"
-msgstr "List of files (as a thesis promoter)"
+msgid "Positive appeal"
+msgstr ""
 
-msgid "previous_part"
-msgstr "Back to previous section"
+msgid "Preparation, coordination and evaluation (h)"
+msgstr ""
 
-msgid "previous_renewal_comment"
-msgstr "Comments on previous renewal applications"
+msgid "President of Institute"
+msgstr ""
 
 msgid "Printing date"
 msgstr ""
 
-msgid "PROGRAM_COMMISSION"
-msgstr "Program commission"
+msgid "Prize(s) and/or distinction(s)"
+msgstr ""
 
-msgid "publications_in_progress"
-msgstr "Publication(s) in preparation"
+msgid "Promoter"
+msgstr ""
 
-msgid "publishing_field_service"
-msgstr "Activities in the field of publishing (editorial board,...)"
+msgid "Publication(s) in preparation"
+msgstr ""
 
-msgid "refused"
-msgstr "Refused"
+msgid "Refuse"
+msgstr ""
 
-msgid "registered_phd"
-msgstr "Enrolled in the Ph.D. program"
+msgid "Refused by the assistant"
+msgstr ""
 
-msgid "remark"
-msgstr "Remark"
+msgid "Registration number"
+msgstr ""
 
-msgid "renewal"
-msgstr "Renewal"
+msgid "Remark"
+msgstr ""
 
-msgid "renewal_form"
-msgstr "Renewal application form"
+msgid "Remark concerning the activity report"
+msgstr ""
 
-msgid "renewal_short_name"
-msgstr "Status"
+msgid "Renewal application form"
+msgstr ""
 
-msgid "renewal_type"
-msgstr "Renewal type"
+msgid "Renewal type"
+msgstr ""
 
-msgid "replace"
-msgstr "Replace"
+msgid "Replace"
+msgstr ""
 
-msgid "replacement"
-msgstr "Replacement"
+msgid "Replacement"
+msgstr ""
 
-msgid "representation_activities"
-msgstr "Representation activities at UCL"
+msgid ""
+"Report of the steering committee (mandatory from the second renewal "
+"application)"
+msgstr ""
 
-msgid "research"
-msgstr "Research"
+msgid "Representation activities at UCL"
+msgstr ""
 
-msgid "RESEARCH"
-msgstr "President of Institute"
+msgid "Representative of the Institute President"
+msgstr ""
 
-msgid "RESEARCH_ASSISTANT"
-msgstr "Representative of the Institute President"
+msgid "Research"
+msgstr ""
 
-msgid "research_percent"
-msgstr "Percentage for research and Ph.D."
+msgid "Research document"
+msgstr ""
 
-msgid "research_review"
-msgstr "Research opinion"
+msgid "Research opinion"
+msgstr ""
 
-msgid "research_short_name"
-msgstr "RES"
+msgid "Reviewer"
+msgstr ""
 
-msgid "review_edit"
-msgstr "Submit an opinion"
+msgid "Reviewers"
+msgstr ""
 
-msgid "reviewer_delegation"
-msgstr "Delegation(s)"
+msgid "Reviews"
+msgstr ""
 
-msgid "reviewer_delegation_add"
-msgstr "Add a delegate"
+msgid "Role"
+msgstr ""
 
-msgid "reviewer_mandates_list"
-msgstr "List of files"
+msgid "Save"
+msgstr ""
 
-msgid "review"
-msgstr "Opinion"
+msgid "Scheduled date of registration"
+msgstr ""
 
-msgid "reviews"
-msgstr "Opinions"
+msgid "Scientific stay(s) and/or course(s)"
+msgstr ""
 
-msgid "reviewer"
-msgstr "Reviewer"
+msgid ""
+"Scientific, pedagogical or other training you have attended (LLL, SMCS, "
+"RHUM, Summer School)"
+msgstr ""
 
-msgid "reviewer_todo"
-msgstr "Files that can be treated"
+msgid "Search by email or last name"
+msgstr ""
 
-msgid "reviewer_with_same_role_already_exists_msg"
-msgstr "A reviewer having the same role for this entity already exists"
+msgid "Search for an organization"
+msgstr ""
 
-msgid "reviewers"
-msgstr "Reviewers"
+msgid "Select Excel file to inject mandates"
+msgstr ""
 
-msgid "role"
-msgstr "Role"
+msgid "Send an email to all assistants"
+msgstr ""
 
-msgid "save"
-msgstr "Save"
+msgid "Send an email to reviewers"
+msgstr ""
 
-msgid "save_before_link"
-msgstr "Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving."
+msgid "Sender"
+msgstr ""
 
-msgid "scientific_internships"
-msgstr "Scientific stay(s) and/or course(s)"
+msgid "Service activities"
+msgstr ""
 
-msgid "scientific_jury_service"
-msgstr "Participation in juries and/or scientific committees"
+msgid "Settings"
+msgstr ""
 
-msgid "search_by_acronym"
-msgstr "search by course acronym"
+msgid ""
+"Should you no longer fulfill the requirements for a \"normal\" renewal, can "
+"you specify the circumstances justifying an exceptional renewal application "
+"(art. 51 of the RAMCS)"
+msgstr ""
 
-msgid "search_by_email_or_last_name"
-msgstr "search by email or last name"
+msgid ""
+"Should you no longer fulfill the requirements for a 'normal' renewal, can "
+"you specify the circumstances justifying an exceptional renewal application "
+"(art. 51 of the RAMCS)"
+msgstr ""
 
-msgid "sector"
-msgstr "Sector"
+msgid "Special"
+msgstr ""
 
-msgid "sector_representation"
-msgstr "Within the sector (board and/or council)"
+msgid "Start"
+msgstr ""
 
-msgid "sector_vice_rector_review"
-msgstr "Opinion of the sector vice-rector"
+msgid "Startup procedure"
+msgstr ""
 
-msgid "sector_vice-rector_short_name"
-msgstr "VRS"
+msgid "State"
+msgstr ""
 
-msgid "sender"
-msgstr "Sender"
+msgid "Status"
+msgstr ""
 
-msgid "send_email_to_all_assistants"
-msgstr "Send an email to all assistants"
+msgid "Submit an opinion"
+msgstr ""
 
-msgid "send_email_to_all_deans"
-msgstr "Send an email to Deans of Faculty"
+msgid "Substitute promoter"
+msgstr ""
 
-msgid "send_email_to_reviewers"
-msgstr "Send an email to reviewers"
+msgid "Substitute reviewer"
+msgstr ""
 
-msgid "series_number"
-msgstr "Number of series"
+msgid "Summary"
+msgstr ""
 
-msgid "service_activities"
-msgstr "Service activities"
+msgid "Table listing all the files"
+msgstr ""
 
-msgid "service_activities_percent"
-msgstr "Percentage for service activites"
+msgid "Teaching assistant"
+msgstr ""
 
-msgid "sessions_duration"
-msgstr "Duration of a session (h)"
+msgid "The 'Doctorate' section must be completed"
+msgstr ""
 
-msgid "sessions_number"
-msgstr "Number of sessions planned for this course"
+msgid "The cols title are wrong."
+msgstr ""
 
-msgid "structures"
-msgstr "Structures"
+msgid "The length of filename may not exceed 100 characters."
+msgstr ""
 
-msgid "settings"
-msgstr "settings"
+msgid "The number of cols is wrong."
+msgstr ""
 
-msgid "SPECIAL"
-msgstr "Special"
+msgid "The promoter must be identified"
+msgstr ""
 
-msgid "startup_precedure"
-msgstr "Startup procedure"
+msgid "The total must be equal to 100"
+msgstr ""
 
-msgid "step_back"
-msgstr "Accomplish a workflow step back"
-
-msgid "students_service"
-msgstr "Information for future students (CIO, shows, Campus Days, Midi Masters,...)"
-
-msgid "substitute_supervisor"
-msgstr "Substitute promoter"
-
-msgid "summary"
-msgstr "Summary"
-
-msgid "supervision"
-msgstr "Steering"
-
-msgid "SUPERVISION"
-msgstr "Dean of Faculty"
-
-msgid "SUPERVISION_ASSISTANT"
-msgstr "Dean of Faculty representative"
-
-msgid "supervisor"
-msgstr "Promoter"
-
-msgid "supervisor_email_address"
-msgstr "Email address  of the promoter"
-
-msgid "supervision_review"
-msgstr "Opinion of the steering commitee"
-
-msgid "SUPERVISION_DAF"
-msgstr "DAF"
-
-msgid "SUPERVISION_DAF_ASSISTANT"
-msgstr "DAF representative"
-
-msgid "support_committee_reports"
-msgstr "Report of the steering committee (mandatory from the second renewal application)"
-
-msgid "TRTS"
-msgstr "Assistant"
-
-msgid "svr"
-msgstr "VRS"
-
-msgid "thesis_defence_date"
-msgstr "Date of defense of thesis (if already known)"
-
-msgid "thesis_title"
-msgstr "Title (provisional) of the thesis"
+msgid "Thesis promoter"
+msgstr ""
 
 msgid "This export is used to add assistants form to SAP"
 msgstr ""
 
-msgid "TO_ALL_ASSISTANTS"
-msgstr "To the assistants"
+msgid "This information is only transmitted to DAS/CAS and Vice-Rector"
+msgstr ""
 
-msgid "TO_ALL_DEANS"
-msgstr "To the Deans of Faculty"
+msgid "This information will not be transmitted to the assistant"
+msgstr ""
 
-msgid "TO_ALL_REVIEWERS"
-msgstr "to all reviewers"
+msgid "This person is already a reviewer, please select another person"
+msgstr ""
 
-msgid "TO_DO"
-msgstr "Start"
+msgid "Title"
+msgstr ""
 
-msgid "total_must_be_100_message"
-msgstr "The total must be equal to 100"
+msgid "Title (provisional) of the thesis"
+msgstr ""
 
-msgid "tutoring_learning_units"
-msgstr "Course units"
+msgid "To Ph.D. promoter"
+msgstr ""
 
-msgid "tutoring_percent"
-msgstr "Percentage for teaching"
+msgid "To all reviewers"
+msgstr ""
 
-msgid "tutoring_reports"
-msgstr "Evaluations (optional)"
+msgid "To one Dean"
+msgstr ""
 
-msgid "tutoring_short_name"
-msgstr "TEA"
+msgid "To the Deans of Faculty"
+msgstr ""
 
-msgid "type_of_renewal"
-msgstr "Renewal type"
+msgid "To the assistants"
+msgstr ""
 
-msgid "UNFAVOURABLE"
-msgstr "Unfavourable"
+msgid "Training activities"
+msgstr ""
 
-msgid "upload"
-msgstr "Attach a PDF file"
+msgid "Tutoring document"
+msgstr ""
 
-msgid "validate_and_submit"
-msgstr "Validate and submit"
+msgid "Type"
+msgstr ""
 
-msgid "various"
-msgstr "Miscellaneous"
+msgid "Types"
+msgstr ""
 
-msgid "vice_rector"
-msgstr "Vice-rector"
+msgid "Unfavourable"
+msgstr ""
 
-msgid "VICE_RECTOR"
-msgstr "Vice-rector of sector"
+msgid "Validate and submit"
+msgstr ""
 
-msgid "VICE_RECTOR_ASSISTANT"
-msgstr "DAS/CAS"
+msgid "Vice-rector of sector"
+msgstr ""
 
-msgid "view"
-msgstr "View"
+msgid "View"
+msgstr ""
 
-msgid "workflow_and_reviews"
-msgstr "Workflow and reviews"
+msgid "Within the CORSCI"
+msgstr ""
 
-msgid "yes"
-msgstr "Yes"
+msgid "Within the faculty (program committees, faculty board, faculty council)"
+msgstr ""
 
-msgid "YES"
-msgstr "Yes"
+msgid "Within the institute (institute board, institute council,...)"
+msgstr ""
+
+msgid ""
+"Within the organs of the University (academic council, other councils or "
+"commissions,...)"
+msgstr ""
+
+msgid "Within the sector (board and/or council)"
+msgstr ""
+
+msgid "Workflow and reviews"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "You are connected as"
+msgstr ""
+
+msgid ""
+"You must add at least one teaching unit under the heading 'Teaching Units'"
+msgstr ""
+
+msgid "You must add one learning unit"
+msgstr ""
+
+msgid "You must select a PDF file"
+msgstr ""
+
+msgid "assistants_mandates"
+msgstr ""
+
+msgid "file uploaded"
+msgstr ""
+
+msgid "number of hours per year"
+msgstr ""
+
+msgid "search by course acronym"
+msgstr ""

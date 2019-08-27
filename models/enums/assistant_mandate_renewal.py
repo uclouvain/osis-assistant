@@ -29,6 +29,8 @@ NORMAL = 'NORMAL'
 SPECIAL = 'SPECIAL'
 EXCEPTIONAL = 'EXCEPTIONAL'
 
-ASSISTANT_MANDATE_RENEWAL_TYPES = ((NORMAL, _(NORMAL)),
-                         (SPECIAL, _(SPECIAL)),
-                         (EXCEPTIONAL, _(EXCEPTIONAL)))
+ASSISTANT_MANDATE_RENEWAL_TYPES = (
+    (NORMAL, _('Normal')),
+    (SPECIAL, _('Special')),
+    (EXCEPTIONAL, _('Exceptional'))
+)

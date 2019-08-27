@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% load staticfiles %}
-{% load i18n %}
+{% load i18n display_role %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -29,33 +29,33 @@
 <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'assistants' %}</a></li>
-<li><a href="{% url 'mandates_list' %}" id="lnk_assistants">{% trans 'mandates_list' %}</a></li>
-<li class="active">{% trans 'assistant_form' %}</li>
+<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li><a href="{% url 'mandates_list' %}" id="lnk_assistants">{% trans 'List of mandates' %}</a></li>
+<li class="active">{% trans 'Assistant file' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h3>{% trans 'assistant_mandates_renewals' %} {{ year }} </h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year }} </h3>
     <ul class="nav nav-tabs">
         <li>
             <form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
                 {{ form.non_field_errors }}
                 {% csrf_token %}
                 <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                <button type="submit" class="btn btn-link" title="{% trans 'administrative_data'%}">
-                    {% trans 'administrative_data'%}
+                <button type="submit" class="btn btn-link" title="{% trans 'Administrative data'%}">
+                    {% trans 'Administrative data'%}
                 </button>
             </form>
         </li>
-        <li><a href="{% url 'manager_assistant_form_view' mandate_id=mandate_id %}">{% trans 'assistant_form' %}</a></li>
-        <li class="active"><a href="#">{% trans 'workflow_and_reviews' %}</a></li>
+        <li><a href="{% url 'manager_assistant_form_view' mandate_id=mandate_id %}">{% trans 'Assistant file' %}</a></li>
+        <li class="active"><a href="#">{% trans 'Workflow and reviews' %}</a></li>
     </ul>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
         <dl class="row">
             {% for review in reviews %}
-                <dt class="col-sm-2">{% trans 'reviewer' %}</dt>
+                <dt class="col-sm-2">{% trans 'Reviewer' %}</dt>
                 <dd class="col-sm-10">
                     <p>
                     {% if review.status == 'DONE' %}
@@ -64,15 +64,15 @@
                         <span class="fas fa-pencil-alt" style="font-size: 14pt" aria-hidden="true"></span>
                     {% endif %}
                     {% if review.reviewer is None %}
-                        {{ review.mandate.assistant.supervisor }} - {% trans 'supervisor' %}
+                        {{ review.mandate.assistant.supervisor }} - {% trans 'Promoter' %}
                     {% else %}
-                        {{ review.reviewer.person }} ({% trans review.reviewer.role %}) -
+                        {{ review.reviewer.person }} ({{  review.reviewer.role | display }}) -
                         {{ review.reviewer.entity.most_recent_acronym }}
                     {% endif %}
                     </p>
                 </dd>
                 <dt class="col-sm-2">
-                    {% trans 'advice' %}
+                    {% trans 'Opinion' %}
                 </dt>
                 <dd class="col-sm-10">
                     <p>
@@ -84,12 +84,12 @@
                     {% else %}
                         <span class="fas fa-exclamation-triangle" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
                     {% endif %}
-                    {% trans review.advice %}
+                    {{ review.get_advice_display }}
                     </p>
                 </dd>
                 {% if review.justification %}
                     <dt class="col-sm-2">
-                        {% trans 'justification' %}
+                        {% trans 'Justification' %}
                     </dt>
                     <dd class="col-sm-10">
                         <p>
@@ -99,7 +99,7 @@
                 {% endif %}
                 {% if review.remark %}
                     <dt class="col-sm-2">
-                        {% trans 'remark' %}
+                        {% trans 'Remark' %}
                     </dt>
                     <dd class="col-sm-10">
                         <p>
@@ -109,7 +109,7 @@
                 {% endif %}
                 {% if review.confidential %}
                     <dt class="col-sm-2">
-                        {% trans 'confidential' %}
+                        {% trans 'Confidential' %}
                     </dt>
                     <dd class="col-sm-10">
                         <p>
@@ -127,9 +127,9 @@
                 {{ hidden }}
             {% endfor %}
             <input type="hidden" value="{{ mandate_id }}" name="mandate_id" >
-            <button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_add_reviewer_save"
+            <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_add_reviewer_save"
                     {% if can_go_backward %}onclick="return confirm_click();"{% else %}disabled{% endif %}>
-                <span class="fas fa-step-backward" aria-hidden="true"></span> {% trans 'step_back'%}
+                <span class="fas fa-step-backward" aria-hidden="true"></span> {% trans 'Accomplish a workflow step back'%}
             </button>
         </form>
     </div>
@@ -138,7 +138,7 @@
 {% block script %}
 <script>
 function confirm_click() {
-    return confirm("{% trans 'confirm_mandate_step_back' %}");
+    return confirm("{% trans 'Are you sure you want to step back the mandate? This action is irreversible.' %}");
 }
 </script>
 {% endblock %}

@@ -27,20 +27,20 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'my_mandates' %}</a></li>
-<li class="active">{% trans 'renewal_form' %}</li>
+<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
+<li class="active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
 <ul class="nav nav-tabs ">
-<li><a href="{% url 'assistant_mandates' %}">{% trans 'my_mandates' %}</a></li>
-<li><a href="{% url 'form_part1_edit' %}">{% trans 'assistant_form_part1' %}</a></li>
-<li><a href="{% url 'mandate_learning_units' %}">{% trans 'learning_units' %}</a></li>
+<li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
+<li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
+<li><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
 {% if mandate.assistant_type == "ASSISTANT" %}
-    <li><a href="{% url 'form_part3_edit' %}">{% trans 'assistant_form_part3' %}</a></li>
-    <li><a href="{% url 'form_part4_edit' %}">{% trans 'assistant_form_part4' %}</a></li>
+    <li><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
+    <li><a href="{% url 'form_part4_edit' %}">{% trans 'Research' %}</a></li>
 {% endif %}
-<li class="active"><a href="{% url 'form_part5_edit' %}">{% trans 'assistant_form_part5' %}</a></li>
-<li><a href="{% url 'form_part6_edit' %}">{% trans 'assistant_form_part6' %}</a></li>
+<li class="active"><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
+<li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
 </ul>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -52,92 +52,92 @@
         {{ form.non_field_errors }}
         <div class="panel-default">
             <div class="panel-heading">
-                <h4>{% trans 'representation_activities' %}</h4>
+                <h4>{% trans 'Representation activities at UCL' %}</h4>
             </div>
             <div class="panel-body">
-                <h6>{% trans 'hours_per_year_message' %}</h6>
+                <h6>{% trans 'Please enter the number of hours per year' %}</h6>
             </div>
         </div>
         <div class="form-group">
             <label for="{{ form.faculty_representation.id_for_label }}">
-                {% trans 'faculty_representation' %}</label>
+                {% trans 'Within the faculty (program committees, faculty board, faculty council)' %}</label>
             {{ form.faculty_representation }}
             <span class="error">{{ form.faculty_representation.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.institute_representation.id_for_label }}">
-                {% trans 'institute_representation' %}</label>
+                {% trans 'Within the institute (institute board, institute council,...)' %}</label>
             {{ form.institute_representation }}
             <span class="error">{{ form.institute_representation.errors }}</span>
         </div>
         <div class="form-group">
-            <label for="{{ form.sector_representation.id_for_label }">
-                {% trans 'sector_representation' %}</label>
+            <label for="{{ form.sector_representation.id_for_label }}">
+                {% trans 'Within the sector (board and/or council)' %}</label>
             {{ form.sector_representation }}
             <span class="error">{{ form.sector_representation.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.governing_body_representation.id_for_label }}">
-                {% trans 'governing_body_representation' %}</label>
+                {% trans 'Within the organs of the University (academic council, other councils or commissions,...)' %}</label>
             {{ form.governing_body_representation }}
             <span class="error">{{ form.governing_body_representation.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.corsci_representation.id_for_label }}">
-                {% trans 'corsci_representation' %}</label>
+                {% trans 'Within the CORSCI' %}</label>
             {{ form.corsci_representation }}
             <span class="error">{{ form.corsci_representation.errors }}</span>
         </div>
         <div class="panel-default">
             <div class="panel-heading">
-                <h4>{% trans 'service_activities' %}</h4>
+                <h4>{% trans 'Service activities' %}</h4>
             </div>
             <div class="panel-body">
-                <h6>{% trans 'hours_per_year_message' %}</h6>
+                <h6>{% trans 'Please enter the number of hours per year' %}</h6>
             </div>
         </div>
         <div class="form-group">
             <label for="{{ form.students_service.id_for_label }}">
-                {% trans 'students_service' %}</label>
+                {% trans 'Information for future students (CIO, shows, Campus Days, Midi Masters,...)' %}</label>
             {{ form.students_service }}
             <font class="error">{{ form.students_service.errors }}</font>
             </div>
         <div class="form-group">
             <label for="{{ form.infrastructure_mgmt_service.id_for_label }}">
-                {% trans 'infrastructure_mgmt_service' %}</label>
+                {% trans 'Management of collective facilities (lab, workshop, library, IT department, website,...)' %}</label>
             {{ form.infrastructure_mgmt_service }}
             <font class="error">{{ form.infrastructure_mgmt_service.errors }}</font>
             </div>
         <div class="form-group">
             <label for="{{ form.events_organisation_service.id_for_label }}">
-                {% trans 'events_organisation_service' %}</label>
+                {% trans "Organization of seminars, conferences, visits, study tours, grounds, seminars… (not taken in account in the 'Teaching units' section)" %}</label>
             {{ form.events_organisation_service }}
             <font class="error">{{ form.events_organisation_service.errors }}</font>
         </div>
         <div class="form-group">
             <label for="{{ form.publishing_field_service.id_for_label }}">
-                {% trans 'publishing_field_service' %}</label>
+                {% trans 'Activities in the field of publishing (editorial board,...)' %}</label>
             {{ form.publishing_field_service }}
             <font class="error">{{ form.publishing_field_service.errors }}</font>
         </div>
         <div class="form-group">
             <label for="{{ form.scientific_jury_service.id_for_label }}">
-                {% trans 'scientific_jury_service' %}</label>
+                {% trans 'Participation in juries and/or scientific committees' %}</label>
             {{ form.scientific_jury_service }}
             <font class="error">{{ form.scientific_jury_service.errors }}</font>
         </div>
         <div class="panel-default">
             <div class="panel-heading">
-                <h4>{% trans 'formation_activities' %}</h4>
+                <h4>{% trans 'Training activities' %}</h4>
             </div>
         </div>
         <div class="form-group">
-            <label style="padding-top: 5px" for="{{ form.formations.id_for_label }}">{% trans 'formations' %}</label>
+            <label style="padding-top: 5px" for="{{ form.formations.id_for_label }}">{% trans 'Scientific, pedagogical or other training you have attended (LLL, SMCS, RHUM, Summer School)' %}</label>
             <div class="controls">{{ form.formations }}</div>
             <font class="error">{{ form.formations.errors }}</font>
         </div>
-        <button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_pstform_part5_save">
-            <span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}</button>
+        <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_pstform_part5_save">
+            <span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
         <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
         </form>
     </div>
@@ -151,7 +151,7 @@ $("#pst-form-part5 :input").change(function() {
 $('a').on('click', function(e) {
 	var hrefLoc = $(this).attr('href');
 	if ($("#pst-form-part5").data("changed")) {
-		var choice = confirm("{% trans 'save_before_link' %}");
+		var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
 		if (choice == true) {
 			e.preventDefault();
 			$('form#pst-form-part5').submit();

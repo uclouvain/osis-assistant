@@ -31,18 +31,18 @@
 <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_mandates_list">{% trans 'reviewer_mandates_list' %}</a></li>
-<li><a href="{% url 'reviewer_delegation' %}" id="lnk_reviewer_delegation">{% trans 'reviewer_delegation' %}</a></li>
-<li class="active">{% trans 'reviewer_delegation_add' %}</li>
+<li><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_mandates_list">{% trans 'List of files' %}</a></li>
+<li><a href="{% url 'reviewer_delegation' %}" id="lnk_reviewer_delegation">{% trans 'Delegation(s)' %}</a></li>
+<li class="active">{% trans 'Add a delegate' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h6>{% trans 'connected_as' %} {{ reviewer.person }} ({% trans reviewer.role %}) - {{ entity.acronym }}</h6>
-    <h3>{% trans 'assistant_mandates_renewals' %} {{ year|add:1 }}</h3>
+    <h6>{% trans 'You are connected as' %} {{ reviewer.person }} ({% trans reviewer.role %}) - {{ entity.acronym }}</h6>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-    <h5>{% trans 'choose_person_as_reviewer_for' %} {{ entity.most_recent_acronym }}</h5>
+    <h5>{% trans 'Choose a person as reviewer for' %} {{ entity.most_recent_acronym }}</h5>
     <form method="POST" action="{% url 'reviewer_delegation_add' %}">
     {{ form.non_field_errors }}
  		{% csrf_token %}
@@ -51,16 +51,16 @@
 		{% endfor %}
     <input type="hidden" value="{{ entity.id | default_if_none:'' }}" name="entity" >
 	<div class="form-group">
-		<label for="search_persons">{% trans 'person' %}</label>
+		<label for="search_persons">{% trans 'Person' %}</label>
 		<input id="search_persons" name="search_persons" size="100" class="form-control"
-               placeholder="{% trans 'search_by_email_or_last_name' %}">
+               placeholder="{% trans 'Search by email or last name' %}">
 		<input type="hidden" name="person_id" id="person_id">
 	</div>
-    <button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_add_reviewer_save"
-    onclick="return confirm('{% trans 'confirm_reviewer_delegation' %}')">
-    <span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}</button>
+    <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_add_reviewer_save"
+    onclick="return confirm('{% trans 'Are you sure you want to delegate your role? This action is irreversible.' %}')">
+    <span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
     <a class="btn btn-default" id="lnk_upload_cancel" href="{% url 'reviewer_delegation' %}">
-    <span class="fas fa-times" aria-hidden="true"></span> {% trans 'cancel'%}</a>
+    <span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
     </form>
     </div>
 </div>

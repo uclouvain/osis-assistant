@@ -113,7 +113,7 @@ def load_mandates(request):
 @user_passes_test(user_is_manager, login_url='access_denied')
 def export_mandates(request):
     xls = generate_xls()
-    filename = 'assistants_mandates_{}.xlsx'.format(time.strftime("%Y%m%d_%H%M"))
+    filename = '{}_{}.xlsx'.format(_('assistants_mandates'), time.strftime("%Y%m%d_%H%M"))
     response = HttpResponse(xls, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = "%s%s" % ("attachment; filename=", filename)
     return response
@@ -122,31 +122,31 @@ def export_mandates(request):
 def generate_xls():
     workbook = Workbook(encoding='utf-8')
     worksheet = workbook.active
-    worksheet.title = "mandates"
+    worksheet.title = _('Mandates')
     worksheet.append([_(entity_type.SECTOR),
                       _(entity_type.FACULTY),
                       _(entity_type.LOGISTICS_ENTITY),
                       _(entity_type.INSTITUTE),
-                      _("matricule"),
-                      _("name"),
-                      _("firstname"),
-                      _("email"),
+                      _("Registration number"),
+                      _("Name"),
+                      _("Firstname"),
+                      _("Email"),
                       "FGS",
-                      _("age"),
-                      _("status"),
-                      _("renewal_type"),
-                      _("assistant_type"),
-                      _("fulltime_equivalent"),
-                      _("contract_duration_fte"),
-                      _("contract_duration"),
-                      _("entry_date_contract"),
-                      _("end_date"),
-                      _("comment"),
-                      _("absences"),
-                      _("sector_vice_rector_review"),
-                      _("justification"),
-                      _("comment"),
-                      _("confidential"),
+                      _("Age"),
+                      _("Status"),
+                      _("Renewal type"),
+                      _("Assistant type"),
+                      _("Full-time equivalent"),
+                      _("Full-time equivalent"),
+                      _("Contract length"),
+                      _("Contract start date"),
+                      _("End date"),
+                      _("Comment"),
+                      _("Absences"),
+                      _("Opinion of the sector vice-rector"),
+                      _("Justification"),
+                      _("Comment"),
+                      _("Confidential"),
                       ])
     mandates = assistant_mandate.find_by_academic_year(academic_year.current_academic_year())
     for mandate in mandates:

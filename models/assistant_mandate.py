@@ -26,8 +26,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib import admin
-from assistant.models.enums import assistant_mandate_state, assistant_type, assistant_mandate_renewal
-from assistant.models.enums import assistant_mandate_appeal
+from assistant.models.enums import assistant_mandate_state, assistant_type, assistant_mandate_renewal, \
+    assistant_mandate_appeal
 
 
 class AssistantMandateAdmin(admin.ModelAdmin):
