@@ -73,9 +73,9 @@ class ExportPdfTestCase(TestCase):
         )
         self.supervisor = PersonFactory()
         self.assistant = AcademicAssistantFactory(
-            phd_inscription_date=datetime.date(2015, 10, 2),
+            phd_inscription_date=datetime.date(self.current_academic_year.year - 3, 10, 2),
             thesis_title='Data fitting on manifolds',
-            confirmation_test_date=datetime.date(2017, 9, 25),
+            confirmation_test_date=datetime.date(self.current_academic_year.year - 1, 9, 14),
             remark="Deux co-promoteurs (l'application ne m'autorise à n'en renseigner qu'un)",
             supervisor=self.supervisor
         )
@@ -83,8 +83,8 @@ class ExportPdfTestCase(TestCase):
             assistant=self.assistant,
             assistant_type=assistant_type.ASSISTANT,
             sap_id='1120019',
-            entry_date=datetime.date(2012, 9, 15),
-            end_date=datetime.date(2018, 9, 14),
+            entry_date=datetime.date(self.current_academic_year.year - 6, 9, 15),
+            end_date=datetime.date(self.current_academic_year.year, 9, 24),
             contract_duration='6 ans',
             contract_duration_fte='6 ans',
             fulltime_equivalent=1,
