@@ -68,7 +68,7 @@ COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*m
 
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
 def export_mandates_to_sap(request):
-    mandates = assistant_mandate.find_by_academic_year_by_excluding_declined(academic_year.current_academic_year())
+    mandates = assistant_mandate.find_by_academic_year_by_excluding_declined(academic_year.starting_academic_year())
     response = HttpResponse(content_type='application/zip')
     filename = ('%s_%s_%s.zip' % (_('assistants_mandates'), mandates[0].academic_year, time.strftime("%Y%m%d_%H%M")))
     response['Content-Disposition'] = 'filename="%s"' % filename
