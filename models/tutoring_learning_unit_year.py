@@ -43,21 +43,12 @@ def find_by_id(tutoring_learning_unit_id):
     return TutoringLearningUnitYear.objects.get(id=tutoring_learning_unit_id)
 
 
-def find_for_mandate_for_academic_year(mandate, academic_year):
-    return TutoringLearningUnitYear.objects.filter(mandate=mandate, learning_unit_year__academic_year=academic_year)
-
-
 def find_by_mandate(mandate):
     return TutoringLearningUnitYear.objects.filter(mandate=mandate).select_related(
         'learning_unit_year__academic_year', 'learning_unit_year__learning_container_year'
     ).order_by(
         'learning_unit_year__academic_year'
     )
-
-
-def find_by_mandate_and_learning_unit(mandate, learning_unit):
-    return TutoringLearningUnitYear.objects.filter(mandate=mandate).\
-        filter(learning_unit_year=learning_unit)
 
 
 def find_learning_unit_year(learning_unit_year):

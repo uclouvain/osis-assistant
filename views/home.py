@@ -24,10 +24,11 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.http.response import HttpResponseRedirect
-from django.urls import reverse
 from django.contrib.auth.decorators import user_passes_test
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+
 from assistant.models import academic_assistant, manager, reviewer
 from assistant.models import settings
 from assistant.utils import manager_access
@@ -52,6 +53,7 @@ def assistant_home(request):
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
 def manager_home(request):
     return render(request, 'manager_home.html')
+
 
 def access_denied(request):
     response = render(request, 'access_denied.html', {})
