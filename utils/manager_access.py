@@ -24,6 +24,7 @@
 #
 ##############################################################################
 from django.core.exceptions import ObjectDoesNotExist
+
 from assistant.models import manager
 
 

@@ -24,9 +24,9 @@
 #
 ##############################################################################
 from django.contrib.auth.models import User
-from django.urls import reverse
 from django.db.models.query import QuerySet
 from django.test import TestCase, RequestFactory
+from django.urls import reverse
 from django.utils import timezone
 
 from assistant.models.enums import message_type

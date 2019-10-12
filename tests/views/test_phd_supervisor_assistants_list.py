@@ -24,24 +24,24 @@
 #
 ##############################################################################
 import datetime
+
 from django.test import TestCase, RequestFactory, Client
 
-from base.tests.factories.academic_year import AcademicYearFactory
-from base.tests.factories.person import PersonFactory
-from base.tests.factories.entity_version import EntityVersionFactory
-from base.models.enums import entity_type
-from base.models.entity import find_versions_from_entites
-
 from assistant.models.assistant_mandate import find_for_supervisor_for_academic_year
+from assistant.models.enums import assistant_mandate_state, review_status
 from assistant.models.enums import reviewer_role
 from assistant.models.reviewer import find_by_person
-from assistant.tests.factories.review import ReviewFactory
+from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.mandate_entity import MandateEntityFactory
-from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
+from assistant.tests.factories.review import ReviewFactory
 from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.settings import SettingsFactory
-from assistant.models.enums import assistant_mandate_state, review_status
+from base.models.entity import find_versions_from_entites
+from base.models.enums import entity_type
+from base.tests.factories.academic_year import AcademicYearFactory
+from base.tests.factories.entity_version import EntityVersionFactory
+from base.tests.factories.person import PersonFactory
 
 HTTP_OK = 200
 HTTP_FOUND = 302

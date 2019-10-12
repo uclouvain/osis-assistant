@@ -35,8 +35,8 @@ from assistant.models.enums import review_status
 from assistant.models.enums import reviewer_role
 from assistant.models.mandate_entity import find_by_entity
 from assistant.models.review import find_done_by_supervisor_for_mandate
-from assistant.models.review import get_in_progress_for_mandate
 from assistant.models.review import find_review_for_mandate_by_role
+from assistant.models.review import get_in_progress_for_mandate
 from assistant.utils import manager_access
 
 

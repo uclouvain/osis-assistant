@@ -23,14 +23,15 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import factory
 import datetime
-from django.utils import timezone
-from base.tests.factories.person import PersonFactory
-from assistant.tests.factories.reviewer import ReviewerFactory
-from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
+
+import factory
+
 from assistant.models.enums import review_advice_choices
 from assistant.models.enums import review_status
+from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
+from assistant.tests.factories.reviewer import ReviewerFactory
+
 
 class ReviewFactory(factory.DjangoModelFactory):
     class Meta:

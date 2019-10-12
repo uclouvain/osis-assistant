@@ -24,7 +24,6 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
-
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 

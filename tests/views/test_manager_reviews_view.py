@@ -28,13 +28,12 @@ import datetime
 from django.test import Client, TestCase, RequestFactory
 from django.urls import reverse
 
-from base.tests.factories.academic_year import AcademicYearFactory
-
 from assistant.models.enums import assistant_mandate_state
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.manager import ManagerFactory
 from assistant.tests.factories.settings import SettingsFactory
+from base.tests.factories.academic_year import AcademicYearFactory
 
 HTTP_OK = 200
 HTTP_FOUND = 302

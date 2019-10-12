@@ -24,6 +24,7 @@
 #
 ##############################################################################
 from django import template
+
 from assistant.models.enums import reviewer_role
 
 register = template.Library()

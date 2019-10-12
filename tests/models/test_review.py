@@ -25,17 +25,16 @@
 ##############################################################################
 from django.test import TestCase, Client
 
-from base.models.enums import entity_type
-from base.tests.factories.entity_version import EntityVersionFactory
-
-from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
-from assistant.tests.factories.mandate_entity import MandateEntityFactory
-from assistant.tests.factories import review
-from assistant.tests.factories import reviewer
 from assistant.models.enums import assistant_mandate_state, reviewer_role
 from assistant.models.enums import review_status
-from assistant.models.review import find_by_reviewer_for_mandate, find_before_mandate_state, find_by_id
+from assistant.models.review import find_by_reviewer_for_mandate, find_before_mandate_state
 from assistant.models.review import get_in_progress_for_mandate
+from assistant.tests.factories import review
+from assistant.tests.factories import reviewer
+from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
+from assistant.tests.factories.mandate_entity import MandateEntityFactory
+from base.models.enums import entity_type
+from base.tests.factories.entity_version import EntityVersionFactory
 
 
 class TestReviewFactory(TestCase):

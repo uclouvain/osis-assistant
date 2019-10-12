@@ -23,8 +23,8 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import factory
 import factory.fuzzy
+
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from base.tests.factories.entity import EntityFactory
 

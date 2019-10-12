@@ -26,13 +26,14 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import redirect
 from django.utils import timezone
-from base.models import academic_year,entity_version
-from osis_common.messaging import message_config, send_message as message_service
+
 from assistant.models import assistant_mandate, settings, manager, reviewer
 from assistant.models.enums import message_type, assistant_mandate_renewal
-from assistant.models.message import Message
 from assistant.models.enums import reviewer_role
+from assistant.models.message import Message
 from assistant.utils import manager_access
+from base.models import academic_year, entity_version
+from osis_common.messaging import message_config, send_message as message_service
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')

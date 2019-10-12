@@ -23,14 +23,15 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.contrib import admin
-from assistant.models.enums import assistant_mandate_state, assistant_type, assistant_mandate_renewal, \
-    assistant_mandate_appeal
+    from django.contrib import admin
+    from django.core.validators import MaxValueValidator, MinValueValidator
+    from django.db import models
+
+    from assistant.models.enums import assistant_mandate_state, assistant_type, assistant_mandate_renewal, \
+        assistant_mandate_appeal
 
 
-class AssistantMandateAdmin(admin.ModelAdmin):
+    class AssistantMandateAdmin(admin.ModelAdmin):
     list_display = ('assistant', 'renewal_type', 'academic_year')
     raw_id_fields = ('assistant',)
 

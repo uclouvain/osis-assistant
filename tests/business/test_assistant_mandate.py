@@ -23,13 +23,8 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.test import TestCase, RequestFactory, Client
 from django.shortcuts import reverse
-
-from base.tests.factories.entity import EntityFactory
-from base.tests.factories.entity_version import EntityVersionFactory
-from base.tests.factories.person import PersonFactory
-from base.models.enums import entity_type
+from django.test import TestCase, RequestFactory, Client
 
 from assistant.business.assistant_mandate import mandate_can_go_backward, add_actions_to_mandates_list
 from assistant.models.enums import assistant_mandate_state
@@ -43,6 +38,10 @@ from assistant.tests.factories.mandate_entity import MandateEntityFactory
 from assistant.tests.factories.review import ReviewFactory
 from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.settings import SettingsFactory
+from base.models.enums import entity_type
+from base.tests.factories.entity import EntityFactory
+from base.tests.factories.entity_version import EntityVersionFactory
+from base.tests.factories.person import PersonFactory
 
 
 class TestMandateEntity(TestCase):

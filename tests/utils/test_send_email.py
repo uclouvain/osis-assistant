@@ -27,10 +27,6 @@ from unittest.mock import patch
 
 from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
-from django.core.mail.message import EmailMultiAlternatives
-
-from base.models.person import Person
-from base.tests.factories.academic_year import AcademicYearFactory
 
 from assistant.models.enums import assistant_mandate_renewal
 from assistant.models.enums import reviewer_role
@@ -40,6 +36,8 @@ from assistant.tests.factories.manager import ManagerFactory
 from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.settings import SettingsFactory
 from assistant.utils import send_email
+from base.models.person import Person
+from base.tests.factories.academic_year import AcademicYearFactory
 
 
 class SendEmailTestCase(TestCase):
