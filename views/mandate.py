@@ -29,7 +29,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from openpyxl import Workbook
 from openpyxl.writer.excel import save_virtual_workbook
 

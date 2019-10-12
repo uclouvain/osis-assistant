@@ -25,7 +25,7 @@
 ##############################################################################
 import datetime
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.test import TestCase, RequestFactory, Client
 from django.urls import reverse
 
