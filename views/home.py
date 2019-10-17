@@ -24,10 +24,11 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.http.response import HttpResponseRedirect
-from django.urls import reverse
 from django.contrib.auth.decorators import user_passes_test
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+
 from assistant.models import academic_assistant, manager, reviewer
 from assistant.models import settings
 from assistant.utils import manager_access

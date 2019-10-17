@@ -23,9 +23,8 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
-
+from django.shortcuts import render
 
 from assistant.models.enums import message_type
 from assistant.models.message import find_all

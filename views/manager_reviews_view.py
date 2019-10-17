@@ -24,13 +24,12 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
-
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
 from assistant.business.assistant_mandate import mandate_can_go_backward
-from assistant.models.review import find_by_mandate
 from assistant.models import assistant_mandate
+from assistant.models.review import find_by_mandate
 from assistant.utils import manager_access
 
 

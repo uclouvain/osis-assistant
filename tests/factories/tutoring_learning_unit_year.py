@@ -24,8 +24,9 @@
 #
 ##############################################################################
 import factory
-from base.tests.factories.learning_unit_year import LearningUnitYearFactory
+
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
+from base.tests.factories.learning_unit_year import LearningUnitYearFactory
 
 
 class TutoringLearningUnitYearFactory(factory.DjangoModelFactory):

@@ -23,41 +23,39 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import time
 import datetime
-from io import BytesIO
+import time
 import zipfile
+from io import BytesIO
 
 from django.contrib.auth.decorators import user_passes_test, login_required
-from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_http_methods
-
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT
-from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle, KeepTogether
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.graphics.charts.legends import Legend
 from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.shapes import Drawing
-from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.lib.colors import black, HexColor
-from reportlab.graphics.charts.legends import Legend
-
-from base.models.entity import find_versions_from_entites
-from base.models import academic_year, entity_version
-from base.models.person import find_by_user
+from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import mm
+from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle
 
 from assistant.business import users_access
 from assistant.business.assistant_mandate import find_mandates_for_academic_year_and_entity
-from assistant.utils import assistant_access, manager_access
 from assistant.models import academic_assistant, assistant_mandate, review, reviewer, tutoring_learning_unit_year
 from assistant.models.enums import review_status, assistant_type, user_role, assistant_mandate_renewal
-from assistant.models.review import find_before_mandate_state
 from assistant.models.enums.assistant_phd_inscription import PHD_INSCRIPTION_CHOICES
+from assistant.models.review import find_before_mandate_state
+from assistant.utils import assistant_access, manager_access
+from base.models import academic_year, entity_version
+from base.models.entity import find_versions_from_entites
 from base.models.enums import entity_type
+from base.models.person import find_by_user
 
 PAGE_SIZE = A4
 MARGIN_SIZE = 15 * mm

@@ -24,6 +24,7 @@
 #
 ##############################################################################
 from itertools import takewhile
+
 from django.db import models
 from django.utils import timezone
 

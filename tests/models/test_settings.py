@@ -23,11 +23,12 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.utils import timezone
 from django.test import TestCase
+from django.utils import timezone
 
-from assistant.tests.factories.settings import SettingsFactory
 from assistant.models.settings import access_to_procedure_is_open
+from assistant.tests.factories.settings import SettingsFactory
+
 
 class TestSettingsFactory(TestCase):
     def setUp(self):

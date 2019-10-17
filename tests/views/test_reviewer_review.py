@@ -27,12 +27,6 @@ import datetime
 
 from django.test import TestCase, RequestFactory, Client
 
-from base.models.enums import entity_type
-from base.tests.factories.academic_year import AcademicYearFactory
-from base.tests.factories.entity_version import EntityVersionFactory
-from base.tests.factories.person import PersonFactory
-
-
 from assistant.models.enums import assistant_mandate_state, review_status, reviewer_role
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
@@ -42,6 +36,10 @@ from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.settings import SettingsFactory
 from assistant.views.reviewer_review import generate_reviewer_menu_tabs
 from assistant.views.reviewer_review import validate_review_and_update_mandate
+from base.models.enums import entity_type
+from base.tests.factories.academic_year import AcademicYearFactory
+from base.tests.factories.entity_version import EntityVersionFactory
+from base.tests.factories.person import PersonFactory
 
 HTTP_OK = 200
 

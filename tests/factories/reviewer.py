@@ -25,10 +25,9 @@
 ##############################################################################
 import factory
 
-from base.tests.factories.person import PersonFactory
-from base.tests.factories.entity import EntityFactory
-
 from assistant.models.enums import reviewer_role
+from base.tests.factories.entity import EntityFactory
+from base.tests.factories.person import PersonFactory
 
 
 class ReviewerFactory(factory.DjangoModelFactory):

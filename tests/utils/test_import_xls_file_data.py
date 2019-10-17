@@ -25,17 +25,10 @@
 ##############################################################################
 import datetime
 
-from django.utils import timezone
 from django.core.files import File
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
-
-from base.models import academic_year
-from base.models import entity
-from base.models.enums import entity_type
-from base.tests.factories.entity_version import EntityVersionFactory
-from base.tests.factories.academic_year import AcademicYearFactory
-from base.tests.factories.person import PersonFactory
+from django.utils import timezone
 
 from assistant.models.mandate_entity import find_by_mandate_and_entity
 from assistant.models.tutoring_learning_unit_year import find_by_mandate
@@ -43,6 +36,8 @@ from assistant.tests.factories.academic_assistant import AcademicAssistantFactor
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.manager import ManagerFactory
 from assistant.tests.factories.tutoring_learning_unit_year import TutoringLearningUnitYearFactory
+from assistant.utils import import_xls_file_data
+from assistant.utils.import_xls_file_data import COLS_TITLES
 from assistant.utils.import_xls_file_data import check_date_format
 from assistant.utils.import_xls_file_data import check_file_format
 from assistant.utils.import_xls_file_data import create_academic_assistant_if_not_exists
@@ -51,8 +46,12 @@ from assistant.utils.import_xls_file_data import link_mandate_to_entity
 from assistant.utils.import_xls_file_data import read_xls_mandates
 from assistant.utils.import_xls_file_data import retrieve_learning_units_year_from_previous_mandate
 from assistant.utils.import_xls_file_data import search_entity_by_acronym_and_type
-from assistant.utils import import_xls_file_data
-from assistant.utils.import_xls_file_data import COLS_TITLES
+from base.models import academic_year
+from base.models import entity
+from base.models.enums import entity_type
+from base.tests.factories.academic_year import AcademicYearFactory
+from base.tests.factories.entity_version import EntityVersionFactory
+from base.tests.factories.person import PersonFactory
 
 HTTP_OK = 200
 
