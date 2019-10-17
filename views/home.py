@@ -54,6 +54,7 @@ def assistant_home(request):
 def manager_home(request):
     return render(request, 'manager_home.html')
 
+
 def access_denied(request):
     response = render(request, 'access_denied.html', {})
     response.status_code = 403

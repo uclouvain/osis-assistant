@@ -51,10 +51,6 @@ class AcademicAssistant(models.Model):
         return u"%s %s" % (self.person.last_name.upper(), self.person.first_name)
 
 
-def find_by_id(assistant_id):
-    return AcademicAssistant.objects.get(id=assistant_id)
-
-
 def find_by_person(person):
     try:
         return AcademicAssistant.objects.get(person=person)
