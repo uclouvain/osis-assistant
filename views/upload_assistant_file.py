@@ -29,7 +29,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import DataError
 from django.http import *
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 
 from assistant import models as mdl

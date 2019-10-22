@@ -25,7 +25,7 @@
 ##############################################################################
 from django import forms
 from django.forms import ModelForm
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 import base.models
 from assistant import models as mdl

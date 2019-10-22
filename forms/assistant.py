@@ -27,7 +27,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from assistant import models as mdl
 from assistant.forms.common import RADIO_SELECT_REQUIRED
