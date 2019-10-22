@@ -28,23 +28,22 @@ import datetime
 from django.contrib import auth
 from django.test import TestCase, RequestFactory, Client
 
-from base.models.enums import entity_type
-from base.tests.factories.academic_year import AcademicYearFactory
-from base.tests.factories.entity import EntityFactory
-from base.tests.factories.entity_version import EntityVersionFactory
-from base.tests.factories.person import PersonFactory
-
 from assistant.business.users_access import user_is_phd_supervisor_and_procedure_is_open
 from assistant.business.users_access import user_is_reviewer_and_procedure_is_open
-from assistant.models.enums import reviewer_role
 from assistant.models.enums import assistant_mandate_state
 from assistant.models.enums import review_status
+from assistant.models.enums import reviewer_role
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.mandate_entity import MandateEntityFactory
 from assistant.tests.factories.review import ReviewFactory
 from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.settings import SettingsFactory
+from base.models.enums import entity_type
+from base.tests.factories.academic_year import AcademicYearFactory
+from base.tests.factories.entity import EntityFactory
+from base.tests.factories.entity_version import EntityVersionFactory
+from base.tests.factories.person import PersonFactory
 
 
 class TestUsersAccess(TestCase):

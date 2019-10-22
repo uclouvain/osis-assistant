@@ -24,9 +24,11 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.test import TestCase
-from base.models.person import Person
 import json
+
+from django.test import TestCase
+
+from base.models.person import Person
 
 
 class GetPersonsTestCase(TestCase):

@@ -26,15 +26,15 @@
 from django.conf.urls import url, include
 
 from assistant.business.assistant_mandate import find_assistant_mandate_step_backward_state
-from assistant.views import manager_assistant_form
-from assistant.views import mandate, home, assistant_form, assistant, phd_supervisor_review
-from assistant.views import manager_settings, reviewers_management, upload_assistant_file
-from assistant.views import mandates_list, reviewer_mandates_list, reviewer_review, reviewer_delegation
 from assistant.utils import get_persons
-from assistant.views import messages, phd_supervisor_assistants_list
-from assistant.views import assistant_mandate_reviews
-from assistant.views import manager_reviews_view
 from assistant.utils import send_email, import_xls_file_data, export_utils_pdf
+from assistant.views import assistant_mandate_reviews
+from assistant.views import manager_assistant_form
+from assistant.views import manager_reviews_view
+from assistant.views import manager_settings, reviewers_management, upload_assistant_file
+from assistant.views import mandate, home, assistant_form, assistant, phd_supervisor_review
+from assistant.views import mandates_list, reviewer_mandates_list, reviewer_review, reviewer_delegation
+from assistant.views import messages, phd_supervisor_assistants_list
 
 urlpatterns = [
     url(r'^$', home.assistant_home, name='assistants_home'),

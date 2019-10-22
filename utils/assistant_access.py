@@ -23,9 +23,9 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from base.models import academic_year
-from assistant.models.enums import assistant_mandate_state
 from assistant.models import assistant_mandate, academic_assistant, settings
+from assistant.models.enums import assistant_mandate_state
+from base.models import academic_year
 
 
 def user_is_assistant_and_procedure_is_open(user):

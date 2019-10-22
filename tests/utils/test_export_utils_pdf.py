@@ -25,33 +25,31 @@
 ##############################################################################
 import datetime
 
-from django.utils.translation import gettext_lazy as _
 from django.test import TestCase, RequestFactory, Client
 from django.urls import reverse
-
+from django.utils.translation import gettext_lazy as _
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.platypus import Paragraph
 from reportlab.lib.units import mm
-
-from base.models.entity import find_versions_from_entites
-from base.tests.factories.academic_year import AcademicYearFactory
-from base.models.enums import entity_type
-from base.tests.factories.entity_version import EntityVersionFactory
-from base.tests.factories.person import PersonFactory
+from reportlab.platypus import Paragraph
 
 from assistant.models import tutoring_learning_unit_year
-from assistant.utils import export_utils_pdf
+from assistant.models.enums import assistant_mandate_state, assistant_phd_inscription, assistant_type, \
+    assistant_mandate_renewal, review_status, reviewer_role
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.manager import ManagerFactory
 from assistant.tests.factories.mandate_entity import MandateEntityFactory
-from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.review import ReviewFactory
+from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.settings import SettingsFactory
 from assistant.tests.factories.tutoring_learning_unit_year import TutoringLearningUnitYearFactory
-from assistant.models.enums import assistant_mandate_state,  assistant_phd_inscription, assistant_type, \
-    assistant_mandate_renewal, review_status, reviewer_role
+from assistant.utils import export_utils_pdf
+from base.models.entity import find_versions_from_entites
+from base.models.enums import entity_type
+from base.tests.factories.academic_year import AcademicYearFactory
+from base.tests.factories.entity_version import EntityVersionFactory
+from base.tests.factories.person import PersonFactory
 
 COLS_WIDTH_FOR_REVIEWS = [35*mm, 20*mm, 70*mm, 30*mm, 30*mm]
 COLS_WIDTH_FOR_TUTORING = [40*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 15*mm, 40*mm]

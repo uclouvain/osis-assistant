@@ -23,8 +23,9 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.db import models
 from django.contrib import admin
+from django.db import models
+
 from assistant.models.enums import assistant_phd_inscription
 
 
@@ -48,10 +49,6 @@ class AcademicAssistant(models.Model):
 
     def __str__(self):
         return u"%s %s" % (self.person.last_name.upper(), self.person.first_name)
-
-
-def find_by_id(assistant_id):
-    return AcademicAssistant.objects.get(id=assistant_id)
 
 
 def find_by_person(person):

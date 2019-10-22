@@ -25,13 +25,12 @@
 ##############################################################################
 from django.test import TestCase
 
-from base.tests.factories.entity import EntityFactory
-from base.tests.factories.entity_version import EntityVersionFactory
-from base.models.enums import entity_type
-
 from assistant.business.mandate_entity import get_entities_for_mandate
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.mandate_entity import MandateEntityFactory
+from base.models.enums import entity_type
+from base.tests.factories.entity import EntityFactory
+from base.tests.factories.entity_version import EntityVersionFactory
 
 
 class TestMandateEntity(TestCase):
