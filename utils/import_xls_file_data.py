@@ -184,7 +184,7 @@ def create_academic_assistant_if_not_exists(record):
 def create_assistant_mandate_if_not_exists(record, assistant, entry_date, end_date):
     global MANDATES_IMPORTED, MANDATES_UPDATED
     new_mandate = False
-    current_academic_year = mdl.academic_year.current_academic_year()
+    current_academic_year = mdl.academic_year.starting_academic_year()
     mandates = assistant_mdl.assistant_mandate.find_mandate(assistant, current_academic_year, record.get('SAP_ID'))
     if len(mandates) == 0:
         mandate = assistant_mdl.assistant_mandate.AssistantMandate()

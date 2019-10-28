@@ -36,7 +36,7 @@ def user_is_assistant_and_procedure_is_open(user):
 def user_is_assistant_and_procedure_is_open_and_workflow_is_assistant(user):
     try:
         mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-            academic_assistant.find_by_person(user.person), academic_year.current_academic_year())
+            academic_assistant.find_by_person(user.person), academic_year.starting_academic_year())
         if mandate.state != assistant_mandate_state.TRTS:
             return False
     except assistant_mandate.AssistantMandate.DoesNotExist:

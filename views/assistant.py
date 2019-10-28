@@ -64,7 +64,7 @@ class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListVie
     def get_context_data(self, **kwargs):
         context = super(AssistantMandatesListView, self).get_context_data(**kwargs)
         context['assistant'] = academic_assistant.find_by_person(person.find_by_user(self.request.user))
-        context['current_academic_year'] = current_academic_year()
+        context['current_academic_year'] = academic_year.starting_academic_year()
         context['can_see_file'] = settings.assistants_can_see_file()
         for mandate in context['object_list']:
             entities_id = mandate.mandateentity_set.all().order_by('id').values_list('entity', flat=True)
@@ -109,14 +109,14 @@ class AssistantLearningUnitsListView(LoginRequiredMixin, UserPassesTestMixin, Li
 
     def get_queryset(self):
         mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-            academic_assistant.find_by_person(self.request.user.person), academic_year.current_academic_year())
+            academic_assistant.find_by_person(self.request.user.person), academic_year.starting_academic_year())
         queryset = tutoring_learning_unit_year.find_by_mandate(mandate)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super(AssistantLearningUnitsListView, self).get_context_data(**kwargs)
         mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-            academic_assistant.find_by_person(self.request.user.person), academic_year.current_academic_year())
+            academic_assistant.find_by_person(self.request.user.person), academic_year.starting_academic_year())
         context['mandate_id'] = mandate.id
         context['assistant_type'] = mandate.assistant_type
         files = assistant_document_file.find_by_assistant_mandate_and_description(mandate,

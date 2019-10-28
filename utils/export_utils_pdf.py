@@ -88,7 +88,7 @@ def build_doc(request, mandates, type='default'):
     if mandates:
         year = mandates[0].academic_year
     else:
-        year = academic_year.current_academic_year()
+        year = academic_year.starting_academic_year()
     if type is 'export_to_sap':
         filename = ('%s_%s_%s.pdf' % (mandates[0].sap_id, year, mandates[0].assistant.person))
     else:
@@ -136,13 +136,13 @@ def export_mandate(request):
 
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
 def export_mandates(request):
-    mandates = assistant_mandate.find_by_academic_year_by_excluding_declined(academic_year.current_academic_year())
+    mandates = assistant_mandate.find_by_academic_year_by_excluding_declined(academic_year.starting_academic_year())
     return build_doc(request, mandates)
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
 def export_declined_mandates(request):
-    mandates = assistant_mandate.find_declined_by_academic_year(academic_year.current_academic_year())
+    mandates = assistant_mandate.find_declined_by_academic_year(academic_year.starting_academic_year())
     return build_doc(request, mandates, type='declined')
 
 
@@ -256,7 +256,7 @@ def get_administrative_data(mandate):
 
 
 def get_entities(mandate):
-    start_date = academic_year.current_academic_year().start_date
+    start_date = academic_year.starting_academic_year().start_date
     entities_id = mandate.mandateentity_set.all().order_by('id').values_list('entity', flat=True)
     entities = find_versions_from_entites(entities_id, start_date)
     entities_data = ""

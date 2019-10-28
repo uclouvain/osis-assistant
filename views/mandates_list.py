@@ -63,7 +63,7 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
             queryset = assistant_mandate.AssistantMandate.objects\
                 .filter(academic_year=selected_academic_year)
         else:
-            selected_academic_year = academic_year.current_academic_year()
+            selected_academic_year = academic_year.starting_academic_year()
             self.request.session[
                 'selected_academic_year'] = selected_academic_year.id
             queryset = assistant_mandate.AssistantMandate.objects.filter(
@@ -98,7 +98,7 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
             selected_academic_year = academic_year.find_academic_year_by_id(
                 self.request.session.get('selected_academic_year'))
         else:
-            selected_academic_year = academic_year.current_academic_year()
+            selected_academic_year = academic_year.starting_academic_year()
             self.request.session[
                 'selected_academic_year'] = selected_academic_year.id
         return {'academic_year': selected_academic_year}

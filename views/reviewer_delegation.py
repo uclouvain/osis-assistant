@@ -66,7 +66,7 @@ class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(StructuresListView, self).get_context_data(**kwargs)
-        context['year'] = academic_year.current_academic_year().year
+        context['year'] = academic_year.starting_academic_year().year
         context['current_reviewer'] = reviewer.find_by_person(self.request.user.person)
         entity = entity_version.get_last_version(context['current_reviewer'].entity)
         context['entity'] = entity
@@ -78,7 +78,7 @@ class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
 @user_passes_test(user_is_reviewer_and_procedure_is_open, login_url='assistants_home')
 def add_reviewer_for_structure(request):
     current_entity = entity.find_by_id(request.POST.get("entity"))
-    year = academic_year.current_academic_year().year
+    year = academic_year.starting_academic_year().year
     if not reviewer.can_delegate_to_entity(reviewer.find_by_person(request.user.person), current_entity):
         return redirect('assistants_home')
     form = ReviewerDelegationForm(data=request.POST)

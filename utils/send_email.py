@@ -38,7 +38,7 @@ from assistant.utils import manager_access
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
 def send_message_to_assistants(request):
     mandates_for_current_academic_year = assistant_mandate.find_by_academic_year(
-        academic_year.current_academic_year())
+        academic_year.starting_academic_year())
     for mandate in mandates_for_current_academic_year:
         if mandate.renewal_type == assistant_mandate_renewal.NORMAL or \
                 mandate.renewal_type == assistant_mandate_renewal.SPECIAL:
@@ -80,7 +80,7 @@ def save_message_history(request, type):
     message = Message.objects.create(sender=manager.Manager.objects.get(person=request.user.person),
                                      date=timezone.now(),
                                      type=type,
-                                     academic_year=academic_year.current_academic_year())
+                                     academic_year=academic_year.starting_academic_year())
     message.save()
 
 

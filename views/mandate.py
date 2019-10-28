@@ -142,7 +142,7 @@ def generate_xls():
                       _("comment"),
                       _("confidential"),
                       ])
-    mandates = assistant_mandate.find_by_academic_year(academic_year.current_academic_year())
+    mandates = assistant_mandate.find_by_academic_year(academic_year.starting_academic_year())
     for mandate in mandates:
         line = construct_line(mandate)
         worksheet.append(line)

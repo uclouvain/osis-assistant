@@ -46,7 +46,7 @@ def settings_edit(request):
                      }, prefix="set", instance=global_settings)
     else:
         form = SettingsForm(prefix="set", instance=global_settings)
-    year = academic_year.current_academic_year().year
+    year = academic_year.starting_academic_year().year
     return layout.render(request, 'settings.html', {'year': year,
                                                     'form': form,
                                                     })
@@ -60,6 +60,6 @@ def settings_save(request):
         form.save()
         return settings_edit(request)
     else:
-        year = academic_year.current_academic_year().year
+        year = academic_year.starting_academic_year().year
         return layout.render(request, 'settings.html', {'year': year,
                                                         'form': form})

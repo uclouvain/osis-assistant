@@ -60,7 +60,7 @@ def get_learning_units_year(request):
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
 def form_part1_edit(request, msg=None):
     mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-        academic_assistant.find_by_person(request.user.person), academic_year.current_academic_year())
+        academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
     assistant = mandate.assistant
     form = AssistantFormPart1(initial={'external_functions': mandate.external_functions,
                                        'external_contract': mandate.external_contract,
@@ -95,7 +95,7 @@ def form_part1_save(request):
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
 def tutoring_learning_unit_add(request):
     mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-        academic_assistant.find_by_person(request.user.person), academic_year.current_academic_year())
+        academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
     form = TutoringLearningUnitForm(initial={'tutoring_learning_unit_year_id': None
                                              })
     return render(request, "tutoring_learning_unit_year.html", {'form': form,
@@ -173,7 +173,7 @@ def tutoring_learning_unit_delete(request, tutoring_learning_unit_id):
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
 def form_part3_edit(request, msg=None):
     mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-        academic_assistant.find_by_person(request.user.person), academic_year.current_academic_year())
+        academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
     assistant = mandate.assistant
     files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.PHD_DOCUMENT)
     form = AssistantFormPart3(initial={'inscription': assistant.inscription,
@@ -231,7 +231,7 @@ def form_part3_save(request):
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
 def form_part4_edit(request):
     mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-        academic_assistant.find_by_person(request.user.person), academic_year.current_academic_year())
+        academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
     assistant = mandate.assistant
     files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.RESEARCH_DOCUMENT)
     form = AssistantFormPart4(initial={'internships': mandate.internships,
@@ -252,7 +252,7 @@ def form_part4_edit(request):
 @require_http_methods(["POST"])
 def form_part4_save(request):
     mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-        academic_assistant.find_by_person(request.user.person), academic_year.current_academic_year())
+        academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
     assistant = mandate.assistant
     files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.RESEARCH_DOCUMENT)
     form = AssistantFormPart4(data=request.POST, instance=mandate, prefix='mand')
@@ -271,7 +271,7 @@ def form_part4_save(request):
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
 def form_part6_edit(request, msg=None):
     mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-        academic_assistant.find_by_person(request.user.person), academic_year.current_academic_year())
+        academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
     assistant = mandate.assistant
     form = AssistantFormPart6(initial={'tutoring_percent': mandate.tutoring_percent,
                                        'service_activities_percent': mandate.service_activities_percent,
@@ -335,7 +335,7 @@ def form_part6_save(request):
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
 def form_part5_edit(request, msg=None):
     mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-        academic_assistant.find_by_person(request.user.person), academic_year.current_academic_year())
+        academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
     assistant = mandate.assistant
     form = AssistantFormPart5(initial={'faculty_representation': mandate.faculty_representation,
                                        'institute_representation': mandate.institute_representation,
