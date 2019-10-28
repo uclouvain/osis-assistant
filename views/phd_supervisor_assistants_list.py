@@ -49,11 +49,11 @@ class AssistantsListView(LoginRequiredMixin, UserPassesTestMixin, ListView, Form
     def get_queryset(self):
         self.reviewer = reviewer.find_by_person(self.request.user.person)
         return assistant_mandate.find_for_supervisor_for_academic_year(self.request.user.person,
-                                                                       academic_year.current_academic_year())
+                                                                       academic_year.starting_academic_year())
 
     def get_context_data(self, **kwargs):
         context = super(AssistantsListView, self).get_context_data(**kwargs)
-        context['year'] = academic_year.current_academic_year().year
+        context['year'] = academic_year.starting_academic_year().year
         context['current_reviewer'] = self.reviewer
         if self.reviewer:
             can_delegate = reviewer.can_delegate(reviewer.find_by_person(self.request.user.person))

@@ -94,7 +94,7 @@ def reviewer_action(request):
             if action == 'DELETE':
                 reviewer_delete(request, reviewer_form.cleaned_data.get('id'))
             elif action == 'REPLACE':
-                year = academic_year.current_academic_year().year
+                year = academic_year.starting_academic_year().year
                 reviewer_id = reviewer_form.cleaned_data.get('id')
                 this_reviewer = reviewer.find_by_id(reviewer_id)
                 entity = entity_version.get_last_version(this_reviewer.entity)
@@ -118,7 +118,7 @@ def reviewer_delete(request, reviewer_id):
 @require_http_methods(["POST"])
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
 def reviewer_replace(request):
-    year = academic_year.current_academic_year().year
+    year = academic_year.starting_academic_year().year
     form = ReviewerReplacementForm(data=request.POST, prefix='rev')
     reviewer_to_replace = reviewer.find_by_id(request.POST.get('reviewer_id'))
     entity = entity_version.get_last_version(reviewer_to_replace.entity)
@@ -144,7 +144,7 @@ def reviewer_replace(request):
 
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
 def reviewer_add(request):
-    year = academic_year.current_academic_year().year
+    year = academic_year.starting_academic_year().year
     if request.POST:
         form = ReviewerForm(data=request.POST)
         this_person = request.POST.get('person_id')

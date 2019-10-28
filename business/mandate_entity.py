@@ -33,7 +33,7 @@ def get_entities_for_mandate(mandate):
     entities_id = mandate.mandateentity_set.all().order_by('id')
     for this_entity in entities_id:
         current_entity_versions = entity_version.get_by_entity_and_date(
-            this_entity.entity, academic_year.current_academic_year().start_date)
+            this_entity.entity, academic_year.starting_academic_year().start_date)
         current_entity_version = current_entity_versions[0] if current_entity_versions \
             else entity_version.get_last_version(this_entity.entity)
         entities.append(current_entity_version)

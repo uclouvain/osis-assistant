@@ -56,7 +56,7 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
         form = form_class(self.request.GET)
         current_reviewer = reviewer.find_by_person(self.request.user.person)
         if len(assistant_mandate.find_for_supervisor_for_academic_year(self.request.user.person,
-                                                                       academic_year.current_academic_year())) > 0:
+                                                                       academic_year.starting_academic_year())) > 0:
             self.is_supervisor = True
         mandates_id = mandate_entity.find_by_entity(current_reviewer.entity).values_list(
             'assistant_mandate_id', flat=True)
@@ -69,11 +69,11 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
             selected_academic_year = academic_year.AcademicYear.objects.get(
                 id=self.request.session.get('selected_academic_year'))
         else:
-            selected_academic_year = academic_year.current_academic_year()
+            selected_academic_year = academic_year.starting_academic_year()
             self.request.session[
                 'selected_academic_year'] = selected_academic_year.id
         if self.kwargs.get("filter", None):
-            selected_academic_year = academic_year.current_academic_year()
+            selected_academic_year = academic_year.starting_academic_year()
             self.request.session[
                 'selected_academic_year'] = selected_academic_year.id
             queryset = assistant_mandate.find_by_academic_year(selected_academic_year).filter(id__in=mandates_id).\
@@ -104,7 +104,7 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
             selected_academic_year = academic_year.find_academic_year_by_id(
                 self.request.session.get('selected_academic_year'))
         else:
-            selected_academic_year = academic_year.current_academic_year()
+            selected_academic_year = academic_year.starting_academic_year()
             self.request.session[
                 'selected_academic_year'] = selected_academic_year.id
         return {'academic_year': selected_academic_year}
