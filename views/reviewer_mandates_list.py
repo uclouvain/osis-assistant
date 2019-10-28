@@ -28,15 +28,14 @@ from django.urls import reverse
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
-from base.models import academic_year, entity_version
-
-from assistant.business.users_access import user_is_reviewer_and_procedure_is_open
 from assistant.business.assistant_mandate import add_actions_to_mandates_list
 from assistant.business.mandate_entity import add_entities_version_to_mandates_list
+from assistant.business.users_access import user_is_reviewer_and_procedure_is_open
+from assistant.forms.mandate import MandatesArchivesForm
 from assistant.models import assistant_mandate
 from assistant.models import reviewer, mandate_entity
 from assistant.models.enums import review_status, review_advice_choices
-from assistant.forms import MandatesArchivesForm
+from base.models import academic_year, entity_version
 
 
 class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):

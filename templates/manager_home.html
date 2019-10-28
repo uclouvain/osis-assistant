@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 
 {% comment "License" %}
@@ -29,55 +29,55 @@
 <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'institution' %}" id="lnk_institution">{% trans 'institution' %}</a></li>
-<li><a href="{% url 'mandates' %}" id="lnk_mandates">{% trans 'mandates' %}</a></li>
-<li class="active">{% trans 'assistants' %}</li>
+<li><a href="{% url 'institution' %}" id="lnk_institution">{% trans 'Institution' %}</a></li>
+<li><a href="{% url 'mandates' %}" id="lnk_mandates">{% trans 'Mandates' %}</a></li>
+<li class="active">{% trans 'Assistants' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h3>{% trans 'assistant_mandates_renewals' %}</h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %}</h3>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row" style="padding-top: 10px;">
             <div class="col-md-1"><i class="fas fa-tachometer-alt" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
-                <h4 class="media-heading"><a href="{% url 'mandates_list' %}" id="lnk_dashboard">{% trans 'dashboard' %}</a></h4>
-                <p>{% trans 'desc_lnk_dashboard' %}</p>
+                <h4 class="media-heading"><a href="{% url 'mandates_list' %}" id="lnk_dashboard">{% trans 'Dashboard' %}</a></h4>
+                <p>{% trans 'Table listing all the files' %}</p>
             </div>
             <div class="col-md-1"><i class="fa fa-users" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
                 <h4 class="media-heading"><a href="{% url 'reviewers_list' %}" id="lnk_reviewers">
-                    {% trans 'reviewers' %}</a></h4>
-                <p>{% trans 'desc_lnk_reviewers' %}</p>
+                    {% trans 'Reviewers' %}</a></h4>
+                <p>{% trans 'Adding, replacing and deleting reviewers' %}</p>
             </div>
         </div>
         <div class="row" style="padding-top: 10px;">
             <div class="col-md-1"><i class="fa fa-download" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
                 <h4 class="media-heading"><a href="{% url 'load_mandates' %}" id="lnk_load_mandates">
-                    {% trans 'import_mandates' %}</a></h4>
-                <p>{% trans 'desc_lnk_import_mandates' %}</p>
+                    {% trans 'Import assistant mandates' %}</a></h4>
+                <p>{% trans 'Importing files from an XLSX file' %}</p>
             </div>
             <div class="col-md-1"><i class="fa fa-upload" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
                 <h4 class="media-heading"><a href="{% url 'export_mandates' %}" id="lnk_upload_mandates">
-                    {% trans 'export_mandates' %}</a></h4>
-                <p>{% trans 'desc_lnk_export_mandates' %}</p>
+                    {% trans 'Export of assistants mandates' %}</a></h4>
+                <p>{% trans 'Exporting files to an XLSX file' %}</p>
             </div>
         </div>
         <div class="row" style="padding-top: 10px;">
             <div class="col-md-1"><i class="fa fa-upload" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
                 <h4 class="media-heading"><a href="{% url 'export_mandates_pdf' %}" id="lnk_export_mandates">
-                    {% trans 'export_mandates' %}</a></h4>
-                <p>{% trans 'desc_lnk_export_mandates_pdf' %}</p>
+                    {% trans 'Export of assistants mandates' %}</a></h4>
+                <p>{% trans 'Exporting all data to a PDF file' %}</p>
             </div>
             <div class="col-md-1"><i class="fa fa-upload" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
                 <h4 class="media-heading"><a href="{% url 'export_declined_mandates_pdf' %}" id="lnk_export_declined_mandates">
-                    {% trans 'export_declined_mandates' %}</a></h4>
-                <p>{% trans 'desc_lnk_export_declined_mandates_pdf' %}</p>
+                    {% trans 'Export of the declined assistants mandates' %}</a></h4>
+                <p>{% trans 'Exporting assistants who declined their renewal' %}</p>
             </div>
         </div>
         <div class="row" style="padding-top: 10px;">
@@ -91,13 +91,13 @@
         <div class="row" style="padding-top: 10px;">
             <div class="col-md-1"><i class="far fa-envelope" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
-                <h4 class="media-heading"><a href="{% url 'messages_history' %}" id="lnk_emails">{% trans 'emails' %}</a></h4>
-                <p>{% trans 'desc_lnk_emails' %}</p>
+                <h4 class="media-heading"><a href="{% url 'messages_history' %}" id="lnk_emails">{% trans 'Emails' %}</a></h4>
+                <p>{% trans 'Mail service management to assistants and Deans of Faculty' %}</p>
             </div>
             <div class="col-md-1"><i class="fas fa-cogs" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
-                <h4 class="media-heading"><a href="{% url 'settings_edit' %}" id="lnk_settings">{% trans 'settings' %}</a></h4>
-                <p>{% trans 'desc_lnk_settings' %}</p>
+                <h4 class="media-heading"><a href="{% url 'settings_edit' %}" id="lnk_settings">{% trans 'Settings' %}</a></h4>
+                <p>{% trans 'Management of application access dates' %}</p>
             </div>
         </div>
 

@@ -23,11 +23,12 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 ASSISTANT = 'ASSISTANT'
 TEACHING_ASSISTANT = 'TEACHING_ASSISTANT'
 
 ASSISTANT_TYPES = (
-    (ASSISTANT, _(ASSISTANT)),
-    (TEACHING_ASSISTANT, _(TEACHING_ASSISTANT)))
+    (ASSISTANT, _('Assistant')),
+    (TEACHING_ASSISTANT, _('Teaching assistant'))
+)

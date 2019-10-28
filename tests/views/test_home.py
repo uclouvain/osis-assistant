@@ -28,15 +28,14 @@ import datetime
 from django.test import TestCase, RequestFactory, Client
 from django.urls import reverse
 
-from base.models.enums import entity_type
-from base.tests.factories.academic_year import AcademicYearFactory
-from base.tests.factories.entity_version import EntityVersionFactory
-from base.tests.factories.person import PersonFactory
-
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.manager import ManagerFactory
 from assistant.tests.factories.reviewer import ReviewerFactory
 from assistant.tests.factories.settings import SettingsFactory
+from base.models.enums import entity_type
+from base.tests.factories.academic_year import AcademicYearFactory
+from base.tests.factories.entity_version import EntityVersionFactory
+from base.tests.factories.person import PersonFactory
 
 HTTP_OK = 200
 HTTP_FORBIDDEN = 403

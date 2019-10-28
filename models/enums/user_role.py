@@ -23,13 +23,14 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 ASSISTANT = 'ASSISTANT'
 REVIEWER = 'REVIEWER'
 ADMINISTRATOR = 'ADMINISTRATOR'
 
 ROLE_CHOICES = (
-    (ASSISTANT, _(ASSISTANT)),
-    (REVIEWER, _(REVIEWER)),
-    (ADMINISTRATOR, _(ADMINISTRATOR)))
+    (ASSISTANT, _('Assistant')),
+    (REVIEWER, _('Reviewer')),
+    (ADMINISTRATOR, _('Administrator'))
+)

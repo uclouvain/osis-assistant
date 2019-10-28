@@ -25,23 +25,23 @@
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.forms import forms
+from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
-from django.forms import forms
+from django.views.generic.edit import FormMixin
+from django.views.generic.list import ListView
 
 import base.models.entity
-from base.models.academic_year import current_academic_year
-from base.models import person, academic_year
-from base.models.enums import entity_type
 from assistant.models import academic_assistant, assistant_mandate, assistant_document_file
-from django.views.generic.list import ListView
-from django.views.generic.edit import FormMixin
-from django.http.response import HttpResponseRedirect
-from assistant.models import tutoring_learning_unit_year
 from assistant.models import settings, reviewer, mandate_entity
+from assistant.models import tutoring_learning_unit_year
 from assistant.models.enums import document_type, assistant_mandate_state, reviewer_role
-from assistant.utils.send_email import send_message
 from assistant.utils import assistant_access
+from assistant.utils.send_email import send_message
+from base.models import person, academic_year
+from base.models.academic_year import current_academic_year
+from base.models.enums import entity_type
 
 
 class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):

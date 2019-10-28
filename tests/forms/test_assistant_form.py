@@ -25,7 +25,7 @@
 ##############################################################################
 from django.test import TestCase
 
-from assistant.forms import AssistantFormPart6
+from assistant.forms.assistant import AssistantFormPart6
 
 
 class TestAssistantFormPart6(TestCase):

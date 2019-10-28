@@ -23,16 +23,16 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import json
 import datetime
+import json
+
 from django.test import TestCase, RequestFactory, Client
 
-from base.tests.factories.academic_year import AcademicYearFactory
-from base.tests.factories.learning_unit_year import LearningUnitYearFactory
-
+from assistant.models.enums import assistant_mandate_state
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.settings import SettingsFactory
-from assistant.models.enums import assistant_mandate_state
+from base.tests.factories.academic_year import AcademicYearFactory
+from base.tests.factories.learning_unit_year import LearningUnitYearFactory
 
 HTTP_OK = 200
 

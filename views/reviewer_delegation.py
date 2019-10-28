@@ -25,19 +25,18 @@
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.utils.translation import ugettext as _
+from django.urls import reverse
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView
 
-from base.models import academic_year, person, entity, entity_version
-
 from assistant.business.users_access import user_is_reviewer_and_procedure_is_open
-from assistant.forms import ReviewerDelegationForm
-from assistant.models.academic_assistant import is_supervisor
+from assistant.forms.reviewer import ReviewerDelegationForm
 from assistant.models import reviewer
+from assistant.models.academic_assistant import is_supervisor
 from assistant.utils.send_email import send_message
+from base.models import academic_year, person, entity, entity_version
 
 
 class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
@@ -86,7 +85,7 @@ def add_reviewer_for_structure(request):
         new_reviewer = form.save(commit=False)
         this_person = person.find_by_id(request.POST.get('person_id'))
         if reviewer.find_by_person(this_person):
-            msg = _("person_already_reviewer_msg")
+            msg = _("This person is already a reviewer, please select another person")
             form.add_error(None, msg)
             return render(request, "reviewer_add_reviewer.html", {
                 'form': form,

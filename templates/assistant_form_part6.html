@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 {% load l10n %}
 
@@ -27,20 +27,20 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'my_mandates' %}</a></li>
-<li class="active">{% trans 'renewal_form' %}</li>
+<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
+<li class="active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
 <ul class="nav nav-tabs ">
-<li><a href="{% url 'assistant_mandates' %}">{% trans 'my_mandates' %}</a></li>
-<li><a href="{% url 'form_part1_edit' %}">{% trans 'assistant_form_part1' %}</a></li>
-<li><a href="{% url 'mandate_learning_units' %}">{% trans 'learning_units' %}</a></li>
+<li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
+<li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
+<li><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
 {% if mandate.assistant_type == "ASSISTANT" %}
-    <li><a href="{% url 'form_part3_edit' %}">{% trans 'assistant_form_part3' %}</a></li>
-    <li><a href="{% url 'form_part4_edit' %}">{% trans 'assistant_form_part4' %}</a></li>
+    <li><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
+    <li><a href="{% url 'form_part4_edit' %}">{% trans 'Research' %}</a></li>
 {% endif %}
-<li><a href="{% url 'form_part5_edit' %}">{% trans 'assistant_form_part5' %}</a></li>
-<li class="active"><a href="{% url 'form_part6_edit' %}">{% trans 'assistant_form_part6' %}</a></li>
+<li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
+<li class="active"><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
 </ul>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -55,22 +55,22 @@
 		{% endfor %}
         <div class="panel-default">
             <div class="panel-heading">
-                <h4>{% trans 'summary' %}</h4>
+                <h4>{% trans 'Summary' %}</h4>
             </div>
             <div class="panel-body">
-                <h6>{% trans 'total_must_be_100_message' %}</h6>
+                <h6>{% trans 'The total must be equal to 100' %}</h6>
             </div>
         </div>
         <div class="form-group">
             <label for="{{ form.tutoring_percent.id_for_label }}">
-                {% trans 'tutoring_percent' %}</label>
+                {% trans 'Percentage for teaching' %}</label>
             {{ form.tutoring_percent }}
             <span class="error">{{ form.tutoring_percent.errors }}</span>
         </div>
         {% if mandate.assistant_type == "ASSISTANT" %}
             <div class="form-group">
                 <label for="{{ form.research_percent.id_for_label }}">
-                    {% trans 'research_percent' %}</label>
+                    {% trans 'Percentage for research and Ph.D.' %}</label>
                 {{ form.research_percent }}
                 <span class="error">{{ form.research_percent.errors }}</span>
             </div>
@@ -79,37 +79,37 @@
         {% endif %}
         <div class="form-group">
             <label for="{{ form.service_activities_percent.id_for_label }}">
-                {% trans 'service_activities_percent' %}</label>
+                {% trans 'Percentage for service activities' %}</label>
             {{ form.service_activities_percent }}
             <span class="error">{{ form.service_activities_percent.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.formation_activities_percent.id_for_label }}">
-                {% trans 'formation_activities_percent' %}</label>
+                {% trans 'Percentage of involvement as beneficiary in training activities' %}</label>
             {{ form.formation_activities_percent }}
             <span class="error">{{ form.formation_activities_percent.errors }}</span>
         </div>
         <div class="panel-default">
             <div class="panel-heading">
-                <h4>{% trans 'general_comment' %}</h4>
+                <h4>{% trans 'General comment' %}</h4>
             </div>
         </div>
         <div class="form-group">
             <label for="{{ form.activities_report_remark.id_for_label }}">
-                {% trans 'activities_report_remark' %}</label>
+                {% trans 'Remark concerning the activity report' %}</label>
             {{ form.activities_report_remark }}
             <span class="error">{{ form.activities_report_remark.errors }}</span>
         </div>
         <div class="btn-toolbar">
             <button type="submit" class="btn btn-primary"
-                    title="{% trans 'save'%}" id="bt_pstform_part6_save">
-                    <span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}
+                    title="{% trans 'Save'%}" id="bt_pstform_part6_save">
+                    <span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}
             </button>
-            <button type="submit" class="btn btn-success" title="{% trans 'validate_and_submit'%}"
+            <button type="submit" class="btn btn-success" title="{% trans 'Validate and submit'%}"
                     id="bt_pstform_validate_and_submit" name="validate_and_submit"
-                    onclick="return confirm('{% trans 'confirm_validation' %}')">
+                    onclick="return confirm('{% trans 'Are you sure you want to validate and submit? This action is irreversible.' %}')">
                     <span class="fas fa-check" aria-hidden="true">
-                    </span> {% trans 'validate_and_submit'%}
+                    </span> {% trans 'Validate and submit'%}
             </button>
         </div>
         <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
@@ -125,7 +125,7 @@ $("#pst-form-part6 :input").change(function() {
 $('a').on('click', function(e) {
 	var hrefLoc = $(this).attr('href');
 	if ($("#pst-form-part6").data("changed")) {
-		var choice = confirm("{% trans 'save_before_link' %}");
+		var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
 		if (choice == true) {
 			e.preventDefault();
 			$('form#pst-form-part6').submit();

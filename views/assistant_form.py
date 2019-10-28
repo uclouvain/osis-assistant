@@ -24,20 +24,25 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.views.decorators.http import require_http_methods
-from django.urls import reverse
 from django.http import JsonResponse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
-from django.utils.translation import ugettext as _
-from base.models import person_address, person, learning_unit_year
-from base.models.learning_unit_year import search
+from django.urls import reverse
+from django.utils.translation import gettext as _
+from django.views.decorators.http import require_http_methods
+
+from assistant import models as mdl
+from assistant.forms.assistant import AssistantFormPart1, AssistantFormPart3, AssistantFormPart4, AssistantFormPart5, \
+    AssistantFormPart6
+from assistant.forms.tutoring_learning_unit import TutoringLearningUnitForm
 from assistant.models import *
-from assistant.utils.send_email import send_message
-from assistant.forms import *
-from assistant.models.enums import document_type
 from assistant.models.enums import assistant_mandate_state, assistant_phd_inscription
+from assistant.models.enums import document_type
 from assistant.utils.assistant_access import user_is_assistant_and_procedure_is_open_and_workflow_is_assistant
+from assistant.utils.send_email import send_message
+from base.models import person_address, person, learning_unit_year, academic_year
+from base.models.enums import entity_type
+from base.models.learning_unit_year import search
 
 
 @login_required
@@ -46,11 +51,11 @@ def get_learning_units_year(request):
         q = request.GET.get('term')
         learning_units_year = search(acronym=q)[:50]
         response_data = []
-        for learning_unit_year in learning_units_year:
-            response_data.append({'value': learning_unit_year.acronym,
-                                  'title': learning_unit_year.complete_title,
-                                  'academic_year': str(learning_unit_year.academic_year),
-                                  'id': learning_unit_year.id
+        for luy in learning_units_year:
+            response_data.append({'value': luy.acronym,
+                                  'title': luy.complete_title,
+                                  'academic_year': str(luy.academic_year),
+                                  'id': luy.id
                                   })
     else:
         response_data = []
@@ -89,7 +94,7 @@ def form_part1_save(request):
             return render(request, "assistant_form_part1.html", {'assistant': assistant, 'mandate': mandate,
                                                                  'addresses': addresses, 'form': form})
     else:
-        return form_part1_edit(request, msg=_("data_not_saved"))
+        return form_part1_edit(request, msg=_("A problem occured, data have not been saved"))
 
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
@@ -153,7 +158,7 @@ def tutoring_learning_unit_save(request):
         this_mandate = assistant_mandate.find_mandate_by_id(mandate_id)
         current_tutoring_learning_unit = form.save(commit=False)
         if not learning_unit_year_id:
-            msg = _("must_enter_learning_unit_year")
+            msg = _("You must add one learning unit")
             form.add_error(None, msg)
         else:
             this_learning_unit_year = learning_unit_year.get_by_id(learning_unit_year_id)
@@ -206,12 +211,12 @@ def form_part3_save(request):
             current_assistant = form.save(commit=False)
             if current_assistant.inscription != assistant_phd_inscription.NO \
                     and (not request.POST.get('person_id') and current_assistant.supervisor is None):
-                msg = _("must_enter_supervisor_if_registered_or_in_progress")
+                msg = _("The promoter must be identified")
                 form.add_error('inscription', msg)
                 return render(request, "assistant_form_part3.html", {'assistant': assistant, 'mandate': mandate,
                                                                      'files': files, 'form': form})
             if current_assistant.inscription is None:
-                msg = _("phd_inscription_choice_required")
+                msg = _("The 'Doctorate' section must be completed")
                 form.add_error('inscription', msg)
                 return render(request, "assistant_form_part3.html", {'assistant': assistant, 'mandate': mandate,
                                                                      'files': files, 'form': form})
@@ -225,7 +230,7 @@ def form_part3_save(request):
             return render(request, "assistant_form_part3.html", {'assistant': assistant, 'mandate': mandate,
                                                                  'files': files, 'form': form})
     else:
-        return form_part3_edit(request, msg=_("data_not_saved"))
+        return form_part3_edit(request, msg=_("A problem occured, data have not been saved"))
 
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
@@ -298,12 +303,12 @@ def form_part6_save(request):
                 current_mandate = form.save(commit=False)
                 if assistant.inscription is None:
                     errors_in_form = True
-                    msg = _("phd_inscription_choice_required")
+                    msg = _("The 'Doctorate' section must be completed")
                     form.add_error(None, msg)
                 learning_units_nbr = tutoring_learning_unit_year.find_by_mandate(current_mandate).count()
                 if learning_units_nbr == 0:
                     errors_in_form = True
-                    msg = _("at_least_one_learning_unit")
+                    msg = _("You must add at least one teaching unit under the heading 'Teaching Units'")
                     form.add_error(None, msg)
                 if errors_in_form:
                     current_mandate.save()
@@ -329,7 +334,7 @@ def form_part6_save(request):
         else:
             return render(request, "assistant_form_part6.html", {'assistant': assistant, 'mandate': mandate,
                                                                  'form': form})
-    return form_part6_edit(request, msg=_("data_not_saved"))
+    return form_part6_edit(request, msg=_("A problem occured, data have not been saved"))
 
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
@@ -369,4 +374,4 @@ def form_part5_save(request):
             return render(request, "assistant_form_part5.html", {'assistant': assistant, 'mandate': mandate,
                                                                  'form': form})
     else:
-        return form_part5_edit(request, msg=_("data_not_saved"))
+        return form_part5_edit(request, msg=_("A problem occured, data have not been saved"))

@@ -23,12 +23,12 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 YES = 'YES'
 NO = 'NO'
 IN_PROGRESS = 'IN_PROGRESS'
 
-PHD_INSCRIPTION_CHOICES = ((YES, _(YES)),
-                           (NO, _(NO)),
-                           (IN_PROGRESS, _(IN_PROGRESS)))
+PHD_INSCRIPTION_CHOICES = ((YES, _('Yes')),
+                           (NO, _('No')),
+                           (IN_PROGRESS, _('In progress')))

@@ -24,15 +24,16 @@
 #
 ##############################################################################
 import json
-from django.db import DataError
+
 from django.contrib.auth.decorators import login_required
+from django.db import DataError
 from django.http import *
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 
-from osis_common.models import document_file as document_file
 from assistant import models as mdl
+from osis_common.models import document_file as document_file
 
 
 @login_required
@@ -62,19 +63,19 @@ def save_uploaded_file(request):
         assistant_mandate = mdl.assistant_mandate.find_mandate_by_id(request.POST['mandate_id'])
     except:
         return HttpResponse(
-            json.dumps({"error": True, "message": _('object_not_saved')}),
+            json.dumps({"error": True, "message": _('Error during saving the file, try again')}),
             content_type="application/json")
     file_selected = request.FILES['file']
     file = file_selected
     file_name = file_selected.name
     if len(file_name) > 100:
         return HttpResponse(
-            json.dumps({"error":True, "message": _('maxlength_filename')}),
+            json.dumps({"error": True, "message": _('The length of filename may not exceed 100 characters.')}),
             content_type="application/json")
     content_type = file_selected.content_type
     if content_type != "application/pdf":
         return HttpResponse(
-            json.dumps({"error": True, "message": _('only_pdf_file')}),
+            json.dumps({"error": True, "message": _('You must select a PDF file')}),
             content_type="application/json")
     description = data['description']
     storage_duration = 0
@@ -92,11 +93,11 @@ def save_uploaded_file(request):
         assistant_mandate_document_file.document_file = new_document
         assistant_mandate_document_file.save()
         return HttpResponse(
-            json.dumps({"success": True, "message": file_selected.name + ' ' + _('file_uploaded')}),
+            json.dumps({"success": True, "message": file_selected.name + ' ' + _('file uploaded')}),
             content_type="application/json")
     except DataError:
         return HttpResponse(
-            json.dumps({"error": True, "message": _('object_not_saved')}),
+            json.dumps({"error": True, "message": _('Error during saving the file, try again')}),
             content_type="application/json")
 
 

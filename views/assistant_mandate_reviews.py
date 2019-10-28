@@ -24,15 +24,15 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
-from base.models import academic_year
+from django.shortcuts import render
+
 from assistant.models import review, academic_assistant, settings, assistant_mandate
 
 
 def user_is_assistant_and_can_see_file(user):
     try:
-        if user.is_authenticated() and settings.assistants_can_see_file():
+        if user.is_authenticated and settings.assistants_can_see_file():
             return academic_assistant.find_by_person(user.person)
         else:
             return False

@@ -23,7 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 TO_ALL_ASSISTANTS = 'TO_ALL_ASSISTANTS'
 TO_ALL_DEANS = 'TO_ALL_DEANS'
@@ -31,8 +31,8 @@ TO_PHD_SUPERVISOR = 'TO_PHD_SUPERVISOR'
 TO_ONE_DEAN = 'TO_ONE_DEAN'
 TO_ALL_REVIEWERS = 'TO_ALL_REVIEWERS'
 
-TYPES = ((TO_ALL_ASSISTANTS, _(TO_ALL_ASSISTANTS)),
-         (TO_ALL_DEANS, _(TO_ALL_DEANS)),
-         (TO_PHD_SUPERVISOR, _(TO_PHD_SUPERVISOR)),
-         (TO_ONE_DEAN, _(TO_ONE_DEAN)),
-         (TO_ALL_REVIEWERS, _(TO_ALL_REVIEWERS)))
+TYPES = ((TO_ALL_ASSISTANTS, _('To the assistants')),
+         (TO_ALL_DEANS, _('To the Deans of Faculty')),
+         (TO_PHD_SUPERVISOR, _('To Ph.D. promoter')),
+         (TO_ONE_DEAN, _('To one Dean')),
+         (TO_ALL_REVIEWERS, _('To all reviewers')))

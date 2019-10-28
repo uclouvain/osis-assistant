@@ -30,7 +30,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
 import base.models.entity
-from assistant.forms import MandatesArchivesForm
+from assistant.forms.mandate import MandatesArchivesForm
 from assistant.models import assistant_mandate
 from assistant.models.enums import assistant_mandate_state, review_advice_choices, review_status
 from assistant.models.review import Review

@@ -23,9 +23,8 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from base.models import academic_year
-
 from assistant.models import assistant_mandate, reviewer, settings
+from base.models import academic_year
 
 
 def user_is_reviewer_and_procedure_is_open(user):

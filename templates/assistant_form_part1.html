@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 {% load l10n %}
 
@@ -27,20 +27,20 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-	<li><a href="{% url 'assistant_mandates' %}" id="lnk_assistant_mandates">{% trans 'my_mandates' %}</a></li>
-	<li class="active">{% trans 'renewal_form' %}</li>
+	<li><a href="{% url 'assistant_mandates' %}" id="lnk_assistant_mandates">{% trans 'My mandates' %}</a></li>
+	<li class="active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
 <ul class="nav nav-tabs ">
-	<li><a href="{% url 'assistant_mandates' %}">{% trans 'my_mandates' %}</a></li>
-	<li class="active"><a href="#">{% trans 'assistant_form_part1' %}</a></li>
-	<li><a href="{% url 'mandate_learning_units' %}">{% trans 'learning_units' %}</a></li>
+	<li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
+	<li class="active"><a href="#">{% trans 'Administrative' %}</a></li>
+	<li><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
 	{% if mandate.assistant_type == "ASSISTANT" %}
-		<li><a href="{% url 'form_part3_edit' %}">{% trans 'assistant_form_part3' %}</a></li>
-		<li><a href="{% url 'form_part4_edit' %}">{% trans 'assistant_form_part4' %}</a></li>
+		<li><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
+		<li><a href="{% url 'form_part4_edit' %}">{% trans 'Research' %}</a></li>
 	{% endif %}
-	<li><a href="{% url 'form_part5_edit' %}">{% trans 'assistant_form_part5' %}</a></li>
-	<li><a href="{% url 'form_part6_edit' %}">{% trans 'assistant_form_part6' %}</a></li>
+	<li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
+	<li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
 </ul>
 <div class="panel panel-default">
 	<div class="panel-body">
@@ -52,7 +52,7 @@
  		{{ form.non_field_errors }}
 		<div class="panel-default">
   			<div class="panel-heading">
-				<h4>{% trans 'contact_details' %}</h4>
+				<h4>{% trans 'Administrative information' %}</h4>
   			</div>
   		</div>
 		<div class="form-group" style="padding-top: 15px;">
@@ -60,11 +60,11 @@
     	</div>
 		<div class="panel-default">
   			<div class="panel-heading">
-				<h4>{% trans 'contract' %}</h4>
+				<h4>{% trans 'Contract' %}</h4>
   			</div>
   		</div>
   		<div class="form-group" style="padding-top: 15px;">
-			<label style="padding-top: 5px" for="renewal_type">{% trans 'renewal_type' %}
+			<label style="padding-top: 5px" for="renewal_type">{% trans 'Renewal type' %}
 			</label>
 			<div class="controls" id="renewal_type">
 				{% trans mandate.renewal_type %}
@@ -75,31 +75,31 @@
 				<div class="controls" id="structures">{{structure.structure.acronym}}</div>
       		{% endfor %}
 			<label style="padding-top: 15px" for="full_time_equivalent">
-				{% trans 'fulltime_equivalent' %}</label>
+				{% trans 'Full-time equivalent' %}</label>
 			<div class="controls" id="full_time_equivalent">{{mandate.fulltime_equivalent}}</div>
       		<label style="padding-top: 15px" for="date_of_first_nomination">
-				{% trans 'date_of_first_nomination' %}</label>
+				{% trans 'Date of first nomination' %}</label>
       		<div class="controls" id="date_of_first_nomination">{{mandate.entry_date}}</div>
-      		<label  style="padding-top: 15px" for="field">{% trans 'field' %}</label>
+      		<label  style="padding-top: 15px" for="field">{% trans 'Mandate type' %}</label>
 			<div class="controls" id="field">
 				{% trans mandate.assistant_type %}
 			</div>
       	</div>
     	<div class="panel-default">
   			<div class="panel-heading">
-  				<h4>{% trans 'various' %}</h4>
+  				<h4>{% trans 'Miscellaneous' %}</h4>
     		</div>
     	</div>
     	<div class="form-group">
 			<label style="padding-top: 5px" for="function_outside_university">
-				{% trans 'function_outside_university' %}
+				{% trans 'Current positions outside the University and % of time spent' %}
 			</label>
 			{{ form.external_functions }}
 			<span class="error">{{ form.errors.external_functions }}</span>
 		</div>
 		<div class="form-group">
 			<label style="padding-top: 5px" for="external_post">
-				{% trans 'external_post' %}
+				{% trans 'Mandate requested externally (FNRS, FRIA, ...)' %}
 			</label>
 			{{ form.external_contract }}
             <span class="error">{{ form.errors.external_contract }}</span>
@@ -107,14 +107,14 @@
         {% if mandate.renewal_type == 'EXCEPTIONAL' %}
             <div class="form-group">
 				<label for="exceptional_justification">
-      				{% trans 'exceptional_justification' %}
+      				{% trans 'Should you no longer fulfill the requirements for a "normal" renewal, can you specify the circumstances justifying an exceptional renewal application (art. 51 of the RAMCS)' %}
 				</label>
 				{{ form.justification }}
                 <span class="error">{{ form.errors.justification }}</span>
             </div>
         {% endif %}
-        <button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_pstform_part1_save">
-            <span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}
+        <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_pstform_part1_save">
+            <span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}
         </button>
 		<input type="hidden" name="mandate_id" value="{{ mandate.id }}">
     </form>
@@ -130,7 +130,7 @@ $("#pst-form-part1 :input").change(function() {
 $('a').on('click', function(e) {
 	var hrefLoc = $(this).attr('href');
 	if ($("#pst-form-part1").data("changed")) {
-		var choice = confirm("{% trans 'save_before_link' %}");
+		var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
 		if (choice == true) {
 			e.preventDefault();
 			$('form#pst-form-part1').submit();

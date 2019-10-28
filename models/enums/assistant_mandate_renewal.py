@@ -23,12 +23,14 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 NORMAL = 'NORMAL'
 SPECIAL = 'SPECIAL'
 EXCEPTIONAL = 'EXCEPTIONAL'
 
-ASSISTANT_MANDATE_RENEWAL_TYPES = ((NORMAL, _(NORMAL)),
-                         (SPECIAL, _(SPECIAL)),
-                         (EXCEPTIONAL, _(EXCEPTIONAL)))
+ASSISTANT_MANDATE_RENEWAL_TYPES = (
+    (NORMAL, _('Normal')),
+    (SPECIAL, _('Special')),
+    (EXCEPTIONAL, _('Exceptional'))
+)

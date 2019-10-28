@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 
 {% comment "License" %}
@@ -30,12 +30,12 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'assistants' %}</a></li>
-<li class="active">{% trans 'mandates_list' %}</li>
+<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li class="active">{% trans 'List of mandates' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h3>{% trans 'assistant_mandates_renewals' %} {{ year|add:1 }}</h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -43,8 +43,8 @@
             <div class="col-md-12 text-right">
                 <form action=" {% url 'mandates_list' %} " method="GET">
                 {{ form.academic_year }}
-                <button type="submit" class="btn btn-default btn-xs" title="{% trans 'apply'%}" id="bt_filter">
-                <span class="fas fa-check" aria-hidden="true"></span> {% trans 'apply'%}</button>
+                <button type="submit" class="btn btn-default btn-xs" title="{% trans 'Apply'%}" id="bt_filter">
+                <span class="fas fa-check" aria-hidden="true"></span> {% trans 'Apply'%}</button>
                 </form>
             </div>
         </div>
@@ -52,16 +52,16 @@
             <table id="myTable" class="table table-hover table-condensed table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
-            <th>{% trans 'matricule' %}</th>
-            <th>{% trans 'assistant' %}</th>
-            <th>{% trans 'entities' %}</th>
-            <th>{% trans 'assistant_type' %}</th>
-            <th>{% trans 'renewal_short_name' %}</th>
-            <th>{% trans 'doctorate' %}</th>
-            <th>{% trans 'mandate' %}</th>
-            <th>{% trans 'fulltime_equivalent' %}</th>
-            <th>{% trans 'percentage_equivalent_full_time' %}</th>
-            <th>{% trans 'reviews' %}</th>
+            <th>{% trans 'Registration number' %}</th>
+            <th>{% trans 'Assistant' %}</th>
+            <th>{% trans 'Entities' %}</th>
+            <th>{% trans 'Assistant type' %}</th>
+            <th>{% trans 'Status' %}</th>
+            <th>{% trans 'Ph.D.' %}</th>
+            <th>{% trans 'Mandate' %}</th>
+            <th>{% trans 'Full-time equivalent' %}</th>
+            <th>{% trans '% FTE' %}</th>
+            <th>{% trans 'Opinions' %}</th>
             </tr>
             </thead>
             <tbody>
@@ -73,8 +73,8 @@
  		            {% csrf_token %}
                     <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
                     <a href="mailto:{{ mandate.assistant.person.email }}">{{ mandate.assistant }}</a>
-                    <button type="submit" class="btn btn-link" title="{% trans 'edit'%}">
-                        <span class="far fa-edit" aria-hidden="true"></span> {% trans 'edit'%}
+                    <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
+                        <span class="far fa-edit" aria-hidden="true"></span> {% trans 'Edit'%}
                     </button></form>
                 </td>
                 <td><ul>
@@ -84,9 +84,9 @@
                     </li>
                 {% endfor %}
                 </ul></td>
-                <td>{% trans mandate.assistant_type %}</td>
+                <td>{% trans mandate.get_assistant_type_display %}</td>
                 <td>
-                    {% trans mandate.state %}
+                    {% trans mandate.get_state_display %}
                     {% if mandate.state == assistant_mandate_state.PHD_SUPERVISOR %}
                         <h6>
                             <a href="mailto:{{ mandate.assistant.supervisor.email }}">{{ mandate.assistant.supervisor }}
@@ -95,7 +95,7 @@
                     {% endif %}
                 </td>
                 <td>{% if mandate.assistant.inscription %}
-                        {% trans mandate.assistant.inscription|lower %}
+                        {% trans mandate.assistant.inscription|yesno|title %}
                     {% endif %}
                 </td>
                 <td>{{ mandate.contract_duration }}</td>
@@ -123,7 +123,7 @@
                         {% if review.reviewer %}
                             title="{% trans review.reviewer.role %} : {{ review.reviewer.person }}">
                         {% else %}
-                            title="{% trans 'PHD_SUPERVISOR' %} : {{ mandate.assistant.supervisor }}">
+                            title="{% trans 'Thesis promoter' %} : {{ mandate.assistant.supervisor }}">
                         {% endif %}
                         </i>
                     {% endif %}

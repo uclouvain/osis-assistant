@@ -23,39 +23,39 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import time
 import datetime
-from io import BytesIO
+import time
 import zipfile
+from io import BytesIO
 
 from django.contrib.auth.decorators import user_passes_test, login_required
-from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
-
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT
-from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle, KeepTogether
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.graphics.charts.legends import Legend
 from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.shapes import Drawing
-from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.lib.colors import black, HexColor
-from reportlab.graphics.charts.legends import Legend
-
-from base.models.entity import find_versions_from_entites
-from base.models import academic_year, entity_version
-from base.models.person import find_by_user
+from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import mm
+from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle
 
 from assistant.business import users_access
 from assistant.business.assistant_mandate import find_mandates_for_academic_year_and_entity
-from assistant.utils import assistant_access, manager_access
 from assistant.models import academic_assistant, assistant_mandate, review, reviewer, tutoring_learning_unit_year
-from assistant.models.enums import review_status, assistant_type, user_role
+from assistant.models.enums import review_status, assistant_type, user_role, assistant_mandate_renewal
+from assistant.models.enums.assistant_phd_inscription import PHD_INSCRIPTION_CHOICES
 from assistant.models.review import find_before_mandate_state
+from assistant.utils import assistant_access, manager_access
+from base.models import academic_year, entity_version
+from base.models.entity import find_versions_from_entites
+from base.models.enums import entity_type
+from base.models.person import find_by_user
 
 PAGE_SIZE = A4
 MARGIN_SIZE = 15 * mm
@@ -74,7 +74,10 @@ def export_mandates_to_sap(request):
     zip_file = zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED)
     for mandate in mandates:
         file = build_doc(request, mandates=[mandate], type='export_to_sap')
-        zip_file.writestr(('%s_%s_%s.pdf' % (mandate.sap_id, mandate.academic_year, mandate.assistant.person.last_name)), file.content)
+        zip_file.writestr(
+            ('%s_%s_%s.pdf' % (mandate.sap_id, mandate.academic_year, mandate.assistant.person.last_name)),
+            file.content
+        )
     zip_file.close()
     buffer.flush()
     ret_zip = buffer.getvalue()
@@ -115,7 +118,10 @@ def build_doc(request, mandates, type='default'):
         for mandate in mandates:
             add_mandate_content(content, mandate, styles, role)
     else:
-        content.append(create_paragraph("%s (%s)<br />" % (_('declined_mandates'), year), '', styles["BodyText"]))
+        content.append(create_paragraph("%s (%s)<br />" % (_('Assistants who have declined their renewal'), year),
+                                        '',
+                                        styles["BodyText"])
+                       )
         if mandates:
             write_table(content, add_declined_mandates(mandates, styles['Tiny']), COLS_WIDTH_FOR_DECLINED_MANDATES)
             content.append(PageBreak())
@@ -147,7 +153,7 @@ def export_declined_mandates(request):
 
 
 def add_declined_mandates(mandates, style):
-    data = generate_headers(["%s" % (_('ASSISTANT'))], style)
+    data = generate_headers(["%s" % (_('Assistant'))], style)
     for mandate in mandates:
         person = "{} {}".format(
             mandate.assistant.person.first_name,
@@ -178,33 +184,34 @@ def add_mandate_content(content, mandate, styles, current_user_role):
             styles['StandardWithBorder']
         )
     )
-    content.append(create_paragraph("%s" % (_('entities')), get_entities(mandate), styles['StandardWithBorder']))
-    content.append(create_paragraph("<strong>%s</strong>" % (_('absences')), get_absences(mandate),
+    content.append(create_paragraph("%s" % (_('Entities')), get_entities(mandate), styles['StandardWithBorder']))
+    content.append(create_paragraph("<strong>%s</strong>" % (_('Absences')), get_absences(mandate),
                                     styles['StandardWithBorder']))
-    content.append(create_paragraph("<strong>%s</strong>" % (_('comment')), get_comment(mandate),
+    content.append(create_paragraph("<strong>%s</strong>" % (_('Comment')), get_comment(mandate),
                                     styles['StandardWithBorder']))
     content.append(PageBreak())
     if mandate.assistant_type == assistant_type.ASSISTANT:
-        content.append(create_paragraph("%s" % (_('doctorate')), get_phd_data(mandate.assistant),
+        content.append(create_paragraph("%s" % (_('Ph.D.')), get_phd_data(mandate.assistant),
                                         styles['StandardWithBorder']))
-        content.append(create_paragraph("%s" % (_('research')), get_research_data(mandate),
+        content.append(create_paragraph("%s" % (_('Research')), get_research_data(mandate),
                                         styles['StandardWithBorder']))
         content.append(PageBreak())
-    content.append(create_paragraph("%s<br />" % (_('tutoring_learning_units')), '', styles["BodyText"]))
+    content.append(create_paragraph("%s<br />" % (_('Course units')), '', styles["BodyText"]))
     write_table(content, get_tutoring_learning_unit_year(mandate, styles['Tiny']), COLS_WIDTH_FOR_TUTORING)
     content.append(PageBreak())
-    content.append(create_paragraph("%s" % (_('representation_activities')), get_representation_activities(mandate),
-                                    styles['StandardWithBorder'], " (%s)" % (_('hours_per_year'))))
-    content.append(create_paragraph("%s" % (_('service_activities')), get_service_activities(mandate),
-                                    styles['StandardWithBorder'], " (%s)" % (_('hours_per_year'))))
-    content.append(create_paragraph("%s" % (_('formation_activities')), get_formation_activities(mandate),
+    content.append(create_paragraph("%s" % (_('Representation activities at UCL')),
+                                    get_representation_activities(mandate),
+                                    styles['StandardWithBorder'], " (%s)" % (_('number of hours per year'))))
+    content.append(create_paragraph("%s" % (_('Service activities')), get_service_activities(mandate),
+                                    styles['StandardWithBorder'], " (%s)" % (_('number of hours per year'))))
+    content.append(create_paragraph("%s" % (_('Training activities')), get_formation_activities(mandate),
                                     styles['StandardWithBorder']))
     content.append(PageBreak())
-    content.append(create_paragraph("%s" % (_('summary')), get_summary(mandate), styles['StandardWithBorder']))
+    content.append(create_paragraph("%s" % (_('Summary')), get_summary(mandate), styles['StandardWithBorder']))
     content += [draw_time_repartition(mandate)]
     content.append(PageBreak())
     if current_user_role is not user_role.ASSISTANT:
-        content.append(create_paragraph("%s<br />" % (_('reviews')), '', styles["BodyText"]))
+        content.append(create_paragraph("%s<br />" % (_('Opinions')), '', styles["BodyText"]))
         if current_user_role is user_role.ADMINISTRATOR:
             reviews = review.find_by_mandate(mandate.id)
         else:
@@ -223,8 +230,8 @@ def add_mandate_content(content, mandate, styles, current_user_role):
 def format_data(data, title):
     if isinstance(data, datetime.date):
         data = data.strftime("%d-%m-%Y")
-    return "<strong>%s :</strong> %s<br />" % (_(title), data) \
-        if data and data != 'None' else "<strong>%s :</strong><br />" % (_(title))
+    return "<strong>%s :</strong> %s<br />" % (title, data) \
+        if data and data != 'None' else "<strong>%s :</strong><br />" % (title)
 
 
 def create_paragraph(title, data, style, subtitle=''):
@@ -234,24 +241,32 @@ def create_paragraph(title, data, style, subtitle=''):
 
 
 def get_summary(mandate):
-    report_remark = format_data(mandate.activities_report_remark, 'activities_report_remark')
+    report_remark = format_data(mandate.activities_report_remark, _('Remark concerning the activity report'))
     return report_remark
 
 
 def get_administrative_data(mandate):
-    assistant_type = format_data(_(mandate.assistant_type), 'assistant_type')
-    matricule = format_data(mandate.sap_id, 'matricule_number')
-    entry_date = format_data(mandate.entry_date, 'entry_date_contract')
-    end_date = format_data(mandate.end_date, 'end_date_contract')
-    contract_duration = format_data(mandate.contract_duration, 'contract_duration')
-    contract_duration_fte = format_data(mandate.contract_duration_fte, 'contract_duration_fte')
-    fulltime_equivalent = format_data(int(mandate.fulltime_equivalent * 100), 'fulltime_equivalent_percentage')
-    other_status = format_data(mandate.other_status, 'other_status')
-    renewal_type = format_data(_(mandate.renewal_type), 'renewal_type')
-    justification = format_data(mandate.justification, 'exceptional_justification')
-    external_contract = format_data(mandate.external_contract, 'external_post')
-    external_functions = format_data(mandate.external_functions, 'function_outside_university')
-    return assistant_type + matricule + entry_date + end_date + contract_duration + contract_duration_fte \
+    assistant_type_name = format_data(dict(assistant_type.ASSISTANT_TYPES)[mandate.assistant_type],
+                                      _('Assistant type'))
+    matricule = format_data(mandate.sap_id, _('Registration number'))
+    entry_date = format_data(mandate.entry_date, _('Contract start date'))
+    end_date = format_data(mandate.end_date, _('Contract end date'))
+    contract_duration = format_data(mandate.contract_duration, _('Contract length'))
+    contract_duration_fte = format_data(mandate.contract_duration_fte, _('Full-time equivalent'))
+    fulltime_equivalent = format_data(int(mandate.fulltime_equivalent * 100), _('Percentage of occupancy'))
+    other_status = format_data(mandate.other_status, _('Other status'))
+    renewal_type = format_data(_(dict(assistant_mandate_renewal.ASSISTANT_MANDATE_RENEWAL_TYPES)[mandate.renewal_type]),
+                               _('Renewal type'))
+    justification = format_data(
+        mandate.justification,
+        _("Should you no longer fulfill the requirements for a 'normal' renewal, can you specify the circumstances "
+          "justifying an exceptional renewal application (art. 51 of the RAMCS)")
+    )
+    external_contract = format_data(mandate.external_contract, _('Mandate requested externally (FNRS, FRIA, ...)'))
+    external_functions = format_data(mandate.external_functions,
+                                     _('Current positions outside the University and %% of time spent'))
+
+    return assistant_type_name + matricule + entry_date + end_date + contract_duration + contract_duration_fte \
            + fulltime_equivalent + other_status + renewal_type + justification + external_contract + external_functions
 
 
@@ -261,7 +276,8 @@ def get_entities(mandate):
     entities = find_versions_from_entites(entities_id, start_date)
     entities_data = ""
     for entity in entities:
-        entities_data += "<strong>{} : </strong>{}<br />".format(_(entity.entity_type), entity.acronym)
+        entities_data += "<strong>{} : </strong>{}<br />".format(dict(entity_type.ENTITY_TYPES)[entity.entity_type],
+                                                                 entity.acronym)
     return entities_data
 
 
@@ -274,31 +290,38 @@ def get_comment(mandate):
 
 
 def get_phd_data(assistant):
-    thesis_title = format_data(assistant.thesis_title, 'thesis_title')
-    phd_inscription_date = format_data(assistant.phd_inscription_date, 'phd_inscription_date')
-    confirmation_test_date = format_data(assistant.confirmation_test_date, 'confirmatory_test_date')
-    thesis_date = format_data(assistant.thesis_date, 'thesis_defence_date')
-    expected_phd_date = format_data(assistant.expected_phd_date, 'expected_registering_date')
-    inscription = format_data(_(assistant.inscription) if assistant.inscription else None, 'registered_phd')
-    remark = format_data(assistant.remark, 'remark')
+    thesis_title = format_data(assistant.thesis_title, _('Title (provisional) of the thesis'))
+    phd_inscription_date = format_data(assistant.phd_inscription_date, _('Date of doctoral enrollment'))
+    confirmation_test_date = format_data(assistant.confirmation_test_date, _('Date of confirmation test'))
+    thesis_date = format_data(assistant.thesis_date, _('Date of defense of thesis (if already known)'))
+    expected_phd_date = format_data(assistant.expected_phd_date, _('Scheduled date of registration'))
+    inscription = format_data(
+        _(dict(PHD_INSCRIPTION_CHOICES)[assistant.inscription]) if assistant.inscription else None,
+        _('Enrolled in the Ph.D. program')
+    )
+    remark = format_data(assistant.remark, _('Remark'))
     return inscription + phd_inscription_date + expected_phd_date + confirmation_test_date \
            + thesis_title + thesis_date + remark
 
 
 def get_research_data(mandate):
-    internships = format_data(mandate.internships, 'scientific_internships')
-    conferences = format_data(mandate.conferences, 'conferences_contributor')
-    publications = format_data(mandate.publications, 'publications_in_progress')
-    awards = format_data(mandate.awards, 'awards')
-    framing = format_data(mandate.framing, 'framing_participation')
-    remark = format_data(mandate.remark, 'remark')
+    internships = format_data(mandate.internships, _('Scientific stay(s) and/or course(s)'))
+    conferences = format_data(
+        mandate.conferences,
+        _('Conference(s) to which I have contributed by communication or post, alone or with others.')
+    )
+    publications = format_data(mandate.publications, _('Publication(s) in preparation'))
+    awards = format_data(mandate.awards, _('Prize(s) and/or distinction(s)'))
+    framing = format_data(mandate.framing, _('Participation in thesis and/or dissertation'))
+    remark = format_data(mandate.remark, _('Remark'))
     return internships + conferences + publications + awards + framing + remark
 
 
 def get_tutoring_learning_unit_year(mandate, style):
     data = generate_headers([
-        'tutoring_learning_units', 'academic_year', 'sessions_number', 'sessions_duration', 'series_number',
-        'face_to_face_duration', 'attendees', 'exams_supervision_duration', 'others_delivery'
+        'Course units', 'Academic year', 'Number of sessions planned for this course', 'Duration of a session (h)',
+        'Number of series', 'Number of face-to-face hours', 'Number of students per series',
+        'Preparation, coordination and evaluation (h)', 'Other types of services associated with this course'
     ], style)
     tutoring_learning_units_year = tutoring_learning_unit_year.find_by_mandate(mandate)
     for this_tutoring_learning_unit_year in tutoring_learning_units_year:
@@ -325,29 +348,47 @@ def generate_headers(titles, style):
 
 
 def get_representation_activities(mandate):
-    faculty_representation = format_data(str(mandate.faculty_representation), 'faculty_representation')
-    institute_representation = format_data(str(mandate.institute_representation), 'institute_representation')
-    sector_representation = format_data(str(mandate.sector_representation), 'sector_representation')
-    governing_body_representation = format_data(str(mandate.governing_body_representation),
-                                                'governing_body_representation')
-    corsci_representation = format_data(str(mandate.corsci_representation), 'corsci_representation')
+    faculty_representation = format_data(str(mandate.faculty_representation),
+                                         _('Within the faculty (program committees, faculty board, faculty council)'))
+    institute_representation = format_data(
+        str(mandate.institute_representation),
+        _('Within the institute (institute board, institute council,...)')
+    )
+    sector_representation = format_data(str(mandate.sector_representation),
+                                        _('Within the sector (board and/or council)'))
+    governing_body_representation = format_data(
+        str(mandate.governing_body_representation),
+        _('Within the organs of the University (academic council, other councils or commissions,...)')
+    )
+    corsci_representation = format_data(str(mandate.corsci_representation), _('Within the CORSCI'))
     return faculty_representation + institute_representation + sector_representation + governing_body_representation \
            + corsci_representation
 
 
 def get_service_activities(mandate):
-    students_service = format_data(str(mandate.students_service), 'students_service')
-    infrastructure_mgmt_service = format_data(str(mandate.infrastructure_mgmt_service), 'infrastructure_mgmt_service')
-    events_organisation_service = format_data(str(mandate.events_organisation_service), 'events_organisation_service')
-    publishing_field_service = format_data(str(mandate.publishing_field_service), 'publishing_field_service')
-    scientific_jury_service = format_data(str(mandate.scientific_jury_service), 'scientific_jury_service')
+    students_service = format_data(str(mandate.students_service),
+                                   _('Information for future students (CIO, shows, Campus Days, Midi Masters,...)'))
+    infrastructure_mgmt_service = format_data(
+        str(mandate.infrastructure_mgmt_service),
+        _('Management of collective facilities (lab, workshop, library, IT department, website,...)')
+    )
+    events_organisation_service = format_data(
+        str(mandate.events_organisation_service),
+        _("Organization of seminars, conferences, visits, study tours, grounds, seminars… (not taken in account in "
+          "the 'Teaching units' section)")
+    )
+    publishing_field_service = format_data(str(mandate.publishing_field_service),
+                                           _('Activities in the field of publishing (editorial board,...)'))
+    scientific_jury_service = format_data(str(mandate.scientific_jury_service),
+                                          _('Participation in juries and/or scientific committees'))
     return students_service + infrastructure_mgmt_service + events_organisation_service + publishing_field_service \
            + scientific_jury_service
 
 
 def get_formation_activities(mandate):
-    formations = format_data(mandate.formations, 'formations')
-    return formations
+    return format_data(mandate.formations,
+                       _('Scientific, pedagogical or other training you have attended (LLL, SMCS, RHUM, Summer School)')
+                       )
 
 
 def get_review_details_for_mandate(mandate, rev):
@@ -355,7 +396,7 @@ def get_review_details_for_mandate(mandate, rev):
         person = "{} {}<br/>({})".format(
             mandate.assistant.supervisor.first_name,
             mandate.assistant.supervisor.last_name,
-            str(_('supervisor'))
+            str(_('Promoter'))
         )
     else:
         person = "{} {}<br/>({})".format(
@@ -363,10 +404,10 @@ def get_review_details_for_mandate(mandate, rev):
             rev.reviewer.person.last_name,
             entity_version.get_last_version(rev.reviewer.entity).acronym
         )
-    reviewer = format_data(person, 'reviewer')
-    remark = format_data(rev.remark, 'remark')
-    justification = format_data(rev.justification, 'justification')
-    confidential = format_data(rev.confidential, 'confidential')
+    reviewer = format_data(person, _('Reviewer'))
+    remark = format_data(rev.remark, _('Remark'))
+    justification = format_data(rev.justification, _('Justification'))
+    confidential = format_data(rev.confidential, _('Confidential'))
     return reviewer + remark + justification + confidential
 
 
@@ -401,10 +442,11 @@ def draw_time_repartition(mandate):
     pie.data = []
     pie.labels = []
     titles = []
-    add_data_and_titles_to_pie(pie, titles, mandate.research_percent, 'research_percent')
-    add_data_and_titles_to_pie(pie, titles, mandate.tutoring_percent, 'tutoring_percent')
-    add_data_and_titles_to_pie(pie, titles, mandate.service_activities_percent, 'service_activities_percent')
-    add_data_and_titles_to_pie(pie, titles, mandate.formation_activities_percent, 'formation_activities_percent')
+    add_data_and_titles_to_pie(pie, titles, mandate.research_percent, 'Percentage for research and Ph.D.')
+    add_data_and_titles_to_pie(pie, titles, mandate.tutoring_percent, 'Percentage for teaching')
+    add_data_and_titles_to_pie(pie, titles, mandate.service_activities_percent, 'Percentage for service activities')
+    add_data_and_titles_to_pie(pie, titles, mandate.formation_activities_percent,
+                               'Percentage of involvement as beneficiary in training activities')
     if len(pie.data) > 0:
         drawing.add(pie)
         add_legend_to_pie(drawing)
@@ -454,7 +496,7 @@ def add_header_footer(canvas, doc):
 
 def header_building(canvas, doc):
     canvas.line(doc.leftMargin, 790, doc.width+doc.leftMargin, 790)
-    canvas.drawString(110, 800, "%s" % (_('assistant_mandates_renewals')))
+    canvas.drawString(110, 800, "%s" % (_('Assistant mandate renewal application processing')))
 
 
 def footer_building(canvas, doc, styles):

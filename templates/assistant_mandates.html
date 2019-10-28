@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 {
 
@@ -31,11 +31,11 @@
 {% endblock %}
     
 {% block breadcrumb %}
-<li class="active">{% trans 'mandates_list' %}</li>
+<li class="active">{% trans 'List of mandates' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h2>{% trans 'assistant_mandates_renewal' %}</h2>
+    <h2>{% trans 'Assistant mandate renewal application' %}</h2>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -43,11 +43,11 @@
 		<div class="table-responsive">  
 		<table id="myTable" class="table table-hover" cellspacing="0" width="100%">
 		<thead><tr>
-      	<th>{% trans 'academic_year' %}</th>
-        <th>{% trans 'entities' %}</th>
-        <th>{% trans 'fulltime_equivalent' %}</th>
-        <th>{% trans 'state' %}</th>
-        <th>{% trans 'action' %}</th>
+      	<th>{% trans 'Academic year' %}</th>
+        <th>{% trans 'Entities' %}</th>
+        <th>{% trans 'Full-time equivalent' %}</th>
+        <th>{% trans 'State' %}</th>
+        <th>{% trans 'Action' %}</th>
 		<th>PDF</th>
       	</tr>
     	</thead>
@@ -67,28 +67,28 @@
                 </ul>
             </td>
 			<td>{{ mandate.fulltime_equivalent }}</td>
-            <td>{% trans mandate.state %}</td>
+            <td>{% trans mandate.get_state_display %}</td>
 			<td align="center">
 			{% if mandate.state == "TO_DO" %}
-				<button type="submit" class="btn btn-success" title="{% trans 'accept'%}" id="bt_mandate_accept"
-						name="bt_mandate_accept" onclick="return confirm('{% trans 'confirm_accept' %}')">
-					<span class="fas fa-check-circle" aria-hidden="true"></span> {% trans 'accept'%}</button>
-				<button type="submit" class="btn btn-danger" title="{% trans 'decline'%}" id="bt_mandate_decline"
-						name="bt_mandate_decline" onclick="return confirm('{% trans 'confirm_decline' %}')">
-					<span class="fas fa-times-circle" aria-hidden="true"></span> {% trans 'decline'%}
+				<button type="submit" class="btn btn-success" title="{% trans 'Accept'%}" id="bt_mandate_accept"
+						name="bt_mandate_accept" onclick="return confirm('{% trans 'Are you sure you want to accept the renewal request? This action is irreversible.' %}')">
+					<span class="fas fa-check-circle" aria-hidden="true"></span> {% trans 'Accept'%}</button>
+				<button type="submit" class="btn btn-danger" title="{% trans 'Refuse'%}" id="bt_mandate_decline"
+						name="bt_mandate_decline" onclick="return confirm('{% trans 'Are you sure you want to decline the renewal request? This action is irreversible.' %}')">
+					<span class="fas fa-times-circle" aria-hidden="true"></span> {% trans 'Refuse'%}
 				</button>
 			{% elif mandate.state == "TRTS" and mandate.academic_year == current_academic_year and not can_see_file %}
 				<a href="{% url 'form_part1_edit' %}">
-                    <button type="button" class="btn btn-link btn-lg" title="{% trans 'edit'%}" id="bt_mandate_edit">
-                        <span class="far fa-edit" aria-hidden="true"></span> {% trans 'edit'%}
+                    <button type="button" class="btn btn-link btn-lg" title="{% trans 'Edit'%}" id="bt_mandate_edit">
+                        <span class="far fa-edit" aria-hidden="true"></span> {% trans 'Edit'%}
                     </button></a>
             {% elif mandate.state == "DONE"  and can_see_file %}
                 <a href="{% url 'assistant_mandate_reviews' mandate.id %}">
-                <button type="button" class="btn btn-link btn-lg" title="{% trans 'view'%}" id="bt_view">
-                    <span class="far fa-eye" aria-hidden="true"></span> {% trans 'view' %}
+                <button type="button" class="btn btn-link btn-lg" title="{% trans 'View'%}" id="bt_view">
+                    <span class="far fa-eye" aria-hidden="true"></span> {% trans 'View' %}
                 </button></a>
             {% else %}
-                <button type="button" class="btn btn-link btn-lg" title="{% trans 'view'%}" id="bt_nothing" disabled>
+                <button type="button" class="btn btn-link btn-lg" title="{% trans 'View'%}" id="bt_nothing" disabled>
                     <span class="fas fa-eye-slash" aria-hidden="true"></span>
                 </button>
 			{% endif %}
@@ -100,7 +100,7 @@
                 {% if mandate.state != "TO_DO" and mandate.state != "DECLINED" %}
                     <form method="POST" action="{% url 'export_mandate_pdf' %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-link btn-lg" title="{% trans 'generate_PDF' %}"
+                        <button type="submit" class="btn btn-link btn-lg" title="{% trans 'Generate a PDF file' %}"
                                 id="bt_generate_pdf">
                             <span class="far fa-file-download-file" aria-hidden="true"></span> PDF
                         </button>

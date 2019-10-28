@@ -23,18 +23,18 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import factory
 import datetime
 
+import factory
 from django.test import TestCase
 
-from base.tests.factories.academic_year import AcademicYearFactory
-
+from assistant.models import assistant_mandate
 from assistant.models.assistant_mandate import find_by_academic_year_by_excluding_declined
 from assistant.models.assistant_mandate import find_declined_by_academic_year
 from assistant.models.enums import assistant_mandate_state
-from assistant.models import assistant_mandate
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
+from base.tests.factories.academic_year import AcademicYearFactory
+
 
 class TestAssistantMandateFactory(TestCase):
 

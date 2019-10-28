@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
-{% load i18n %}
+{% load static %}
+{% load i18n display_role %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -31,13 +31,13 @@
 <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'assistants' %}</a></li>
-<li><a href="{% url 'reviewers_list' %}" id="lnk_reviewers_list">{% trans 'reviewers' %}</a></li>
-<li class="active">{% trans 'replacement' %}</li>
+<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li><a href="{% url 'reviewers_list' %}" id="lnk_reviewers_list">{% trans 'Reviewers' %}</a></li>
+<li class="active">{% trans 'Replacement' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h3>{% trans 'assistant_mandates_renewals' %} {{ year|add:1 }}</h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -48,32 +48,32 @@
 			    {{ hidden }}
 		    {% endfor %}
 	    <div class="form-group">
-		    <label for="search_persons">{% trans 'person_who_will_be_replacing' %}</label>
+		    <label for="search_persons">{% trans 'Substitute reviewer' %}</label>
 			<input id="search_persons" name="search_persons" size="100" class="form-control"
-                   placeholder="{% trans 'search_by_email_or_last_name' %}" required>
+                   placeholder="{% trans 'Search by email or last name' %}" required>
 			<input type="hidden" name="person_id" id="person_id">
             <p class="text-danger">{{ form.non_field_errors.as_text }}</p>
 		</div>
 
 		<div class="form-group">
-			<label for="{{ personne.auto_id }}">{% trans 'reviewer' %}</label>
+			<label for="{{ personne.auto_id }}">{% trans 'Reviewer' %}</label>
 			<div class="controls">{{ reviewer.person }}</div>
 		</div>
 		<div class="form-group">
-			<label for="{{ structure.auto_id }}">{% trans 'structure' %}</label>
+			<label for="{{ structure.auto_id }}">{% trans 'Entity' %}</label>
 			<div class="controls">{{ entity.acronym }} - {{ entity.title }}</div>
 		</div>
 		<div class="form-group">
-			<label for="{{ role.auto_id }}">{% trans 'role' %}</label>
-			<div class="controls">{{ reviewer.role }}</div>
+			<label for="{{ role.auto_id }}">{% trans 'Role' %}</label>
+			<div class="controls">{{ reviewer.role | display }}</div>
 		</div>
 			{{ form.id.as_hidden }}
 		<input type="hidden" name="reviewer_id" id="reviewer.id" value="{{ reviewer.id }}">
-		<button type="submit" class="btn btn-primary" title="{% trans 'save'%}" id="bt_add_reviewer_save"
-				onclick="return confirm('{% trans 'confirm_reviewer_replacement' %}')">
-			<span class="far fa-save" aria-hidden="true"></span> {% trans 'save'%}</button>
+		<button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_add_reviewer_save"
+				onclick="return confirm('{% trans 'Confirm reviewer replacement' %}')">
+			<span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
 			<a class="btn btn-default" id="lnk_upload_cancel" href="{% url 'reviewers_list' %}">
-				<span class="fas fa-times" aria-hidden="true"></span> {% trans 'cancel'%}</a>
+				<span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
     	</form>
     </div>
 </div>

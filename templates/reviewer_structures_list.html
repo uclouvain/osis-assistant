@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 
 {% comment "License" %}
@@ -30,21 +30,21 @@
 <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_delegation">{% trans 'reviewer_mandates_list' %}
+<li><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_delegation">{% trans 'List of files' %}
 </a></li>
-<li class="active">{% trans 'reviewer_delegation' %}</li>
+<li class="active">{% trans 'Delegation(s)' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h6>{% trans 'connected_as' %} {{ current_reviewer.person }} ({% trans current_reviewer.role %}) - {{ entity.acronym }}</h6>
-    <h3>{% trans 'assistant_mandates_renewals' %} {{ year|add:1 }}</h3>
+    <h6>{% trans 'You are connected as' %} {{ current_reviewer.person }} ({% trans current_reviewer.role %}) - {{ entity.acronym }}</h6>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
     <ul class="nav nav-tabs">
-        <li><a href="{% url 'reviewer_mandates_list' %}">{% trans 'reviewer_mandates_list' %}</a></li>
-        <li><a href="{% url 'reviewer_mandates_list_todo' %}">{% trans 'reviewer_todo' %}</a></li>
+        <li><a href="{% url 'reviewer_mandates_list' %}">{% trans 'List of files' %}</a></li>
+        <li><a href="{% url 'reviewer_mandates_list_todo' %}">{% trans 'Files that can be treated' %}</a></li>
         {% if is_supervisor %}
-            <li><a href="{% url 'phd_supervisor_assistants_list' %}">{% trans 'phd_supervisor_assistants_list' %}</a></li>
+            <li><a href="{% url 'phd_supervisor_assistants_list' %}">{% trans 'List of files (as a thesis promoter)' %}</a></li>
         {% endif %}
-        <li class="active"><a href="#">{% trans 'reviewer_delegation' %}</a></li>
+        <li class="active"><a href="#">{% trans 'Delegation(s)' %}</a></li>
     </ul>
 </div>
 <div class="panel panel-default">
@@ -53,9 +53,9 @@
             <table id="myTable" class="table table-hover table-condensed table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
-            <th>{% trans 'title' %}</th>
-            <th>{% trans 'acronym' %}</th>
-            <th>{% trans 'reviewer_delegation' %}</th>
+            <th>{% trans 'Title' %}</th>
+            <th>{% trans 'Acronym' %}</th>
+            <th>{% trans 'Delegation(s)' %}</th>
             </tr>
             </thead>
             <tbody>
@@ -71,8 +71,8 @@
                     {{ form.non_field_errors }}
  		            {% csrf_token %}
                     <input type="hidden" name="entity" value="{{ entity.id }}">
-                    <button type="submit" class="btn btn-link" title="{% trans 'edit'%}">
-                        <span class="fas fa-plus" aria-hidden="true"></span> {% trans 'add'%}
+                    <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
+                        <span class="fas fa-plus" aria-hidden="true"></span> {% trans 'Add'%}
                     </button></form>
                 {% endif %}
                 </td>

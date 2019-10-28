@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
-{% load i18n %}
+{% load static %}
+{% load i18n display_role %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -30,12 +30,12 @@
 <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'assistants' %}</a></li>
-<li class="active">{% trans 'reviewers' %}</li>
+<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li class="active">{% trans 'Reviewers' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h3>{% trans 'assistant_mandates_renewals' %}</h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %}</h3>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -46,10 +46,10 @@
         <table id="myTable" class="table table-hover table-condensed table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
-        <th>{% trans 'name' %}</th>
-        <th>{% trans 'entity' %}</th>
-        <th>{% trans 'role' %}</th>
-        <th>{% trans 'action' %}</th>
+        <th>{% trans 'Name' %}</th>
+        <th>{% trans 'Entity' %}</th>
+        <th>{% trans 'Role' %}</th>
+        <th>{% trans 'Action' %}</th>
         </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@
             <tr>
             <td>{{ reviewer.person.value.last_name|upper }} {{ reviewer.person.value.first_name }}{{ reviewer.access }}</td>
             <td>{{ reviewer.entity_version.value.acronym }} - {{ reviewer.entity_version.value.title }}</td>
-            <td>{% trans reviewer.role.value %}</td>
+            <td>{{ reviewer.role.value | display  }}</td>
             <td>{{ reviewer.action }}</td>
             {{ reviewer.id.as_hidden }}
             {{ reviewer.entity_version.as_hidden }}
@@ -66,9 +66,9 @@
         </table>
         </div>
         <a href="{% url 'reviewer_add' %}">
-            <button type="button" class="btn btn-link btn-lg" title="{% trans 'add'%}" id="bt_reviewer_add">
+            <button type="button" class="btn btn-link btn-lg" title="{% trans 'Add'%}" id="bt_reviewer_add">
             <span class="fas fa-plus" aria-hidden="true"></span>
-            </button>{% trans 'add_reviewer' %}</a>
+            </button>{% trans 'Add reviewer' %}</a>
         </form>
     </div>
 </div>

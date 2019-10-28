@@ -24,25 +24,27 @@
 #
 ##############################################################################
 import time
+
 from django.contrib.auth.decorators import user_passes_test
-from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
-from django.utils.translation import ugettext as _
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.utils.translation import gettext as _
 from openpyxl import Workbook
 from openpyxl.writer.excel import save_virtual_workbook
-from base.models.enums import entity_type
-from base.models import academic_year, entity, person
-from base.views import layout
-from assistant.utils.send_email import send_message
-from assistant.forms import MandateForm, entity_inline_formset
+
 from assistant import models as assistant_mdl
+from assistant.forms.mandate import MandateForm, entity_inline_formset
 from assistant.models import assistant_mandate, review
 from assistant.models.enums import reviewer_role, assistant_mandate_state
+from assistant.utils.send_email import send_message
+from base.models import academic_year, entity, person
+from base.models.enums import entity_type
 
 
 def user_is_manager(user):
     try:
-        if user.is_authenticated():
+        if user.is_authenticated:
             return assistant_mdl.manager.Manager.objects.get(person=user.person)
     except ObjectDoesNotExist:
         return False
@@ -62,9 +64,13 @@ def mandate_edit(request):
                                 }, prefix="mand", instance=mandate)
     formset = entity_inline_formset(instance=mandate, prefix="entity")
     
-    return layout.render(request, 'mandate_form.html', {'mandate': mandate, 'form': form, 'formset': formset,
-                                                        'assistant_mandate_state': assistant_mandate_state,
-                                                        'supervisor': supervisor})
+    return render(request, 'mandate_form.html', {
+        'mandate': mandate,
+        'form': form,
+        'formset': formset,
+        'assistant_mandate_state': assistant_mandate_state,
+        'supervisor': supervisor
+    })
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')
@@ -94,20 +100,20 @@ def mandate_save(request):
             formset.save()
             return mandate_edit(request)
         else:
-            return layout.render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
+            return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
     else:
-        return layout.render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
+        return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')
 def load_mandates(request):
-    return layout.render(request, "load_mandates.html", {})
+    return render(request, "load_mandates.html", {})
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')
 def export_mandates(request):
     xls = generate_xls()
-    filename = 'assistants_mandates_{}.xlsx'.format(time.strftime("%Y%m%d_%H%M"))
+    filename = '{}_{}.xlsx'.format(_('assistants_mandates'), time.strftime("%Y%m%d_%H%M"))
     response = HttpResponse(xls, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = "%s%s" % ("attachment; filename=", filename)
     return response
@@ -116,31 +122,31 @@ def export_mandates(request):
 def generate_xls():
     workbook = Workbook(encoding='utf-8')
     worksheet = workbook.active
-    worksheet.title = "mandates"
+    worksheet.title = _('Mandates')
     worksheet.append([_(entity_type.SECTOR),
                       _(entity_type.FACULTY),
                       _(entity_type.LOGISTICS_ENTITY),
                       _(entity_type.INSTITUTE),
-                      _("matricule"),
-                      _("name"),
-                      _("firstname"),
-                      _("email"),
+                      _("Registration number"),
+                      _("Name"),
+                      _("Firstname"),
+                      _("Email"),
                       "FGS",
-                      _("age"),
-                      _("status"),
-                      _("renewal_type"),
-                      _("assistant_type"),
-                      _("fulltime_equivalent"),
-                      _("contract_duration_fte"),
-                      _("contract_duration"),
-                      _("entry_date_contract"),
-                      _("end_date"),
-                      _("comment"),
-                      _("absences"),
-                      _("sector_vice_rector_review"),
-                      _("justification"),
-                      _("comment"),
-                      _("confidential"),
+                      _("Age"),
+                      _("Status"),
+                      _("Renewal type"),
+                      _("Assistant type"),
+                      _("Full-time equivalent"),
+                      _("Full-time equivalent"),
+                      _("Contract length"),
+                      _("Contract start date"),
+                      _("End date"),
+                      _("Comment"),
+                      _("Absences"),
+                      _("Opinion of the sector vice-rector"),
+                      _("Justification"),
+                      _("Comment"),
+                      _("Confidential"),
                       ])
     mandates = assistant_mandate.find_by_academic_year(academic_year.starting_academic_year())
     for mandate in mandates:

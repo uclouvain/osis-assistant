@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 
 {% comment "License" %}
@@ -30,47 +30,47 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'assistants' %}</a></li>
-<li class="active">{% trans 'messages' %}</li>
+<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li class="active">{% trans 'Messages' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h3>{% trans 'assistant_mandates_renewals' %} {{ year|add:1 }}</h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="list-group">
             <div class="list-group-item">
-                <h4 class="list-group-item-heading">{% trans 'assistants' %}</h4>
-                <p class="list-group-item-text">{% trans 'startup_precedure' %}</p>
+                <h4 class="list-group-item-heading">{% trans 'Assistants' %}</h4>
+                <p class="list-group-item-text">{% trans 'Startup procedure' %}</p>
                 <p style="margin-top: 10px;"><a href="{% url 'send_message_to_assistants' %}" class="btn btn-info"
                                                 role="button"
-                                                onclick="return confirm('{% trans 'confirm_send_emails' %}')">
-                    {% trans 'send_email_to_all_assistants' %}</a></p>
+                                                onclick="return confirm('{% trans 'Are you sure you want to send these emails? This action is irreversible.' %}')">
+                    {% trans 'Send an email to all assistants' %}</a></p>
             </div>
             <div class="list-group-item">
-                <h4 class="list-group-item-heading">{% trans 'reviewers' %}</h4>
-                <p class="list-group-item-text">{% trans 'startup_precedure' %}</p>
+                <h4 class="list-group-item-heading">{% trans 'Reviewers' %}</h4>
+                <p class="list-group-item-text">{% trans 'Startup procedure' %}</p>
                 <p style="margin-top: 10px;"><a href="{% url 'send_message_to_reviewers' %}" class="btn btn-info"
                                                 role="button"
-                                                onclick="return confirm('{% trans 'confirm_send_emails' %}')">
-                    {% trans 'send_email_to_reviewers' %}</a></p>
+                                                onclick="return confirm('{% trans 'Are you sure you want to send these emails? This action is irreversible.' %}')">
+                    {% trans 'Send an email to reviewers' %}</a></p>
             </div>
         </div>
         <div class="table-responsive">
             <table id="myTable" class="table table-hover table-condensed table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
-            <th>{% trans 'sender' %}</th>
-            <th>{% trans 'type' %}</th>
-            <th>{% trans 'date' %}</th>
+            <th>{% trans 'Sender' %}</th>
+            <th>{% trans 'Type' %}</th>
+            <th>{% trans 'Date' %}</th>
             </tr>
             </thead>
             <tbody>
             {% for message in sent_messages %}
                 <tr>
                     <td>{{ message.sender.person }}</td>
-                    <td>{% trans message.type %}</td>
+                    <td>{{ message.get_type_display }}</td>
                     <td>{{ message.date }}</td>
                 </tr>
             {% endfor %}

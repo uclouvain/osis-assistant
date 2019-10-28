@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 
 {% comment "License" %}
@@ -30,26 +30,26 @@
 <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li class="active">{% trans 'reviewer_mandates_list' %}</li>
+<li class="active">{% trans 'List of files' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h6>{% trans 'connected_as' %} {{ reviewer.person }} ({% trans reviewer.role %}) - {{ entity.acronym }}</h6>
-    <h3>{% trans 'assistant_mandates_renewals' %} {{ year|add:1 }}</h3>
+    <h6>{% trans 'You are connected as' %} {{ reviewer.person }} ({% trans reviewer.role %}) - {{ entity.acronym }}</h6>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 
     <ul class="nav nav-tabs">
             {% if filter %}
-                <li><a href="{% url 'reviewer_mandates_list' %}">{% trans 'reviewer_mandates_list' %}</a></li>
-                <li class="active"><a href="#">{% trans 'reviewer_todo' %}</a></li>
+                <li><a href="{% url 'reviewer_mandates_list' %}">{% trans 'List of files' %}</a></li>
+                <li class="active"><a href="#">{% trans 'Files that can be treated' %}</a></li>
             {% else %}
-                <li class="active"><a href="#">{% trans 'reviewer_mandates_list' %}</a></li>
-                <li><a href="{% url 'reviewer_mandates_list_todo' %}">{% trans 'reviewer_todo' %}</a></li>
+                <li class="active"><a href="#">{% trans 'List of files' %}</a></li>
+                <li><a href="{% url 'reviewer_mandates_list_todo' %}">{% trans 'Files that can be treated' %}</a></li>
             {% endif %}
             {% if is_supervisor %}
-                <li><a href="{% url 'phd_supervisor_assistants_list' %}">{% trans 'phd_supervisor_assistants_list' %}</a></li>
+                <li><a href="{% url 'phd_supervisor_assistants_list' %}">{% trans 'List of files (as a thesis promoter)' %}</a></li>
             {% endif %}
             {% if can_delegate %}
-                <li><a href="{% url 'reviewer_delegation' %}">{% trans 'reviewer_delegation' %}</a></li>
+                <li><a href="{% url 'reviewer_delegation' %}">{% trans 'Delegation(s)' %}</a></li>
             {% endif %}
         </ul>
 </div>
@@ -59,14 +59,14 @@
             <div class="row" style="padding-bottom: 5px;">
                 <div class="col-md-6 text-left">
                     <a href="{% url 'export_mandates_for_entity_pdf' year %}" class="btn btn-default">
-                        {% trans 'desc_lnk_export_mandates_pdf'%}
+                        {% trans 'Exporting all data to a PDF file'%}
                     </a>
                 </div>
 	            <div class="col-md-6 text-right">
                     <form action=" {% url 'reviewer_mandates_list' %} " method="GET">
                     {{ form.academic_year }}
-                    <button type="submit" class="btn btn-default btn-xs" title="{% trans 'apply'%}" id="bt_filter">
-                        <span class="fas fa-check" aria-hidden="true"></span> {% trans 'apply'%}</button>
+                    <button type="submit" class="btn btn-default btn-xs" title="{% trans 'Apply'%}" id="bt_filter">
+                        <span class="fas fa-check" aria-hidden="true"></span> {% trans 'Apply'%}</button>
                     </form>
                 </div>
             </div>
@@ -75,16 +75,16 @@
         <table id="myTable" class="table table-hover table-condensed table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
-        <th>{% trans 'assistant_title' %}</th>
-        <th>{% trans 'entities' %}</th>
-        <th>{% trans 'assistant_type' %}</th>
-        <th>{% trans 'renewal_type' %}</th>
-        <th>{% trans 'contract_duration' %}</th>
-        <th>{% trans 'eq_fte' %}</th>
-        <th>{% trans 'fulltime_equivalent_percentage' %}</th>
-        <th>{% trans 'state' %}</th>
-        <th>{% trans 'reviews' %}</th>
-        <th>{% trans 'action' %}</th>
+        <th>{% trans 'Assistant' %}</th>
+        <th>{% trans 'Entities' %}</th>
+        <th>{% trans 'Assistant type' %}</th>
+        <th>{% trans 'Renewal type' %}</th>
+        <th>{% trans 'Contract length' %}</th>
+        <th>{% trans 'Duration of contract (FTE)' %}</th>
+        <th>{% trans 'Percentage of occupancy' %}</th>
+        <th>{% trans 'State' %}</th>
+        <th>{% trans 'Opinions' %}</th>
+        <th>{% trans 'Action' %}</th>
         </tr>
         </thead>
         <tbody>
@@ -128,7 +128,7 @@
                         {% if review.reviewer %}
                             title="{% trans review.reviewer.role %} : {{ review.reviewer.person }}">
                         {% else %}
-                            title="{% trans 'PHD_SUPERVISOR' %} : {{ mandate.assistant.supervisor }}">
+                            title="{% trans 'Thesis promoter' %} : {{ mandate.assistant.supervisor }}">
                         {% endif %}
                         </i>
                     {% endif %}
@@ -139,9 +139,9 @@
                     <form method="POST" action="{% url 'review_edit' %}">
                         {% csrf_token %}
                         <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
-                        <button type="submit" class="btn btn-link" title="{% trans 'edit'%}">
+                        <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
                             <span class="far fa-edit" aria-hidden="true"></span>
-                            {% trans 'edit'%}
+                            {% trans 'Edit'%}
                         </button>
                     </form>
                 </td>
@@ -151,9 +151,9 @@
                         {% csrf_token %}
                         <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
                         <input type="hidden" name="role" value="{{ reviewer.role }}">
-                        <button type="submit" class="btn btn-link" title="{% trans 'view'%}">
+                        <button type="submit" class="btn btn-link" title="{% trans 'View'%}">
                             <span class="far fa-eye" aria-hidden="true"></span>
-                            {% trans 'view'%}
+                            {% trans 'View'%}
                         </button>
                     </form>
                 </td>
