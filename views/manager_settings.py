@@ -59,11 +59,5 @@ def settings_save(request):
         form.save()
         return settings_edit(request)
     else:
-<<<<<<< HEAD
         year = academic_year.starting_academic_year().year
-        return layout.render(request, 'settings.html', {'year': year,
-                                                        'form': form})
-=======
-        year = academic_year.current_academic_year().year
         return render(request, 'settings.html', {'year': year, 'form': form})
->>>>>>> master
