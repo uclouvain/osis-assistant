@@ -34,7 +34,7 @@
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h6>{% trans 'You are connected as' %} {{ reviewer.person }} ({% trans reviewer.role %}) - {{ entity.acronym }}</h6>
+    <h6>{% trans 'You are connected as' %} {{ reviewer.person }} ({{ reviewer.get_role_display }}) - {{ entity.acronym }}</h6>
     <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 
     <ul class="nav nav-tabs">
@@ -100,12 +100,12 @@
                     {% endfor %}
                 </ul>
             </td>
-            <td>{% trans mandate.assistant_type %}</td>
-            <td>{% trans mandate.renewal_type %}</td>
+            <td>{{ mandate.get_assistant_type_display }}</td>
+            <td>{{ mandate.get_renewal_type_display }}</td>
             <td>{{ mandate.contract_duration }}</td>
             <td>{{ mandate.contract_duration_fte }}</td>
             <td>{% widthratio mandate.fulltime_equivalent 1 100 %}%</td>
-            <td>{% trans mandate.state %}</td>
+            <td>{{ mandate.get_state_display }}</td>
             <td>
                 {% for review in mandate.review_set.all|dictsort:"changed" %}
                     {% if review.status == review_status.DONE %}
@@ -117,6 +117,8 @@
                             <i class="fas fa-battery-three-quarters" style="font-size: 100%;
                         {% elif "VICE_RECTOR" in review.reviewer.role %}
                             <i class="fas fa-battery-full" style="font-size: 100%;
+                        {% else %}
+                            <i id="rev" class="fas fa-battery-quarter" style="font-size: 100%;
                         {% endif %}
                         {% if review.advice == review_advice_choices.FAVORABLE %}
                              color: #79C84F;"
