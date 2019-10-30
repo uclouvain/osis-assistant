@@ -135,7 +135,7 @@ def review_save(request):
     if form.is_valid():
         current_review = form.save(commit=False)
         if 'validate_and_submit' in request.POST:
-            valid_advice_choices = [t[0] for t in review_advice_choices.REVIEW_ADVICE_CHOICES]
+            valid_advice_choices = (k for k, v in review_advice_choices.REVIEW_ADVICE_CHOICES)
             if current_review.advice not in valid_advice_choices:
                 errors = form._errors.setdefault("advice", ErrorList())
                 errors.append(_('Advice missing in form'))
