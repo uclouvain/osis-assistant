@@ -240,7 +240,7 @@
                     <ul>
                         {% for file in phd_files %}
                             <li>
-                                <a href="{% url 'assistant_file_download' document_file_id=file.id %}">
+                                <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">
                                     {{ file.document_file }}</a>
                             </li>
                         {% endfor %}
@@ -312,7 +312,7 @@
                     <ul>
                         {% for file in research_files %}
                         <li>
-                            <a href="{% url 'assistant_file_download' document_file_id=file.id %}">
+                            <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">
                                 {{ file.document_file }}</a>
                         </li>
                         {% endfor %}
@@ -392,7 +392,7 @@
                 <ul>
                     {% for file in tutoring_files %}
                         <li>
-                            <a href="{% url 'assistant_file_download' document_file_id=file.id %}">
+                            <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">
                                 {{ file.document_file }}</a>
                         </li>
                     {% endfor %}
