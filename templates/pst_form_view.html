@@ -215,7 +215,7 @@
                 </div>
                 <div class="row" style="padding-top: 2px;">
                     <div class="col-md-3">
-                        {% trans 'Date of confirmation test' %}<h6>{% trans '(for the 2nd renewal)' %}</h6>
+                        {% trans 'Date of confirmation test' %}<h6>{% trans '(starting the 2nd renewal)' %}</h6>
                     </div>
                     <div class="col-md-9">
                         {{ assistant.confirmation_test_date|default_if_none:"n/a" }}
@@ -240,7 +240,7 @@
                     <ul>
                         {% for file in phd_files %}
                             <li>
-                                <a href="{% url 'assistant_file_download' document_file_id=file.id %}">
+                                <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">
                                     {{ file.document_file }}</a>
                             </li>
                         {% endfor %}
@@ -312,7 +312,7 @@
                     <ul>
                         {% for file in research_files %}
                         <li>
-                            <a href="{% url 'assistant_file_download' document_file_id=file.id %}">
+                            <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">
                                 {{ file.document_file }}</a>
                         </li>
                         {% endfor %}
@@ -392,7 +392,7 @@
                 <ul>
                     {% for file in tutoring_files %}
                         <li>
-                            <a href="{% url 'assistant_file_download' document_file_id=file.id %}">
+                            <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">
                                 {{ file.document_file }}</a>
                         </li>
                     {% endfor %}

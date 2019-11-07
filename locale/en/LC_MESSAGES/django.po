@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-26 15:02+0200\n"
+"POT-Creation-Date: 2019-11-07 13:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "%% FTE"
 msgstr "%% FTE"
 
-msgid "(for the 2nd renewal)"
+msgid "(starting the 2nd renewal)"
 msgstr ""
 
 msgid "A date is invalid in the file"
@@ -234,9 +234,6 @@ msgid "Contract start date"
 msgstr ""
 
 msgid "Course units"
-msgstr ""
-
-msgid "Create an organization"
 msgstr ""
 
 #, python-format
@@ -474,9 +471,6 @@ msgstr ""
 msgid "No promoter"
 msgstr ""
 
-msgid "No result"
-msgstr ""
-
 msgid "None"
 msgstr ""
 
@@ -659,9 +653,6 @@ msgstr ""
 msgid "Search by email or last name"
 msgstr ""
 
-msgid "Search for an organization"
-msgstr ""
-
 msgid "Select Excel file to inject mandates"
 msgstr ""
 
@@ -786,9 +777,6 @@ msgid "Tutoring document"
 msgstr ""
 
 msgid "Type"
-msgstr ""
-
-msgid "Types"
 msgstr ""
 
 msgid "Unfavourable"

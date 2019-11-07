@@ -58,7 +58,7 @@
         {% if filter is False %}
             <div class="row" style="padding-bottom: 5px;">
                 <div class="col-md-6 text-left">
-                    <a href="{% url 'export_mandates_for_entity_pdf' year %}" class="btn btn-default">
+                    <a href="{% url 'export_mandates_for_entity_pdf' year %}" class="btn btn-default no_spinner">
                         {% trans 'Exporting all data to a PDF file'%}
                     </a>
                 </div>
