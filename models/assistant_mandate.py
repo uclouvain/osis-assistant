@@ -35,6 +35,8 @@ class AssistantMandateAdmin(admin.ModelAdmin):
 
     list_display = ('assistant', 'renewal_type', 'academic_year')
     raw_id_fields = ('assistant',)
+    list_filter = ('academic_year', 'assistant_type', 'renewal_type')
+    search_fields = ('assistant__person__first_name', 'assistant__person__last_name')
 
 
 class AssistantMandate(models.Model):
@@ -103,10 +105,6 @@ def find_mandate_by_id(mandate_id):
         return AssistantMandate.objects.get(id=mandate_id)
     except AssistantMandate.DoesNotExist:
         return None
-
-
-def find_mandate_by_academic_assistant(assistant):
-    return AssistantMandate.objects.filter(assistant=assistant).order_by('academic_year')
 
 
 def find_by_academic_year(academic_year):

@@ -25,6 +25,7 @@
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Q
 from django.forms import forms
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
@@ -36,11 +37,11 @@ import base.models.entity
 from assistant.models import academic_assistant, assistant_mandate, assistant_document_file
 from assistant.models import settings, reviewer, mandate_entity
 from assistant.models import tutoring_learning_unit_year
+from assistant.models.assistant_mandate import AssistantMandate
 from assistant.models.enums import document_type, assistant_mandate_state, reviewer_role
 from assistant.utils import assistant_access
 from assistant.utils.send_email import send_message
 from base.models import person, academic_year
-from base.models.academic_year import current_academic_year
 from base.models.enums import entity_type
 
 
@@ -58,8 +59,19 @@ class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListVie
         return reverse('access_denied')
 
     def get_queryset(self):
-        assistant = academic_assistant.find_by_person(person.find_by_user(self.request.user))
-        return assistant_mandate.find_mandate_by_academic_assistant(assistant)
+        is_current_academic_year = Q(academic_year=academic_year.starting_academic_year())
+        is_declined_or_done = Q(state__in=(assistant_mandate_state.DONE, assistant_mandate_state.DECLINED))
+        return AssistantMandate.objects.filter(
+            assistant__person__user=self.request.user
+        ).filter(
+            is_current_academic_year | is_declined_or_done
+        ).select_related(
+            "academic_year"
+        ).prefetch_related(
+            "mandateentity_set"
+        ).order_by(
+            'academic_year'
+        )
 
     def get_context_data(self, **kwargs):
         context = super(AssistantMandatesListView, self).get_context_data(**kwargs)
