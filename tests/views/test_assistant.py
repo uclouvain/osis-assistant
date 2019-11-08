@@ -75,17 +75,32 @@ class TestAssistantListView(TestCase):
             transform=lambda obj: obj
         )
 
-    def test_should_show_past_started_mandates(self):
-        past_to_do_mandate = AssistantMandateFactory(
+    def test_should_show_past_refused_mandates(self):
+        past_refused_mandate = AssistantMandateFactory(
             assistant=self.academic_assistant,
             academic_year=self.previous_acy,
-            state=assistant_mandate_state.TO_DO
+            state=assistant_mandate_state.DECLINED
         )
 
         response = self.client.get(self.url)
 
         self.assertQuerysetEqual(
             response.context["assistant_mandates_list"],
-            [past_to_do_mandate, self.assistant_mandate],
+            [past_refused_mandate, self.assistant_mandate],
+            transform=lambda obj: obj
+        )
+
+    def test_should_only_show_past_completed_or_refused_mandates(self):
+        past_to_do_mandate = AssistantMandateFactory(
+            assistant=self.academic_assistant,
+            academic_year=self.previous_acy,
+            state=assistant_mandate_state.PHD_SUPERVISOR
+        )
+
+        response = self.client.get(self.url)
+
+        self.assertQuerysetEqual(
+            response.context["assistant_mandates_list"],
+            [self.assistant_mandate],
             transform=lambda obj: obj
         )

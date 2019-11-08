@@ -107,10 +107,6 @@ def find_mandate_by_id(mandate_id):
         return None
 
 
-def find_mandate_by_academic_assistant(assistant):
-    return AssistantMandate.objects.filter(assistant=assistant).order_by('academic_year')
-
-
 def find_by_academic_year(academic_year):
     return AssistantMandate.objects.filter(academic_year=academic_year).order_by('assistant__person__last_name')
 
