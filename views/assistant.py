@@ -65,6 +65,10 @@ class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListVie
             assistant__person__user=self.request.user
         ).filter(
             is_current_academic_year | is_declined_or_done
+        ).select_related(
+            "academic_year"
+        ).prefetch_related(
+            "mandateentity_set"
         ).order_by(
             'academic_year'
         )
