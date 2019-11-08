@@ -40,7 +40,6 @@ from assistant.models.enums import document_type, assistant_mandate_state, revie
 from assistant.utils import assistant_access
 from assistant.utils.send_email import send_message
 from base.models import person, academic_year
-from base.models.academic_year import current_academic_year
 from base.models.enums import entity_type
 
 
