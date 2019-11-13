@@ -26,6 +26,7 @@
 import datetime
 import json
 
+from django.http import HttpResponse
 from django.test import TestCase, RequestFactory, Client
 
 from assistant.models.enums import assistant_mandate_state
@@ -34,7 +35,6 @@ from assistant.tests.factories.settings import SettingsFactory
 from base.tests.factories.academic_year import AcademicYearFactory
 from base.tests.factories.learning_unit_year import LearningUnitYearFactory
 
-HTTP_OK = 200
 
 class AssistantFormViewTestCase(TestCase):
 
@@ -42,24 +42,20 @@ class AssistantFormViewTestCase(TestCase):
         self.factory = RequestFactory()
         self.client = Client()
         self.settings = SettingsFactory()
-        today = datetime.date.today()
 
-        self.current_academic_year = AcademicYearFactory(
-            start_date=today.replace(year=today.year-1),
-            end_date=today.replace(year=today.year+1),
-            year=today.year-1,
+        self.current_academic_year = AcademicYearFactory(current=True)
+
+        self.assistant_mandate = AssistantMandateFactory(
+            academic_year=self.current_academic_year,
+            state=assistant_mandate_state.TRTS
         )
-
-        self.assistant_mandate = AssistantMandateFactory(academic_year=self.current_academic_year)
-        self.assistant_mandate.state = assistant_mandate_state.TRTS
-        self.assistant_mandate.save()
         LearningUnitYearFactory(academic_year=self.current_academic_year, acronym="LBIR1210")
         LearningUnitYearFactory(academic_year=self.current_academic_year, acronym="LBIR1211")
 
     def test_assistant_form_part4_edit_view_basic(self):
         self.client.force_login(self.assistant_mandate.assistant.person.user)
         response = self.client.get('/assistants/assistant/form/part4/edit/')
-        self.assertEqual(response.status_code, HTTP_OK)
+        self.assertEqual(response.status_code, HttpResponse.status_code)
 
     def test_get_learning_units_year(self):
         self.client.force_login(self.assistant_mandate.assistant.person.user)
