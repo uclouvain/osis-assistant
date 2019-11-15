@@ -37,6 +37,8 @@ from assistant.models.review import Review
 from assistant.utils import manager_access
 from base.models import academic_year
 
+SELECTED_ACADEMIC_YEAR_KEY_SESSION = 'selected_academic_year'
+
 
 class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
     context_object_name = 'mandates_list'
@@ -50,34 +52,29 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
         return reverse('assistants_home')
 
     def get_queryset(self):
-        form_class = MandatesArchivesForm
-        form = form_class(self.request.GET)
+        form = self.form_class(self.request.GET)
+
         if form.is_valid():
-            self.request.session['selected_academic_year'] = form.cleaned_data[
-                'academic_year'].id
-            queryset = assistant_mandate.AssistantMandate.objects.filter(
-                academic_year=form.cleaned_data['academic_year'])
-        elif self.request.session.get('selected_academic_year'):
-            selected_academic_year = academic_year.AcademicYear.objects.get(
-                id=self.request.session.get('selected_academic_year'))
-            queryset = assistant_mandate.AssistantMandate.objects\
-                .filter(academic_year=selected_academic_year)
+            selected_academic_year_id = form.cleaned_data['academic_year'].id
+        elif self.request.session.get(SELECTED_ACADEMIC_YEAR_KEY_SESSION):
+            selected_academic_year_id = self.request.session.get(SELECTED_ACADEMIC_YEAR_KEY_SESSION)
         else:
-            selected_academic_year = academic_year.starting_academic_year()
-            self.request.session[
-                'selected_academic_year'] = selected_academic_year.id
-            queryset = assistant_mandate.AssistantMandate.objects.filter(
-                academic_year=selected_academic_year)
-        queryset = queryset.select_related(
-            'academic_year', 'assistant__person', 'assistant__supervisor'
+            selected_academic_year_id = academic_year.starting_academic_year().id
+
+        self.request.session[SELECTED_ACADEMIC_YEAR_KEY_SESSION] = selected_academic_year_id
+
+        return assistant_mandate.AssistantMandate.objects.filter(
+            academic_year__id=selected_academic_year_id
+        ).select_related(
+            'academic_year',
+            'assistant__person',
+            'assistant__supervisor'
         ).prefetch_related(
             Prefetch(
                 'review_set',
                 queryset=Review.objects.all().select_related('reviewer__person')
             )
         )
-
-        return queryset
 
     def get_context_data(self, **kwargs):
         context = super(MandatesListView, self).get_context_data(**kwargs)

@@ -29,6 +29,7 @@ from django.urls import reverse
 
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.manager import ManagerFactory
+from assistant.views import mandates_list
 from base.tests.factories.academic_year import AcademicYearFactory
 
 
@@ -64,7 +65,7 @@ class TestMandatesListView(TestCase):
         self.assertEqual(context["year"], self.past_acy.year)
 
     def test_should_return_mandates_of_academic_year_in_session(self):
-        self.client.session['selected_academic_year'] = self.past_acy.id
+        self.client.session[mandates_list.SELECTED_ACADEMIC_YEAR_KEY_SESSION] = self.past_acy.id
         response = self.client.get(self.url, data={"academic_year": self.past_acy.id})
 
         context = response.context
