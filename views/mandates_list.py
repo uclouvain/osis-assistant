@@ -24,18 +24,21 @@
 #
 ##############################################################################
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models import Prefetch
+from django.db.models import Prefetch, OuterRef
 from django.urls import reverse
+from django.utils import timezone
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
-import base.models.entity
 from assistant.forms.mandate import MandatesArchivesForm
 from assistant.models import assistant_mandate
 from assistant.models.enums import assistant_mandate_state, review_advice_choices, review_status
+from assistant.models.mandate_entity import MandateEntity
 from assistant.models.review import Review
 from assistant.utils import manager_access
 from base.models import academic_year
+from base.models.entity import Entity
+from base.models.entity_version import EntityVersion
 
 SELECTED_ACADEMIC_YEAR_KEY_SESSION = 'selected_academic_year'
 
@@ -61,9 +64,9 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
         else:
             selected_academic_year_id = academic_year.starting_academic_year().id
 
+        selected_academic_year = academic_year.AcademicYear.objects.get(id=selected_academic_year_id)
         self.request.session[SELECTED_ACADEMIC_YEAR_KEY_SESSION] = selected_academic_year_id
-
-        return assistant_mandate.AssistantMandate.objects.filter(
+        qs = assistant_mandate.AssistantMandate.objects.filter(
             academic_year__id=selected_academic_year_id
         ).select_related(
             'academic_year',
@@ -73,8 +76,25 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
             Prefetch(
                 'review_set',
                 queryset=Review.objects.all().select_related('reviewer__person')
-            )
+            ),
+            Prefetch(
+                "mandateentity_set",
+                queryset=MandateEntity.objects.prefetch_related(
+                    Prefetch(
+                        "entity",
+                        queryset=Entity.objects.prefetch_related(
+                            Prefetch(
+                                "entityversion_set",
+                                queryset=EntityVersion.objects.current(selected_academic_year.start_date),
+                                to_attr="versions"
+                            )
+                        )
+                    )
+                ).order_by("id"),
+                to_attr="mandate_entitites"
+            ),
         )
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super(MandatesListView, self).get_context_data(**kwargs)
@@ -83,11 +103,6 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
         context['assistant_mandate_state'] = assistant_mandate_state
         context['review_advice_choices'] = review_advice_choices
         context['review_status'] = review_status
-        start_date = academic_year.find_academic_year_by_id(int(self.request.session.get(
-            'selected_academic_year'))).start_date
-        for mandate in context['object_list']:
-            entities_id = mandate.mandateentity_set.all().order_by('id').values_list('entity', flat=True)
-            mandate.entities = base.models.entity.find_versions_from_entites(entities_id, start_date)
         return context
 
     def get_initial(self):

@@ -76,10 +76,12 @@
                         </td>
                         <td>
                             <ul>
-                            {% for entity in mandate.entities %}
+                            {% for mandate_entity in mandate.mandate_entitites %}
+                                {% for entity_version in mandate_entity.entity.versions %}
                                 <li>
-                                    {% trans entity.entity_type %} : {{ entity.acronym }}
+                                    {{ entity_version.get_entity_type_display }} : {{ entity_version.acronym }}
                                 </li>
+                                {% endfor %}
                             {% endfor %}
                             </ul>
                         </td>
