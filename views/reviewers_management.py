@@ -23,8 +23,11 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+import datetime
+
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Prefetch, OuterRef, Count
 from django.forms.forms import NON_FIELD_ERRORS
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
@@ -38,8 +41,12 @@ from django.views.generic.edit import FormMixin
 from assistant.forms.mandate import MandatesArchivesForm
 from assistant.forms.reviewer import ReviewerForm, ReviewerReplacementForm, ReviewersFormset
 from assistant.models import reviewer, review
+from assistant.models.reviewer import Reviewer
 from assistant.utils import manager_access
 from base.models import academic_year, person, entity_version
+from base.models.entity import Entity
+from base.models.entity_version import EntityVersion
+from osis_common.utils.datetime import get_tzinfo
 
 
 class ReviewersListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
@@ -64,24 +71,46 @@ class ReviewersListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormM
 
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
 def reviewers_index(request):
-    all_reviewers = reviewer.find_reviewers()
-    initial_formset_content = [{'action': None,
-                                'entity': rev.entity,
-                                'entity_version': entity_version.get_last_version(rev.entity),
-                                'role': rev.role,
-                                'person': rev.person,
-                                'id': rev.id,
-                                } for rev in all_reviewers]
+    now = datetime.datetime.now(get_tzinfo())
+    reviewers = Reviewer.objects.all().order_by(
+        'person__last_name'
+    ).select_related(
+        'person'
+    ).prefetch_related(
+        Prefetch(
+            "entity",
+            queryset=Entity.objects.prefetch_related(
+                Prefetch(
+                    "entityversion_set",
+                    queryset=EntityVersion.objects.current(now),
+                    to_attr="versions"
+                )
+            )
+        )
+    ).annotate(
+        number_reviews=Count("review")
+    )
+
+    reviewers_formset = generate_reviewers_formset(reviewers)
+    return render(request, "reviewers_list.html", {'reviewers_formset': reviewers_formset})
+
+
+def generate_reviewers_formset(reviewers):
+    initial_formset_content = [{
+        'action': None,
+        'entity': rev.entity,
+        'entity_version': rev.entity.versions[0],
+        'role': rev.role,
+        'person': rev.person,
+        'id': rev.id,
+    } for rev in reviewers]
     reviewers_formset = formset_factory(ReviewersFormset, extra=0)(initial=initial_formset_content)
-    for form in reviewers_formset:
-        current_reviewer = reviewer.find_by_id(form['id'].value())
-        if review.find_by_reviewer(current_reviewer).count() == 0:
-            form.fields['action'].choices = (('-----', '-----'), ('DELETE', _('Delete')),
-                                             ('REPLACE', _('Replace')))
+    for form, rev in zip(reviewers_formset, reviewers):
+        if rev.number_reviews == 0:
+            form.fields['action'].choices = (('-----', '-----'), ('DELETE', _('Delete')), ('REPLACE', _('Replace')))
         else:
             form.fields['action'].choices = (('-----', '-----'), ('REPLACE', _('Replace')))
-    return render(request, "reviewers_list.html", {'reviewers_formset': reviewers_formset
-                                                   })
+    return reviewers_formset
 
 
 @require_http_methods(["POST"])

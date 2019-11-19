@@ -26,7 +26,9 @@
 import datetime
 
 from django.forms import formset_factory
+from django.http import HttpResponse
 from django.test import RequestFactory, TestCase, Client
+from django.urls import reverse
 
 from assistant.forms.reviewer import ReviewersFormset
 from assistant.models.enums import reviewer_role
@@ -44,6 +46,43 @@ from base.tests.factories.person import PersonFactory
 
 HTTP_OK = 200
 HTTP_FOUND = 302
+
+
+class TestReviewersIndex(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.past_acy, cls.current_acy, cls.next_acy = AcademicYearFactory.produce()
+
+        cls.manager = ManagerFactory()
+        cls.url = reverse("reviewers_list")
+
+    def setUp(self) -> None:
+        self.client.force_login(self.manager.person.user)
+
+    def test_when_no_reviewer(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HttpResponse.status_code)
+        self.assertTemplateUsed(response, "reviewers_list.html")
+
+        context = response.context
+        self.assertEqual(len(context['reviewers_formset']), 0)
+
+    def test_when_reviewers(self):
+        reviewers = ReviewerFactory.create_batch(5)
+        for reviewer in reviewers:
+            EntityVersionFactory(entity=reviewer.entity)
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, HttpResponse.status_code)
+        self.assertTemplateUsed(response, "reviewers_list.html")
+
+        context = response.context
+        self.assertCountEqual(
+            [form['id'].value() for form in context['reviewers_formset']],
+            [reviewer.id for reviewer in reviewers]
+        )
 
 
 class ReviewersManagementViewTestCase(TestCase):
