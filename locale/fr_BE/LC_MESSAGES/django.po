@@ -313,7 +313,7 @@ msgid "Duration of contract (FTE)"
 msgstr "Durée contrat (ETP)"
 
 msgid "Edit"
-msgstr "Editer"
+msgstr "Modifier"
 
 msgid "Email"
 msgstr "Email"
