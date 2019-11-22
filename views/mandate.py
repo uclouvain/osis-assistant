@@ -123,10 +123,10 @@ def generate_xls():
     workbook = Workbook(encoding='utf-8')
     worksheet = workbook.active
     worksheet.title = _('Mandates')
-    worksheet.append([_(entity_type.SECTOR),
-                      _(entity_type.FACULTY),
-                      _(entity_type.LOGISTICS_ENTITY),
-                      _(entity_type.INSTITUTE),
+    worksheet.append([_("Sector"),
+                      _("Faculty"),
+                      _("Logistics entity"),
+                      _("Institute"),
                       _("Registration number"),
                       _("Name"),
                       _("Firstname"),
@@ -166,11 +166,11 @@ def construct_line(mandate):
         person.calculate_age(mandate.assistant.person),
     ]
     line += [
-        _(mandate.state),
+        mandate.get_state_display(),
     ]
     line += [
-        _(mandate.renewal_type),
-        _(str(mandate.assistant_type)),
+        mandate.get_renewal_type_display(),
+        mandate.get_assistant_type_display(),
         mandate.fulltime_equivalent,
         mandate.contract_duration_fte,
         mandate.contract_duration,

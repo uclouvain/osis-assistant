@@ -25,14 +25,11 @@
 * at the root of the source code of this program.  If not,
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
-{% block style %}
-<link rel="stylesheet" href="{% static 'css/custom.css' %}">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css">
-{% endblock %}
 {% block breadcrumb %}
 <li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
 <li class="active">{% trans 'List of mandates' %}</li>
 {% endblock %}
+
 {% block content %}
 <div class="page-header">
     <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
@@ -49,99 +46,102 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table id="myTable" class="table table-hover table-condensed table-bordered" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-            <th>{% trans 'Registration number' %}</th>
-            <th>{% trans 'Assistant' %}</th>
-            <th>{% trans 'Entities' %}</th>
-            <th>{% trans 'Assistant type' %}</th>
-            <th>{% trans 'Status' %}</th>
-            <th>{% trans 'Ph.D.' %}</th>
-            <th>{% trans 'Mandate' %}</th>
-            <th>{% trans 'Full-time equivalent' %}</th>
-            <th>{% trans '% FTE' %}</th>
-            <th>{% trans 'Opinions' %}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for mandate in object_list %}
-                <tr>
-                <td>{{ mandate.sap_id }}</td>
-                <td><form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
-                    {{ form.non_field_errors }}
- 		            {% csrf_token %}
-                    <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
-                    <a href="mailto:{{ mandate.assistant.person.email }}">{{ mandate.assistant }}</a>
-                    <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
-                        <span class="far fa-edit" aria-hidden="true"></span> {% trans 'Edit'%}
-                    </button></form>
-                </td>
-                <td><ul>
-                {% for entity in mandate.entities %}
-                    <li>
-                        {% trans entity.entity_type %} : {{ entity.acronym }}
-                    </li>
+            <table id="myTable" class="table table-hover table-condensed table-bordered" role="presentation">
+                <thead>
+                    <tr>
+                        <th>{% trans 'Registration number' %}</th>
+                        <th>{% trans 'Assistant' %}</th>
+                        <th>{% trans 'Entities' %}</th>
+                        <th>{% trans 'Assistant type' %}</th>
+                        <th>{% trans 'Status' %}</th>
+                        <th>{% trans 'Ph.D.' %}</th>
+                        <th>{% trans 'Mandate' %}</th>
+                        <th>{% trans 'Full-time equivalent' %}</th>
+                        <th>{% trans '% FTE' %}</th>
+                        <th>{% trans 'Opinions' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for mandate in object_list %}
+                    <tr>
+                        <td>{{ mandate.sap_id }}</td>
+                        <td><form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
+                            {{ form.non_field_errors }}
+                            {% csrf_token %}
+                            <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
+                            <a href="mailto:{{ mandate.assistant.person.email }}">{{ mandate.assistant }}</a>
+                            <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
+                                <span class="far fa-edit" aria-hidden="true"></span> {% trans 'Edit'%}
+                            </button></form>
+                        </td>
+                        <td>
+                            <ul>
+                            {% for mandate_entity in mandate.mandate_entitites %}
+                                {% for entity_version in mandate_entity.entity.versions %}
+                                <li>
+                                    {{ entity_version.get_entity_type_display }} : {{ entity_version.acronym }}
+                                </li>
+                                {% endfor %}
+                            {% endfor %}
+                            </ul>
+                        </td>
+                        <td>{% trans mandate.get_assistant_type_display %}</td>
+                        <td>
+                            {% trans mandate.get_state_display %}
+                            {% if mandate.state == assistant_mandate_state.PHD_SUPERVISOR %}
+                                <h6>
+                                    <a href="mailto:{{ mandate.assistant.supervisor.email }}">{{ mandate.assistant.supervisor }}
+                                    </a>
+                                </h6>
+                            {% endif %}
+                        </td>
+                        <td>{% if mandate.assistant.inscription %}
+                                {% trans mandate.assistant.inscription|yesno|title %}
+                            {% endif %}
+                        </td>
+                        <td>{{ mandate.contract_duration }}</td>
+                        <td>{{ mandate.contract_duration_fte }}</td>
+                        <td>{{ mandate.fulltime_equivalent }}</td>
+                        <td>
+                        {% for review in mandate.review_set.all|dictsort:"changed" %}
+                            {% if review.status == review_status.DONE %}
+                                {% if not review.reviewer %}
+                                    <i id="rev" class="fas fa-battery-quarter" style="font-size: 100%;
+                                {% elif "RESEARCH" in review.reviewer.role %}
+                                    <i class="fas fa-battery-half" style="font-size: 100%;
+                                {% elif "SUPERVISION" in review.reviewer.role %}
+                                    <i class="fas fa-battery-three-quarters" style="font-size: 100%;
+                                {% elif "VICE_RECTOR" in review.reviewer.role %}
+                                    <i class="fas fa-battery-full" style="font-size: 100%;
+                                {% else %}
+                                    <i id="rev" class="fas fa-battery-quarter" style="font-size: 100%;
+                                {% endif %}
+                                {% if review.advice == "FAVORABLE" %}
+                                     color: #79C84F;"
+                                {% elif review.advice == review_advice_choices.UNFAVOURABLE %}
+                                     color: #E06D5A;"
+                                {% else %}
+                                     color: #EFC345;"
+                                {% endif %}
+                                {% if review.reviewer %}
+                                    title="{% trans review.reviewer.role %} : {{ review.reviewer.person }}">
+                                {% else %}
+                                    title="{% trans 'Thesis promoter' %} : {{ mandate.assistant.supervisor }}">
+                                {% endif %}
+                                </i>
+                            {% endif %}
+                        {% endfor %}
+                        </td>
+                    </tr>
                 {% endfor %}
-                </ul></td>
-                <td>{% trans mandate.get_assistant_type_display %}</td>
-                <td>
-                    {% trans mandate.get_state_display %}
-                    {% if mandate.state == assistant_mandate_state.PHD_SUPERVISOR %}
-                        <h6>
-                            <a href="mailto:{{ mandate.assistant.supervisor.email }}">{{ mandate.assistant.supervisor }}
-                            </a>
-                        </h6>
-                    {% endif %}
-                </td>
-                <td>{% if mandate.assistant.inscription %}
-                        {% trans mandate.assistant.inscription|yesno|title %}
-                    {% endif %}
-                </td>
-                <td>{{ mandate.contract_duration }}</td>
-                <td>{{ mandate.contract_duration_fte }}</td>
-                <td>{{ mandate.fulltime_equivalent }}</td>
-                <td>
-                {% for review in mandate.review_set.all|dictsort:"changed" %}
-                    {% if review.status == review_status.DONE %}
-                        {% if not review.reviewer %}
-                            <i id="rev" class="fas fa-battery-quarter" style="font-size: 100%;
-                        {% elif "RESEARCH" in review.reviewer.role %}
-                            <i class="fas fa-battery-half" style="font-size: 100%;
-                        {% elif "SUPERVISION" in review.reviewer.role %}
-                            <i class="fas fa-battery-three-quarters" style="font-size: 100%;
-                        {% elif "VICE_RECTOR" in review.reviewer.role %}
-                            <i class="fas fa-battery-full" style="font-size: 100%;
-                        {% else %}
-                            <i id="rev" class="fas fa-battery-quarter" style="font-size: 100%;
-                        {% endif %}
-                        {% if review.advice == "FAVORABLE" %}
-                             color: #79C84F;"
-                        {% elif review.advice == review_advice_choices.UNFAVOURABLE %}
-                             color: #E06D5A;"
-                        {% else %}
-                             color: #EFC345;"
-                        {% endif %}
-                        {% if review.reviewer %}
-                            title="{% trans review.reviewer.role %} : {{ review.reviewer.person }}">
-                        {% else %}
-                            title="{% trans 'Thesis promoter' %} : {{ mandate.assistant.supervisor }}">
-                        {% endif %}
-                        </i>
-                    {% endif %}
-                {% endfor %}
-                </td>
-            </tr>
-            {% endfor %}
-            </tbody>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 {% endblock %}
+
 {% block script %}
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
  <script>
  $(document).ready(function() {
     $('#myTable').DataTable( {
