@@ -25,7 +25,7 @@
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from django.forms import forms
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
@@ -33,15 +33,17 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic.edit import FormMixin
 from django.views.generic.list import ListView
 
-import base.models.entity
+from base.models.entity import Entity
 from assistant.models import academic_assistant, assistant_mandate, assistant_document_file
 from assistant.models import settings, reviewer, mandate_entity
 from assistant.models import tutoring_learning_unit_year
 from assistant.models.assistant_mandate import AssistantMandate
 from assistant.models.enums import document_type, assistant_mandate_state, reviewer_role
+from assistant.models.mandate_entity import MandateEntity
 from assistant.utils import assistant_access
 from assistant.utils.send_email import send_message
 from base.models import person, academic_year
+from base.models.entity_version import EntityVersion
 from base.models.enums import entity_type
 
 
@@ -59,7 +61,8 @@ class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListVie
         return reverse('access_denied')
 
     def get_queryset(self):
-        is_current_academic_year = Q(academic_year=academic_year.starting_academic_year())
+        current_academic_year = academic_year.starting_academic_year()
+        is_current_academic_year = Q(academic_year=current_academic_year)
         is_declined_or_done = Q(state__in=(assistant_mandate_state.DONE, assistant_mandate_state.DECLINED))
         return AssistantMandate.objects.filter(
             assistant__person__user=self.request.user
@@ -68,7 +71,22 @@ class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListVie
         ).select_related(
             "academic_year"
         ).prefetch_related(
-            "mandateentity_set"
+            Prefetch(
+                "mandateentity_set",
+                queryset=MandateEntity.objects.prefetch_related(
+                    Prefetch(
+                        "entity",
+                        queryset=Entity.objects.prefetch_related(
+                            Prefetch(
+                                "entityversion_set",
+                                queryset=EntityVersion.objects.current(current_academic_year.start_date),
+                                to_attr="versions"
+                            )
+                        )
+                    )
+                ).order_by("id"),
+                to_attr="mandate_entitites"
+            ),
         ).order_by(
             'academic_year'
         )
@@ -78,10 +96,6 @@ class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListVie
         context['assistant'] = academic_assistant.find_by_person(person.find_by_user(self.request.user))
         context['current_academic_year'] = academic_year.starting_academic_year()
         context['can_see_file'] = settings.assistants_can_see_file()
-        for mandate in context['object_list']:
-            entities_id = mandate.mandateentity_set.all().order_by('id').values_list('entity', flat=True)
-            mandate.entities = base.models.entity.find_versions_from_entites(entities_id,
-                                                                             mandate.academic_year.start_date)
         return context
 
 

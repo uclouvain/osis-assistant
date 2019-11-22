@@ -59,10 +59,12 @@
 			<td>{{ mandate.academic_year }}</td>	
 			<td>
                 <ul>
-                    {% for entity in mandate.entities %}
-                        <li>
-                            {% trans entity.entity_type %} : {{ entity.acronym }}
-                        </li>
+                    {% for mandate_entity in mandate.mandate_entitites %}
+                        {% for entity_version in mandate_entity.entity.versions %}
+                            <li>
+                                {{ entity_version.get_entity_type_display }} : {{ entity_version.acronym }}
+                            </li>
+                        {% endfor %}
                     {% endfor %}
                 </ul>
             </td>
