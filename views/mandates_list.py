@@ -44,7 +44,7 @@ SELECTED_ACADEMIC_YEAR_KEY_SESSION = 'selected_academic_year'
 
 class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
     context_object_name = 'mandates_list'
-    template_name = 'mandates_list.html'
+    template_name = 'assistant/mandates_list.html'
     form_class = MandatesArchivesForm
 
     def test_func(self):
@@ -98,7 +98,8 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
     def get_context_data(self, **kwargs):
         context = super(MandatesListView, self).get_context_data(**kwargs)
         context['year'] = academic_year.find_academic_year_by_id(
-                self.request.session.get('selected_academic_year')).year
+                self.request.session.get('selected_academic_year')
+        ).year
         context['assistant_mandate_state'] = assistant_mandate_state
         context['review_advice_choices'] = review_advice_choices
         context['review_status'] = review_status
