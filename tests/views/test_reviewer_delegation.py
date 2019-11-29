@@ -26,6 +26,7 @@
 import datetime
 
 from django.test import TestCase, RequestFactory, Client
+from django.http.response import HttpResponseRedirect, HttpResponse
 
 from assistant.models.academic_assistant import is_supervisor
 from assistant.models.enums import assistant_mandate_state, review_status
@@ -46,8 +47,6 @@ from base.tests.factories.entity import EntityFactory
 from base.tests.factories.entity_version import EntityVersionFactory
 from base.tests.factories.person import PersonFactory
 
-HTTP_OK = 200
-HTTP_FOUND = 302
 
 class StructuresListView(TestCase):
 
@@ -86,7 +85,7 @@ class StructuresListView(TestCase):
         self.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
                                         entity=self.entity_version.entity)
         self.reviewer2 = ReviewerFactory(role=reviewer_role.VICE_RECTOR,
-                                        entity=self.entity_version2.entity)
+                                         entity=self.entity_version2.entity)
         self.entity_version3 = EntityVersionFactory(entity_type=entity_type.FACULTY)
         self.reviewer3 = ReviewerFactory(role=reviewer_role.SUPERVISION,
                                          entity=self.entity_version3.entity)
@@ -96,7 +95,7 @@ class StructuresListView(TestCase):
 
     def test_with_unlogged_user(self):
         response = self.client.get('/assistants/reviewer/delegation/')
-        self.assertEqual(response.status_code, HTTP_FOUND)
+        self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
 
     def test_context_data(self):
         self.client.force_login(self.reviewer.person.user)
@@ -116,7 +115,7 @@ class StructuresListView(TestCase):
                                  )
         self.assertEqual(response.context['entity'], entity_version.get_last_version(self.reviewer.entity))
         self.assertEqual(response.context['year'], self.current_academic_year.year)
-        self.assertEqual(response.status_code, HTTP_OK)
+        self.assertEqual(response.status_code, HttpResponse.status_code)
         self.assertEqual(response.context['current_reviewer'], find_by_person(self.reviewer.person))
         self.assertEqual(response.context['is_supervisor'], is_supervisor(self.reviewer.person))
 
@@ -125,12 +124,11 @@ class StructuresListView(TestCase):
         this_entity = find_versions_from_entites([self.entity_factory.id], date=None)[0]
         response = self.client.post('/assistants/reviewer/delegate/add/',
                                     {
-                                        #'person_id': self.delegate.id,
                                         'entity': this_entity.id,
                                         'role': self.reviewer.role
                                     }
                                     )
-        self.assertEqual(response.status_code, HTTP_OK)
+        self.assertEqual(response.status_code, HttpResponse.status_code)
 
     def test_add_reviewer_for_structure_with_person_already_reviewer(self):
         self.client.force_login(self.reviewer.person.user)
@@ -142,7 +140,7 @@ class StructuresListView(TestCase):
                                         'role': self.reviewer.role
                                     }
                                     )
-        self.assertEqual(response.status_code, HTTP_OK)
+        self.assertEqual(response.status_code, HttpResponse.status_code)
 
     def test_add_reviewer_for_structure_with_valid_data(self):
         self.client.force_login(self.reviewer.person.user)
@@ -154,10 +152,10 @@ class StructuresListView(TestCase):
                                         'role': self.reviewer.role
                                     }
                                     )
-        self.assertEqual(response.status_code, HTTP_FOUND)
+        self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
         self.assertTrue(find_by_person(self.delegate))
 
     def test_add_reviewer_for_structure_if_logged_reviewer_cannot_delegate(self):
         self.client.force_login(self.reviewer2.person.user)
         response = self.client.post('/assistants/reviewer/delegate/add/', {'entity': self.reviewer.entity.id})
-        self.assertEqual(response.status_code, HTTP_FOUND)
+        self.assertEqual(response.status_code, HttpResponseRedirect.status_code)

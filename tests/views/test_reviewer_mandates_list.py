@@ -26,6 +26,7 @@
 import datetime
 
 from django.test import TestCase, RequestFactory, Client
+from django.http.response import HttpResponse, HttpResponseRedirect
 
 from assistant.models.assistant_mandate import find_by_academic_year
 from assistant.models.enums import assistant_mandate_state, review_status
@@ -43,11 +44,8 @@ from base.tests.factories.academic_year import AcademicYearFactory
 from base.tests.factories.entity_version import EntityVersionFactory
 from base.tests.factories.person import PersonFactory
 
-HTTP_OK = 200
-HTTP_FOUND = 302
 
 class ReviewerMandatesListViewTestCase(TestCase):
-
     def setUp(self):
         self.factory = RequestFactory()
         self.client = Client()
@@ -86,8 +84,7 @@ class ReviewerMandatesListViewTestCase(TestCase):
 
     def test_with_unlogged_user(self):
         response = self.client.get('/assistants/reviewer/')
-        self.assertEqual(response.status_code, HTTP_FOUND)
-
+        self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
 
     def test_context_data(self):
         self.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
