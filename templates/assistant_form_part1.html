@@ -67,7 +67,7 @@
 			<label style="padding-top: 5px" for="renewal_type">{% trans 'Renewal type' %}
 			</label>
 			<div class="controls" id="renewal_type">
-				{% trans mandate.renewal_type %}
+				{{  mandate.get_renewal_type_display }}
 			</div>
 			{% for structure in mandate.mandatestructure_set.all|dictsort:"id" %}
 				<label style="padding-top: 15px" for="structures">
@@ -82,7 +82,7 @@
       		<div class="controls" id="date_of_first_nomination">{{mandate.entry_date}}</div>
       		<label  style="padding-top: 15px" for="field">{% trans 'Mandate type' %}</label>
 			<div class="controls" id="field">
-				{% trans mandate.assistant_type %}
+				{{ mandate.get_assistant_type_display }}
 			</div>
       	</div>
     	<div class="panel-default">

@@ -36,6 +36,7 @@ from assistant.forms.assistant import AssistantFormPart1, AssistantFormPart3, As
     AssistantFormPart6
 from assistant.forms.tutoring_learning_unit import TutoringLearningUnitForm
 from assistant.models import *
+from assistant.models.assistant_mandate import AssistantMandate
 from assistant.models.enums import assistant_mandate_state, assistant_phd_inscription
 from assistant.models.enums import document_type
 from assistant.utils.assistant_access import user_is_assistant_and_procedure_is_open_and_workflow_is_assistant
@@ -64,18 +65,23 @@ def get_learning_units_year(request):
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
 def form_part1_edit(request, msg=None):
-    mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
-        academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
-    assistant = mandate.assistant
+    starting_academic_year = academic_year.starting_academic_year()
+    mandate = AssistantMandate.objects.filter(
+        assistant__person__user=request.user,
+        academic_year=starting_academic_year
+    ).select_related(
+        "assistant",
+    ).get()
     form = AssistantFormPart1(initial={'external_functions': mandate.external_functions,
                                        'external_contract': mandate.external_contract,
                                        'justification': mandate.justification})
 
-    return render(request, "assistant_form_part1.html", {'assistant': assistant,
-                                                         'mandate': mandate,
-                                                         'form': form,
-                                                         'msg': msg,
-                                                         'supervisor': assistant.supervisor})
+    return render(request, "assistant_form_part1.html", {
+        'assistant': mandate.assistant,
+        'mandate': mandate,
+        'form': form,
+        'msg': msg,
+    })
 
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')

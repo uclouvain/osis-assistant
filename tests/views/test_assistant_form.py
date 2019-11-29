@@ -23,17 +23,46 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import datetime
 import json
 
 from django.http import HttpResponse
 from django.test import TestCase, RequestFactory, Client
+from django.urls import reverse
 
 from assistant.models.enums import assistant_mandate_state
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.settings import SettingsFactory
 from base.tests.factories.academic_year import AcademicYearFactory
 from base.tests.factories.learning_unit_year import LearningUnitYearFactory
+
+from assistant.forms import assistant as assistant_forms
+
+
+class TestAssistantAdministrativeForm(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        SettingsFactory()
+        cls.get_url = reverse("form_part1_edit")
+        cls.post_url = reverse("form_part1_save")
+
+    def setUp(self) -> None:
+        self.assistant_mandate = AssistantMandateFactory(
+            academic_year__current=True,
+            state=assistant_mandate_state.TRTS
+        )
+        self.client.force_login(self.assistant_mandate.assistant.person.user)
+
+    def test_get_request(self):
+        response = self.client.get(self.get_url)
+
+        self.assertTemplateUsed(response, "assistant_form_part1.html")
+
+        context = response.context
+        self.assertEqual(context["assistant"], self.assistant_mandate.assistant)
+        self.assertEqual(context["mandate"], self.assistant_mandate)
+        self.assertEqual(context["supervisor"], self.assistant_mandate.assistant.supervisor)
+        self.assertIsNone(context["msg"])
+        self.assertIsInstance(context["form"], assistant_forms.AssistantFormPart1)
 
 
 class AssistantFormViewTestCase(TestCase):
