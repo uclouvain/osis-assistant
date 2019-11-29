@@ -29,21 +29,19 @@ from django.http import HttpResponse
 from django.test import TestCase, RequestFactory, Client
 from django.urls import reverse
 
+from assistant.forms import assistant as assistant_forms
 from assistant.models.enums import assistant_mandate_state
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.settings import SettingsFactory
 from base.tests.factories.academic_year import AcademicYearFactory
 from base.tests.factories.learning_unit_year import LearningUnitYearFactory
 
-from assistant.forms import assistant as assistant_forms
-
 
 class TestAssistantAdministrativeForm(TestCase):
     @classmethod
     def setUpTestData(cls):
         SettingsFactory()
-        cls.get_url = reverse("form_part1_edit")
-        cls.post_url = reverse("form_part1_save")
+        cls.url = reverse("form_part1_edit")
 
     def setUp(self) -> None:
         self.assistant_mandate = AssistantMandateFactory(
@@ -53,16 +51,25 @@ class TestAssistantAdministrativeForm(TestCase):
         self.client.force_login(self.assistant_mandate.assistant.person.user)
 
     def test_get_request(self):
-        response = self.client.get(self.get_url)
+        response = self.client.get(self.url)
 
         self.assertTemplateUsed(response, "assistant_form_part1.html")
 
         context = response.context
         self.assertEqual(context["assistant"], self.assistant_mandate.assistant)
         self.assertEqual(context["mandate"], self.assistant_mandate)
-        self.assertEqual(context["supervisor"], self.assistant_mandate.assistant.supervisor)
-        self.assertIsNone(context["msg"])
-        self.assertIsInstance(context["form"], assistant_forms.AssistantFormPart1)
+        self.assertIsInstance(context["form"], assistant_forms.AdministrativeInformationsForm)
+
+    def test_post_request(self):
+        response = self.client.post(self.url, data={
+            "mandate_id": str(self.assistant_mandate.id),
+            "external_functions": "This is a explanation"
+        })
+
+        self.assertTemplateUsed(response, "assistant_form_part1.html")
+
+        self.assistant_mandate.refresh_from_db()
+        self.assertEqual(self.assistant_mandate.external_functions, "This is a explanation")
 
 
 class AssistantFormViewTestCase(TestCase):

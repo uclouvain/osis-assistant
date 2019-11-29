@@ -53,10 +53,7 @@ urlpatterns = [
         ])),
         url(r'^export_pdf/$', export_utils_pdf.export_mandate, name='export_mandate_pdf'),
         url(r'^form/', include([
-            url(r'^part1/', include([
-                url(r'^edit/$', assistant_form.form_part1_edit, name='form_part1_edit'),
-                url(r'^save/$', assistant_form.form_part1_save, name='form_part1_save'),
-            ])),
+            url(r'^part1/edit/$', assistant_form.edit_administrative_informations, name='form_part1_edit'),
             url(r'^part2/', include([
                 url(r'^get_learning_units_year/', assistant_form.get_learning_units_year,
                     name='get_learning_units_year'),
@@ -145,7 +142,7 @@ urlpatterns = [
     ])),
 
     url(r'^reviewer/', include([
-        url(r'^$', reviewer_mandates_list.MandatesListView.as_view(), { 'filter': False },
+        url(r'^$', reviewer_mandates_list.MandatesListView.as_view(), {'filter': False},
             name='reviewer_mandates_list'),
         url(r'^delegate/add/$', reviewer_delegation.add_reviewer_for_structure,
             name='reviewer_delegation_add'),

@@ -34,7 +34,7 @@ from assistant.forms.common import RADIO_SELECT_REQUIRED
 from assistant.models.enums import assistant_phd_inscription
 
 
-class AssistantFormPart1(ModelForm):
+class AdministrativeInformationsForm(ModelForm):
     external_functions = forms.CharField(
         required=False, widget=forms.Textarea(attrs={'cols': '60', 'rows': '4'}))
     external_contract = forms.CharField(
@@ -47,7 +47,7 @@ class AssistantFormPart1(ModelForm):
         fields = ('external_functions', 'external_contract', 'justification')
 
     def __init__(self, *args, **kwargs):
-        super(AssistantFormPart1, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['external_functions'].widget.attrs['class'] = 'form-control'
         self.fields['external_contract'].widget.attrs['class'] = 'form-control'
         self.fields['justification'].widget.attrs['class'] = 'form-control'

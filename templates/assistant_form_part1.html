@@ -44,10 +44,7 @@
 </ul>
 <div class="panel panel-default">
 	<div class="panel-body">
- 		{% if msg %}
-            <h5><p style="color:red">{{ msg }}</p></h5>
-        {% endif %}
-        <form id="pst-form-part1" method="POST" action="{% url 'form_part1_save' %}">
+        <form id="pst-form-part1" method="POST">
  		{% csrf_token %}
  		{{ form.non_field_errors }}
 		<div class="panel-default">
@@ -116,7 +113,6 @@
         <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_pstform_part1_save">
             <span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}
         </button>
-		<input type="hidden" name="mandate_id" value="{{ mandate.id }}">
     </form>
 	</div>
 </div>

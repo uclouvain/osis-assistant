@@ -26,13 +26,13 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import JsonResponse
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 
 from assistant import models as mdl
-from assistant.forms.assistant import AssistantFormPart1, AssistantFormPart3, AssistantFormPart4, AssistantFormPart5, \
+from assistant.forms.assistant import AdministrativeInformationsForm, AssistantFormPart3, AssistantFormPart4, AssistantFormPart5, \
     AssistantFormPart6
 from assistant.forms.tutoring_learning_unit import TutoringLearningUnitForm
 from assistant.models import *
@@ -64,43 +64,22 @@ def get_learning_units_year(request):
 
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
-def form_part1_edit(request, msg=None):
+def edit_administrative_informations(request):
     starting_academic_year = academic_year.starting_academic_year()
-    mandate = AssistantMandate.objects.filter(
+    mandate = get_object_or_404(
+        AssistantMandate.objects.select_related("assistant"),
         assistant__person__user=request.user,
         academic_year=starting_academic_year
-    ).select_related(
-        "assistant",
-    ).get()
-    form = AssistantFormPart1(initial={'external_functions': mandate.external_functions,
-                                       'external_contract': mandate.external_contract,
-                                       'justification': mandate.justification})
+    )
+    form = AdministrativeInformationsForm(data=request.POST or None, instance=mandate)
+    if form.is_valid():
+        form.save()
 
     return render(request, "assistant_form_part1.html", {
         'assistant': mandate.assistant,
         'mandate': mandate,
         'form': form,
-        'msg': msg,
     })
-
-
-@user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
-@require_http_methods(["POST"])
-def form_part1_save(request):
-    mandate = assistant_mandate.find_mandate_by_id(request.POST.get("mandate_id"))
-    if mandate:
-        assistant = mandate.assistant
-        pers = person.find_by_id(assistant.person.id)
-        addresses = person_address.find_by_person(pers)
-        form = AssistantFormPart1(data=request.POST, instance=mandate)
-        if form.is_valid():
-            form.save()
-            return form_part1_edit(request)
-        else:
-            return render(request, "assistant_form_part1.html", {'assistant': assistant, 'mandate': mandate,
-                                                                 'addresses': addresses, 'form': form})
-    else:
-        return form_part1_edit(request, msg=_("A problem occured, data have not been saved"))
 
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
