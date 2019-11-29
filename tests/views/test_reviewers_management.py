@@ -60,7 +60,7 @@ class TestReviewersIndex(TestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, HttpResponse.status_code)
-        self.assertTemplateUsed(response, "reviewers_list.html")
+        self.assertTemplateUsed(response, "assistant/reviewers_list.html")
 
         context = response.context
         self.assertEqual(len(context['reviewers_formset']), 0)
@@ -73,7 +73,7 @@ class TestReviewersIndex(TestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, HttpResponse.status_code)
-        self.assertTemplateUsed(response, "reviewers_list.html")
+        self.assertTemplateUsed(response, "assistant/reviewers_list.html")
 
         context = response.context
         self.assertCountEqual(

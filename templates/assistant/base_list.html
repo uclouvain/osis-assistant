@@ -47,6 +47,8 @@
                 </div>
             </div>
             <div class="table-responsive">
+                {% block pre_table %}
+                {% endblock pre_table %}
                 <table id="myTable" class="table table-hover table-condensed table-bordered" role="presentation">
                     <thead>
                     <tr>
@@ -65,6 +67,8 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                {% block post_table %}
+                {% endblock post_table %}
             </div>
         </div>
     </div>

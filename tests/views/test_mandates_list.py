@@ -51,7 +51,7 @@ class TestMandatesListView(TestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, HttpResponse.status_code)
-        self.assertTemplateUsed(response, "mandates_list.html")
+        self.assertTemplateUsed(response, "assistant/mandates_list.html")
 
         context = response.context
         self.assertCountEqual(list(context["object_list"]), self.mandates)
