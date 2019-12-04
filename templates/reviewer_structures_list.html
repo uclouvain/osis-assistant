@@ -64,8 +64,8 @@
                 <td>{{ entity.title }}</td>
                 <td>{{ entity.acronym }}</td>
                 <td align="center">
-                {% if entity.has_already_delegate %}
-                    {{ entity.has_already_delegate.person }}
+                {% if entity.delegated_reviewer %}
+                    {{ entity.delegated_reviewer.0.person }}
                 {% else %}
                     <form id=entity_version.entity.id method="POST" action="{% url 'reviewer_delegation_add' %}">
                     {{ form.non_field_errors }}

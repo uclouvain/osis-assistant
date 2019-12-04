@@ -27,6 +27,7 @@ import datetime
 
 from django.test import TestCase, RequestFactory, Client
 from django.http.response import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
 
 from assistant.models.academic_assistant import is_supervisor
 from assistant.models.enums import assistant_mandate_state, review_status
@@ -48,114 +49,113 @@ from base.tests.factories.entity_version import EntityVersionFactory
 from base.tests.factories.person import PersonFactory
 
 
-class StructuresListView(TestCase):
-
+class ReviewerDelegationDataMixin:
     def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
         self.settings = SettingsFactory()
-        today = datetime.date.today()
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
-        self.phd_supervisor = PersonFactory()
 
-        self.assistant = AcademicAssistantFactory(supervisor=self.phd_supervisor)
-        self.assistant_mandate = AssistantMandateFactory(academic_year=self.current_academic_year,
-                                                         assistant=self.assistant)
-        self.assistant_mandate.state = assistant_mandate_state.PHD_SUPERVISOR
-        self.assistant_mandate.save()
-        self.review = ReviewFactory(reviewer=None, mandate=self.assistant_mandate,
-                                    status=review_status.IN_PROGRESS)
-        self.entity_factory = EntityFactory()
-        self.entity_version = EntityVersionFactory(
-            entity_type=entity_type.INSTITUTE,
-            end_date=None,
-            entity=self.entity_factory
+        self.current_academic_year = AcademicYearFactory(current=True)
+        self.assistant_mandate = AssistantMandateFactory(
+            academic_year=self.current_academic_year,
+            state=assistant_mandate_state.PHD_SUPERVISOR
         )
-        self.entity_factory2 = EntityFactory()
-        self.entity_version2 = EntityVersionFactory(
-            entity_type=entity_type.SCHOOL,
-            end_date=None,
-            entity=self.entity_factory2
+        self.review = ReviewFactory(reviewer=None, mandate=self.assistant_mandate, status=review_status.IN_PROGRESS)
+
+        self.institute = EntityVersionFactory(entity_type=entity_type.INSTITUTE, end_date=None)
+        self.institute_child = EntityVersionFactory(parent=self.institute.entity, end_date=None)
+        self.school = EntityVersionFactory(entity_type=entity_type.SCHOOL, end_date=None)
+        self.sector = EntityVersionFactory(entity_type=entity_type.SECTOR)
+        self.faculty = EntityVersionFactory(entity_type=entity_type.FACULTY)
+
+        self.mandate_entity = MandateEntityFactory(
+            assistant_mandate=self.assistant_mandate,
+            entity=self.institute.entity
         )
-        self.entity_version2 = EntityVersionFactory(entity_type=entity_type.SECTOR)
-        self.mandate_entity = MandateEntityFactory(assistant_mandate=self.assistant_mandate,
-                                                   entity=self.entity_version.entity)
-        self.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
-                                        entity=self.entity_version.entity)
-        self.reviewer2 = ReviewerFactory(role=reviewer_role.VICE_RECTOR,
-                                         entity=self.entity_version2.entity)
-        self.entity_version3 = EntityVersionFactory(entity_type=entity_type.FACULTY)
-        self.reviewer3 = ReviewerFactory(role=reviewer_role.SUPERVISION,
-                                         entity=self.entity_version3.entity)
+        self.research_reviewer = ReviewerFactory(role=reviewer_role.RESEARCH, entity=self.institute.entity)
+        self.research_assistant_reviewer = ReviewerFactory(
+            role=reviewer_role.RESEARCH_ASSISTANT,
+            entity=self.institute_child.entity
+        )
+        self.vice_sector_reviewer = ReviewerFactory(role=reviewer_role.VICE_RECTOR, entity=self.school.entity)
+        self.supervision_reviewer = ReviewerFactory(role=reviewer_role.SUPERVISION, entity=self.faculty.entity)
 
         self.delegate = PersonFactory()
         self.delegate2 = PersonFactory()
 
-    def test_with_unlogged_user(self):
-        response = self.client.get('/assistants/reviewer/delegation/')
+
+class StructuresListView(ReviewerDelegationDataMixin, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.url = reverse("reviewer_delegation")
+
+    def test_user_should_be_logged(self):
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
 
     def test_context_data(self):
-        self.client.force_login(self.reviewer.person.user)
-        response = self.client.get('/assistants/reviewer/delegation/')
-        entities_version = entity_version.get_last_version(self.reviewer.entity).children
-        entities = [this_entity_version.entity for this_entity_version in entities_version]
-        entities.insert(0, entity_version.get_last_version(self.reviewer.entity).entity)
-        queryset = [{
-            'id': entity.id,
-            'title': entity_version.get_last_version(entity, None).title,
-            'acronym': entity.most_recent_acronym,
-            'has_already_delegate': get_delegate_for_entity(self.reviewer, entity)
-        } for entity in entities]
-        self.assertQuerysetEqual(response.context['object_list'],
-                                 queryset,
-                                 transform=lambda x: x
-                                 )
-        self.assertEqual(response.context['entity'], entity_version.get_last_version(self.reviewer.entity))
-        self.assertEqual(response.context['year'], self.current_academic_year.year)
+        self.client.force_login(self.research_reviewer.person.user)
+
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, HttpResponse.status_code)
-        self.assertEqual(response.context['current_reviewer'], find_by_person(self.reviewer.person))
-        self.assertEqual(response.context['is_supervisor'], is_supervisor(self.reviewer.person))
+
+        context = response.context
+
+        # Check if already delegated
+        entities_vers_qs = entity_version.EntityVersion.objects.filter(
+            pk__in=[self.institute.pk, self.institute_child.pk]
+        )
+        self.assertQuerysetEqual(context['object_list'], entities_vers_qs, transform=lambda x: x, ordered=False)
+        self.assertQuerysetEqual(
+            context["object_list"],
+            [tuple(), (self.research_assistant_reviewer,)],
+            transform=lambda x: tuple(x.entity.delegated_reviewer),
+            ordered=False
+        )
+
+        self.assertEqual(context['entity'], entity_version.get_last_version(self.research_reviewer.entity))
+        self.assertEqual(context['year'], self.current_academic_year.year)
+        self.assertEqual(context['current_reviewer'], find_by_person(self.research_reviewer.person))
+        self.assertFalse(context['is_supervisor'])
+
+
+class TestAddReviewerForDelegation(ReviewerDelegationDataMixin, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.url = reverse("reviewer_delegation_add")
 
     def test_add_reviewer_for_structure_with_invalid_data(self):
-        self.client.force_login(self.reviewer.person.user)
-        this_entity = find_versions_from_entites([self.entity_factory.id], date=None)[0]
-        response = self.client.post('/assistants/reviewer/delegate/add/',
-                                    {
-                                        'entity': this_entity.id,
-                                        'role': self.reviewer.role
-                                    }
-                                    )
+        self.client.force_login(self.research_reviewer.person.user)
+        this_entity = find_versions_from_entites([self.institute.entity.id], date=None)[0]
+        data = {
+            'entity': this_entity.id,
+            'role': self.research_reviewer.role
+        }
+        response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, HttpResponse.status_code)
 
     def test_add_reviewer_for_structure_with_person_already_reviewer(self):
-        self.client.force_login(self.reviewer.person.user)
-        this_entity = find_versions_from_entites([self.entity_factory.id], date=None)[0]
-        response = self.client.post('/assistants/reviewer/delegate/add/',
-                                    {
-                                        'person_id': self.reviewer2.person.id,
-                                        'entity': this_entity.id,
-                                        'role': self.reviewer.role
-                                    }
-                                    )
+        self.client.force_login(self.research_reviewer.person.user)
+        this_entity = find_versions_from_entites([self.institute.entity.id], date=None)[0]
+        data = {
+            'person_id': self.vice_sector_reviewer.person.id,
+            'entity': this_entity.id,
+            'role': self.research_reviewer.role
+        }
+        response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, HttpResponse.status_code)
 
     def test_add_reviewer_for_structure_with_valid_data(self):
-        self.client.force_login(self.reviewer.person.user)
-        this_entity = find_versions_from_entites([self.entity_factory.id], date=None)[0]
-        response = self.client.post('/assistants/reviewer/delegate/add/',
-                                    {
-                                        'person_id': self.delegate.id,
-                                        'entity': this_entity.id,
-                                        'role': self.reviewer.role
-                                    }
-                                    )
+        self.client.force_login(self.research_reviewer.person.user)
+        this_entity = find_versions_from_entites([self.institute.entity.id], date=None)[0]
+        data = {
+            'person_id': self.delegate.id,
+            'entity': this_entity.id,
+            'role': self.research_reviewer.role
+        }
+        response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
         self.assertTrue(find_by_person(self.delegate))
 
     def test_add_reviewer_for_structure_if_logged_reviewer_cannot_delegate(self):
-        self.client.force_login(self.reviewer2.person.user)
-        response = self.client.post('/assistants/reviewer/delegate/add/', {'entity': self.reviewer.entity.id})
+        self.client.force_login(self.vice_sector_reviewer.person.user)
+        response = self.client.post(self.url, {'entity': self.research_reviewer.entity.id})
         self.assertEqual(response.status_code, HttpResponseRedirect.status_code)

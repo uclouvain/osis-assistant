@@ -25,8 +25,10 @@
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Q, Prefetch
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView
@@ -50,25 +52,30 @@ class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     def get_login_url(self):
         return reverse('access_denied')
 
+    @cached_property
+    def current_reviewer(self):
+        return reviewer.find_by_person(self.request.user.person)
+
     def get_queryset(self):
-        rev = reviewer.find_by_person(self.request.user.person)
-        entities_version = entity_version.get_last_version(rev.entity).children
-        entities = [this_entity_version.entity for this_entity_version in entities_version]
-        entities.insert(0, entity_version.get_last_version(rev.entity).entity)
-        queryset = [{
-            'id': entity.id,
-            'title': entity_version.get_last_version(entity, None).title,
-            'acronym': entity.most_recent_acronym,
-            'has_already_delegate': reviewer.get_delegate_for_entity(rev, entity)
-        } for entity in entities]
-        return queryset
+        rev = self.current_reviewer
+        delegate_role = rev.role + '_ASSISTANT'
+        return entity_version.EntityVersion.objects.current(
+            academic_year.starting_academic_year().start_date
+        ).filter(
+            Q(entity=rev.entity) | Q(parent=rev.entity)
+        ).prefetch_related(
+            Prefetch(
+                "entity__reviewer_set",
+                queryset=reviewer.Reviewer.objects.filter(role=delegate_role),
+                to_attr="delegated_reviewer"
+            )
+        )
 
     def get_context_data(self, **kwargs):
         context = super(StructuresListView, self).get_context_data(**kwargs)
         context['year'] = academic_year.starting_academic_year().year
-        context['current_reviewer'] = reviewer.find_by_person(self.request.user.person)
-        entity = entity_version.get_last_version(context['current_reviewer'].entity)
-        context['entity'] = entity
+        context['current_reviewer'] = self.current_reviewer
+        context['entity'] = entity_version.get_last_version(context['current_reviewer'].entity)
         context['is_supervisor'] = is_supervisor(self.request.user.person)
         return context
 
