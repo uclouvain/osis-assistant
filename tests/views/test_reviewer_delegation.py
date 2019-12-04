@@ -81,19 +81,15 @@ class ReviewerDelegationDataMixin:
         self.delegate = PersonFactory()
         self.delegate2 = PersonFactory()
 
+        self.client.force_login(self.research_reviewer.person.user)
+
 
 class StructuresListView(ReviewerDelegationDataMixin, TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.url = reverse("reviewer_delegation")
 
-    def test_user_should_be_logged(self):
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
-
     def test_context_data(self):
-        self.client.force_login(self.research_reviewer.person.user)
-
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, HttpResponse.status_code)
 
@@ -113,7 +109,7 @@ class StructuresListView(ReviewerDelegationDataMixin, TestCase):
 
         self.assertEqual(context['entity'], entity_version.get_last_version(self.research_reviewer.entity))
         self.assertEqual(context['year'], self.current_academic_year.year)
-        self.assertEqual(context['current_reviewer'], find_by_person(self.research_reviewer.person))
+        self.assertEqual(context['current_reviewer'], find_by_person(self.research_reviewer.person)[0])
         self.assertFalse(context['is_supervisor'])
 
 
@@ -123,32 +119,30 @@ class TestAddReviewerForDelegation(ReviewerDelegationDataMixin, TestCase):
         cls.url = reverse("reviewer_delegation_add")
 
     def test_add_reviewer_for_structure_with_invalid_data(self):
-        self.client.force_login(self.research_reviewer.person.user)
-        this_entity = find_versions_from_entites([self.institute.entity.id], date=None)[0]
         data = {
-            'entity': this_entity.id,
+            'entity': self.institute.entity.id,
             'role': self.research_reviewer.role
         }
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, HttpResponse.status_code)
 
-    def test_add_reviewer_for_structure_with_person_already_reviewer(self):
-        self.client.force_login(self.research_reviewer.person.user)
-        this_entity = find_versions_from_entites([self.institute.entity.id], date=None)[0]
+    def test_can_add_reviewer_for_structure_with_person_already_reviewer(self):
         data = {
             'person_id': self.vice_sector_reviewer.person.id,
-            'entity': this_entity.id,
+            'entity': self.institute.entity.id,
             'role': self.research_reviewer.role
         }
         response = self.client.post(self.url, data)
-        self.assertEqual(response.status_code, HttpResponse.status_code)
+        self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
+        self.assertEqual(
+            len(find_by_person(self.vice_sector_reviewer.person)),
+            2
+        )
 
     def test_add_reviewer_for_structure_with_valid_data(self):
-        self.client.force_login(self.research_reviewer.person.user)
-        this_entity = find_versions_from_entites([self.institute.entity.id], date=None)[0]
         data = {
             'person_id': self.delegate.id,
-            'entity': this_entity.id,
+            'entity': self.institute.entity.id,
             'role': self.research_reviewer.role
         }
         response = self.client.post(self.url, data)
@@ -157,5 +151,8 @@ class TestAddReviewerForDelegation(ReviewerDelegationDataMixin, TestCase):
 
     def test_add_reviewer_for_structure_if_logged_reviewer_cannot_delegate(self):
         self.client.force_login(self.vice_sector_reviewer.person.user)
-        response = self.client.post(self.url, {'entity': self.research_reviewer.entity.id})
+        data = {
+            'entity': self.research_reviewer.entity.id
+        }
+        response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, HttpResponseRedirect.status_code)

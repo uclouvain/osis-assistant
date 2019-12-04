@@ -53,20 +53,20 @@ class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return reverse('access_denied')
 
     @cached_property
-    def current_reviewer(self):
+    def reviewers(self):
         return reviewer.find_by_person(self.request.user.person)
 
     def get_queryset(self):
-        rev = self.current_reviewer
-        delegate_role = rev.role + '_ASSISTANT'
+        delegate_roles = [rev.role + '_ASSISTANT' for rev in self.reviewers]
+        entities = [rev.entity for rev in self.reviewers]
         return entity_version.EntityVersion.objects.current(
             academic_year.starting_academic_year().start_date
         ).filter(
-            Q(entity=rev.entity) | Q(parent=rev.entity)
+            Q(entity__in=entities) | Q(parent__in=entities)
         ).prefetch_related(
             Prefetch(
                 "entity__reviewer_set",
-                queryset=reviewer.Reviewer.objects.filter(role=delegate_role),
+                queryset=reviewer.Reviewer.objects.filter(role__in=delegate_roles),
                 to_attr="delegated_reviewer"
             )
         )
@@ -74,7 +74,7 @@ class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(StructuresListView, self).get_context_data(**kwargs)
         context['year'] = academic_year.starting_academic_year().year
-        context['current_reviewer'] = self.current_reviewer
+        context['current_reviewer'] = self.reviewers[0]
         context['entity'] = entity_version.get_last_version(context['current_reviewer'].entity)
         context['is_supervisor'] = is_supervisor(self.request.user.person)
         return context
@@ -85,35 +85,37 @@ class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
 def add_reviewer_for_structure(request):
     current_entity = entity.find_by_id(request.POST.get("entity"))
     year = academic_year.starting_academic_year().year
-    if not reviewer.can_delegate_to_entity(reviewer.find_by_person(request.user.person), current_entity):
+    current_reviewer = reviewer_eligible_to_delegate(
+        reviewer.find_by_person(request.user.person),
+        current_entity
+    )
+    if not current_reviewer:
         return redirect('assistants_home')
+
     form = ReviewerDelegationForm(data=request.POST)
     if form.is_valid() and request.POST.get('person_id'):
         new_reviewer = form.save(commit=False)
-        this_person = person.find_by_id(request.POST.get('person_id'))
-        if reviewer.find_by_person(this_person):
-            msg = _("This person is already a reviewer, please select another person")
-            form.add_error(None, msg)
-            return render(request, "reviewer_add_reviewer.html", {
-                'form': form,
-                'year': year,
-                'entity': current_entity,
-                'reviewer': reviewer.find_by_person(request.user.person)
-            })
-        new_reviewer.person = this_person
+        new_reviewer.person = person.find_by_id(request.POST.get('person_id'))
         new_reviewer.save()
-        html_template_ref = 'assistant_reviewers_startup_html'
-        txt_template_ref = 'assistant_reviewers_startup_txt'
-        send_message(person=this_person, html_template_ref=html_template_ref,
-                     txt_template_ref=txt_template_ref)
+        send_message(
+            person=new_reviewer.person,
+            html_template_ref='assistant_reviewers_startup_html',
+            txt_template_ref='assistant_reviewers_startup_txt'
+        )
         return redirect('reviewer_delegation')
-    else:
-        this_reviewer = reviewer.find_by_person(person=request.user.person)
-        role = this_reviewer.role + '_ASSISTANT'
-        form = ReviewerDelegationForm(initial={'entity': current_entity, 'year': year, 'role': role})
-        return render(request, "reviewer_add_reviewer.html", {
-            'form': form,
-            'year': year,
-            'entity': current_entity,
-            'reviewer': reviewer.find_by_person(request.user.person)
-        })
+
+    role = current_reviewer.role + '_ASSISTANT'
+    form = ReviewerDelegationForm(initial={'entity': current_entity, 'year': year, 'role': role})
+    return render(request, "reviewer_add_reviewer.html", {
+        'form': form,
+        'year': year,
+        'entity': current_entity,
+        'reviewer': current_reviewer
+    })
+
+
+def reviewer_eligible_to_delegate(reviewers, entity_to_delegate):
+    for rev in reviewers:
+        if reviewer.can_delegate_to_entity(rev, entity_to_delegate):
+            return rev
+    return None
