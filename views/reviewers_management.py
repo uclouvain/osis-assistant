@@ -49,26 +49,6 @@ from base.models.entity_version import EntityVersion
 from osis_common.utils.datetime import get_tzinfo
 
 
-class ReviewersListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
-    context_object_name = 'reviewers_list'
-    template_name = 'reviewers_list.html'
-    form_class = MandatesArchivesForm
-
-    def test_func(self):
-        return manager_access.user_is_manager(self.request.user)
-
-    def get_login_url(self):
-        return reverse('assistants_home')
-
-    def get_queryset(self):
-        queryset = reviewer.find_reviewers()
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super(ReviewersListView, self).get_context_data(**kwargs)
-        return context
-
-
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
 def reviewers_index(request):
     now = datetime.datetime.now(get_tzinfo())
