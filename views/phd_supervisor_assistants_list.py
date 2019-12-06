@@ -47,17 +47,18 @@ class AssistantsListView(LoginRequiredMixin, UserPassesTestMixin, ListView, Form
         return reverse('access_denied')
 
     def get_queryset(self):
-        self.reviewer = reviewer.find_by_person(self.request.user.person)
-        return assistant_mandate.find_for_supervisor_for_academic_year(self.request.user.person,
-                                                                       academic_year.starting_academic_year())
+        return assistant_mandate.find_for_supervisor_for_academic_year(
+            self.request.user.person,
+            academic_year.starting_academic_year()
+        )
 
     def get_context_data(self, **kwargs):
-        context = super(AssistantsListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['year'] = academic_year.starting_academic_year().year
-        context['current_reviewer'] = self.reviewer
-        if self.reviewer:
-            can_delegate = reviewer.can_delegate(reviewer.find_by_person(self.request.user.person))
-            context['can_delegate'] = can_delegate
+        reviewers = reviewer.find_by_person(self.request.user.person)
+        context['current_reviewer'] = reviewers.first()
+        if reviewers:
+            context['can_delegate'] = any(reviewer.can_delegate(rev) for rev in reviewers)
         else:
             context['can_delegate'] = False
         return add_entities_version_to_mandates_list(context)

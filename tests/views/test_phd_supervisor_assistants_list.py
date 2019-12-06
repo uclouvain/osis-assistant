@@ -25,6 +25,7 @@
 ##############################################################################
 import datetime
 
+from django.http import HttpResponse, HttpResponseRedirect
 from django.test import TestCase, RequestFactory, Client
 
 from assistant.models.assistant_mandate import find_for_supervisor_for_academic_year
@@ -43,8 +44,9 @@ from base.tests.factories.academic_year import AcademicYearFactory
 from base.tests.factories.entity_version import EntityVersionFactory
 from base.tests.factories.person import PersonFactory
 
-HTTP_OK = 200
-HTTP_FOUND = 302
+HTTP_OK = HttpResponse.status_code
+HTTP_FOUND = HttpResponseRedirect.status_code
+
 
 class AssistantsListViewTestCase(TestCase):
 
@@ -77,7 +79,7 @@ class AssistantsListViewTestCase(TestCase):
         self.client.force_login(self.phd_supervisor.user)
         response = self.client.get('/assistants/phd_supervisor/assistants/')
         self.assertEqual(response.status_code, HTTP_OK)
-        self.assertEqual(response.context['current_reviewer'], find_by_person(self.phd_supervisor))
+        self.assertFalse(response.context['current_reviewer'])
         self.assertFalse(response.context['can_delegate'])
         entities_id = self.assistant_mandate.mandateentity_set.all().order_by('id').values_list('entity', flat=True)
         self.assistant_mandate.entities = find_versions_from_entites(entities_id, None)
@@ -93,6 +95,6 @@ class AssistantsListViewTestCase(TestCase):
                                         person=self.phd_supervisor)
         self.client.force_login(self.phd_supervisor.user)
         response = self.client.get('/assistants/phd_supervisor/assistants/')
-        self.assertEqual(response.context['current_reviewer'], find_by_person(self.phd_supervisor))
+        self.assertEqual(response.context['current_reviewer'], self.reviewer)
         self.assertTrue(response.context['can_delegate'])
 
