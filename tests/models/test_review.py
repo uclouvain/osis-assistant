@@ -27,7 +27,7 @@ from django.test import TestCase, Client
 
 from assistant.models.enums import assistant_mandate_state, reviewer_role
 from assistant.models.enums import review_status
-from assistant.models.review import find_by_reviewer_for_mandate, find_before_mandate_state
+from assistant.models.review import find_before_mandate_state
 from assistant.models.review import get_in_progress_for_mandate
 from assistant.tests.factories import review
 from assistant.tests.factories import reviewer
@@ -83,9 +83,6 @@ class TestReviewFactory(TestCase):
         self.review2 = review.ReviewFactory(reviewer=self.reviewer3, status=review_status.DONE, mandate=self.mandate)
         self.client = Client()
         self.client.force_login(self.reviewer1.person.user)
-
-    def test_review_by_reviewer_for_mandate(self):
-        self.assertEqual(self.review1, find_by_reviewer_for_mandate(self.reviewer1, self.   mandate))
 
     def test_find_in_progress_for_mandate(self):
         self.assertFalse(get_in_progress_for_mandate(self.review1.mandate))

@@ -55,14 +55,6 @@ def find_review_for_mandate_by_role(mandate, role):
     return Review.objects.filter(mandate=mandate).filter(reviewer__role__icontains=role.split('_', 1)[0]).first()
 
 
-def find_by_reviewer(reviewer):
-    return Review.objects.filter(reviewer=reviewer)
-
-
-def find_by_reviewer_for_mandate(reviewer, mandate):
-    return Review.objects.get(reviewer=reviewer, mandate=mandate)
-
-
 def find_done_by_supervisor_for_mandate(mandate):
     return Review.objects.get(reviewer=None, mandate=mandate, status='DONE')
 
@@ -84,7 +76,8 @@ def find_before_mandate_state(mandate, current_roles):
         role for role in takewhile(lambda r: r not in current_roles, reviewers_order_list)
     ]
     roles_list_accessible_for_current_rev.append(
-        next((role for role in reviewers_order_list if role in current_roles), None))
+        next((role for role in reviewers_order_list if role in current_roles), None)
+    )
     return Review.objects.filter(mandate=mandate).filter(
         models.Q(reviewer__role__in=roles_list_accessible_for_current_rev) |
         models.Q(reviewer__role=None)
