@@ -52,7 +52,11 @@ class TestReviewerFactory(TestCase):
         self.reviewer5 = ReviewerFactory(role=reviewer_role.SUPERVISION_DAF_ASSISTANT, entity=self.entity4)
 
     def test_find_by_person(self):
-        self.assertEqual(self.reviewer1, reviewer.find_by_person(self.reviewer1.person))
+        self.assertQuerysetEqual(
+            reviewer.find_by_person(self.reviewer1.person),
+            [self.reviewer1],
+            transform=lambda x: x
+        )
 
     def test_find_reviewers(self):
         self.assertCountEqual(
