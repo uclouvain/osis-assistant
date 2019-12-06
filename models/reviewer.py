@@ -99,15 +99,4 @@ def can_delegate(reviewer):
 
 
 def can_validate(reviewer):
-    roles_who_can_validate = [reviewer_role.SUPERVISION, reviewer_role.RESEARCH, reviewer_role.RESEARCH_ASSISTANT,
-                              reviewer_role.PHD_SUPERVISOR, reviewer_role.VICE_RECTOR,
-                              reviewer_role.VICE_RECTOR_ASSISTANT]
-    return reviewer.role in roles_who_can_validate
-
-
-def get_delegate_for_entity(reviewer, entity):
-    delegate_role = reviewer.role + '_ASSISTANT'
-    try:
-        return Reviewer.objects.get(role=delegate_role, entity=entity)
-    except Reviewer.DoesNotExist:
-        return None
+    return reviewer.role in reviewer_role.ABLE_TO_VALIDATE
