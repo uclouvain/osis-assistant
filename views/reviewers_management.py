@@ -154,13 +154,9 @@ def reviewer_replace(request):
     this_person = request.POST.get('person_id')
     if form.is_valid() and this_person:
         this_person = person.find_by_id(this_person)
-        if reviewer.find_by_person(this_person):
-            msg = _("This person is already a reviewer, please select another person")
-            form.add_error(None, msg)
-        else:
-            reviewer_to_replace.person = this_person
-            reviewer_to_replace.save()
-            return redirect('reviewers_list')
+        reviewer_to_replace.person = this_person
+        reviewer_to_replace.save()
+        return redirect('reviewers_list')
     else:
         msg = _("Please enter the last name and first name of the person you are looking for and select the "
                 "corresponding choice in the drop-down list")
@@ -180,9 +176,6 @@ def reviewer_add(request):
         if form.is_valid() and this_person:
             this_person = person.find_by_id(this_person)
             new_reviewer = form.save(commit=False)
-            if reviewer.find_by_person(this_person):
-                msg = _("This person is already a reviewer, please select another person")
-                form.add_error(None, msg)
             if reviewer.find_by_entity_and_role(new_reviewer.entity, new_reviewer.role):
                 msg = _("A reviewer having the same role for this entity already exists")
                 form.add_error(None, msg)
