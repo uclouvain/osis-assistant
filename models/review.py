@@ -74,16 +74,17 @@ def get_in_progress_for_mandate(mandate):
         return None
 
 
-def find_before_mandate_state(mandate, current_role):
+def find_before_mandate_state(mandate, current_roles):
     reviewers_order_list = [
         reviewer_role.RESEARCH,
         reviewer_role.SUPERVISION,
         reviewer_role.VICE_RECTOR
     ]
     roles_list_accessible_for_current_rev = [
-        role for role in takewhile(lambda r: r not in current_role, reviewers_order_list)
+        role for role in takewhile(lambda r: r not in current_roles, reviewers_order_list)
     ]
-    roles_list_accessible_for_current_rev.append([role for role in reviewers_order_list if role in current_role][0])
+    roles_list_accessible_for_current_rev.append(
+        next((role for role in reviewers_order_list if role in current_roles), None))
     return Review.objects.filter(mandate=mandate).filter(
         models.Q(reviewer__role__in=roles_list_accessible_for_current_rev) |
         models.Q(reviewer__role=None)

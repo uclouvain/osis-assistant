@@ -222,7 +222,7 @@ class ExportPdfTestCase(TestCase):
         justification = export_utils_pdf.format_data(
             self.mandate.justification,
             _("Should you no longer fulfill the requirements for a 'normal' renewal, can you specify the circumstances "
-            "justifying an exceptional renewal application (art. 51 of the RAMCS)")
+              "justifying an exceptional renewal application (art. 51 of the RAMCS)")
         )
         external_contract = export_utils_pdf.format_data(self.mandate.external_contract,
                                                          _('Mandate requested externally (FNRS, FRIA, ...)'))
@@ -327,7 +327,7 @@ class ExportPdfTestCase(TestCase):
         events_organisation_service = export_utils_pdf.format_data(
             str(self.mandate.events_organisation_service),
             _("Organization of seminars, conferences, visits, study tours, grounds, seminars… (not taken in account in "
-            "the 'Teaching units' section)")
+              "the 'Teaching units' section)")
         )
         publishing_field_service = export_utils_pdf.format_data(
             str(self.mandate.publishing_field_service),

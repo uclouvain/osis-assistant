@@ -108,15 +108,16 @@ def build_doc(request, mandates, type='default'):
                               firstLineIndent=0, alignment=TA_JUSTIFY, spaceBefore=25, spaceAfter=5, splitLongWords=1,
                               borderColor='#000000', borderWidth=1, borderPadding=10, ))
     content = []
+    roles = []
     if academic_assistant.find_by_person(find_by_user(request.user)):
-        role = user_role.ASSISTANT
+        roles = [user_role.ASSISTANT]
     elif reviewer.find_by_person(find_by_user(request.user)):
-        role = reviewer.find_by_person(find_by_user(request.user)).role
+        roles = reviewer.find_by_person(find_by_user(request.user)).values_list("role", flat=True)
     else:
-        role = user_role.ADMINISTRATOR
+        roles = [user_role.ADMINISTRATOR]
     if type is 'default' or type is 'export_to_sap':
         for mandate in mandates:
-            add_mandate_content(content, mandate, styles, role)
+            add_mandate_content(content, mandate, styles, roles)
     else:
         content.append(create_paragraph("%s (%s)<br />" % (_('Assistants who have declined their renewal'), year),
                                         '',
@@ -165,18 +166,18 @@ def add_declined_mandates(mandates, style):
 
 @user_passes_test(users_access.user_is_reviewer_and_procedure_is_open, login_url='access_denied')
 def export_mandates_for_entity(request, year):
-    current_reviewer = reviewer.find_by_person(find_by_user(request.user))
-    mandates = find_mandates_for_academic_year_and_entity(
-        academic_year.find_academic_year_by_year(year),
-        current_reviewer.entity
+    mandates = assistant_mandate.AssistantMandate.objects.filter(
+        mandateentity__entity__in=reviewer.find_by_person(find_by_user(request.user)).values_list("entity", flat=True),
+        academic_year=academic_year.find_academic_year_by_year(year)
+    ).order_by(
+        'assistant__person__last_name'
     )
     if mandates:
         return build_doc(request, mandates)
-    else:
-        return HttpResponseRedirect(reverse('reviewer_mandates_list'))
+    return HttpResponseRedirect(reverse('reviewer_mandates_list'))
 
 
-def add_mandate_content(content, mandate, styles, current_user_role):
+def add_mandate_content(content, mandate, styles, current_user_roles):
     content.append(
         create_paragraph(
             "%s (%s)" % (mandate.assistant.person, mandate.academic_year),
@@ -210,12 +211,12 @@ def add_mandate_content(content, mandate, styles, current_user_role):
     content.append(create_paragraph("%s" % (_('Summary')), get_summary(mandate), styles['StandardWithBorder']))
     content += [draw_time_repartition(mandate)]
     content.append(PageBreak())
-    if current_user_role is not user_role.ASSISTANT:
+    if user_role.ASSISTANT not in current_user_roles:
         content.append(create_paragraph("%s<br />" % (_('Opinions')), '', styles["BodyText"]))
-        if current_user_role is user_role.ADMINISTRATOR:
+        if user_role.ADMINISTRATOR in current_user_roles:
             reviews = review.find_by_mandate(mandate.id)
         else:
-            reviews = find_before_mandate_state(mandate, current_user_role)
+            reviews = find_before_mandate_state(mandate, current_user_roles)
         for rev in reviews:
             if rev.status == review_status.IN_PROGRESS:
                 break
