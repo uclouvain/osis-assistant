@@ -26,8 +26,7 @@
 import datetime
 
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models import Prefetch, OuterRef, Count
+from django.db.models import Prefetch, Count
 from django.forms.forms import NON_FIELD_ERRORS
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
@@ -35,12 +34,9 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
-from django.views.generic import ListView
-from django.views.generic.edit import FormMixin
 
-from assistant.forms.mandate import MandatesArchivesForm
 from assistant.forms.reviewer import ReviewerForm, ReviewerReplacementForm, ReviewersFormset
-from assistant.models import reviewer, review
+from assistant.models import reviewer
 from assistant.models.reviewer import Reviewer
 from assistant.utils import manager_access
 from base.models import academic_year, person, entity_version
