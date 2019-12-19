@@ -71,10 +71,7 @@ def find_by_id(reviewer_id):
 
 
 def find_by_person(person):
-    try:
-        return Reviewer.objects.get(person=person)
-    except Reviewer.DoesNotExist:
-        return False
+    return Reviewer.objects.filter(person=person)
 
 
 def find_by_role(role):
@@ -98,20 +95,8 @@ def can_delegate_to_entity(reviewer, entity):
 
 
 def can_delegate(reviewer):
-    roles_who_can_delegate = [reviewer_role.SUPERVISION, reviewer_role.RESEARCH, reviewer_role.SUPERVISION_DAF]
-    return reviewer.role in roles_who_can_delegate
+    return reviewer.role in reviewer_role.ENABLE_TO_DELEGATE
 
 
 def can_validate(reviewer):
-    roles_who_can_validate = [reviewer_role.SUPERVISION, reviewer_role.RESEARCH, reviewer_role.RESEARCH_ASSISTANT,
-                              reviewer_role.PHD_SUPERVISOR, reviewer_role.VICE_RECTOR,
-                              reviewer_role.VICE_RECTOR_ASSISTANT]
-    return reviewer.role in roles_who_can_validate
-
-
-def get_delegate_for_entity(reviewer, entity):
-    delegate_role = reviewer.role + '_ASSISTANT'
-    try:
-        return Reviewer.objects.get(role=delegate_role, entity=entity)
-    except Reviewer.DoesNotExist:
-        return None
+    return reviewer.role in reviewer_role.ABLE_TO_VALIDATE

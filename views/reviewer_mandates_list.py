@@ -54,37 +54,46 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
     def get_queryset(self):
         form_class = MandatesArchivesForm
         form = form_class(self.request.GET)
-        current_reviewer = reviewer.find_by_person(self.request.user.person)
         if len(assistant_mandate.find_for_supervisor_for_academic_year(self.request.user.person,
                                                                        academic_year.starting_academic_year())) > 0:
             self.is_supervisor = True
-        mandates_id = mandate_entity.find_by_entity(current_reviewer.entity).values_list(
-            'assistant_mandate_id', flat=True)
+
+        mandates_id = mandate_entity.MandateEntity.objects.filter(
+            entity__reviewer__person=self.request.user.person
+        ).values_list(
+            'assistant_mandate_id',
+            flat=True
+        )
+
         if form.is_valid():
-            self.request.session['selected_academic_year'] = form.cleaned_data[
-                'academic_year'].id
-            selected_academic_year = academic_year.AcademicYear.objects.get(
-                id=self.request.session.get('selected_academic_year'))
+            selected_academic_year = form.cleaned_data['academic_year']
         elif self.request.session.get('selected_academic_year'):
             selected_academic_year = academic_year.AcademicYear.objects.get(
-                id=self.request.session.get('selected_academic_year'))
+                id=self.request.session.get('selected_academic_year')
+            )
         else:
             selected_academic_year = academic_year.starting_academic_year()
-            self.request.session[
-                'selected_academic_year'] = selected_academic_year.id
+
+        self.request.session['selected_academic_year'] = selected_academic_year.id
+
         if self.kwargs.get("filter", None):
             selected_academic_year = academic_year.starting_academic_year()
-            self.request.session[
-                'selected_academic_year'] = selected_academic_year.id
-            queryset = assistant_mandate.find_by_academic_year(selected_academic_year).filter(id__in=mandates_id).\
-                filter(state=current_reviewer.role.replace('_ASSISTANT', '').replace('_DAF', ''))
+            self.request.session['selected_academic_year'] = selected_academic_year.id
+            reviewers = reviewer.Reviewer.objects.filter(person=self.request.user.person)
+            roles = [rev.role.replace('_ASSISTANT', '').replace('_DAF', '') for rev in reviewers]
+            queryset = assistant_mandate.find_by_academic_year(
+                selected_academic_year
+            ).filter(
+                id__in=mandates_id,
+                state__in=roles
+            )
         else:
             queryset = assistant_mandate.find_by_academic_year(selected_academic_year).filter(id__in=mandates_id)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super(MandatesListView, self).get_context_data(**kwargs)
-        current_reviewer = reviewer.find_by_person(self.request.user.person)
+        current_reviewer = reviewer.find_by_person(self.request.user.person)[0]
         can_delegate = reviewer.can_delegate(current_reviewer)
         context['can_delegate'] = can_delegate
         context['reviewer'] = current_reviewer

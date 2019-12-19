@@ -26,8 +26,7 @@
 import datetime
 
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models import Prefetch, OuterRef, Count
+from django.db.models import Prefetch, Count
 from django.forms.forms import NON_FIELD_ERRORS
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
@@ -35,38 +34,15 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
-from django.views.generic import ListView
-from django.views.generic.edit import FormMixin
 
-from assistant.forms.mandate import MandatesArchivesForm
 from assistant.forms.reviewer import ReviewerForm, ReviewerReplacementForm, ReviewersFormset
-from assistant.models import reviewer, review
+from assistant.models import reviewer
 from assistant.models.reviewer import Reviewer
 from assistant.utils import manager_access
 from base.models import academic_year, person, entity_version
 from base.models.entity import Entity
 from base.models.entity_version import EntityVersion
 from osis_common.utils.datetime import get_tzinfo
-
-
-class ReviewersListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
-    context_object_name = 'reviewers_list'
-    template_name = 'reviewers_list.html'
-    form_class = MandatesArchivesForm
-
-    def test_func(self):
-        return manager_access.user_is_manager(self.request.user)
-
-    def get_login_url(self):
-        return reverse('assistants_home')
-
-    def get_queryset(self):
-        queryset = reviewer.find_reviewers()
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super(ReviewersListView, self).get_context_data(**kwargs)
-        return context
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
@@ -154,13 +130,9 @@ def reviewer_replace(request):
     this_person = request.POST.get('person_id')
     if form.is_valid() and this_person:
         this_person = person.find_by_id(this_person)
-        if reviewer.find_by_person(this_person):
-            msg = _("This person is already a reviewer, please select another person")
-            form.add_error(None, msg)
-        else:
-            reviewer_to_replace.person = this_person
-            reviewer_to_replace.save()
-            return redirect('reviewers_list')
+        reviewer_to_replace.person = this_person
+        reviewer_to_replace.save()
+        return redirect('reviewers_list')
     else:
         msg = _("Please enter the last name and first name of the person you are looking for and select the "
                 "corresponding choice in the drop-down list")
@@ -180,9 +152,6 @@ def reviewer_add(request):
         if form.is_valid() and this_person:
             this_person = person.find_by_id(this_person)
             new_reviewer = form.save(commit=False)
-            if reviewer.find_by_person(this_person):
-                msg = _("This person is already a reviewer, please select another person")
-                form.add_error(None, msg)
             if reviewer.find_by_entity_and_role(new_reviewer.entity, new_reviewer.role):
                 msg = _("A reviewer having the same role for this entity already exists")
                 form.add_error(None, msg)

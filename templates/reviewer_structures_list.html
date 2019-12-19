@@ -59,18 +59,18 @@
             </tr>
             </thead>
             <tbody>
-            {% for entity in object_list %}
+            {% for entity_version in object_list %}
                 <tr>
-                <td>{{ entity.title }}</td>
-                <td>{{ entity.acronym }}</td>
+                <td>{{ entity_version.title }}</td>
+                <td>{{ entity_version.acronym }}</td>
                 <td align="center">
-                {% if entity.has_already_delegate %}
-                    {{ entity.has_already_delegate.person }}
+                {% if entity_version.entity.delegated_reviewer %}
+                    {{ entity_version.entity.delegated_reviewer.0.person }}
                 {% else %}
                     <form id=entity_version.entity.id method="POST" action="{% url 'reviewer_delegation_add' %}">
                     {{ form.non_field_errors }}
  		            {% csrf_token %}
-                    <input type="hidden" name="entity" value="{{ entity.id }}">
+                    <input type="hidden" name="entity" value="{{ entity_version.entity.id }}">
                     <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
                         <span class="fas fa-plus" aria-hidden="true"></span> {% trans 'Add'%}
                     </button></form>

@@ -81,18 +81,22 @@ class ReviewerReplacementForm(ModelForm):
 
 
 class ReviewersFormset(ModelForm):
-    role = forms.ChoiceField(required=False)
-    entity = forms.CharField(required=False)
-    entity_version = forms.CharField(required=False)
-    person = forms.ChoiceField(required=False)
-    id = forms.IntegerField(required=False)
     ACTIONS = (
         ('-----', '-----'),
         ('DELETE', _('Delete')),
         ('REPLACE', _('Replace'))
     )
-    action = forms.ChoiceField(required=False, choices=ACTIONS,
-                               widget=forms.Select(attrs={'class': 'selector', 'onchange': 'this.form.submit();'}))
+
+    role = forms.ChoiceField(required=False)
+    entity = forms.CharField(required=False)
+    entity_version = forms.CharField(required=False)
+    person = forms.ChoiceField(required=False)
+    id = forms.IntegerField(required=False)
+    action = forms.ChoiceField(
+        required=False,
+        choices=ACTIONS,
+        widget=forms.Select(attrs={'class': 'selector', 'onchange': 'this.form.submit();'})
+    )
 
     class Meta:
         model = mdl.reviewer.Reviewer

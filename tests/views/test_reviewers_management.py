@@ -119,10 +119,6 @@ class ReviewersManagementViewTestCase(TestCase):
                                                          end_date=today.replace(year=today.year + 1),
                                                          year=today.year)
 
-    def test_reviewers_index(self):
-        response = self.client.post('/assistants/manager/reviewers/')
-        self.assertEqual(response.status_code, HttpResponse.status_code)
-
     def test_reviewer_action(self):
         self.client.force_login(self.person.user)
 
@@ -224,7 +220,7 @@ class ReviewersManagementViewTestCase(TestCase):
                                                                            'person_id': self.person2.id,
                                                                            'reviewer_id': self.reviewer.id,
                                                                            })
-        self.assertEqual(response.status_code, HttpResponse.status_code)
+        self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
         response = self.client.post('/assistants/manager/reviewers/replace/', {
                                                                            'person_id': self.person2.id,
                                                                            'reviewer_id': self.reviewer.id,

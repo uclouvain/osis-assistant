@@ -50,8 +50,12 @@ def review_view(request):
     mandate_id = request.POST.get("mandate_id")
     role = request.POST.get("role")
     mandate = assistant_mandate.find_mandate_by_id(mandate_id)
-    current_reviewer = reviewer.find_by_person(request.user.person)
+    current_reviewer = reviewer.Reviewer.objects.filter(
+        person=request.user.person,
+        entity__mandateentity__assistant_mandate=mandate
+    ).first()
     entity = entity_version.get_last_version(current_reviewer.entity)
+
     current_role = current_reviewer.role
     if role == reviewer_role.PHD_SUPERVISOR:
         try:
@@ -80,7 +84,10 @@ def review_view(request):
 def review_edit(request):
     mandate_id = request.POST.get("mandate_id")
     mandate = assistant_mandate.find_mandate_by_id(mandate_id)
-    current_reviewer = reviewer.find_by_person(request.user.person)
+    current_reviewer = reviewer.Reviewer.objects.filter(
+        person=request.user.person,
+        entity__mandateentity__assistant_mandate=mandate
+    ).first()
     entity = entity_version.get_last_version(current_reviewer.entity)
     delegate_role = current_reviewer.role + "_ASSISTANT"
     existing_review = review.find_review_for_mandate_by_role(mandate, delegate_role)
@@ -126,7 +133,10 @@ def review_save(request):
     review_id = request.POST.get("review_id")
     rev = review.find_by_id(review_id)
     mandate = assistant_mandate.find_mandate_by_id(mandate_id)
-    current_reviewer = reviewer.find_by_person(request.user.person)
+    current_reviewer = reviewer.Reviewer.objects.filter(
+        person=request.user.person,
+        entity__mandateentity__assistant_mandate=mandate
+    ).first()
     form = ReviewForm(data=request.POST, instance=rev, prefix='rev')
     previous_mandates = assistant_mandate.find_before_year_for_assistant(mandate.academic_year.year, mandate.assistant)
     role = current_reviewer.role
@@ -194,7 +204,10 @@ def validate_review_and_update_mandate(review, mandate):
 def pst_form_view(request):
     mandate_id = request.POST.get("mandate_id")
     mandate = assistant_mandate.find_mandate_by_id(mandate_id)
-    current_reviewer = reviewer.find_by_person(request.user.person)
+    current_reviewer = reviewer.Reviewer.objects.filter(
+        person=request.user.person,
+        entity__mandateentity__assistant_mandate=mandate
+    ).first()
     current_role = current_reviewer.role
     entity = entity_version.get_last_version(current_reviewer.entity)
     entities = get_entities_for_mandate(mandate)
