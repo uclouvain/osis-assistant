@@ -89,7 +89,6 @@ class StructuresListView(ReviewerDelegationDataMixin, TestCase):
 
         context = response.context
 
-        # Check if already delegated
         entities_vers_qs = entity_version.EntityVersion.objects.filter(
             pk__in=[self.institute.pk, self.institute_child.pk]
         )

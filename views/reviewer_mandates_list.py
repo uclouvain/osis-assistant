@@ -80,7 +80,6 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
             selected_academic_year = academic_year.starting_academic_year()
             self.request.session['selected_academic_year'] = selected_academic_year.id
             reviewers = reviewer.Reviewer.objects.filter(person=self.request.user.person)
-            # COUld potentially have after effect
             roles = [rev.role.replace('_ASSISTANT', '').replace('_DAF', '') for rev in reviewers]
             queryset = assistant_mandate.find_by_academic_year(
                 selected_academic_year
