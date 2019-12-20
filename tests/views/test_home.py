@@ -25,7 +25,7 @@
 ##############################################################################
 import datetime
 
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase
 from django.urls import reverse
 
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
@@ -40,21 +40,20 @@ from base.tests.factories.person import PersonFactory
 HTTP_OK = 200
 HTTP_FORBIDDEN = 403
 
-class ReviewerReviewViewTestCase(TestCase):
 
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
+class ReviewerReviewViewTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
         today = datetime.date.today()
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
-        self.settings = SettingsFactory()
-        self.manager = ManagerFactory()
-        self.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE)
-        self.reviewer = ReviewerFactory(entity=self.entity_version.entity)
-        self.assistant = AcademicAssistantFactory()
-        self.unauthorized_person = PersonFactory()
+        cls.current_academic_year = AcademicYearFactory(start_date=today,
+                                                        end_date=today.replace(year=today.year + 1),
+                                                        year=today.year)
+        cls.settings = SettingsFactory()
+        cls.manager = ManagerFactory()
+        cls.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE)
+        cls.reviewer = ReviewerFactory(entity=cls.entity_version.entity)
+        cls.assistant = AcademicAssistantFactory()
+        cls.unauthorized_person = PersonFactory()
 
     def test_manager_home(self):
         self.client.force_login(self.manager.person.user)
@@ -82,4 +81,3 @@ class ReviewerReviewViewTestCase(TestCase):
         self.client.force_login(self.unauthorized_person.user)
         response = self.client.get(reverse('assistants_home'))
         self.assertRedirects(response, reverse('access_denied'), target_status_code=HTTP_FORBIDDEN)
-

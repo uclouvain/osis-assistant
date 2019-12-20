@@ -25,7 +25,7 @@
 ##############################################################################
 import datetime
 
-from django.test import Client, TestCase, RequestFactory
+from django.test import TestCase
 from django.urls import reverse
 
 from assistant.models.enums import assistant_mandate_state
@@ -38,20 +38,19 @@ from base.tests.factories.academic_year import AcademicYearFactory
 HTTP_OK = 200
 HTTP_FOUND = 302
 
-class ManagerAssistantForm(TestCase):
 
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.settings = SettingsFactory()
+class ManagerAssistantForm(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.settings = SettingsFactory()
         today = datetime.date.today()
-        self.manager = ManagerFactory()
-        self.assistant = AcademicAssistantFactory()
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
-        self.assistant_mandate = AssistantMandateFactory(academic_year=self.current_academic_year,
-                                                         state=assistant_mandate_state.RESEARCH)
+        cls.manager = ManagerFactory()
+        cls.assistant = AcademicAssistantFactory()
+        cls.current_academic_year = AcademicYearFactory(start_date=today,
+                                                        end_date=today.replace(year=today.year + 1),
+                                                        year=today.year)
+        cls.assistant_mandate = AssistantMandateFactory(academic_year=cls.current_academic_year,
+                                                        state=assistant_mandate_state.RESEARCH)
 
     def test_assistant_form_view(self):
         self.client.force_login(self.manager.person.user)

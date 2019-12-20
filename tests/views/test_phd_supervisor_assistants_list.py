@@ -26,12 +26,11 @@
 import datetime
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase
 
 from assistant.models.assistant_mandate import find_for_supervisor_for_academic_year
 from assistant.models.enums import assistant_mandate_state, review_status
 from assistant.models.enums import reviewer_role
-from assistant.models.reviewer import find_by_person
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.mandate_entity import MandateEntityFactory
@@ -49,27 +48,25 @@ HTTP_FOUND = HttpResponseRedirect.status_code
 
 
 class AssistantsListViewTestCase(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.settings = SettingsFactory()
+    @classmethod
+    def setUpTestData(cls):
+        cls.settings = SettingsFactory()
         today = datetime.date.today()
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
-        self.phd_supervisor = PersonFactory()
+        cls.current_academic_year = AcademicYearFactory(start_date=today,
+                                                        end_date=today.replace(year=today.year + 1),
+                                                        year=today.year)
+        cls.phd_supervisor = PersonFactory()
 
-        self.assistant = AcademicAssistantFactory(supervisor=self.phd_supervisor)
-        self.assistant_mandate = AssistantMandateFactory(academic_year=self.current_academic_year,
-                                                         assistant=self.assistant)
-        self.assistant_mandate.state = assistant_mandate_state.PHD_SUPERVISOR
-        self.assistant_mandate.save()
-        self.review = ReviewFactory(reviewer=None, mandate=self.assistant_mandate,
-                                    status=review_status.IN_PROGRESS)
-        self.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE)
-        self.mandate_entity = MandateEntityFactory(assistant_mandate=self.assistant_mandate,
-                                                   entity=self.entity_version.entity)
+        cls.assistant = AcademicAssistantFactory(supervisor=cls.phd_supervisor)
+        cls.assistant_mandate = AssistantMandateFactory(academic_year=cls.current_academic_year,
+                                                        assistant=cls.assistant)
+        cls.assistant_mandate.state = assistant_mandate_state.PHD_SUPERVISOR
+        cls.assistant_mandate.save()
+        cls.review = ReviewFactory(reviewer=None, mandate=cls.assistant_mandate,
+                                   status=review_status.IN_PROGRESS)
+        cls.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE)
+        cls.mandate_entity = MandateEntityFactory(assistant_mandate=cls.assistant_mandate,
+                                                  entity=cls.entity_version.entity)
 
     def test_with_unlogged_user(self):
         response = self.client.get('/assistants/phd_supervisor/assistants/')
@@ -86,7 +83,7 @@ class AssistantsListViewTestCase(TestCase):
         self.assistant_mandate.save()
         self.assertQuerysetEqual(response.context['object_list'],
                                  find_for_supervisor_for_academic_year(self.phd_supervisor, self.current_academic_year),
-                                 transform = lambda x: x
+                                 transform=lambda x: x
                                  )
 
     def test_context_data_phd_supervisor_is_reviewer(self):
@@ -97,4 +94,3 @@ class AssistantsListViewTestCase(TestCase):
         response = self.client.get('/assistants/phd_supervisor/assistants/')
         self.assertEqual(response.context['current_reviewer'], self.reviewer)
         self.assertTrue(response.context['can_delegate'])
-

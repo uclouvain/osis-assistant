@@ -27,7 +27,7 @@ import datetime
 
 from django.forms import formset_factory
 from django.http import HttpResponse, HttpResponseRedirect
-from django.test import RequestFactory, TestCase, Client
+from django.test import TestCase
 from django.urls import reverse
 
 from assistant.forms.reviewer import ReviewersFormset
@@ -83,45 +83,44 @@ class TestReviewersIndex(TestCase):
 
 
 class ReviewersManagementViewTestCase(TestCase):
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.person2 = PersonFactory()
-        self.manager = ManagerFactory()
-        self.person = self.manager.person
-        self.client.force_login(self.person.user)
-        self.entity_factory = EntityFactory()
-        self.entity_factory2 = EntityFactory()
-        self.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE,
+    @classmethod
+    def setUpTestData(cls):
+        cls.person2 = PersonFactory()
+        cls.manager = ManagerFactory()
+        cls.person = cls.manager.person
+        cls.entity_factory = EntityFactory()
+        cls.entity_factory2 = EntityFactory()
+        cls.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE,
+                                                  end_date=None,
+                                                  entity=cls.entity_factory)
+        cls.entity_version2 = EntityVersionFactory(entity_type=entity_type.INSTITUTE,
                                                    end_date=None,
-                                                   entity=self.entity_factory)
-        self.entity_version2 = EntityVersionFactory(entity_type=entity_type.INSTITUTE,
-                                                    end_date=None,
-                                                    entity=self.entity_factory2)
-        self.phd_supervisor = PersonFactory()
+                                                   entity=cls.entity_factory2)
+        cls.phd_supervisor = PersonFactory()
 
-        self.assistant = AcademicAssistantFactory(supervisor=self.phd_supervisor)
+        cls.assistant = AcademicAssistantFactory(supervisor=cls.phd_supervisor)
         today = datetime.date.today()
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
-        self.assistant_mandate = AssistantMandateFactory(academic_year=self.current_academic_year,
-                                                         assistant=self.assistant)
-        self.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH_ASSISTANT,
-                                        entity=self.entity_version.entity)
-        self.reviewer2 = ReviewerFactory(role=reviewer_role.RESEARCH,
-                                         entity=self.entity_version.entity)
-        self.reviewer3 = ReviewerFactory(role=reviewer_role.RESEARCH,
-                                         entity=self.entity_version.entity)
-        self.review = ReviewFactory(reviewer=self.reviewer2)
-        self.formset = formset_factory(ReviewersFormset)
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
+        cls.current_academic_year = AcademicYearFactory(start_date=today,
+                                                        end_date=today.replace(year=today.year + 1),
+                                                        year=today.year)
+        cls.assistant_mandate = AssistantMandateFactory(academic_year=cls.current_academic_year,
+                                                        assistant=cls.assistant)
+        cls.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH_ASSISTANT,
+                                       entity=cls.entity_version.entity)
+        cls.reviewer2 = ReviewerFactory(role=reviewer_role.RESEARCH,
+                                        entity=cls.entity_version.entity)
+        cls.reviewer3 = ReviewerFactory(role=reviewer_role.RESEARCH,
+                                        entity=cls.entity_version.entity)
+        cls.review = ReviewFactory(reviewer=cls.reviewer2)
+        cls.formset = formset_factory(ReviewersFormset)
+        cls.current_academic_year = AcademicYearFactory(start_date=today,
+                                                        end_date=today.replace(year=today.year + 1),
+                                                        year=today.year)
+
+    def setUp(self):
+        self.client.force_login(self.person.user)
 
     def test_reviewer_action(self):
-        self.client.force_login(self.person.user)
-
         form_data = {
             'form-0-action': 'DELETE',
             'form-0-entity_version': self.entity_version,
@@ -210,19 +209,19 @@ class ReviewersManagementViewTestCase(TestCase):
         })
         self.assertEqual(response.status_code, HttpResponse.status_code)
         response = self.client.post('/assistants/manager/reviewers/replace/', {
-                                                                          'rev-id': self.reviewer.id,
-                                                                          'person_id': self.person2.id,
-                                                                          'reviewer_id': self.reviewer.id,
-                                                                          })
+            'rev-id': self.reviewer.id,
+            'person_id': self.person2.id,
+            'reviewer_id': self.reviewer.id,
+        })
         self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
         response = self.client.post('/assistants/manager/reviewers/replace/', {
-                                                                           'rev-id': self.reviewer.id,
-                                                                           'person_id': self.person2.id,
-                                                                           'reviewer_id': self.reviewer.id,
-                                                                           })
+            'rev-id': self.reviewer.id,
+            'person_id': self.person2.id,
+            'reviewer_id': self.reviewer.id,
+        })
         self.assertEqual(response.status_code, HttpResponseRedirect.status_code)
         response = self.client.post('/assistants/manager/reviewers/replace/', {
-                                                                           'person_id': self.person2.id,
-                                                                           'reviewer_id': self.reviewer.id,
-                                                                           })
+            'person_id': self.person2.id,
+            'reviewer_id': self.reviewer.id,
+        })
         self.assertEqual(response.status_code, HttpResponse.status_code)
