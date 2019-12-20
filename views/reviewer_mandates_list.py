@@ -96,7 +96,7 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
         current_reviewer = reviewer.find_by_person(self.request.user.person)[0]
         can_delegate = reviewer.can_delegate(current_reviewer)
         context['can_delegate'] = can_delegate
-        context['reviewers'] = current_reviewer
+        context['reviewer'] = current_reviewer
         entity = entity_version.get_last_version(current_reviewer.entity)
         context['entity'] = entity
         context['is_supervisor'] = self.is_supervisor
