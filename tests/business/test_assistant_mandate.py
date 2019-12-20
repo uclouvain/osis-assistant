@@ -189,14 +189,14 @@ class TestMandateEntity(TestCase):
     def test_add_actions_to_mandates_list(self):
         self.client.force_login(self.reviewer1.person.user)
         response = self.client.get('/assistants/reviewer/')
-        context = add_actions_to_mandates_list(response.context, self.reviewer1)
+        context = add_actions_to_mandates_list(response.context, self.reviewer1.person)
         for mandate in context['object_list']:
             if mandate.id == self.assistant_mandate.id:
                 self.assertFalse(mandate.view)
                 self.assertFalse(mandate.edit)
         self.client.force_login(self.reviewer2.person.user)
         response = self.client.get('/assistants/reviewer/')
-        context = add_actions_to_mandates_list(response.context, self.reviewer2)
+        context = add_actions_to_mandates_list(response.context, self.reviewer2.person)
         for mandate in context['object_list']:
             if mandate.id == self.assistant_mandate2.id:
                 self.assertTrue(mandate.view)
