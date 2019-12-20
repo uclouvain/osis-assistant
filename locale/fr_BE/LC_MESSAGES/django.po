@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-07 13:03+0100\n"
+"POT-Creation-Date: 2019-12-20 09:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,6 +270,9 @@ msgstr "Délégué de DAF"
 msgid "DAS/CAS"
 msgstr "DAS/CAS"
 
+msgid "DAS/CAS representative"
+msgstr "Délégué de DAS/CAS"
+
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -370,6 +373,9 @@ msgstr "Exportation de la liste des assistants qui ont décliné leur demande"
 msgid "Exporting files to an XLSX file"
 msgstr "Exportation des dossiers vers un fichier XLSX"
 
+msgid "Faculty"
+msgstr "Faculté"
+
 msgid "Favourable"
 msgstr "Favorable"
 
@@ -415,6 +421,9 @@ msgstr "Injecter"
 msgid "Inject xls file"
 msgstr "Injecter le fichier xls"
 
+msgid "Institute"
+msgstr "Institution"
+
 msgid "Institution"
 msgstr "Institution"
 
@@ -438,6 +447,9 @@ msgstr "Liste des mandats"
 
 msgid "List of publications in PDF format (DIAL)"
 msgstr "Liste de publications au format PDF (DIAL)"
+
+msgid "Logistics entity"
+msgstr ""
 
 msgid "Mail service management to assistants and Deans of Faculty"
 msgstr "Gestion de l'envoi des courriels aux assistants et doyens de faculté"
@@ -689,6 +701,9 @@ msgstr ""
 msgid "Search by email or last name"
 msgstr "recherche par email ou nom de famille"
 
+msgid "Sector"
+msgstr ""
+
 msgid "Select Excel file to inject mandates"
 msgstr "Choisir un fichier Excel pour injecter les mandats"
 
@@ -788,9 +803,6 @@ msgstr "Cette information n'est transmise qu'aux DAS/CAS et Vice-Recteur"
 
 msgid "This information will not be transmitted to the assistant"
 msgstr "Cette information ne sera pas transmise à l'assistant"
-
-msgid "This person is already a reviewer, please select another person"
-msgstr "Cette personne est déjà évaluateur, veuillez choisir quelqu'un d'autre"
 
 msgid "Title"
 msgstr "Intitulé"

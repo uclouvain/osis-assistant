@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-07 13:03+0100\n"
+"POT-Creation-Date: 2019-12-20 09:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -249,6 +249,9 @@ msgstr ""
 msgid "DAS/CAS"
 msgstr ""
 
+msgid "DAS/CAS representative"
+msgstr ""
+
 msgid "Dashboard"
 msgstr ""
 
@@ -347,6 +350,9 @@ msgstr ""
 msgid "Exporting files to an XLSX file"
 msgstr ""
 
+msgid "Faculty"
+msgstr ""
+
 msgid "Favourable"
 msgstr ""
 
@@ -391,6 +397,9 @@ msgstr ""
 msgid "Inject xls file"
 msgstr ""
 
+msgid "Institute"
+msgstr ""
+
 msgid "Institution"
 msgstr ""
 
@@ -413,6 +422,9 @@ msgid "List of mandates"
 msgstr ""
 
 msgid "List of publications in PDF format (DIAL)"
+msgstr ""
+
+msgid "Logistics entity"
 msgstr ""
 
 msgid "Mail service management to assistants and Deans of Faculty"
@@ -653,6 +665,9 @@ msgstr ""
 msgid "Search by email or last name"
 msgstr ""
 
+msgid "Sector"
+msgstr ""
+
 msgid "Select Excel file to inject mandates"
 msgstr ""
 
@@ -744,9 +759,6 @@ msgid "This information is only transmitted to DAS/CAS and Vice-Rector"
 msgstr ""
 
 msgid "This information will not be transmitted to the assistant"
-msgstr ""
-
-msgid "This person is already a reviewer, please select another person"
 msgstr ""
 
 msgid "Title"
