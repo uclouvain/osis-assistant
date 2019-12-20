@@ -34,25 +34,23 @@ from base.tests.factories.entity_version import EntityVersionFactory
 
 
 class TestMandateEntity(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.maxDiff = None
+        cls.assistant_mandate = AssistantMandateFactory()
+        cls.entity1 = EntityFactory()
+        cls.entity_version1 = EntityVersionFactory(entity=cls.entity1, entity_type=entity_type.SECTOR)
+        cls.entity2 = EntityFactory()
+        cls.entity_version2 = EntityVersionFactory(entity=cls.entity2, entity_type=entity_type.FACULTY)
+        cls.entity3 = EntityFactory()
+        cls.entity_version3 = EntityVersionFactory(entity=cls.entity3, entity_type=entity_type.INSTITUTE)
+        cls.entity4 = EntityFactory()
+        cls.entity_version4 = EntityVersionFactory(
+            entity=cls.entity4, parent=cls.entity3, entity_type=entity_type.SCHOOL)
 
-
-    def setUp(self):
-
-        self.maxDiff = None
-        self.assistant_mandate = AssistantMandateFactory()
-        self.entity1 = EntityFactory()
-        self.entity_version1 = EntityVersionFactory(entity=self.entity1, entity_type=entity_type.SECTOR)
-        self.entity2 = EntityFactory()
-        self.entity_version2 = EntityVersionFactory(entity=self.entity2, entity_type=entity_type.FACULTY)
-        self.entity3 = EntityFactory()
-        self.entity_version3 = EntityVersionFactory(entity=self.entity3, entity_type=entity_type.INSTITUTE)
-        self.entity4 = EntityFactory()
-        self.entity_version4 = EntityVersionFactory(
-            entity=self.entity4, parent=self.entity3, entity_type=entity_type.SCHOOL)
-
-        self.mandate_entity1 = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity1)
-        self.mandate_entity2 = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity2)
-        self.mandate_entity3 = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity3)
+        cls.mandate_entity1 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity1)
+        cls.mandate_entity2 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity2)
+        cls.mandate_entity3 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity3)
 
     def test_get_entities_for_mandate(self):
         self.assertCountEqual(

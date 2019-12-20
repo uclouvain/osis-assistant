@@ -24,7 +24,7 @@
 #
 ##############################################################################
 from django.shortcuts import reverse
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase
 
 from assistant.business.assistant_mandate import mandate_can_go_backward, add_actions_to_mandates_list
 from assistant.models.enums import assistant_mandate_state
@@ -45,46 +45,46 @@ from base.tests.factories.person import PersonFactory
 
 
 class TestMandateEntity(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.manager = ManagerFactory()
-        self.settings = SettingsFactory()
-        self.client.force_login(self.manager.person.user)
-        self.assistant = AcademicAssistantFactory()
-        self.assistant_mandate = AssistantMandateFactory(
+    @classmethod
+    def setUpTestData(cls):
+        cls.manager = ManagerFactory()
+        cls.settings = SettingsFactory()
+        cls.assistant = AcademicAssistantFactory()
+        cls.assistant_mandate = AssistantMandateFactory(
             state=assistant_mandate_state.TRTS,
-            assistant=self.assistant,
+            assistant=cls.assistant,
             assistant_type=assistant_type.ASSISTANT
         )
-        self.assistant2 = AcademicAssistantFactory()
-        self.assistant_mandate2 = AssistantMandateFactory(
+        cls.assistant2 = AcademicAssistantFactory()
+        cls.assistant_mandate2 = AssistantMandateFactory(
             state=assistant_mandate_state.SUPERVISION,
-            assistant=self.assistant2,
+            assistant=cls.assistant2,
             assistant_type=assistant_type.TEACHING_ASSISTANT
         )
-        self.entity1 = EntityFactory()
-        self.entity_version1 = EntityVersionFactory(entity=self.entity1, entity_type=entity_type.SECTOR)
-        self.entity2 = EntityFactory()
-        self.entity_version2 = EntityVersionFactory(entity=self.entity2, entity_type=entity_type.FACULTY)
-        self.entity3 = EntityFactory()
-        self.entity_version3 = EntityVersionFactory(entity=self.entity3, entity_type=entity_type.INSTITUTE)
-        self.entity4 = EntityFactory()
-        self.entity_version4 = EntityVersionFactory(
-            entity=self.entity4, parent=self.entity2, entity_type=entity_type.SCHOOL)
+        cls.entity1 = EntityFactory()
+        cls.entity_version1 = EntityVersionFactory(entity=cls.entity1, entity_type=entity_type.SECTOR)
+        cls.entity2 = EntityFactory()
+        cls.entity_version2 = EntityVersionFactory(entity=cls.entity2, entity_type=entity_type.FACULTY)
+        cls.entity3 = EntityFactory()
+        cls.entity_version3 = EntityVersionFactory(entity=cls.entity3, entity_type=entity_type.INSTITUTE)
+        cls.entity4 = EntityFactory()
+        cls.entity_version4 = EntityVersionFactory(
+            entity=cls.entity4, parent=cls.entity2, entity_type=entity_type.SCHOOL)
 
-        self.mandate_entity1 = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity1)
-        self.mandate_entity2 = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity2)
-        self.mandate_entity3 = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity3)
+        cls.mandate_entity1 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity1)
+        cls.mandate_entity2 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity2)
+        cls.mandate_entity3 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity3)
 
-        self.mandate_entity4 = MandateEntityFactory(assistant_mandate=self.assistant_mandate2, entity=self.entity1)
-        self.mandate_entity5 = MandateEntityFactory(assistant_mandate=self.assistant_mandate2, entity=self.entity2)
+        cls.mandate_entity4 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate2, entity=cls.entity1)
+        cls.mandate_entity5 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate2, entity=cls.entity2)
 
-        self.reviewer1 = ReviewerFactory(entity=self.entity3, role=reviewer_role.RESEARCH)
-        self.reviewer2 = ReviewerFactory(entity=self.entity2, role=reviewer_role.SUPERVISION)
-        self.reviewer3 = ReviewerFactory(entity=self.entity1, role=reviewer_role.VICE_RECTOR)
-        self.reviewer4 = ReviewerFactory(entity=None, role=reviewer_role.PHD_SUPERVISOR)
+        cls.reviewer1 = ReviewerFactory(entity=cls.entity3, role=reviewer_role.RESEARCH)
+        cls.reviewer2 = ReviewerFactory(entity=cls.entity2, role=reviewer_role.SUPERVISION)
+        cls.reviewer3 = ReviewerFactory(entity=cls.entity1, role=reviewer_role.VICE_RECTOR)
+        cls.reviewer4 = ReviewerFactory(entity=None, role=reviewer_role.PHD_SUPERVISOR)
+
+    def setUp(self):
+        self.client.force_login(self.manager.person.user)
 
     def test_mandate_can_go_backward(self):
         self.assertTrue(mandate_can_go_backward(self.assistant_mandate))

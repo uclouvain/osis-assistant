@@ -26,7 +26,7 @@
 import datetime
 
 from django.contrib import auth
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase
 
 from assistant.business.users_access import user_is_phd_supervisor_and_procedure_is_open
 from assistant.business.users_access import user_is_reviewer_and_procedure_is_open
@@ -47,29 +47,27 @@ from base.tests.factories.person import PersonFactory
 
 
 class TestUsersAccess(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.settings = SettingsFactory()
+    @classmethod
+    def setUpTestData(cls):
+        cls.settings = SettingsFactory()
         today = datetime.date.today()
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
-        self.phd_supervisor = PersonFactory()
-        self.assistant = AcademicAssistantFactory(supervisor=self.phd_supervisor)
-        self.assistant_mandate = AssistantMandateFactory(academic_year=self.current_academic_year,
-                                                         assistant=self.assistant)
-        self.assistant_mandate.state = assistant_mandate_state.PHD_SUPERVISOR
-        self.assistant_mandate.save()
-        self.review = ReviewFactory(reviewer=None, mandate=self.assistant_mandate,
-                                    status=review_status.IN_PROGRESS)
-        self.entity = EntityFactory()
-        self.entity_version = EntityVersionFactory(entity=self.entity, entity_type=entity_type.INSTITUTE)
-        self.mandate_entity = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity)
+        cls.current_academic_year = AcademicYearFactory(start_date=today,
+                                                        end_date=today.replace(year=today.year + 1),
+                                                        year=today.year)
+        cls.phd_supervisor = PersonFactory()
+        cls.assistant = AcademicAssistantFactory(supervisor=cls.phd_supervisor)
+        cls.assistant_mandate = AssistantMandateFactory(academic_year=cls.current_academic_year,
+                                                        assistant=cls.assistant)
+        cls.assistant_mandate.state = assistant_mandate_state.PHD_SUPERVISOR
+        cls.assistant_mandate.save()
+        cls.review = ReviewFactory(reviewer=None, mandate=cls.assistant_mandate,
+                                   status=review_status.IN_PROGRESS)
+        cls.entity = EntityFactory()
+        cls.entity_version = EntityVersionFactory(entity=cls.entity, entity_type=entity_type.INSTITUTE)
+        cls.mandate_entity = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity)
 
-        self.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
-                                        entity=self.entity_version.entity)
+        cls.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
+                                       entity=cls.entity_version.entity)
 
     def test_user_is_reviewer_and_procedure_is_open(self):
         auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
