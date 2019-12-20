@@ -96,7 +96,7 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
         current_reviewer = reviewer.find_by_person(self.request.user.person)[0]
         can_delegate = reviewer.can_delegate(current_reviewer)
         context['can_delegate'] = can_delegate
-        context['reviewer'] = current_reviewer
+        context['reviewers'] = current_reviewer
         entity = entity_version.get_last_version(current_reviewer.entity)
         context['entity'] = entity
         context['is_supervisor'] = self.is_supervisor
@@ -106,7 +106,7 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
         context['year'] = academic_year.find_academic_year_by_id(
             self.request.session.get('selected_academic_year')).year
         context = add_entities_version_to_mandates_list(context)
-        return add_actions_to_mandates_list(context, current_reviewer)
+        return add_actions_to_mandates_list(context, self.request.user.person)
 
     def get_initial(self):
         if self.request.session.get('selected_academic_year'):

@@ -28,7 +28,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import reverse
 from django.views.decorators.http import require_http_methods
 
-from assistant.models import assistant_mandate
+from assistant.models import assistant_mandate, reviewer
 from assistant.models.enums import assistant_mandate_state
 from assistant.models.enums import assistant_type
 from assistant.models.enums import review_status
@@ -89,19 +89,26 @@ def find_review_and_change_status(mandate, role):
         review.save()
 
 
-def add_actions_to_mandates_list(context, reviewer):
+def add_actions_to_mandates_list(context, person):
     cannot_view_assistant_form_status_list = [
         assistant_mandate_state.TO_DO,
         assistant_mandate_state.DECLINED,
         assistant_mandate_state.TRTS
     ]
+    reviewers = reviewer.Reviewer.objects.filter(person=person)
     for mandate in context['object_list']:
         mandate.view = mandate.edit = False
         if mandate.state not in cannot_view_assistant_form_status_list:
             mandate.view = True
-        if mandate.state in reviewer.role:
+        if _can_edit_mandate(mandate, reviewers):
             mandate.edit = True
     return context
+
+
+def _can_edit_mandate(mandate, reviewers):
+    return any(
+        rev for rev in reviewers if mandate.state in rev.role and rev.entity in mandate.entities
+    )
 
 
 def find_mandates_for_academic_year_and_entity(academic_year, entity):
