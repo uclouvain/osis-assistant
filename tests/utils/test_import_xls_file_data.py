@@ -57,38 +57,38 @@ HTTP_OK = 200
 
 
 class ExportImportXlsFile(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.request = self.client.post('/assistants/manager/mandates/upload/')
-        self.request._messages = FakeMessages()
-        self.manager = ManagerFactory()
-        self.client.force_login(self.manager.person.user)
-        self.request.user = self.manager.person.user
+    @classmethod
+    def setUpTestData(cls):
+        cls.client = Client()
+        cls.request = cls.client.post('/assistants/manager/mandates/upload/')
+        cls.request._messages = FakeMessages()
+        cls.manager = ManagerFactory()
+        cls.request.user = cls.manager.person.user
         now = timezone.now()
         AcademicYearFactory.produce_in_past()
-        self.previous_academic_year = academic_year.find_academic_year_by_year(now.year - 2)
-        self.person1 = PersonFactory(global_id='00201968')
-        self.assistant1 = AcademicAssistantFactory(person=self.person1)
-        self.record1 = {
+        cls.previous_academic_year = academic_year.find_academic_year_by_year(now.year - 2)
+        cls.person1 = PersonFactory(global_id='00201968')
+        cls.assistant1 = AcademicAssistantFactory(person=cls.person1)
+        cls.record1 = {
             'SECTOR': 'SST', 'LOGISTICS_ENTITY': 'None', 'FACULTY': 'SC', 'SCHOOL': 'CHIM', 'INSTITUTE': 'IMCN',
-            'POLE': 'MOST', 'SAP_ID': '1122199', 'GLOBAL_ID': '1122199', 'LAST_NAME': self.assistant1.person.last_name,
-            'FIRST_NAME': self.assistant1.person.first_name, 'FULLTIME_EQUIVALENT': '1', 'ENTRY_DATE': '01/02/2015',
+            'POLE': 'MOST', 'SAP_ID': '1122199', 'GLOBAL_ID': '1122199', 'LAST_NAME': cls.assistant1.person.last_name,
+            'FIRST_NAME': cls.assistant1.person.first_name, 'FULLTIME_EQUIVALENT': '1', 'ENTRY_DATE': '01/02/2015',
             'END_DATE': '03-10-2017', 'ASSISTANT_TYPE_CODE': 'ST', 'SCALE': '021', 'CONTRACT_DURATION': '4',
             'CONTRACT_DURATION_FTE': '4', 'RENEWAL_TYPE': 'NORMAL', 'ABSENCES': None, 'COMMENT': None,
             'OTHER_STATUS': None, 'EMAIL': None, 'FGS': '00201968'
         }
-        self.person2 = PersonFactory(global_id='00201979')
-        self.assistant2 = AcademicAssistantFactory()
-        self.record2 = {
+        cls.person2 = PersonFactory(global_id='00201979')
+        cls.assistant2 = AcademicAssistantFactory()
+        cls.record2 = {
             'SECTOR': 'SST', 'LOGISTICS_ENTITY': 'None', 'FACULTY': 'SC', 'SCHOOL': 'CHIM', 'INSTITUTE': 'IMCN',
-            'POLE': 'MOST', 'SAP_ID': '1122199', 'GLOBAL_ID': '1122199', 'LAST_NAME': self.person2.last_name,
-            'FIRST_NAME': self.person2.first_name, 'FULLTIME_EQUIVALENT': '1', 'ENTRY_DATE': '01/02/2015',
+            'POLE': 'MOST', 'SAP_ID': '1122199', 'GLOBAL_ID': '1122199', 'LAST_NAME': cls.person2.last_name,
+            'FIRST_NAME': cls.person2.first_name, 'FULLTIME_EQUIVALENT': '1', 'ENTRY_DATE': '01/02/2015',
             'END_DATE': '03-10-2017', 'ASSISTANT_TYPE_CODE': 'AS', 'SCALE': '021', 'CONTRACT_DURATION': '4',
             'CONTRACT_DURATION_FTE': '4', 'RENEWAL_TYPE': 'exceptional', 'ABSENCES': None, 'COMMENT': None,
             'OTHER_STATUS': None, 'EMAIL': None, 'FGS': '00201979'
         }
-        self.assistant3 = AcademicAssistantFactory()
-        self.record3 = {
+        cls.assistant3 = AcademicAssistantFactory()
+        cls.record3 = {
             'SECTOR': 'SST', 'LOGISTICS_ENTITY': 'None', 'FACULTY': 'SC', 'SCHOOL': 'CHIM', 'INSTITUTE': 'IMCN',
             'POLE': 'MOST', 'SAP_ID': '1122599', 'GLOBAL_ID': '1322199', 'LAST_NAME': 'last_name',
             'FIRST_NAME': 'first_name', 'FULLTIME_EQUIVALENT': '1', 'ENTRY_DATE': '01/02/2015',
@@ -96,16 +96,19 @@ class ExportImportXlsFile(TestCase):
             'CONTRACT_DURATION_FTE': '4', 'RENEWAL_TYPE': 'SPECIAL', 'ABSENCES': None, 'COMMENT': None,
             'OTHER_STATUS': None, 'EMAIL': None, 'FGS': None
         }
-        self.entity_version1 = EntityVersionFactory(entity_type=entity_type.SECTOR,
-                                                    acronym='SST',
-                                                    title='Secteur des Sciences et Technologies',
-                                                    end_date=datetime.datetime(datetime.date.today().year + 1, 9, 14))
-        self.entity_version2 = EntityVersionFactory(entity_type=entity_type.SECTOR,
-                                                    acronym='SSH',
-                                                    end_date=datetime.datetime(datetime.date.today().year + 1, 9, 14))
-        self.assistant_mandate1 = AssistantMandateFactory(
-            assistant=self.assistant1
+        cls.entity_version1 = EntityVersionFactory(entity_type=entity_type.SECTOR,
+                                                   acronym='SST',
+                                                   title='Secteur des Sciences et Technologies',
+                                                   end_date=datetime.datetime(datetime.date.today().year + 1, 9, 14))
+        cls.entity_version2 = EntityVersionFactory(entity_type=entity_type.SECTOR,
+                                                   acronym='SSH',
+                                                   end_date=datetime.datetime(datetime.date.today().year + 1, 9, 14))
+        cls.assistant_mandate1 = AssistantMandateFactory(
+            assistant=cls.assistant1
         )
+
+    def setUp(self):
+        self.client.force_login(self.manager.person.user)
 
     def test_upload_mandates_file(self):
         file = File(open('assistant/tests/resources/assistants_ok.xlsx', 'rb'))
