@@ -37,20 +37,20 @@ from base.tests.factories.person import PersonFactory
 
 
 class TestReviewerDelegationForm(TestCase):
-
-    def setUp(self):
-        self.mandate = AssistantMandateFactory()
-        self.entity_factory = EntityFactory()
-        self.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE,
+    @classmethod
+    def setUpTestData(cls):
+        cls.mandate = AssistantMandateFactory()
+        cls.entity_factory = EntityFactory()
+        cls.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE,
+                                                  end_date=None,
+                                                  entity=cls.entity_factory)
+        cls.entity_factory2 = EntityFactory()
+        cls.entity_version2 = EntityVersionFactory(entity_type=entity_type.SECTOR,
                                                    end_date=None,
-                                                   entity=self.entity_factory)
-        self.entity_factory2 = EntityFactory()
-        self.entity_version2 = EntityVersionFactory(entity_type=entity_type.SECTOR,
-                                                    end_date=None,
-                                                    entity=self.entity_factory2)
-        self.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
-                                        entity=self.entity_version.entity)
-        self.delegate = PersonFactory()
+                                                   entity=cls.entity_factory2)
+        cls.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
+                                       entity=cls.entity_version.entity)
+        cls.delegate = PersonFactory()
 
     def test_with_valid_data(self):
         form = ReviewerDelegationForm(data={

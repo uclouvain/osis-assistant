@@ -34,15 +34,15 @@ from base.tests.factories.entity import EntityFactory
 from base.tests.factories.entity_version import EntityVersionFactory
 
 
-class TestReviewerForm (TestCase):
-
-    def setUp(self):
-        self.entity_factory = EntityFactory()
-        self.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE,
-                                                   end_date=None,
-                                                   entity=self.entity_factory)
-        self.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
-                                        entity=self.entity_version.entity)
+class TestReviewerForm(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.entity_factory = EntityFactory()
+        cls.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE,
+                                                  end_date=None,
+                                                  entity=cls.entity_factory)
+        cls.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
+                                       entity=cls.entity_version.entity)
 
     def test_without_entity(self):
         form = ReviewerForm(data={
@@ -60,9 +60,7 @@ class TestReviewerForm (TestCase):
 
     def test_with_valid_data(self):
         form = ReviewerForm(data={
-         'entity': find_versions_from_entites([self.entity_factory.id], date=None)[0].id,
-         'role': self.reviewer.role,
+            'entity': find_versions_from_entites([self.entity_factory.id], date=None)[0].id,
+            'role': self.reviewer.role,
         }, instance=self.reviewer)
         self.assertTrue(form.is_valid(), form.errors)
-
-
