@@ -50,6 +50,7 @@ class TestReviewerFactory(TestCase):
         self.reviewer3 = ReviewerFactory(role=reviewer_role.SUPERVISION, entity=self.entity3)
         self.reviewer4 = ReviewerFactory(role=reviewer_role.SUPERVISION_DAF, entity=self.entity3)
         self.reviewer5 = ReviewerFactory(role=reviewer_role.SUPERVISION_DAF_ASSISTANT, entity=self.entity4)
+        self.reviewer6 = ReviewerFactory(role=reviewer_role.VICE_RECTOR_ASSISTANT, entity=self.entity1)
 
     def test_find_by_person(self):
         self.assertQuerysetEqual(
@@ -61,7 +62,7 @@ class TestReviewerFactory(TestCase):
     def test_find_reviewers(self):
         self.assertCountEqual(
             list(reviewer.find_reviewers()),
-            [self.reviewer2, self.reviewer1, self.reviewer3, self.reviewer4, self.reviewer5]
+            [self.reviewer2, self.reviewer1, self.reviewer3, self.reviewer4, self.reviewer5, self.reviewer6]
         )
 
     def test_find_by_id(self):
@@ -88,6 +89,9 @@ class TestReviewerFactory(TestCase):
 
     def test_daf_can_delegate(self):
         self.assertTrue(reviewer.can_delegate(self.reviewer4))
+
+    def test_vice_rector_assistant_can_delegate(self):
+        self.assertTrue(reviewer.can_delegate(self.reviewer6))
 
     def test_can_delegate_to_entity(self):
         self.assertFalse(reviewer.can_delegate_to_entity(self.reviewer1, self.entity1))
