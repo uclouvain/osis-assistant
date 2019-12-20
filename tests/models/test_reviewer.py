@@ -34,23 +34,23 @@ from base.tests.factories.entity_version import EntityVersionFactory
 
 
 class TestReviewerFactory(TestCase):
-
-    def setUp(self):
-        self.entity1 = EntityFactory()
-        self.entity_version1 = EntityVersionFactory(entity=self.entity1, entity_type=entity_type.SECTOR)
-        self.entity2 = EntityFactory()
-        self.entity_version2 = EntityVersionFactory(entity=self.entity2, entity_type=entity_type.FACULTY)
-        self.entity3 = EntityFactory()
-        self.entity_version3 = EntityVersionFactory(entity=self.entity3, entity_type=entity_type.FACULTY)
-        self.entity4 = EntityFactory()
-        self.entity_version4 = EntityVersionFactory(
-            entity=self.entity4, parent=self.entity3, entity_type=entity_type.SCHOOL)
-        self.reviewer1 = ReviewerFactory(role=reviewer_role.VICE_RECTOR, entity=self.entity1)
-        self.reviewer2 = ReviewerFactory(role=reviewer_role.SUPERVISION, entity=self.entity2)
-        self.reviewer3 = ReviewerFactory(role=reviewer_role.SUPERVISION, entity=self.entity3)
-        self.reviewer4 = ReviewerFactory(role=reviewer_role.SUPERVISION_DAF, entity=self.entity3)
-        self.reviewer5 = ReviewerFactory(role=reviewer_role.SUPERVISION_DAF_ASSISTANT, entity=self.entity4)
-        self.reviewer6 = ReviewerFactory(role=reviewer_role.VICE_RECTOR_ASSISTANT, entity=self.entity1)
+    @classmethod
+    def setUpTestData(cls):
+        cls.entity1 = EntityFactory()
+        cls.entity_version1 = EntityVersionFactory(entity=cls.entity1, entity_type=entity_type.SECTOR)
+        cls.entity2 = EntityFactory()
+        cls.entity_version2 = EntityVersionFactory(entity=cls.entity2, entity_type=entity_type.FACULTY)
+        cls.entity3 = EntityFactory()
+        cls.entity_version3 = EntityVersionFactory(entity=cls.entity3, entity_type=entity_type.FACULTY)
+        cls.entity4 = EntityFactory()
+        cls.entity_version4 = EntityVersionFactory(
+            entity=cls.entity4, parent=cls.entity3, entity_type=entity_type.SCHOOL)
+        cls.reviewer1 = ReviewerFactory(role=reviewer_role.VICE_RECTOR, entity=cls.entity1)
+        cls.reviewer2 = ReviewerFactory(role=reviewer_role.SUPERVISION, entity=cls.entity2)
+        cls.reviewer3 = ReviewerFactory(role=reviewer_role.SUPERVISION, entity=cls.entity3)
+        cls.reviewer4 = ReviewerFactory(role=reviewer_role.SUPERVISION_DAF, entity=cls.entity3)
+        cls.reviewer5 = ReviewerFactory(role=reviewer_role.SUPERVISION_DAF_ASSISTANT, entity=cls.entity4)
+        cls.reviewer6 = ReviewerFactory(role=reviewer_role.VICE_RECTOR_ASSISTANT, entity=cls.entity1)
 
     def test_find_by_person(self):
         self.assertQuerysetEqual(

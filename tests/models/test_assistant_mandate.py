@@ -37,7 +37,6 @@ from base.tests.factories.academic_year import AcademicYearFactory
 
 
 class TestAssistantMandateFactory(TestCase):
-
     def setUp(self):
         self.mandate = AssistantMandateFactory(
             academic_year=factory.SubFactory(AcademicYearFactory, year=datetime.date.today().year - 1))

@@ -25,6 +25,7 @@
 ##############################################################################
 import factory
 from django.utils import timezone
+from factory import fuzzy
 
 
 class SettingsFactory(factory.DjangoModelFactory):

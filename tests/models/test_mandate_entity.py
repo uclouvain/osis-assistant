@@ -33,15 +33,15 @@ from base.tests.factories.entity_version import EntityVersionFactory
 
 
 class TestMandateEntityFactory(TestCase):
-
-    def setUp(self):
-        self.assistant_mandate = AssistantMandateFactory()
-        self.entity3 = EntityVersionFactory(entity_type=entity_type.SECTOR).entity
-        self.entity = EntityVersionFactory(entity_type=entity_type.FACULTY, parent=self.entity3).entity
-        self.entity2 = EntityVersionFactory(entity_type=entity_type.SCHOOL, parent=self.entity).entity
-        self.mandate_entity = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity)
-        self.mandate_entity2 = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity2)
-        self.mandate_entity3 = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity3)
+    @classmethod
+    def setUpTestData(cls):
+        cls.assistant_mandate = AssistantMandateFactory()
+        cls.entity3 = EntityVersionFactory(entity_type=entity_type.SECTOR).entity
+        cls.entity = EntityVersionFactory(entity_type=entity_type.FACULTY, parent=cls.entity3).entity
+        cls.entity2 = EntityVersionFactory(entity_type=entity_type.SCHOOL, parent=cls.entity).entity
+        cls.mandate_entity = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity)
+        cls.mandate_entity2 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity2)
+        cls.mandate_entity3 = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity3)
 
     def test_find_by_mandate_and_type(self):
         self.assertEqual(self.mandate_entity,

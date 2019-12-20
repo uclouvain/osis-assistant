@@ -23,7 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.test import TestCase, Client
+from django.test import TestCase
 
 from assistant.models.enums import assistant_mandate_state, reviewer_role
 from assistant.models.enums import review_status
@@ -38,50 +38,50 @@ from base.tests.factories.entity_version import EntityVersionFactory
 
 
 class TestReviewFactory(TestCase):
-
-    def setUp(self):
-
-        self.mandate = AssistantMandateFactory(state=assistant_mandate_state.DONE)
-        self.entity_version1 = EntityVersionFactory(
+    @classmethod
+    def setUpTestData(cls):
+        cls.mandate = AssistantMandateFactory(state=assistant_mandate_state.DONE)
+        cls.entity_version1 = EntityVersionFactory(
             entity_type=entity_type.INSTITUTE,
             end_date=None
         )
-        self.mandate_entity1 = MandateEntityFactory(
-            assistant_mandate=self.mandate,
-            entity=self.entity_version1.entity
+        cls.mandate_entity1 = MandateEntityFactory(
+            assistant_mandate=cls.mandate,
+            entity=cls.entity_version1.entity
         )
-        self.entity_version2 = EntityVersionFactory(
+        cls.entity_version2 = EntityVersionFactory(
             entity_type=entity_type.FACULTY,
             end_date=None
         )
-        self.mandate_entity2 = MandateEntityFactory(
-            assistant_mandate=self.mandate,
-            entity=self.entity_version2.entity
+        cls.mandate_entity2 = MandateEntityFactory(
+            assistant_mandate=cls.mandate,
+            entity=cls.entity_version2.entity
         )
-        self.entity_version3 = EntityVersionFactory(
+        cls.entity_version3 = EntityVersionFactory(
             entity_type=entity_type.SECTOR,
             end_date=None
         )
-        self.mandate_entity3 = MandateEntityFactory(
-            assistant_mandate=self.mandate,
-            entity=self.entity_version3.entity
+        cls.mandate_entity3 = MandateEntityFactory(
+            assistant_mandate=cls.mandate,
+            entity=cls.entity_version3.entity
         )
-        self.reviewer1 = reviewer.ReviewerFactory(
+        cls.reviewer1 = reviewer.ReviewerFactory(
             role=reviewer_role.RESEARCH,
-            entity=self.entity_version1.entity
+            entity=cls.entity_version1.entity
         )
-        self.review1 = review.ReviewFactory(reviewer=self.reviewer1, status=review_status.DONE, mandate=self.mandate)
-        self.reviewer2 = reviewer.ReviewerFactory(
+        cls.review1 = review.ReviewFactory(reviewer=cls.reviewer1, status=review_status.DONE, mandate=cls.mandate)
+        cls.reviewer2 = reviewer.ReviewerFactory(
             role=reviewer_role.SUPERVISION,
-            entity=self.entity_version2.entity
+            entity=cls.entity_version2.entity
         )
-        self.review2 = review.ReviewFactory(reviewer=self.reviewer2, status=review_status.DONE, mandate=self.mandate)
-        self.reviewer3 = reviewer.ReviewerFactory(
+        cls.review2 = review.ReviewFactory(reviewer=cls.reviewer2, status=review_status.DONE, mandate=cls.mandate)
+        cls.reviewer3 = reviewer.ReviewerFactory(
             role=reviewer_role.VICE_RECTOR_ASSISTANT,
-            entity=self.entity_version3.entity
+            entity=cls.entity_version3.entity
         )
-        self.review2 = review.ReviewFactory(reviewer=self.reviewer3, status=review_status.DONE, mandate=self.mandate)
-        self.client = Client()
+        cls.review2 = review.ReviewFactory(reviewer=cls.reviewer3, status=review_status.DONE, mandate=cls.mandate)
+
+    def setUp(self):
         self.client.force_login(self.reviewer1.person.user)
 
     def test_find_in_progress_for_mandate(self):

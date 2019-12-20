@@ -31,8 +31,9 @@ from assistant.tests.factories.settings import SettingsFactory
 
 
 class TestSettingsFactory(TestCase):
-    def setUp(self):
-        self.settings = SettingsFactory()
+    @classmethod
+    def setUpTestData(cls):
+        cls.settings = SettingsFactory()
 
     def test_access_to_procedure_is_open(self):
         self.assertEqual(access_to_procedure_is_open(), True)
