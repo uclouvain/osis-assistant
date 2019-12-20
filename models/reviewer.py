@@ -52,7 +52,7 @@ class ReviewerAdmin(admin.ModelAdmin):
 
 class Reviewer(models.Model):
     person = models.ForeignKey('base.Person', on_delete=models.CASCADE)
-    role = models.CharField(max_length=30, choices=reviewer_role.ROLE_CHOICES)
+    role = models.CharField(max_length=40, choices=reviewer_role.ROLE_CHOICES)
     entity = models.ForeignKey('base.Entity', blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
