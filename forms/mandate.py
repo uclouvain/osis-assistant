@@ -23,14 +23,18 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+import django_filters
 from django import forms
+from django.db.models import Prefetch
 from django.forms import ModelForm, Textarea, inlineformset_factory
+from django.utils.translation import pgettext_lazy, ugettext_lazy as _
 
 import base.models
 from assistant import models as mdl
 from assistant.forms.common import EntityChoiceField
-from assistant.models.enums import assistant_mandate_renewal, assistant_type
-from base.models import academic_year, entity
+from assistant.models import assistant_mandate, mandate_entity, review
+from assistant.models.enums import assistant_mandate_renewal, assistant_type, review_status
+from base.models import academic_year, entity, entity_version
 from base.models.enums import entity_type
 
 
@@ -60,6 +64,58 @@ class MandateForm(ModelForm):
         super(MandateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+
+
+class AssistantMandateFilter(django_filters.FilterSet):
+    academic_year = django_filters.filters.ModelChoiceFilter(
+        queryset=academic_year.AcademicYear.objects.all(),
+        required=False,
+        label=_('Ac yr.'),
+        empty_label=pgettext_lazy("plural", "All"),
+    )
+
+    class Meta:
+        model = assistant_mandate.AssistantMandate
+        fields = [
+            "academic_year"
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.queryset = self.get_queryset()
+
+    def get_queryset(self):
+        qs = assistant_mandate.AssistantMandate.objects.all(
+
+        ).select_related(
+            'academic_year',
+            'assistant__person',
+            'assistant__supervisor'
+        ).prefetch_related(
+            Prefetch(
+                'review_set',
+                queryset=review.Review.objects.filter(status=review_status.DONE).select_related('reviewer__person')
+            ),
+            Prefetch(
+                "mandateentity_set",
+                queryset=mandate_entity.MandateEntity.objects.prefetch_related(
+                    Prefetch(
+                        "entity",
+                        queryset=entity.Entity.objects.prefetch_related(
+                            Prefetch(
+                                "entityversion_set",
+                                queryset=entity_version.EntityVersion.objects.current(
+                                    academic_year.starting_academic_year().start_date
+                                ),
+                                to_attr="versions"
+                            )
+                        )
+                    )
+                ).order_by("id"),
+                to_attr="mandate_entitites"
+            ),
+        )
+        return qs
 
 
 class MandatesArchivesForm(ModelForm):

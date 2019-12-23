@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% load static %}
-{% load i18n %}
+{% load static i18n %}
+{% load review_status %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -32,7 +32,7 @@
 
 {% block content %}
 <div class="page-header">
-    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
+    <h3>{% trans 'Assistant mandate renewal application processing' %} - {{ academic_year.year|add:1 }}</h3>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -46,26 +46,26 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table id="myTable" class="table table-hover table-condensed table-bordered" role="presentation">
+            <table id="Mandates" class="table table-hover table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th>{% trans 'Registration number' %}</th>
-                        <th>{% trans 'Assistant' %}</th>
-                        <th>{% trans 'Entities' %}</th>
-                        <th>{% trans 'Assistant type' %}</th>
-                        <th>{% trans 'Status' %}</th>
-                        <th>{% trans 'Ph.D.' %}</th>
-                        <th>{% trans 'Mandate' %}</th>
-                        <th>{% trans 'Full-time equivalent' %}</th>
-                        <th>{% trans '% FTE' %}</th>
-                        <th>{% trans 'Opinions' %}</th>
+                        <th id="registration-number">{% trans 'Registration number' %}</th>
+                        <th id="name">{% trans 'Assistant' %}</th>
+                        <th id="entities">{% trans 'Entities' %}</th>
+                        <th id="type">{% trans 'Assistant type' %}</th>
+                        <th id="status">{% trans 'Status' %}</th>
+                        <th id="phd">{% trans 'Ph.D.' %}</th>
+                        <th id="mandate">{% trans 'Mandate' %}</th>
+                        <th id="fte">{% trans 'Full-time equivalent' %}</th>
+                        <th id="fte-percent">{% trans '% FTE' %}</th>
+                        <th id="opinions">{% trans 'Opinions' %}</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for mandate in object_list %}
-                    <tr>
-                        <td>{{ mandate.sap_id }}</td>
-                        <td><form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
+                    <tr id="{{ mandate.assistant.person.global_id }}" class="result">
+                        <td headers="registration-number">{{ mandate.sap_id }}</td>
+                        <td headers="name"><form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
                             {{ form.non_field_errors }}
                             {% csrf_token %}
                             <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
@@ -74,7 +74,7 @@
                                 <span class="far fa-edit" aria-hidden="true"></span> {% trans 'Edit'%}
                             </button></form>
                         </td>
-                        <td>
+                        <td headers="entities">
                             <ul>
                             {% for mandate_entity in mandate.mandate_entitites %}
                                 {% for entity_version in mandate_entity.entity.versions %}
@@ -85,8 +85,8 @@
                             {% endfor %}
                             </ul>
                         </td>
-                        <td>{% trans mandate.get_assistant_type_display %}</td>
-                        <td>
+                        <td headers="type">{% trans mandate.get_assistant_type_display %}</td>
+                        <td headers="status">
                             {% trans mandate.get_state_display %}
                             {% if mandate.state == assistant_mandate_state.PHD_SUPERVISOR %}
                                 <h6>
@@ -95,41 +95,17 @@
                                 </h6>
                             {% endif %}
                         </td>
-                        <td>{% if mandate.assistant.inscription %}
+                        <td headers="phd">
+                            {% if mandate.assistant.inscription %}
                                 {% trans mandate.assistant.inscription|yesno|title %}
                             {% endif %}
                         </td>
-                        <td>{{ mandate.contract_duration }}</td>
-                        <td>{{ mandate.contract_duration_fte }}</td>
-                        <td>{{ mandate.fulltime_equivalent }}</td>
-                        <td>
+                        <td headers="mandate">{{ mandate.contract_duration }}</td>
+                        <td headers="fte">{{ mandate.contract_duration_fte }}</td>
+                        <td headers="fte-percent">{{ mandate.fulltime_equivalent }}</td>
+                        <td headers="opinions">
                         {% for review in mandate.review_set.all|dictsort:"changed" %}
-                            {% if review.status == review_status.DONE %}
-                                {% if not review.reviewer %}
-                                    <i id="rev" class="fas fa-battery-quarter" style="font-size: 100%;
-                                {% elif "RESEARCH" in review.reviewer.role %}
-                                    <i class="fas fa-battery-half" style="font-size: 100%;
-                                {% elif "SUPERVISION" in review.reviewer.role %}
-                                    <i class="fas fa-battery-three-quarters" style="font-size: 100%;
-                                {% elif "VICE_RECTOR" in review.reviewer.role %}
-                                    <i class="fas fa-battery-full" style="font-size: 100%;
-                                {% else %}
-                                    <i id="rev" class="fas fa-battery-quarter" style="font-size: 100%;
-                                {% endif %}
-                                {% if review.advice == "FAVORABLE" %}
-                                     color: #79C84F;"
-                                {% elif review.advice == review_advice_choices.UNFAVOURABLE %}
-                                     color: #E06D5A;"
-                                {% else %}
-                                     color: #EFC345;"
-                                {% endif %}
-                                {% if review.reviewer %}
-                                    title="{% trans review.reviewer.role %} : {{ review.reviewer.person }}">
-                                {% else %}
-                                    title="{% trans 'Thesis promoter' %} : {{ mandate.assistant.supervisor }}">
-                                {% endif %}
-                                </i>
-                            {% endif %}
+                            {% display_status review mandate.assistant.supervisor %}
                         {% endfor %}
                         </td>
                     </tr>
@@ -144,7 +120,7 @@
 {% block script %}
  <script>
  $(document).ready(function() {
-    $('#myTable').DataTable( {
+    $('#Mandates').DataTable( {
         stateSave: true
     } );
 } );

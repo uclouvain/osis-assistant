@@ -55,14 +55,14 @@ class TestMandatesListView(TestCase):
 
         context = response.context
         self.assertCountEqual(list(context["object_list"]), self.mandates)
-        self.assertEqual(context["year"], self.current_acy.year)
+        self.assertEqual(context["academic_year"], self.current_acy)
 
     def test_should_return_mandates_of_selected_academic_year(self):
         response = self.client.get(self.url, data={"academic_year": self.past_acy.id})
 
         context = response.context
         self.assertCountEqual(list(context["object_list"]), self.past_mandates)
-        self.assertEqual(context["year"], self.past_acy.year)
+        self.assertEqual(context["academic_year"], self.past_acy)
 
     def test_should_return_mandates_of_academic_year_in_session(self):
         self.client.session[mandates_list.SELECTED_ACADEMIC_YEAR_KEY_SESSION] = self.past_acy.id
@@ -70,4 +70,4 @@ class TestMandatesListView(TestCase):
 
         context = response.context
         self.assertCountEqual(list(context["object_list"]), self.past_mandates)
-        self.assertEqual(context["year"], self.past_acy.year)
+        self.assertEqual(context["academic_year"], self.past_acy)
