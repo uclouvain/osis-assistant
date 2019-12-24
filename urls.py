@@ -24,6 +24,7 @@
 #
 ##############################################################################
 from django.conf.urls import url, include
+from django.urls import path
 
 from assistant.business.assistant_mandate import find_assistant_mandate_step_backward_state
 from assistant.utils import get_persons
@@ -40,6 +41,7 @@ urlpatterns = [
     url(r'^$', home.assistant_home, name='assistants_home'),
     url(r'^access_denied$', home.access_denied, name='access_denied'),
     url(r'^api/get_persons/', get_persons.get_persons, name='get_persons'),
+    url(r'^api/persons/', get_persons.PersonAutocomplete.as_view(), name='assistant-persons-autocomplete'),
 
 
     url(r'^assistant/', include([
@@ -101,8 +103,7 @@ urlpatterns = [
             name='manager_assistant_form_view'),
         url(r'^mandates/', include([
             url(r'^$', mandates_list.MandatesListView.as_view(), name='mandates_list'),
-            url(r'^edit/$', mandate.mandate_edit, name='mandate_read'),
-            url(r'^save/$', mandate.mandate_save, name='mandate_save'),
+            path('<int:mandate_id>/edit/', mandate.mandate_edit, name='mandate_edit'),
             url(r'^go_backward/$', find_assistant_mandate_step_backward_state, name='assistant_mandate_step_back'),
             url(r'^load/$', mandate.load_mandates, name='load_mandates'),
             url(r'^upload/$', import_xls_file_data.upload_mandates_file, name='upload_mandates_file'),
@@ -145,7 +146,7 @@ urlpatterns = [
     ])),
 
     url(r'^reviewer/', include([
-        url(r'^$', reviewer_mandates_list.MandatesListView.as_view(), { 'filter': False },
+        url(r'^$', reviewer_mandates_list.MandatesListView.as_view(), {'filter': False},
             name='reviewer_mandates_list'),
         url(r'^delegate/add/$', reviewer_delegation.add_reviewer_for_structure,
             name='reviewer_delegation_add'),

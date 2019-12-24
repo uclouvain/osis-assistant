@@ -23,9 +23,10 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from base.models import academic_year
+from base.models import academic_year, entity
 from base.models import entity_version
 from base.models.entity import find_versions_from_entites
+from base.models.enums import entity_type
 
 
 def get_entities_for_mandate(mandate):
@@ -45,3 +46,13 @@ def add_entities_version_to_mandates_list(context):
         entities_id = mandate.mandateentity_set.all().order_by('id').values_list('entity', flat=True)
         mandate.entities = find_versions_from_entites(entities_id, None)
     return context
+
+
+ENTITY_TYPES = [entity_type.SECTOR, entity_type.FACULTY, entity_type.LOGISTICS_ENTITY, entity_type.SCHOOL,
+                entity_type.INSTITUTE, entity_type.POLE]
+
+
+def fetch_entities():
+    return entity.Entity.objects.filter(
+        entityversion__entity_type__in=ENTITY_TYPES
+    )

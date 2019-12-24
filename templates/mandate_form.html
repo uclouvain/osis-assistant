@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% load static %}
-{% load i18n %}
+{% load static i18n %}
+{% load bootstrap3 %}
 {
 
 {% comment "License" %}
@@ -26,16 +26,13 @@
 * at the root of the source code of this program.  If not,
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
-{% block style %}
-<link rel="stylesheet" href="{% static 'css/custom.css' %}">
-<link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
-{% endblock %}
+
 {% block breadcrumb %}
 <li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
 <li><a href="{% url 'mandates_list' %}" id="lnk_assistants">{% trans 'List of mandates' %}</a></li>
 <li class="active">{% trans 'Mandate edition' %}</li>
-
 {% endblock %}
+
 {% block content %}
 <div class="page-header">
     <h3>{% trans 'Assistant mandate renewal application processing' %} {{ mandate.academic_year.year|add:1 }}</h3>
@@ -48,122 +45,48 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h3>{{ mandate.assistant }} ({{ mandate.assistant.person.gender }})</h3>
-        <form method="post" action=" {% url 'mandate_save' %} ">
+        <p>{{ mandate.assistant.person.email }}
+
+        <form method="post">
             {% csrf_token %}
-            {{ mandate.assistant.person.email }}
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="txt_assistant_type">{% trans 'Assistant type' %}</label>
-                        {{ form.assistant_type }}<span class="error">{{ form.assistant_type.errors }}</span>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="txt_matricule_number">{% trans 'Registration number' %}</label>
-                        {{ form.sap_id }}
-                    </div>
-                    <div class="col-md-4">
-                        <label for="txt_renewal_type">{% trans 'Renewal type' %}</label>
+            <div class="row">
+                {% bootstrap_field form.assistant_type form_group_class="col-md-4"%}
+                {% bootstrap_field form.sap_id form_group_class="col-md-4"%}
+                {% bootstrap_field form.renewal_type form_group_class="col-md-4"%}
+            </div>
 
-                            {{ form.renewal_type }}<span class="error">{{ form.renewal_type.errors }}</span>
-                    </div>
-                </div>
+            <div class="row" style="margin-top:10px;">
+                {% bootstrap_field form.contract_duration form_group_class="col-md-4"%}
+                {% bootstrap_field form.contract_duration_fte form_group_class="col-md-4"%}
+                {% bootstrap_field form.fulltime_equivalent form_group_class="col-md-4"%}
             </div>
-            <div class="form-group">
-                <div class="row">
 
-                    <div class="col-md-4">
-                        <label for="txt_contract_duration">{% trans 'Contract length' %}</label>
-                        {{ form.contract_duration }}
-                    </div>
-                    <div class="col-md-4">
-                        <label for="txt_contract_duration_fte">{% trans 'Full-time equivalent' %}</label>
-                        {{ form.contract_duration_fte }}
-                    </div>
-                    <div class="col-md-4">
-                        <label for="txt_fulltime_equivalent">{% trans 'Percentage of occupancy' %}</label>
-                        {{ form.fulltime_equivalent }}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-            {% if supervisor is None %}
-                {% trans 'Promoter' %} : {% trans 'No promoter' %}
-            {% elif mandate.state == assistant_mandate_state.PHD_SUPERVISOR %}
-                {% trans 'Promoter' %} : {{ supervisor }}
-                <br>
-                <label id="label_for_search_persons" for="search_persons">
-                    {% trans 'Substitute promoter' %}
-                </label>
-                <input id="search_persons" name="search_persons" size="100" class="form-control"
-                       placeholder="{% trans 'Search by email or last name' %}">
-                <input type="hidden" name="person_id" id="person_id">
-            {% elif mandate.state == assistant_mandate_state.TRTS %}
-                {% trans 'Promoter' %} : {{ supervisor }}
-                <div class="checkbox">
-                    <label><input type="checkbox" name="del_rev" value="yes">{% trans 'Delete' %}</label>
-                </div>
-            {% else %}
-                {% trans 'Promoter' %} : {{ supervisor }}
-            {% endif %}
-            </div>
-            {{ formset.management_form }}
-            <div class="form-group">
+            {% bootstrap_field form_supervisor.supervisor %}
+
+            <div id="entities">
+                {{ formset.management_form }}
                 <label for="txt_structures">{% trans 'Entities' %}</label>
                 {% for form in formset %}
                     {% for field in form %}
-                        {% if field.name == "DELETE" %}
-                            <div class="controls">{{ field }} {% trans 'Delete' %}<span class="error">{{ field.errors }}</span></div>
-                        {% else %}
-                            <div class="controls">{{ field }}<span class="error">{{ field.errors }}</span></div>
-                        {% endif %}
+                        {% bootstrap_field field show_label=False %}
                     {% endfor %}
                 {% endfor %}
             </div>
-            <div class="form-group">
-                <label for="txt_comment">{% trans 'Comment' %}</label>
-                {{ form.comment }}<span class="error">{{ form.comment.errors }}</span>
-            </div>
-             <div class="form-group">
-                 <label for="txt_absences">{% trans 'Absences' %}</label>
-                 {{ form.absences }}<span class="error">{{ form.absences.errors }}</span>
-             </div>
-             <div class="form-group">
-                 <label for="txt_other_status">{% trans 'Other status' %}</label>
-                 {{ form.other_status }}<span class="error">{{ form.other_status.errors }}</span>
-            </div>
-            <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
-            <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_mandate_save"><span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
+
+            {% bootstrap_field form.comment %}
+            {% bootstrap_field form.absences %}
+            {% bootstrap_field form.other_status %}
+
+            <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_mandate_save">
+                <span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}
+            </button>
             <a class="btn btn-default" id="lnk_mandate_cancel" href="{% url 'mandates_list' %}">
-                <span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
+                <span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}
+            </a>
         </form>
+        {{ form_supervisor.media }}
+        {{ form.media }}
+
     </div>
 </div>
 {% endblock %}
-{% block script %}
-<script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
-<script>
-window.onload = function() {
-    $('#person_id').empty();
-};
-$(function() {
-    $("#search_persons").autocomplete({
-        source: "/assistants/api/get_persons/",
-        minLength: 3,
-        delay: 100,
-        select: function(event, ui) {
-            var person_id = ui.item.id;
-            $("#person_id").val(person_id);
-            $("#search_persons").val(ui.item.first_name + ', ' + ui.item.last_name + ' (' + ui.item.value + ')');
-            return False;
-        }
-    });
-});
-</script>
-{% endblock %}
-
-
-
-
-
-
-

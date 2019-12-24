@@ -39,9 +39,6 @@ class MandatesList(pypom.Page):
             (result for result in self.results if result.registration_number == sap_id)
         )
 
-    def count_result(self):
-        return len(self.results)
-
 
 class MandatesListElement(pypom.Region):
     _registration_number_locator = (By.CSS_SELECTOR, "[headers=registration-number]")
@@ -54,6 +51,8 @@ class MandatesListElement(pypom.Region):
     _fte_locator = (By.CSS_SELECTOR, "[headers=fte]")
     _fte_percent_locator = (By.CSS_SELECTOR, "[headers=fte-percent]")
     _opinions_locator = (By.CSS_SELECTOR, "[headers=opinions]")
+
+    _modify_button_locator = (By.CLASS_NAME, "fa-edit")
 
     @property
     def registration_number(self):
@@ -95,7 +94,41 @@ class MandatesListElement(pypom.Region):
     def opinions(self):
         return self.find_element(*self._opinions_locator).text
 
+    @property
+    def modify_button(self):
+        return self.find_element(*self._modify_button_locator)
+
+
+class EditAssistantAdministrativeData(pypom.Page):
+    assistant_type = fields.SelectField(By.ID, "id_mand-assistant_type")
+    registration_number = fields.InputField(By.ID, "id_mand-sap_id")
+    renewal_type = fields.SelectField(By.ID, "id_mand-renewal_type")
+    contract_duration = fields.InputField(By.ID, "id_mand-contract_duration")
+    contract_duration_fte = fields.InputField(By.ID, "id_mand-contract_duration_fte")
+    fulltime_equivalent = fields.InputField(By.ID, "id_mand-fulltime_equivalent")
+
+    supervisor = fields.Select2Field(By.ID, "id_supervisor-supervisor")
+
+    entity_1 = fields.SelectField(By.ID, "id_entity-0-entity")
+    entity_1_delete = fields.Checkbox(By.ID, "id_entity-0-DELETE")
+    entity_2 = fields.SelectField(By.ID, "id_entity-1-entity")
+    entity_2_delete = fields.Checkbox(By.ID, "id_entity-1-DELETE")
+    entity_3 = fields.SelectField(By.ID, "id_entity-2-entity")
+    entity_3_delete = fields.Checkbox(By.ID, "id_entity-2-DELETE")
+    entity_4 = fields.SelectField(By.ID, "id_entity-3-entity")
+    entity_4_delete = fields.Checkbox(By.ID, "id_entity-3-DELETE")
+    entity_5 = fields.SelectField(By.ID, "id_entity-4-entity")
+    entity_5_delete = fields.Checkbox(By.ID, "id_entity-4-DELETE")
+
+    comment = fields.InputField(By.ID, "id_mand-comment")
+    absences = fields.InputField(By.ID, "id_mand-absences")
+    other_status = fields.InputField(By.ID, "id_mand-other_status")
+
+    submit_button = fields.ButtonField(By.ID, "bt_mandate_save")
+
+    def submit(self):
+        self.submit_button.click()
+
 
 class Home(pypom.Page):
     dashboard = fields.Link(MandatesList, By.ID, "lnk_dashboard")
-

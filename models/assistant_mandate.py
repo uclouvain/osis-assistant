@@ -26,6 +26,7 @@
 from django.contrib import admin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from assistant.models.enums import assistant_mandate_state, assistant_type, assistant_mandate_renewal, \
     assistant_mandate_appeal
@@ -43,18 +44,18 @@ class AssistantMandate(models.Model):
 
     assistant = models.ForeignKey('AcademicAssistant', on_delete=models.CASCADE)
     academic_year = models.ForeignKey('base.AcademicYear', on_delete=models.CASCADE)
-    fulltime_equivalent = models.DecimalField(max_digits=3, decimal_places=2)
+    fulltime_equivalent = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Percentage of occupancy'))
     entry_date = models.DateField()
     end_date = models.DateField()
-    sap_id = models.CharField(max_length=12)
+    sap_id = models.CharField(max_length=12, verbose_name=_('Registration number'))
     assistant_type = models.CharField(max_length=20, choices=assistant_type.ASSISTANT_TYPES,
-                                      default=assistant_type.ASSISTANT)
+                                      default=assistant_type.ASSISTANT, verbose_name=_("Assistant type"))
     scale = models.CharField(max_length=3)
-    absences = models.TextField(null=True, blank=True)
-    comment = models.TextField(null=True, blank=True)
-    other_status = models.CharField(max_length=50, null=True, blank=True)
+    absences = models.TextField(null=True, blank=True, verbose_name=_('Absences'))
+    comment = models.TextField(null=True, blank=True, verbose_name=_('Comment'))
+    other_status = models.CharField(max_length=50, null=True, blank=True, verbose_name=_('Other status'))
     renewal_type = models.CharField(max_length=12, choices=assistant_mandate_renewal.ASSISTANT_MANDATE_RENEWAL_TYPES,
-                                    default=assistant_mandate_renewal.NORMAL)
+                                    default=assistant_mandate_renewal.NORMAL, verbose_name=_('Renewal type'))
     external_functions = models.TextField(null=True, blank=True)
     external_contract = models.CharField(max_length=255, null=True, blank=True)
     justification = models.TextField(null=True, blank=True)
@@ -91,8 +92,8 @@ class AssistantMandate(models.Model):
     appeal = models.CharField(max_length=20, choices=assistant_mandate_appeal.ASSISTANT_MANDATE_APPEALS,
                               default=assistant_mandate_appeal.NONE)
     special = models.BooleanField(default=False)
-    contract_duration = models.CharField(max_length=30)
-    contract_duration_fte = models.CharField(max_length=30)
+    contract_duration = models.CharField(max_length=30, verbose_name=_('Contract length'))
+    contract_duration_fte = models.CharField(max_length=30, verbose_name=_('Full-time equivalent'))
     service_activities_remark = models.TextField(null=True, blank=True)
 
 

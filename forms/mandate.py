@@ -24,46 +24,36 @@
 #
 ##############################################################################
 import django_filters
+from dal import autocomplete
 from django import forms
 from django.db.models import Prefetch
-from django.forms import ModelForm, Textarea, inlineformset_factory
+from django.forms import ModelForm, inlineformset_factory
 from django.utils.translation import pgettext_lazy, ugettext_lazy as _
 
 import base.models
 from assistant import models as mdl
+from assistant.business.mandate_entity import fetch_entities
 from assistant.forms.common import EntityChoiceField
 from assistant.models import assistant_mandate, mandate_entity, review
-from assistant.models.enums import assistant_mandate_renewal, assistant_type, review_status
+from assistant.models.enums import review_status
 from base.models import academic_year, entity, entity_version
-from base.models.enums import entity_type
 
 
 class MandateForm(ModelForm):
-    comment = forms.CharField(required=False, widget=Textarea(
-        attrs={'rows': '4', 'cols': '80'}))
-    absences = forms.CharField(required=False, widget=Textarea(
-        attrs={'rows': '4', 'cols': '80'}))
-    other_status = forms.CharField(max_length=50, required=False)
-    renewal_type = forms.ChoiceField(
-        choices=assistant_mandate_renewal.ASSISTANT_MANDATE_RENEWAL_TYPES)
-    assistant_type = forms.ChoiceField(
-        choices=assistant_type.ASSISTANT_TYPES)
-    sap_id = forms.CharField(required=True, max_length=12, strip=True)
-    contract_duration = forms.CharField(
-        required=True, max_length=30, strip=True)
-    contract_duration_fte = forms.CharField(
-        required=True, max_length=30, strip=True)
-    fulltime_equivalent = forms.NumberInput()
-
     class Meta:
         model = mdl.assistant_mandate.AssistantMandate
         fields = ('comment', 'absences', 'other_status', 'renewal_type', 'assistant_type', 'sap_id',
                   'contract_duration', 'contract_duration_fte', 'fulltime_equivalent')
 
-    def __init__(self, *args, **kwargs):
-        super(MandateForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
+
+class AssistantSupervisorForm(ModelForm):
+    class Meta:
+        model = mdl.academic_assistant.AcademicAssistant
+        fields = ('supervisor',)
+        widgets = {'supervisor': autocomplete.ModelSelect2(
+            url='assistant-persons-autocomplete',
+            attrs={'style': 'width:100%'}
+        )}
 
 
 class AssistantMandateFilter(django_filters.FilterSet):
@@ -128,18 +118,17 @@ class MandatesArchivesForm(ModelForm):
 
 def get_field_qs(field, **kwargs):
     if field.name == 'entity':
-        return EntityChoiceField(queryset=base.models.entity.find_versions_from_entites(
-            entity.search(entity_type=entity_type.SECTOR) |
-            entity.search(entity_type=entity_type.FACULTY) |
-            entity.search(entity_type=entity_type.LOGISTICS_ENTITY) |
-            entity.search(entity_type=entity_type.SCHOOL) |
-            entity.search(entity_type=entity_type.INSTITUTE) |
-            entity.search(entity_type=entity_type.POLE), None))
+        return EntityChoiceField(queryset=base.models.entity.find_versions_from_entites(fetch_entities(), None))
     return field.formfield(**kwargs)
 
 
-entity_inline_formset = inlineformset_factory(mdl.assistant_mandate.AssistantMandate,
-                                              mdl.mandate_entity.MandateEntity,
-                                              formfield_callback=get_field_qs,
-                                              fields=('entity', 'assistant_mandate'),
-                                              extra=1, can_delete=True, min_num=1, max_num=5)
+entity_inline_formset = inlineformset_factory(
+    mdl.assistant_mandate.AssistantMandate,
+    mdl.mandate_entity.MandateEntity,
+    formfield_callback=get_field_qs,
+    fields=('entity', 'assistant_mandate'),
+    extra=1,
+    can_delete=True,
+    min_num=1,
+    max_num=5
+)

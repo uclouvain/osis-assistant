@@ -25,6 +25,7 @@
 ##############################################################################
 from django.contrib import admin
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from assistant.models.enums import assistant_phd_inscription
 
@@ -37,7 +38,7 @@ class AcademicAssistantAdmin(admin.ModelAdmin):
 class AcademicAssistant(models.Model):
     person = models.ForeignKey('base.Person', on_delete=models.CASCADE)
     supervisor = models.ForeignKey('base.Person', blank=True, null=True, related_name='person_supervisor',
-                                   on_delete=models.CASCADE)
+                                   on_delete=models.CASCADE, verbose_name=_('Promoter'))
     thesis_title = models.CharField(max_length=255, null=True, blank=True)
     phd_inscription_date = models.DateField(null=True, blank=True)
     confirmation_test_date = models.DateField(null=True, blank=True)

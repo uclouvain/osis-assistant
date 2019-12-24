@@ -28,14 +28,14 @@ import time
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from openpyxl import Workbook
 from openpyxl.writer.excel import save_virtual_workbook
 
-from assistant import models as assistant_mdl
-from assistant.forms.mandate import MandateForm, entity_inline_formset
-from assistant.models import assistant_mandate, review
+from assistant.forms.mandate import MandateForm, entity_inline_formset, AssistantSupervisorForm
+from assistant.models import assistant_mandate, review, manager
 from assistant.models.enums import reviewer_role, assistant_mandate_state
 from assistant.utils.send_email import send_message
 from base.models import academic_year, entity, person
@@ -45,64 +45,52 @@ from base.models.enums import entity_type
 def user_is_manager(user):
     try:
         if user.is_authenticated:
-            return assistant_mdl.manager.Manager.objects.get(person=user.person)
+            return manager.Manager.objects.get(person=user.person)
     except ObjectDoesNotExist:
         return False
     
 
 @user_passes_test(user_is_manager, login_url='assistants_home')
-def mandate_edit(request):
-    mandate_id = request.POST.get("mandate_id")
-    mandate = assistant_mdl.assistant_mandate.find_mandate_by_id(mandate_id)
-    supervisor = mandate.assistant.supervisor
-    form = MandateForm(initial={'comment': mandate.comment,
-                                'renewal_type': mandate.renewal_type,
-                                'absences': mandate.absences,
-                                'other_status': mandate.other_status,
-                                'contract_duration': mandate.contract_duration,
-                                'contract_duration_fte': mandate.contract_duration_fte
-                                }, prefix="mand", instance=mandate)
-    formset = entity_inline_formset(instance=mandate, prefix="entity")
-    
+def mandate_edit(request, mandate_id):
+    mandate = get_object_or_404(
+        assistant_mandate.AssistantMandate.objects.select_related(
+            "assistant",
+            "assistant__supervisor",
+            "assistant__person"
+        ),
+        id=mandate_id
+    )
+
+    form = MandateForm(request.POST or None, prefix="mand", instance=mandate)
+    formset = entity_inline_formset(request.POST or None, instance=mandate, prefix="entity")
+    form_supervisor = AssistantSupervisorForm(request.POST or None, prefix="supervisor", instance=mandate.assistant)
+    if not is_form_supervisor_enabled(mandate):
+        form_supervisor.fields["supervisor"].disabled = True
+
+    if form.is_valid() and formset.is_valid() and form_supervisor.is_valid():
+        form.save()
+        formset.save()
+        if form_supervisor.changed_data:
+            form_supervisor.save()
+            new_supervisor = form_supervisor.supervisor
+            html_template_ref = 'assistant_phd_supervisor_html'
+            txt_template_ref = 'assistant_phd_supervisor_txt'
+            send_message(person=new_supervisor, html_template_ref=html_template_ref,
+                         txt_template_ref=txt_template_ref, assistant=mandate.assistant)
+        return redirect(reverse("mandate_edit", args=[mandate_id]))
+
     return render(request, 'mandate_form.html', {
         'mandate': mandate,
         'form': form,
+        'form_supervisor': form_supervisor,
         'formset': formset,
-        'assistant_mandate_state': assistant_mandate_state,
-        'supervisor': supervisor
     })
 
 
-@user_passes_test(user_is_manager, login_url='access_denied')
-def mandate_save(request):
-    mandate_id = request.POST.get("mandate_id")
-    mandate = assistant_mdl.assistant_mandate.find_mandate_by_id(mandate_id)
-    if request.POST.get('del_rev'):
-        mandate.assistant.supervisor = None
-        mandate.assistant.save()
-    elif request.POST.get('person_id'):
-        try:
-            substitute_supervisor = person.find_by_id(request.POST.get('person_id'))
-            if substitute_supervisor:
-                mandate.assistant.supervisor = substitute_supervisor
-                mandate.assistant.save()
-                html_template_ref = 'assistant_phd_supervisor_html'
-                txt_template_ref = 'assistant_phd_supervisor_txt'
-                send_message(person=substitute_supervisor, html_template_ref=html_template_ref,
-                             txt_template_ref=txt_template_ref, assistant=mandate.assistant)
-        except ObjectDoesNotExist:
-            pass
-    form = MandateForm(data=request.POST, instance=mandate, prefix='mand')
-    formset = entity_inline_formset(request.POST, request.FILES, instance=mandate, prefix='entity')
-    if form.is_valid():
-        form.save()
-        if formset.is_valid():
-            formset.save()
-            return mandate_edit(request)
-        else:
-            return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
-    else:
-        return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
+def is_form_supervisor_enabled(mandate):
+    if mandate.state in (assistant_mandate_state.PHD_SUPERVISOR, assistant_mandate_state.TRTS):
+        return True
+    return False
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')

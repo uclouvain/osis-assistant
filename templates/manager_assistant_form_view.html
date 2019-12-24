@@ -37,16 +37,7 @@
 <div class="page-header">
     <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year }} </h3>
     <ul class="nav nav-tabs">
-        <li>
-            <form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
-                {{ form.non_field_errors }}
-                {% csrf_token %}
-                <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
-                <button type="submit" class="btn btn-link" title="{% trans 'Administrative data'%}">
-                    {% trans 'Administrative data'%}
-                </button>
-            </form>
-        </li>
+        <li><li><a href="{% url "mandate_edit" mandate_id=mandate.id %}">{% trans 'Administrative data'%}</a></li>
         <li class="active"><a href="#">{% trans 'Assistant file' %}</a></li>
         <li><a href="{% url 'manager_reviews_view' mandate_id=mandate.id %}">{% trans 'Workflow and reviews' %}</a></li>
     </ul>

@@ -71,6 +71,7 @@ class EntityVersionTreeFactory:
 
     def __init__(self):
         self.root = self.Node(EntityVersionFactory(parent=None, entity_type=""))
+        self.nodes = [self.root]
         self._genererate_tree(self.root)
 
     def _genererate_tree(self, parent: Node):
@@ -80,6 +81,7 @@ class EntityVersionTreeFactory:
                 continue
             child = self.Node(EntityVersionFactory(parent=parent.element.entity, entity_type=child_entity_type))
             parent.children.append(child)
+            self.nodes.append(child)
 
             self._genererate_tree(child)
 

@@ -23,11 +23,32 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+from dal import autocomplete
+from django.db.models import Q
 from django.http import JsonResponse
 
+from base.models import person
 from base.models.person import find_by_last_name_or_email
+from osis_common.decorators.deprecated import deprecated
 
 
+class PersonAutocomplete(autocomplete.Select2QuerySetView):
+    def get_result_label(self, item):
+        return "{} {} ({})".format(item.last_name, item.first_name, item.email)
+
+    def get_queryset(self):
+        qs = person.Person.objects.all()
+        print(self.q)
+        if self.q:
+            qs = qs.filter(
+                Q(last_name__icontains=self.q) |
+                Q(first_name__icontains=self.q) |
+                Q(email__icontains=self.q)
+            )
+        return qs.order_by('last_name', 'first_name')
+
+
+@deprecated
 def get_persons(request):
     if request.is_ajax() and 'term' in request.GET:
         q = request.GET.get('term')

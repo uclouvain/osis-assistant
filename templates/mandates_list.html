@@ -65,15 +65,9 @@
                 {% for mandate in object_list %}
                     <tr id="{{ mandate.assistant.person.global_id }}" class="result">
                         <td headers="registration-number">{{ mandate.sap_id }}</td>
-                        <td headers="name"><form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
-                            {{ form.non_field_errors }}
-                            {% csrf_token %}
-                            <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
+                        <td headers="name">
                             <a href="mailto:{{ mandate.assistant.person.email }}">{{ mandate.assistant }}</a>
-                            <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
-                                <span class="far fa-edit" aria-hidden="true"></span> {% trans 'Edit'%}
-                            </button></form>
-                        </td>
+                            <a href="{% url "mandate_edit" mandate_id=mandate.id %}"><span class="far fa-edit" aria-hidden="true"></span> {% trans 'Edit'%}</a>
                         <td headers="entities">
                             <ul>
                             {% for mandate_entity in mandate.mandate_entitites %}
