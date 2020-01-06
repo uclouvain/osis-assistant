@@ -27,9 +27,11 @@ import random
 
 import factory
 
+from assistant.models.enums import reviewer_role
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.manager import ManagerFactory
 from assistant.tests.factories.mandate_entity import MandateEntityFactory
+from assistant.tests.factories.reviewer import ReviewerFactory
 from base.models.entity_version import EntityVersion
 from base.models.enums import entity_type
 from base.tests.factories.entity_version import EntityVersionFactory
@@ -44,6 +46,22 @@ class BusinessFactory:
             academic_year__current=True,
             post=self.entities_tree
         )
+        self.reviewers = assign_reviewer_to_entities(self.entities_tree.elements)
+
+
+def assign_reviewer_to_entities(entities_version: [EntityVersion]):
+    entity_type_to_reviewer_role = {
+        entity_type.SECTOR: (reviewer_role.VICE_RECTOR,),
+        entity_type.FACULTY: (reviewer_role.SUPERVISION, reviewer_role.SUPERVISION_DAF),
+        entity_type.INSTITUTE: (reviewer_role.RESEARCH,)
+    }
+    reviewers = []
+    for entity_version in entities_version:
+        for role in entity_type_to_reviewer_role.get(entity_version.entity_type, []):
+            reviewers.append(
+                ReviewerFactory(role=role, entity=entity_version.entity)
+            )
+    return reviewers
 
 
 class AssistantMandateFactoryBusiness(AssistantMandateFactory):
@@ -73,6 +91,10 @@ class EntityVersionTreeFactory:
         self.root = self.Node(EntityVersionFactory(parent=None, entity_type=""))
         self.nodes = [self.root]
         self._genererate_tree(self.root)
+
+    @property
+    def elements(self):
+        return [node.element for node in self.nodes]
 
     def _genererate_tree(self, parent: Node):
         for _ in range(3):

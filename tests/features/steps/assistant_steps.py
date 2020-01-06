@@ -32,7 +32,12 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from assistant.business.mandate_entity import fetch_entities
+from assistant.models.enums import reviewer_role
+from assistant.models.reviewer import Reviewer
 from assistant.tests.functional.pages import manager
+from base.models import entity
+from base.models.enums import entity_type
+from base.models.person import Person
 from features.steps.utils.pages import LoginPage
 
 use_step_matcher("parse")
@@ -80,6 +85,93 @@ def step_impl(context: Context):
         float(expected_result.fte_percent.replace(",", ".")),
         assistant_mandate.fulltime_equivalent
     )
+
+
+@step("Click on reviewers link")
+def step_impl(context: Context):
+    base_url = get_url_by_name(context.test.live_server_url, "manager_home")
+    page = manager.Home(driver=context.browser, base_url=base_url)
+    page.reviewers.click()
+
+    base_url = get_url_by_name(context.test.live_server_url, "reviewers_list")
+    page = manager.ReviewersList(driver=context.browser, base_url=base_url)
+    context.test.assertURLEqual(context.browser.current_url, base_url)
+
+
+@step("Add reviewer")
+def step_impl(context: Context):
+    base_url = get_url_by_name(context.test.live_server_url, "reviewers_list")
+    page = manager.ReviewersList(driver=context.browser, base_url=base_url)
+    context.test.assertURLEqual(context.browser.current_url, base_url)
+    page.add_reviewer()
+
+    random_person = Person.objects.filter(reviewer__isnull=True).order_by("?")[0]
+    random_entity = entity.Entity.objects.filter(entityversion__entity_type=entity_type.SECTOR).order_by('?')[0].id
+    page = manager.AddReviewer(driver=context.browser)
+    page.person = random_person.email
+    page.entity = random_entity
+    page.role = reviewer_role.VICE_RECTOR_ASSISTANT
+    page.submit()
+
+    base_url = get_url_by_name(context.test.live_server_url, "reviewers_list")
+    page = manager.ReviewersList(driver=context.browser, base_url=base_url)
+    context.test.assertURLEqual(context.browser.current_url, base_url)
+
+    context.test.assertTrue(
+        Reviewer.objects.filter(
+            person=random_person,
+            entity=random_entity,
+            role=reviewer_role.VICE_RECTOR_ASSISTANT
+        ).exists()
+    )
+
+
+@step("Add duplicate reviewer")
+def step_impl(context: Context):
+    base_url = get_url_by_name(context.test.live_server_url, "reviewers_list")
+    page = manager.ReviewersList(driver=context.browser, base_url=base_url)
+    context.test.assertURLEqual(context.browser.current_url, base_url)
+    page.add_reviewer()
+
+    random_person = Person.objects.filter(reviewer__isnull=True).order_by("?")[0]
+    random_entity = entity.Entity.objects.filter(entityversion__entity_type=entity_type.SECTOR).order_by('?')[0].id
+    page = manager.AddReviewer(driver=context.browser)
+    page.person = random_person.email
+    page.entity = random_entity
+    page.role = reviewer_role.VICE_RECTOR
+    page.submit()
+
+    page.has_error()
+
+
+@step("Substitute reviewer")
+def step_impl(context: Context):
+    base_url = get_url_by_name(context.test.live_server_url, "reviewers_list")
+    page = manager.ReviewersList(driver=context.browser, base_url=base_url)
+    context.test.assertURLEqual(context.browser.current_url, base_url)
+
+    random.choice(page.results).replace()
+
+    random_person = Person.objects.filter(reviewer__isnull=True).order_by("?")[0]
+    page = manager.SubstituteReviewer(driver=context.browser)
+    page.person = random_person.email
+    page.submit()
+
+    base_url = get_url_by_name(context.test.live_server_url, "reviewers_list")
+    page = manager.ReviewersList(driver=context.browser, base_url=base_url)
+    context.test.assertURLEqual(context.browser.current_url, base_url)
+
+    context.test.assertTrue(Reviewer.objects.filter(person=random_person).exists())
+
+
+@step("Delete reviewer")
+def step_impl(context: Context):
+    base_url = get_url_by_name(context.test.live_server_url, "reviewers_list")
+    page = manager.ReviewersList(driver=context.browser, base_url=base_url)
+    context.test.assertURLEqual(context.browser.current_url, base_url)
+    reviewer_count = Reviewer.objects.all().count()
+    random.choice(page.results).delete()
+    context.test.assertEqual(Reviewer.objects.all().count(), reviewer_count-1)
 
 
 @step("Click randomly on edit assistant link")

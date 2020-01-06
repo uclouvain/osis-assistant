@@ -23,6 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+from dal import autocomplete
 from django import forms
 from django.forms import ModelForm
 from django.utils.translation import gettext as _
@@ -36,21 +37,16 @@ from base.models.enums import entity_type
 
 
 class ReviewerForm(ModelForm):
-    role = forms.ChoiceField(required=True, choices=reviewer_role.ROLE_CHOICES)
-    entities = \
-        entity.search(entity_type=entity_type.INSTITUTE) | entity.search(entity_type=entity_type.FACULTY) | \
+    entities = entity.search(entity_type=entity_type.INSTITUTE) | entity.search(entity_type=entity_type.FACULTY) | \
         entity.search(entity_type=entity_type.SECTOR) | entity.search(entity_type=entity_type.LOGISTICS_ENTITY)
     entity = EntityChoiceField(required=True, queryset=base.models.entity.find_versions_from_entites(entities, None))
 
     class Meta:
         model = mdl.reviewer.Reviewer
-        fields = ('entity', 'role')
-        exclude = ['person']
-
-    def __init__(self, *args, **kwargs):
-        super(ReviewerForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
+        fields = ('entity', 'role', 'person')
+        widgets = {'person': autocomplete.ModelSelect2(
+            url='assistant-persons-autocomplete'
+        )}
 
 
 class ReviewerDelegationForm(ModelForm):
@@ -71,13 +67,14 @@ class ReviewerDelegationForm(ModelForm):
 
 
 class ReviewerReplacementForm(ModelForm):
-    person = forms.ChoiceField(required=False)
     id = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = mdl.reviewer.Reviewer
-        fields = ('id',)
-        exclude = ('person', 'entity', 'role')
+        fields = ('id', 'person')
+        widgets = {'person': autocomplete.ModelSelect2(
+            url='assistant-persons-autocomplete'
+        )}
 
 
 class ReviewersFormset(ModelForm):

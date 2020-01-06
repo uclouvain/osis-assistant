@@ -103,9 +103,7 @@ def reviewer_action(request):
                 reviewer_id = reviewer_form.cleaned_data.get('id')
                 this_reviewer = reviewer.find_by_id(reviewer_id)
                 entity = entity_version.get_last_version(this_reviewer.entity)
-                form = ReviewerReplacementForm(initial={'person': this_reviewer.person,
-                                                        'id': this_reviewer.id}, prefix="rev",
-                                               instance=this_reviewer)
+                form = ReviewerReplacementForm(instance=this_reviewer)
                 return render(request, "manager_replace_reviewer.html", {'reviewer': this_reviewer,
                                                                          'entity': entity,
                                                                          'year': year,
@@ -124,45 +122,25 @@ def reviewer_delete(request, reviewer_id):
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
 def reviewer_replace(request):
     year = academic_year.starting_academic_year().year
-    form = ReviewerReplacementForm(data=request.POST, prefix='rev')
-    reviewer_to_replace = reviewer.find_by_id(request.POST.get('reviewer_id'))
+    reviewer_to_replace = reviewer.find_by_id(request.POST.get('id'))
+    form = ReviewerReplacementForm(request.POST or None, instance=reviewer_to_replace)
     entity = entity_version.get_last_version(reviewer_to_replace.entity)
-    this_person = request.POST.get('person_id')
-    if form.is_valid() and this_person:
-        this_person = person.find_by_id(this_person)
-        reviewer_to_replace.person = this_person
-        reviewer_to_replace.save()
+    if form.is_valid():
+        form.save()
         return redirect('reviewers_list')
-    else:
-        msg = _("Please enter the last name and first name of the person you are looking for and select the "
-                "corresponding choice in the drop-down list")
-        form.add_error(None, msg)
-    return render(request, "manager_replace_reviewer.html", {'reviewer': reviewer_to_replace,
-                                                             'entity': entity,
-                                                             'year': year,
-                                                             'form': form})
+    return render(request, "manager_replace_reviewer.html", {
+        'reviewer': reviewer_to_replace,
+        'entity': entity,
+        'year': year,
+        'form': form
+    })
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
 def reviewer_add(request):
     year = academic_year.starting_academic_year().year
-    if request.POST:
-        form = ReviewerForm(data=request.POST)
-        this_person = request.POST.get('person_id')
-        if form.is_valid() and this_person:
-            this_person = person.find_by_id(this_person)
-            new_reviewer = form.save(commit=False)
-            if reviewer.find_by_entity_and_role(new_reviewer.entity, new_reviewer.role):
-                msg = _("A reviewer having the same role for this entity already exists")
-                form.add_error(None, msg)
-            if not form.has_error(field=NON_FIELD_ERRORS):
-                new_reviewer.person = this_person
-                new_reviewer.save()
-                return redirect('reviewers_list')
-        else:
-            msg = _("Please enter the last name and first name of the person you are looking for and select the "
-                    "corresponding choice in the drop-down list")
-            form.add_error(None, msg)
-    else:
-        form = ReviewerForm(initial={'year': year})
+    form = ReviewerForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('reviewers_list')
     return render(request, "manager_add_reviewer.html", {'form': form, 'year': year})

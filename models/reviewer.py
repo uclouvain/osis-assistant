@@ -24,7 +24,9 @@
 #
 ##############################################################################
 from django.contrib import admin
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from assistant.models.enums import reviewer_role
 from base.models import entity_version
@@ -58,6 +60,10 @@ class Reviewer(models.Model):
     def __str__(self):
         version = entity_version.get_last_version(self.entity)
         return u"%s - %s : %s" % (self.person, version.entity, self.role)
+
+    def clean(self):
+        if Reviewer.objects.filter(entity=self.entity, role=self.role).exclude(id=self.id).exists():
+            raise ValidationError(_("A reviewer having the same role for this entity already exists"))
 
 
 def find_reviewers():

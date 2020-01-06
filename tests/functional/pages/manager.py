@@ -25,6 +25,7 @@
 ############################################################################
 import pypom
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import select
 
 from features.steps.utils import fields
 
@@ -130,5 +131,82 @@ class EditAssistantAdministrativeData(pypom.Page):
         self.submit_button.click()
 
 
+class ReviewersList(pypom.Page):
+    _add_reviewer = fields.ButtonField(By.ID, "bt_reviewer_add")
+
+    @property
+    def results(self):
+        return [ReviewersListElement(self, el) for el in self.find_elements(By.CSS_SELECTOR, ".result")]
+
+    def add_reviewer(self):
+        return self._add_reviewer.click()
+
+
+class ReviewersListElement(pypom.Region):
+    _name_locator = (By.CSS_SELECTOR, "[headers=name]")
+    _entity_locator = (By.CSS_SELECTOR, "[headers=entity]")
+    _role_locator = (By.CSS_SELECTOR, "[headers=role]")
+    _action_locator = (By.CSS_SELECTOR, "[headers=action] > select")
+
+    @property
+    def name(self):
+        return self.find_element(*self._name_locator).text
+
+    @property
+    def entity(self):
+        return self.find_element(*self._entity_locator).text
+
+    @property
+    def role(self):
+        return self.find_element(*self._role_locator).text
+
+    @property
+    def actions(self):
+        return select.Select(self.find_element(*self._action_locator))
+
+    def replace(self):
+        self.actions.select_by_value("REPLACE")
+
+    def delete(self):
+        self.actions.select_by_value("DELETE")
+
+
+class SubstituteReviewer(pypom.Page):
+    person = fields.Select2Field(By.CLASS_NAME, "select2-container")
+    current_reviewer = fields.CharField(By.ID, "reviewer")
+    entity = fields.CharField(By.ID, "entity")
+    role = fields.CharField(By.ID, "role")
+
+    save_button = fields.ButtonField(By.ID, "bt_add_reviewer_save")
+    cancel_button = fields.ButtonField(By.ID, "lnk_upload_cancel")
+
+    def submit(self):
+        self.save_button.click()
+
+    def cancel(self):
+        self.cancel_button.click()
+
+
+class AddReviewer(pypom.Page):
+    person = fields.Select2Field(By.CLASS_NAME, "select2-container")
+    entity = fields.SelectField(By.ID, "id_entity")
+    role = fields.SelectField(By.ID, "id_role")
+
+    save_button = fields.ButtonField(By.ID, "bt_add_reviewer_save")
+    cancel_button = fields.ButtonField(By.ID, "lnk_upload_cancel")
+
+    _span_error = fields.Field(By.CSS_SELECTOR, ".alert.alert-danger")
+
+    def submit(self):
+        self.save_button.click()
+
+    def cancel(self):
+        self.cancel_button.click()
+
+    def has_error(self):
+        return bool(self._span_error.text)
+
+
 class Home(pypom.Page):
     dashboard = fields.Link(MandatesList, By.ID, "lnk_dashboard")
+    reviewers = fields.Link(MandatesList, By.ID, "lnk_reviewers")

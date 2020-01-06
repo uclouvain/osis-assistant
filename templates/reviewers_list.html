@@ -31,6 +31,7 @@
 <li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
 <li class="active">{% trans 'Reviewers' %}</li>
 {% endblock %}
+
 {% block content %}
 <div class="page-header">
     <h3>{% trans 'Assistant mandate renewal application processing' %}</h3>
@@ -40,33 +41,35 @@
         <form action="{% url 'reviewer_action' %}" method="post">
             {% csrf_token %}
             {{ reviewers_formset.management_form }}
-        <div class="table-responsive">
-        <table id="myTable" class="table table-hover table-condensed table-bordered">
-        <thead>
-        <tr>
-        <th>{% trans 'Name' %}</th>
-        <th>{% trans 'Entity' %}</th>
-        <th>{% trans 'Role' %}</th>
-        <th>{% trans 'Action' %}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for reviewer in reviewers_formset %}
-            <tr>
-            <td>{{ reviewer.person.value.last_name|upper }} {{ reviewer.person.value.first_name }}{{ reviewer.access }}</td>
-            <td>{{ reviewer.entity_version.value.acronym }} - {{ reviewer.entity_version.value.title }}</td>
-            <td>{{ reviewer.role.value | display  }}</td>
-            <td>{{ reviewer.action }}</td>
-            {{ reviewer.id.as_hidden }}
-            {{ reviewer.entity_version.as_hidden }}
-        {% endfor %}
-        </tbody>
-        </table>
-        </div>
-        <a href="{% url 'reviewer_add' %}">
-            <button type="button" class="btn btn-link btn-lg" title="{% trans 'Add'%}" id="bt_reviewer_add">
-            <span class="fas fa-plus" aria-hidden="true"></span>
-            </button>{% trans 'Add reviewer' %}</a>
+            <div class="table-responsive">
+                <table id="Reviewers" class="table table-hover table-condensed table-bordered">
+                    <thead>
+                        <tr>
+                            <th id="name">{% trans 'Name' %}</th>
+                            <th id="entity">{% trans 'Entity' %}</th>
+                            <th id="role">{% trans 'Role' %}</th>
+                            <th id="action">{% trans 'Action' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reviewer in reviewers_formset %}
+                            <tr class="result">
+                                <td headers="name">{{ reviewer.person.value.last_name|upper }} {{ reviewer.person.value.first_name }}</td>
+                                <td headers="entity">{{ reviewer.entity_version.value.acronym }} - {{ reviewer.entity_version.value.title }}</td>
+                                <td headers="role">{{ reviewer.role.value | display  }}</td>
+                                <td headers="action">{{ reviewer.action }}</td>
+                                {{ reviewer.id.as_hidden }}
+                                {{ reviewer.entity_version.as_hidden }}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="{% url 'reviewer_add' %}">
+                <button type="button" class="btn btn-link btn-lg" title="{% trans 'Add'%}" id="bt_reviewer_add">
+                <span class="fas fa-plus" aria-hidden="true"></span>
+                </button>{% trans 'Add reviewer' %}
+            </a>
         </form>
     </div>
 </div>
@@ -74,7 +77,7 @@
 {% block script %}
 <script>
 $(document).ready(function() {
-    $('#myTable').DataTable( {
+    $('#Reviewers').DataTable( {
         stateSave: true
         } );
     } );
