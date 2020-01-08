@@ -28,16 +28,14 @@ import json
 
 from django.test import TestCase
 
-from base.models.person import Person
+from base.tests.factories.person import PersonFactory
 
 
 class GetPersonsTestCase(TestCase):
-    def setUp(self):
-        self.person = Person.objects.create(first_name='person1', last_name='tests', email='person1@tests.com')
-        self.person.save()
-        self.person = Person.objects.create(first_name='person2', last_name='tests', email='person2@tests.com')
-        self.person.save()
-
+    @classmethod
+    def setUpTestData(cls):
+        PersonFactory(first_name='person1', last_name='tests', email='person1@tests.com')
+        PersonFactory(first_name='person2', last_name='tests', email='person2@tests.com')
 
     def test_get_persons(self):
         response = self.client.generic(method='get', path='/assistants/api/get_persons/?term=on2',

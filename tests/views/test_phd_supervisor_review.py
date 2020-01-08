@@ -25,7 +25,7 @@
 ##############################################################################
 import datetime
 
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase
 
 from assistant.models.enums import assistant_mandate_state, review_status
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
@@ -44,35 +44,35 @@ from base.tests.factories.person import PersonFactory
 HTTP_OK = 200
 HTTP_FOUND = 302
 
+
 class PhdSupervisorReviewViewTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.settings = SettingsFactory()
+        today = datetime.date.today()
+        cls.current_academic_year = AcademicYearFactory(start_date=today,
+                                                        end_date=today.replace(year=today.year + 1),
+                                                        year=today.year)
+        cls.phd_supervisor = PersonFactory()
+        cls.assistant = AcademicAssistantFactory(supervisor=cls.phd_supervisor)
+        cls.assistant_mandate = AssistantMandateFactory(academic_year=cls.current_academic_year,
+                                                        assistant=cls.assistant)
+        cls.assistant_mandate.state = assistant_mandate_state.PHD_SUPERVISOR
+        cls.assistant_mandate.save()
+        cls.review = ReviewFactory(reviewer=None, mandate=cls.assistant_mandate,
+                                   status=review_status.IN_PROGRESS)
+        cls.entity1 = EntityFactory()
+        cls.entity_version1 = EntityVersionFactory(entity=cls.entity1, entity_type=entity_type.INSTITUTE)
+        cls.mandate_entity = MandateEntityFactory(assistant_mandate=cls.assistant_mandate, entity=cls.entity1)
 
     def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.settings = SettingsFactory()
-        today = datetime.date.today()
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
-        self.phd_supervisor = PersonFactory()
-        self.assistant = AcademicAssistantFactory(supervisor=self.phd_supervisor)
-        self.assistant_mandate = AssistantMandateFactory(academic_year=self.current_academic_year,
-                                                         assistant=self.assistant)
-        self.assistant_mandate.state = assistant_mandate_state.PHD_SUPERVISOR
-        self.assistant_mandate.save()
-        self.review = ReviewFactory(reviewer=None, mandate=self.assistant_mandate,
-                                    status=review_status.IN_PROGRESS)
-        self.entity1 = EntityFactory()
-        self.entity_version1 = EntityVersionFactory(entity=self.entity1, entity_type=entity_type.INSTITUTE)
-        self.mandate_entity = MandateEntityFactory(assistant_mandate=self.assistant_mandate, entity=self.entity1)
-
+        self.client.force_login(self.phd_supervisor.user)
 
     def test_generate_phd_supervisor_menu_tabs(self):
-        self.client.force_login(self.phd_supervisor)
         # Review has not been completed -> supervisor can edit
         self.assertEqual(generate_phd_supervisor_menu_tabs(self.assistant_mandate, None),
                          [{'item': assistant_mandate_state.PHD_SUPERVISOR, 'class': '',
-                          'action': 'edit'}])
+                           'action': 'edit'}])
         self.assertEqual(generate_phd_supervisor_menu_tabs(self.assistant_mandate,
                                                            assistant_mandate_state.PHD_SUPERVISOR),
                          [{'item': assistant_mandate_state.PHD_SUPERVISOR, 'class': 'active',
@@ -91,26 +91,25 @@ class PhdSupervisorReviewViewTestCase(TestCase):
                            'action': 'view'}])
 
     def test_pst_form_view(self):
-        self.client.force_login(self.phd_supervisor.user)
         response = self.client.post('/assistants/phd_supervisor/pst_form/', {'mandate_id': self.assistant_mandate.id})
         self.assertEqual(response.status_code, HTTP_OK)
 
     def test_review_view(self):
-        self.client.force_login(self.phd_supervisor.user)
-        response = self.client.post('/assistants/phd_supervisor/review/view/', {'mandate_id': self.assistant_mandate.id})
+        response = self.client.post('/assistants/phd_supervisor/review/view/',
+                                    {'mandate_id': self.assistant_mandate.id})
         self.assertEqual(response.status_code, HTTP_OK)
 
     def test_review_edit(self):
-        self.client.force_login(self.phd_supervisor.user)
-        response = self.client.post('/assistants/phd_supervisor/review/edit/', {'mandate_id': self.assistant_mandate.id})
+        response = self.client.post('/assistants/phd_supervisor/review/edit/',
+                                    {'mandate_id': self.assistant_mandate.id})
         self.assertEqual(response.status_code, HTTP_OK)
         self.review.status = review_status.DONE
         self.review.save()
-        response = self.client.post('/assistants/phd_supervisor/review/edit/',{'mandate_id': self.assistant_mandate.id})
+        response = self.client.post('/assistants/phd_supervisor/review/edit/',
+                                    {'mandate_id': self.assistant_mandate.id})
         self.assertEqual(response.status_code, HTTP_FOUND)
 
     def test_review_save(self):
-        self.client.force_login(self.phd_supervisor.user)
         response = self.client.post('/assistants/phd_supervisor/review/save/', {'mandate_id': self.assistant_mandate.id,
                                                                                 'review_id': self.review.id
                                                                                 })

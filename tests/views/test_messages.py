@@ -25,7 +25,7 @@
 ##############################################################################
 from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
@@ -40,38 +40,36 @@ HTTP_OK = 200
 
 
 class MessagesViewTestCase(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
             username='tests', email='tests@uclouvain.be', password='secret'
         )
-        self.person = Person.objects.create(user=self.user, first_name='first_name', last_name='last_name')
-        self.manager = Manager.objects.create(person=self.person)
-        self.current_academic_year = AcademicYearFactory()
-        self.message = Message.objects.create(
-            sender=self.manager,
+        cls.person = Person.objects.create(user=cls.user, first_name='first_name', last_name='last_name')
+        cls.manager = Manager.objects.create(person=cls.person)
+        cls.current_academic_year = AcademicYearFactory()
+        Message.objects.create(
+            sender=cls.manager,
             type=message_type.TO_ALL_ASSISTANTS,
             date=timezone.now(),
-            academic_year=self.current_academic_year
+            academic_year=cls.current_academic_year
         )
-        self.message.save()
-        self.message = Message.objects.create(
-            sender=self.manager,
+        Message.objects.create(
+            sender=cls.manager,
             type=message_type.TO_ALL_DEANS,
             date=timezone.now(),
-            academic_year=self.current_academic_year
+            academic_year=cls.current_academic_year
         )
-        self.message.save()
+
+    def setUp(self):
+        self.client.force_login(self.user)
 
     def test_messages_history_view_basic(self):
-        self.client.force_login(self.user)
         response = self.client.get(reverse(show_history))
         self.assertEqual(response.status_code, HTTP_OK)
         self.assertTemplateUsed(response, 'messages.html')
 
     def test_messages_history_view_returns_messages(self):
-        self.client.force_login(self.user)
         response = self.client.get(reverse('messages_history'))
         messages = response.context['sent_messages']
         self.assertIs(type(messages), QuerySet)

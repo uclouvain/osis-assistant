@@ -25,7 +25,7 @@
 ##############################################################################
 import datetime
 
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from reportlab.lib.enums import TA_LEFT
@@ -58,25 +58,42 @@ HTTP_FOUND = 302
 
 
 class ExportPdfTestCase(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.settings = SettingsFactory()
-        self.manager = ManagerFactory()
-        self.factory = RequestFactory()
+    @classmethod
+    def setUpTestData(cls):
+        cls.settings = SettingsFactory()
+        cls.manager = ManagerFactory()
         today = datetime.date.today()
-        self.current_academic_year = AcademicYearFactory(
+        cls.current_academic_year = AcademicYearFactory(
             start_date=today.replace(year=today.year - 1),
             end_date=today.replace(year=today.year + 1),
             year=today.year - 1,
         )
-        self.supervisor = PersonFactory()
-        self.assistant = AcademicAssistantFactory(
-            phd_inscription_date=datetime.date(self.current_academic_year.year - 3, 10, 2),
+        cls.supervisor = PersonFactory()
+        cls.assistant = AcademicAssistantFactory(
+            phd_inscription_date=datetime.date(cls.current_academic_year.year - 3, 10, 2),
             thesis_title='Data fitting on manifolds',
-            confirmation_test_date=datetime.date(self.current_academic_year.year - 1, 9, 14),
+            confirmation_test_date=datetime.date(cls.current_academic_year.year - 1, 9, 14),
             remark="Deux co-promoteurs (l'application ne m'autorise à n'en renseigner qu'un)",
-            supervisor=self.supervisor
+            supervisor=cls.supervisor
         )
+
+        cls.styles = getSampleStyleSheet()
+        cls.styles.add(ParagraphStyle(
+            name='Tiny',
+            fontSize=6,
+            font='Helvetica',
+            leading=8,
+            leftIndent=0,
+            rightIndent=0,
+            firstLineIndent=0,
+            alignment=TA_LEFT,
+            spaceBefore=0,
+            spaceAfter=0,
+            splitLongWords=1,
+        ))
+        cls.reviewer3 = ReviewerFactory()
+
+    def setUp(self):
         self.mandate = AssistantMandateFactory(
             assistant=self.assistant,
             assistant_type=assistant_type.ASSISTANT,
@@ -92,6 +109,7 @@ class ExportPdfTestCase(TestCase):
             external_contract='',
             external_functions='',
         )
+
         self.mandate2 = AssistantMandateFactory(
             state=assistant_mandate_state.DECLINED,
             academic_year=self.current_academic_year
@@ -126,20 +144,6 @@ class ExportPdfTestCase(TestCase):
         self.reviewer2 = ReviewerFactory(
             entity=self.mandate_entity2.entity
         )
-        self.styles = getSampleStyleSheet()
-        self.styles.add(ParagraphStyle(
-            name='Tiny',
-            fontSize=6,
-            font='Helvetica',
-            leading=8,
-            leftIndent=0,
-            rightIndent=0,
-            firstLineIndent=0,
-            alignment=TA_LEFT,
-            spaceBefore=0,
-            spaceAfter=0,
-            splitLongWords=1,
-        ))
         self.review1 = ReviewFactory(
             mandate=self.mandate,
             reviewer=self.reviewer
@@ -153,8 +157,7 @@ class ExportPdfTestCase(TestCase):
             mandate=self.mandate,
             reviewer=None
         )
-        self.reviewer3 = ReviewerFactory()
-
+        
     def test_export_mandate(self):
         self.client.force_login(self.assistant.person.user)
         response = self.client.post('/assistants/assistant/export_pdf/', {'mandate_id': self.mandate.id})

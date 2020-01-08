@@ -91,7 +91,7 @@ class TestAssistantListView(TestCase):
         )
 
     def test_should_only_show_past_completed_or_refused_mandates(self):
-        past_to_do_mandate = AssistantMandateFactory(
+        AssistantMandateFactory(
             assistant=self.academic_assistant,
             academic_year=self.previous_acy,
             state=assistant_mandate_state.PHD_SUPERVISOR

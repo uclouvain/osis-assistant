@@ -26,7 +26,7 @@
 from unittest.mock import patch
 
 from django.contrib.auth.models import User
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 
 from assistant.models.enums import assistant_mandate_renewal
 from assistant.models.enums import reviewer_role
@@ -41,23 +41,25 @@ from base.tests.factories.academic_year import AcademicYearFactory
 
 
 class SendEmailTestCase(TestCase):
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.academic_assistant = AcademicAssistantFactory()
-        self.manager = ManagerFactory()
-        self.client.login(username=self.manager.person.user.username, password=self.manager.person.user.password)
-        self.current_academic_year = AcademicYearFactory()
-        self.assistant_mandate = AssistantMandateFactory(assistant=self.academic_assistant)
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        cls.academic_assistant = AcademicAssistantFactory()
+        cls.manager = ManagerFactory()
+        cls.current_academic_year = AcademicYearFactory()
+        cls.assistant_mandate = AssistantMandateFactory(assistant=cls.academic_assistant)
+        cls.user = User.objects.create_user(
             username='phd_supervisor', email='phd_supervisor@uclouvain.be', password='phd_supervisor'
         )
-        self.user.save()
-        self.phd_supervisor = Person.objects.create(user=self.user, first_name='phd', last_name='supervisor')
-        self.phd_supervisor.save()
-        self.academic_assistant.supervisor = self.phd_supervisor
-        self.academic_assistant.save()
-        self.settings = SettingsFactory()
-        self.reviewer = ReviewerFactory(role=reviewer_role.SUPERVISION)
+        cls.user.save()
+        cls.phd_supervisor = Person.objects.create(user=cls.user, first_name='phd', last_name='supervisor')
+        cls.phd_supervisor.save()
+        cls.academic_assistant.supervisor = cls.phd_supervisor
+        cls.academic_assistant.save()
+        cls.settings = SettingsFactory()
+        cls.reviewer = ReviewerFactory(role=reviewer_role.SUPERVISION)
+
+    def setUp(self):
+        self.client.login(username=self.manager.person.user.username, password=self.manager.person.user.password)
 
     @patch("base.models.academic_year.current_academic_year")
     @patch("osis_common.messaging.send_message.send_messages")

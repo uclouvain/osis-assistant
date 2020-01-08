@@ -43,44 +43,47 @@ from base.tests.factories.entity_version import EntityVersionFactory
 from base.tests.factories.person import PersonFactory
 
 
-class ReviewerDelegationDataMixin:
-    def setUp(self):
-        self.settings = SettingsFactory()
+class ReviewerDelegationDataMixin(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.settings = SettingsFactory()
 
-        self.current_academic_year = AcademicYearFactory(current=True)
-        self.assistant_mandate = AssistantMandateFactory(
-            academic_year=self.current_academic_year,
+        cls.current_academic_year = AcademicYearFactory(current=True)
+        cls.assistant_mandate = AssistantMandateFactory(
+            academic_year=cls.current_academic_year,
             state=assistant_mandate_state.PHD_SUPERVISOR
         )
-        self.review = ReviewFactory(reviewer=None, mandate=self.assistant_mandate, status=review_status.IN_PROGRESS)
+        cls.review = ReviewFactory(reviewer=None, mandate=cls.assistant_mandate, status=review_status.IN_PROGRESS)
 
-        self.institute = EntityVersionFactory(entity_type=entity_type.INSTITUTE, end_date=None)
-        self.institute_child = EntityVersionFactory(parent=self.institute.entity, end_date=None)
-        self.school = EntityVersionFactory(entity_type=entity_type.SCHOOL, end_date=None)
-        self.sector = EntityVersionFactory(entity_type=entity_type.SECTOR)
-        self.faculty = EntityVersionFactory(entity_type=entity_type.FACULTY)
+        cls.institute = EntityVersionFactory(entity_type=entity_type.INSTITUTE, end_date=None)
+        cls.institute_child = EntityVersionFactory(parent=cls.institute.entity, end_date=None)
+        cls.school = EntityVersionFactory(entity_type=entity_type.SCHOOL, end_date=None)
+        cls.sector = EntityVersionFactory(entity_type=entity_type.SECTOR)
+        cls.faculty = EntityVersionFactory(entity_type=entity_type.FACULTY)
 
-        self.mandate_entity = MandateEntityFactory(
-            assistant_mandate=self.assistant_mandate,
-            entity=self.institute.entity
+        cls.mandate_entity = MandateEntityFactory(
+            assistant_mandate=cls.assistant_mandate,
+            entity=cls.institute.entity
         )
-        self.research_reviewer = ReviewerFactory(role=reviewer_role.RESEARCH, entity=self.institute.entity)
-        self.research_assistant_reviewer = ReviewerFactory(
+        cls.research_reviewer = ReviewerFactory(role=reviewer_role.RESEARCH, entity=cls.institute.entity)
+        cls.research_assistant_reviewer = ReviewerFactory(
             role=reviewer_role.RESEARCH_ASSISTANT,
-            entity=self.institute_child.entity
+            entity=cls.institute_child.entity
         )
-        self.vice_sector_reviewer = ReviewerFactory(role=reviewer_role.VICE_RECTOR, entity=self.school.entity)
-        self.supervision_reviewer = ReviewerFactory(role=reviewer_role.SUPERVISION, entity=self.faculty.entity)
+        cls.vice_sector_reviewer = ReviewerFactory(role=reviewer_role.VICE_RECTOR, entity=cls.school.entity)
+        cls.supervision_reviewer = ReviewerFactory(role=reviewer_role.SUPERVISION, entity=cls.faculty.entity)
 
-        self.delegate = PersonFactory()
-        self.delegate2 = PersonFactory()
+        cls.delegate = PersonFactory()
+        cls.delegate2 = PersonFactory()
 
+    def setUp(self):
         self.client.force_login(self.research_reviewer.person.user)
 
 
 class StructuresListView(ReviewerDelegationDataMixin, TestCase):
     @classmethod
     def setUpTestData(cls):
+        super().setUpTestData()
         cls.url = reverse("reviewer_delegation")
 
     def test_context_data(self):
@@ -109,6 +112,7 @@ class StructuresListView(ReviewerDelegationDataMixin, TestCase):
 class TestAddReviewerForDelegation(ReviewerDelegationDataMixin, TestCase):
     @classmethod
     def setUpTestData(cls):
+        super().setUpTestData()
         cls.url = reverse("reviewer_delegation_add")
 
     def test_add_reviewer_for_structure_with_invalid_data(self):

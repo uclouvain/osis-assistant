@@ -25,7 +25,7 @@
 ##############################################################################
 import datetime
 
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase
 
 from assistant.models.enums import assistant_mandate_state, review_status, reviewer_role
 from assistant.tests.factories.academic_assistant import AcademicAssistantFactory
@@ -45,26 +45,44 @@ HTTP_OK = 200
 
 
 class ReviewerReviewViewTestCase(TestCase):
-
-    def setUp(self):
-
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.settings = SettingsFactory()
+    @classmethod
+    def setUpTestData(cls):
+        cls.settings = SettingsFactory()
         today = datetime.date.today()
-        self.current_academic_year = AcademicYearFactory(start_date=today,
-                                                         end_date=today.replace(year=today.year + 1),
-                                                         year=today.year)
-        self.current_academic_year.save()
-        self.phd_supervisor = PersonFactory()
-        self.assistant = AcademicAssistantFactory(supervisor=self.phd_supervisor)
+        cls.current_academic_year = AcademicYearFactory(start_date=today,
+                                                        end_date=today.replace(year=today.year + 1),
+                                                        year=today.year)
+        cls.current_academic_year.save()
+        cls.phd_supervisor = PersonFactory()
+        cls.assistant = AcademicAssistantFactory(supervisor=cls.phd_supervisor)
 
-        self.assistant_mandate = AssistantMandateFactory(
-            academic_year=self.current_academic_year,
-            assistant=self.assistant,
+        cls.assistant_mandate2 = AssistantMandateFactory(
+            academic_year=cls.current_academic_year,
+            assistant=cls.assistant,
             state=assistant_mandate_state.RESEARCH
         )
-        self.assistant_mandate2 = AssistantMandateFactory(
+        cls.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE)
+        cls.entity_version2 = EntityVersionFactory(entity_type=entity_type.FACULTY)
+        cls.entity_version3 = EntityVersionFactory(entity_type=entity_type.SECTOR)
+        cls.reviewer = ReviewerFactory(
+            role=reviewer_role.RESEARCH,
+            entity=cls.entity_version.entity
+        )
+        cls.reviewer2 = ReviewerFactory(
+            role=reviewer_role.SUPERVISION,
+            entity=cls.entity_version2.entity
+        )
+        cls.reviewer3 = ReviewerFactory(
+            role=reviewer_role.VICE_RECTOR,
+            entity=cls.entity_version3.entity
+        )
+        MandateEntityFactory(
+            assistant_mandate=cls.assistant_mandate2,
+            entity=cls.entity_version.entity
+        )
+
+    def setUp(self):
+        self.assistant_mandate = AssistantMandateFactory(
             academic_year=self.current_academic_year,
             assistant=self.assistant,
             state=assistant_mandate_state.RESEARCH
@@ -74,33 +92,16 @@ class ReviewerReviewViewTestCase(TestCase):
             mandate=self.assistant_mandate,
             status=review_status.DONE
         )
-        self.entity_version = EntityVersionFactory(entity_type=entity_type.INSTITUTE)
         self.entity_mandate = MandateEntityFactory(assistant_mandate=self.assistant_mandate,
                                                    entity=self.entity_version.entity)
-        self.entity_mandate2 = MandateEntityFactory(
-            assistant_mandate=self.assistant_mandate2,
-            entity=self.entity_version.entity
-        )
-        self.reviewer = ReviewerFactory(role=reviewer_role.RESEARCH,
-                                        entity=self.entity_version.entity)
         self.review = ReviewFactory(reviewer=self.reviewer, mandate=self.assistant_mandate,
                                     status=review_status.IN_PROGRESS)
-        self.entity_version2 = EntityVersionFactory(entity_type=entity_type.FACULTY)
         self.entity_mandate2 = MandateEntityFactory(
             assistant_mandate=self.assistant_mandate,
             entity=self.entity_version2.entity
         )
-        self.reviewer2 = ReviewerFactory(
-            role=reviewer_role.SUPERVISION,
-            entity=self.entity_version2.entity
-        )
-        self.entity_version3 = EntityVersionFactory(entity_type=entity_type.SECTOR)
         self.entity_mandate3 = MandateEntityFactory(
             assistant_mandate=self.assistant_mandate,
-            entity=self.entity_version3.entity
-        )
-        self.reviewer3 = ReviewerFactory(
-            role=reviewer_role.VICE_RECTOR,
             entity=self.entity_version3.entity
         )
 

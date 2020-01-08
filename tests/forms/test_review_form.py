@@ -31,10 +31,10 @@ from assistant.tests.factories.review import ReviewFactory
 
 
 class TestReviewForm(TestCase):
-
-    def setUp(self):
-        self.mandate = AssistantMandateFactory()
-        self.review = ReviewFactory(mandate=self.mandate)
+    @classmethod
+    def setUpTestData(cls):
+        cls.mandate = AssistantMandateFactory()
+        cls.review = ReviewFactory(mandate=cls.mandate)
 
     def test_with_valid_data(self):
         form = ReviewForm(data={

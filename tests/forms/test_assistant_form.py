@@ -29,7 +29,6 @@ from assistant.forms.assistant import AssistantFormPart6
 
 
 class TestAssistantFormPart6(TestCase):
-
     def test_with_valid_data(self):
         form = AssistantFormPart6(data={
             'tutoring_percent': 30,

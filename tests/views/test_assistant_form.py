@@ -23,11 +23,10 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import datetime
 import json
 
 from django.http import HttpResponse
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase
 
 from assistant.models.enums import assistant_mandate_state
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
@@ -37,28 +36,27 @@ from base.tests.factories.learning_unit_year import LearningUnitYearFactory
 
 
 class AssistantFormViewTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.settings = SettingsFactory()
 
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.settings = SettingsFactory()
+        cls.current_academic_year = AcademicYearFactory(current=True)
 
-        self.current_academic_year = AcademicYearFactory(current=True)
-
-        self.assistant_mandate = AssistantMandateFactory(
-            academic_year=self.current_academic_year,
+        cls.assistant_mandate = AssistantMandateFactory(
+            academic_year=cls.current_academic_year,
             state=assistant_mandate_state.TRTS
         )
-        LearningUnitYearFactory(academic_year=self.current_academic_year, acronym="LBIR1210")
-        LearningUnitYearFactory(academic_year=self.current_academic_year, acronym="LBIR1211")
+        LearningUnitYearFactory(academic_year=cls.current_academic_year, acronym="LBIR1210")
+        LearningUnitYearFactory(academic_year=cls.current_academic_year, acronym="LBIR1211")
+
+    def setUp(self):
+        self.client.force_login(self.assistant_mandate.assistant.person.user)
 
     def test_assistant_form_part4_edit_view_basic(self):
-        self.client.force_login(self.assistant_mandate.assistant.person.user)
         response = self.client.get('/assistants/assistant/form/part4/edit/')
         self.assertEqual(response.status_code, HttpResponse.status_code)
 
     def test_get_learning_units_year(self):
-        self.client.force_login(self.assistant_mandate.assistant.person.user)
         response = self.client.generic(method='get',
                                        path='/assistants/assistant/form/part2/get_learning_units_year/?term=LBIR1211',
                                        HTTP_X_REQUESTED_WITH='XMLHttpRequest')
