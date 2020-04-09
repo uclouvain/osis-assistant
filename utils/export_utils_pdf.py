@@ -46,7 +46,6 @@ from reportlab.lib.units import mm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle
 
 from assistant.business import users_access
-from assistant.business.assistant_mandate import find_mandates_for_academic_year_and_entity
 from assistant.models import academic_assistant, assistant_mandate, review, reviewer, tutoring_learning_unit_year
 from assistant.models.enums import review_status, assistant_type, user_role, assistant_mandate_renewal
 from assistant.models.enums.assistant_phd_inscription import PHD_INSCRIPTION_CHOICES
@@ -56,6 +55,7 @@ from base.models import academic_year, entity_version
 from base.models.entity import find_versions_from_entites
 from base.models.enums import entity_type
 from base.models.person import find_by_user
+from osis_common.decorators.download import set_download_cookie
 
 PAGE_SIZE = A4
 MARGIN_SIZE = 15 * mm
@@ -87,6 +87,7 @@ def export_mandates_to_sap(request):
 
 
 @login_required
+@set_download_cookie
 def build_doc(request, mandates, type='default'):
     if mandates:
         year = mandates[0].academic_year

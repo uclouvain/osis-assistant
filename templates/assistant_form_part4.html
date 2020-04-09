@@ -95,7 +95,7 @@
                         {% trans 'Delete file' %}</a>
                 </div>
                 <div class="col-md-10" id="hdn_filename" style="text-align: left">
-                   <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
+                   <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="download">{{ file.document_file }}</a>
                 </div>
             </div>
         {% endfor %}

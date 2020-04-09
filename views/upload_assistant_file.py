@@ -33,10 +33,12 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 
 from assistant import models as mdl
+from osis_common.decorators.download import set_download_cookie
 from osis_common.models import document_file as document_file
 
 
 @login_required
+@set_download_cookie
 def download(request, document_file_id):
     assistant_mandate_document = mdl.assistant_document_file.find_by_id(document_file_id)
     document = document_file.find_by_id(assistant_mandate_document.document_file.id)
