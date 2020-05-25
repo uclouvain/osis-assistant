@@ -98,3 +98,9 @@ class TestReviewFactory(TestCase):
         self.assertTrue(
             self.review1 in find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION)
         )
+
+    def test_find_before_mandate_state_for_assistant(self):
+        self.assertEqual(len(find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION_ASSISTANT)), 2)
+        self.assertTrue(
+            self.review1 in find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION)
+        )

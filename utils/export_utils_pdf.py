@@ -27,7 +27,9 @@ import datetime
 import time
 import zipfile
 from io import BytesIO
+from typing import Sequence, List, Union
 
+from django import http
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -41,12 +43,11 @@ from reportlab.lib import colors
 from reportlab.lib.colors import black, HexColor
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle, StyleSheet1, PropertySet
 from reportlab.lib.units import mm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle
 
 from assistant.business import users_access
-from assistant.business.assistant_mandate import find_mandates_for_academic_year_and_entity
 from assistant.models import academic_assistant, assistant_mandate, review, reviewer, tutoring_learning_unit_year
 from assistant.models.enums import review_status, assistant_type, user_role, assistant_mandate_renewal
 from assistant.models.enums.assistant_phd_inscription import PHD_INSCRIPTION_CHOICES
@@ -87,7 +88,7 @@ def export_mandates_to_sap(request):
 
 
 @login_required
-def build_doc(request, mandates, type='default'):
+def build_doc(request: http.HttpRequest, mandates: Sequence[assistant_mandate.AssistantMandate], type: str = 'default'):
     if mandates:
         year = mandates[0].academic_year
     else:
@@ -165,7 +166,7 @@ def add_declined_mandates(mandates, style):
 
 
 @user_passes_test(users_access.user_is_reviewer_and_procedure_is_open, login_url='access_denied')
-def export_mandates_for_entity(request, year):
+def export_mandates_for_entity(request: http.HttpRequest, year: int):
     mandates = assistant_mandate.AssistantMandate.objects.filter(
         mandateentity__entity__in=reviewer.find_by_person(find_by_user(request.user)).values_list("entity", flat=True),
         academic_year=academic_year.find_academic_year_by_year(year)
@@ -177,7 +178,12 @@ def export_mandates_for_entity(request, year):
     return HttpResponseRedirect(reverse('reviewer_mandates_list'))
 
 
-def add_mandate_content(content, mandate, styles, current_user_roles):
+def add_mandate_content(
+        content: List[Union[Paragraph, PageBreak]],
+        mandate: assistant_mandate.AssistantMandate,
+        styles: StyleSheet1,
+        current_user_roles: List[str]
+) -> None:
     content.append(
         create_paragraph(
             "%s (%s)" % (mandate.assistant.person, mandate.academic_year),
@@ -235,7 +241,7 @@ def format_data(data, title):
         if data and data != 'None' else "<strong>%s :</strong><br />" % (title)
 
 
-def create_paragraph(title, data, style, subtitle=''):
+def create_paragraph(title: str, data: str, style: PropertySet, subtitle='') -> Paragraph:
     paragraph = Paragraph("<font size=14><strong>" + title + "</strong></font>" +
                           subtitle + "<br />" + data, style)
     return paragraph
