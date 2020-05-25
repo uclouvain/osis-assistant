@@ -234,11 +234,14 @@ def add_mandate_content(
         content.append(PageBreak())
 
 
-def format_data(data, title):
+def format_data(data, title, underlined: bool = False) -> str:
     if isinstance(data, datetime.date):
         data = data.strftime("%d-%m-%Y")
-    return "<strong>%s :</strong> %s<br />" % (title, data) \
+    result = "<strong>%s :</strong> %s<br />" % (title, data) \
         if data and data != 'None' else "<strong>%s :</strong><br />" % (title)
+    if underlined:
+        return "<u>" + result + "</u>"
+    return result
 
 
 def create_paragraph(title: str, data: str, style: PropertySet, subtitle='') -> Paragraph:
@@ -253,7 +256,7 @@ def get_summary(mandate):
 
 
 def get_administrative_data(mandate: assistant_mandate.AssistantMandate):
-    assistant_mandate_state = format_data(mandate.get_state_display(), _("Renewal state"))
+    assistant_mandate_state = format_data(mandate.get_state_display(), _("Renewal state"), underlined=True)
     assistant_type_name = format_data(dict(assistant_type.ASSISTANT_TYPES)[mandate.assistant_type],
                                       _('Assistant type'))
     matricule = format_data(mandate.sap_id, _('Registration number'))

@@ -205,8 +205,8 @@ class ExportPdfTestCase(TestCase):
         self.assertEqual(str(export_utils_pdf.create_paragraph(title, data, style, subtitle)), str(paragraph))
 
     def test_get_administrative_data(self):
-        data_title_parameters_list = [
-            (self.mandate.get_state_display(), _("Renewal state")),
+        format_data_parameters_list = [
+            (self.mandate.get_state_display(), _("Renewal state"), True),
             (dict(assistant_type.ASSISTANT_TYPES).get(self.mandate.assistant_type), _('Assistant type')),
             (self.mandate.sap_id, _('Registration number')),
             (self.mandate.entry_date, _('Contract start date')),
@@ -230,7 +230,7 @@ class ExportPdfTestCase(TestCase):
                 _('Current positions outside the University and %% of time spent')
             )
         ]
-        formated_datas = (export_utils_pdf.format_data(data, title) for data, title in data_title_parameters_list)
+        formated_datas = (export_utils_pdf.format_data(*parameters) for parameters in format_data_parameters_list)
         mandate_content_expected = functools.reduce(operator.add, formated_datas, "")
 
         self.assertEqual(

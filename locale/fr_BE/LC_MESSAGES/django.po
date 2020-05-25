@@ -625,7 +625,7 @@ msgid "Refuse"
 msgstr "Décliner"
 
 msgid "Refused by the assistant"
-msgstr "Décliné par l'assistant"
+msgstr "Décliné par l'assistant·e"
 
 msgid "Registration number"
 msgstr "Matricule"
