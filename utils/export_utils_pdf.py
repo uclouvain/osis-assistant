@@ -274,7 +274,7 @@ def get_administrative_data(mandate):
                                      _('Current positions outside the University and %% of time spent'))
 
     return assistant_type_name + matricule + entry_date + end_date + contract_duration + contract_duration_fte \
-           + fulltime_equivalent + other_status + renewal_type + justification + external_contract + external_functions
+        + fulltime_equivalent + other_status + renewal_type + justification + external_contract + external_functions
 
 
 def get_entities(mandate):
@@ -308,7 +308,7 @@ def get_phd_data(assistant):
     )
     remark = format_data(assistant.remark, _('Remark'))
     return inscription + phd_inscription_date + expected_phd_date + confirmation_test_date \
-           + thesis_title + thesis_date + remark
+        + thesis_title + thesis_date + remark
 
 
 def get_research_data(mandate):
@@ -369,7 +369,7 @@ def get_representation_activities(mandate):
     )
     corsci_representation = format_data(str(mandate.corsci_representation), _('Within the CORSCI'))
     return faculty_representation + institute_representation + sector_representation + governing_body_representation \
-           + corsci_representation
+        + corsci_representation
 
 
 def get_service_activities(mandate):
@@ -389,7 +389,7 @@ def get_service_activities(mandate):
     scientific_jury_service = format_data(str(mandate.scientific_jury_service),
                                           _('Participation in juries and/or scientific committees'))
     return students_service + infrastructure_mgmt_service + events_organisation_service + publishing_field_service \
-           + scientific_jury_service
+        + scientific_jury_service
 
 
 def get_formation_activities(mandate):
