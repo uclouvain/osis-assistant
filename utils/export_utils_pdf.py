@@ -252,7 +252,8 @@ def get_summary(mandate):
     return report_remark
 
 
-def get_administrative_data(mandate):
+def get_administrative_data(mandate: assistant_mandate.AssistantMandate):
+    assistant_mandate_state = format_data(mandate.get_state_display(), _("Renewal state"))
     assistant_type_name = format_data(dict(assistant_type.ASSISTANT_TYPES)[mandate.assistant_type],
                                       _('Assistant type'))
     matricule = format_data(mandate.sap_id, _('Registration number'))
@@ -273,8 +274,9 @@ def get_administrative_data(mandate):
     external_functions = format_data(mandate.external_functions,
                                      _('Current positions outside the University and %% of time spent'))
 
-    return assistant_type_name + matricule + entry_date + end_date + contract_duration + contract_duration_fte \
-        + fulltime_equivalent + other_status + renewal_type + justification + external_contract + external_functions
+    return assistant_mandate_state + assistant_type_name + matricule + entry_date + end_date + contract_duration \
+        + contract_duration_fte + fulltime_equivalent + other_status + renewal_type + justification \
+        + external_contract + external_functions
 
 
 def get_entities(mandate):

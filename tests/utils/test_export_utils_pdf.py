@@ -24,6 +24,8 @@
 #
 ##############################################################################
 import datetime
+import functools
+import operator
 
 from django.test import TestCase
 from django.urls import reverse
@@ -203,40 +205,36 @@ class ExportPdfTestCase(TestCase):
         self.assertEqual(str(export_utils_pdf.create_paragraph(title, data, style, subtitle)), str(paragraph))
 
     def test_get_administrative_data(self):
-        assistant_typ = export_utils_pdf.format_data(
-            dict(assistant_type.ASSISTANT_TYPES).get(self.mandate.assistant_type),
-            _('Assistant type')
-        )
-        matricule = export_utils_pdf.format_data(self.mandate.sap_id, _('Registration number'))
-        entry_date = export_utils_pdf.format_data(self.mandate.entry_date, _('Contract start date'))
-        end_date = export_utils_pdf.format_data(self.mandate.end_date, _('Contract end date'))
-        contract_duration = export_utils_pdf.format_data(self.mandate.contract_duration, _('Contract length'))
-        contract_duration_fte = export_utils_pdf.format_data(
-            self.mandate.contract_duration_fte,
-            _('Full-time equivalent')
-        )
-        fulltime_equivalent = export_utils_pdf.format_data(int(self.mandate.fulltime_equivalent * 100),
-                                                           _('Percentage of occupancy'))
-        other_status = export_utils_pdf.format_data(self.mandate.other_status, _('Other status'))
-        renewal_type = export_utils_pdf.format_data(
-            dict(assistant_mandate_renewal.ASSISTANT_MANDATE_RENEWAL_TYPES).get(self.mandate.renewal_type),
-            _('Renewal type')
-        )
-        justification = export_utils_pdf.format_data(
-            self.mandate.justification,
-            _("Should you no longer fulfill the requirements for a 'normal' renewal, can you specify the circumstances "
-              "justifying an exceptional renewal application (art. 51 of the RAMCS)")
-        )
-        external_contract = export_utils_pdf.format_data(self.mandate.external_contract,
-                                                         _('Mandate requested externally (FNRS, FRIA, ...)'))
-        external_functions = export_utils_pdf.format_data(
-            self.mandate.external_functions,
-            _('Current positions outside the University and %% of time spent')
-        )
+        data_title_parameters_list = [
+            (self.mandate.get_state_display(), _("Renewal state")),
+            (dict(assistant_type.ASSISTANT_TYPES).get(self.mandate.assistant_type), _('Assistant type')),
+            (self.mandate.sap_id, _('Registration number')),
+            (self.mandate.entry_date, _('Contract start date')),
+            (self.mandate.end_date, _('Contract end date')),
+            (self.mandate.contract_duration, _('Contract length')),
+            (self.mandate.contract_duration_fte, _('Full-time equivalent')),
+            (int(self.mandate.fulltime_equivalent * 100), _('Percentage of occupancy')),
+            (self.mandate.other_status, _('Other status')),
+            (
+                dict(assistant_mandate_renewal.ASSISTANT_MANDATE_RENEWAL_TYPES).get(self.mandate.renewal_type),
+                _('Renewal type')
+            ),
+            (
+                self.mandate.justification,
+                _("Should you no longer fulfill the requirements for a 'normal' renewal, can you specify the "
+                  "circumstances justifying an exceptional renewal application (art. 51 of the RAMCS)")
+            ),
+            (self.mandate.external_contract, _('Mandate requested externally (FNRS, FRIA, ...)')),
+            (
+                self.mandate.external_functions,
+                _('Current positions outside the University and %% of time spent')
+            )
+        ]
+        formated_datas = (export_utils_pdf.format_data(data, title) for data, title in data_title_parameters_list)
+        mandate_content_expected = functools.reduce(operator.add, formated_datas, "")
+
         self.assertEqual(
-            assistant_typ + matricule + entry_date + end_date + contract_duration + contract_duration_fte
-            + fulltime_equivalent + other_status + renewal_type + justification + external_contract +
-            external_functions,
+            mandate_content_expected,
             export_utils_pdf.get_administrative_data(self.mandate)
         )
 

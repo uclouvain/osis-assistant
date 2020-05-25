@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 09:48+0100\n"
+"POT-Creation-Date: 2020-05-25 08:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -638,6 +638,9 @@ msgstr "Remarque concernant le rapport d'activités"
 
 msgid "Renewal application form"
 msgstr "Formulaire de demande de renouvellement"
+
+msgid "Renewal state"
+msgstr "Etat du renouvellement"
 
 msgid "Renewal type"
 msgstr "Type de renouvellement"
