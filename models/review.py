@@ -23,6 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+import functools
 from itertools import takewhile
 
 from django.db import models
@@ -78,7 +79,12 @@ def find_before_mandate_state(mandate, current_roles):
     roles_list_accessible_for_current_rev.append(
         next((role for role in reviewers_order_list if role in current_roles), None)
     )
-    return Review.objects.filter(mandate=mandate).filter(
-        models.Q(reviewer__role__in=roles_list_accessible_for_current_rev) |
-        models.Q(reviewer__role=None)
+    filter_clause = [
+        models.Q(reviewer__role__contains=role) for role in roles_list_accessible_for_current_rev if role
+    ]
+
+    filter_clause_q = functools.reduce(lambda a, b: a | b, filter_clause, models.Q(reviewer__role=None))
+    qs = Review.objects.filter(mandate=mandate).filter(
+        filter_clause_q
     ).filter(status=review_status.DONE)
+    return qs

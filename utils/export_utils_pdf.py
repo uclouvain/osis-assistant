@@ -27,7 +27,9 @@ import datetime
 import time
 import zipfile
 from io import BytesIO
+from typing import Sequence, List, Union
 
+from django import http
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -41,7 +43,7 @@ from reportlab.lib import colors
 from reportlab.lib.colors import black, HexColor
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle, StyleSheet1, PropertySet
 from reportlab.lib.units import mm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle
 
@@ -88,7 +90,7 @@ def export_mandates_to_sap(request):
 
 @login_required
 @set_download_cookie
-def build_doc(request, mandates, type='default'):
+def build_doc(request: http.HttpRequest, mandates: Sequence[assistant_mandate.AssistantMandate], type: str = 'default'):
     if mandates:
         year = mandates[0].academic_year
     else:
@@ -166,7 +168,7 @@ def add_declined_mandates(mandates, style):
 
 
 @user_passes_test(users_access.user_is_reviewer_and_procedure_is_open, login_url='access_denied')
-def export_mandates_for_entity(request, year):
+def export_mandates_for_entity(request: http.HttpRequest, year: int):
     mandates = assistant_mandate.AssistantMandate.objects.filter(
         mandateentity__entity__in=reviewer.find_by_person(find_by_user(request.user)).values_list("entity", flat=True),
         academic_year=academic_year.find_academic_year_by_year(year)
@@ -178,7 +180,12 @@ def export_mandates_for_entity(request, year):
     return HttpResponseRedirect(reverse('reviewer_mandates_list'))
 
 
-def add_mandate_content(content, mandate, styles, current_user_roles):
+def add_mandate_content(
+        content: List[Union[Paragraph, PageBreak]],
+        mandate: assistant_mandate.AssistantMandate,
+        styles: StyleSheet1,
+        current_user_roles: List[str]
+) -> None:
     content.append(
         create_paragraph(
             "%s (%s)" % (mandate.assistant.person, mandate.academic_year),
@@ -229,14 +236,17 @@ def add_mandate_content(content, mandate, styles, current_user_roles):
         content.append(PageBreak())
 
 
-def format_data(data, title):
+def format_data(data, title, underlined: bool = False) -> str:
     if isinstance(data, datetime.date):
         data = data.strftime("%d-%m-%Y")
-    return "<strong>%s :</strong> %s<br />" % (title, data) \
+    result = "<strong>%s :</strong> %s<br />" % (title, data) \
         if data and data != 'None' else "<strong>%s :</strong><br />" % (title)
+    if underlined:
+        return "<u>" + result + "</u>"
+    return result
 
 
-def create_paragraph(title, data, style, subtitle=''):
+def create_paragraph(title: str, data: str, style: PropertySet, subtitle='') -> Paragraph:
     paragraph = Paragraph("<font size=14><strong>" + title + "</strong></font>" +
                           subtitle + "<br />" + data, style)
     return paragraph
@@ -247,7 +257,8 @@ def get_summary(mandate):
     return report_remark
 
 
-def get_administrative_data(mandate):
+def get_administrative_data(mandate: assistant_mandate.AssistantMandate):
+    assistant_mandate_state = format_data(mandate.get_state_display(), _("Renewal state"), underlined=True)
     assistant_type_name = format_data(dict(assistant_type.ASSISTANT_TYPES)[mandate.assistant_type],
                                       _('Assistant type'))
     matricule = format_data(mandate.sap_id, _('Registration number'))
@@ -268,8 +279,9 @@ def get_administrative_data(mandate):
     external_functions = format_data(mandate.external_functions,
                                      _('Current positions outside the University and %% of time spent'))
 
-    return assistant_type_name + matricule + entry_date + end_date + contract_duration + contract_duration_fte \
-           + fulltime_equivalent + other_status + renewal_type + justification + external_contract + external_functions
+    return assistant_mandate_state + assistant_type_name + matricule + entry_date + end_date + contract_duration \
+        + contract_duration_fte + fulltime_equivalent + other_status + renewal_type + justification \
+        + external_contract + external_functions
 
 
 def get_entities(mandate):
@@ -303,7 +315,7 @@ def get_phd_data(assistant):
     )
     remark = format_data(assistant.remark, _('Remark'))
     return inscription + phd_inscription_date + expected_phd_date + confirmation_test_date \
-           + thesis_title + thesis_date + remark
+        + thesis_title + thesis_date + remark
 
 
 def get_research_data(mandate):
@@ -364,7 +376,7 @@ def get_representation_activities(mandate):
     )
     corsci_representation = format_data(str(mandate.corsci_representation), _('Within the CORSCI'))
     return faculty_representation + institute_representation + sector_representation + governing_body_representation \
-           + corsci_representation
+        + corsci_representation
 
 
 def get_service_activities(mandate):
@@ -384,7 +396,7 @@ def get_service_activities(mandate):
     scientific_jury_service = format_data(str(mandate.scientific_jury_service),
                                           _('Participation in juries and/or scientific committees'))
     return students_service + infrastructure_mgmt_service + events_organisation_service + publishing_field_service \
-           + scientific_jury_service
+        + scientific_jury_service
 
 
 def get_formation_activities(mandate):
