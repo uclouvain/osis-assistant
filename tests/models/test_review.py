@@ -37,7 +37,22 @@ from base.models.enums import entity_type
 from base.tests.factories.entity_version import EntityVersionFactory
 
 
-class TestReviewFactory(TestCase):
+class TestGetInProgressForMandate(TestCase):
+    def test_should_return_none_when_mandate_has_no_review_in_progress_state(self):
+        review_with_done_status = review.ReviewFactory(status=review_status.DONE)
+        self.assertIsNone(
+            get_in_progress_for_mandate(review_with_done_status.mandate)
+        )
+
+    def test_should_return_review_when_mandate_has_a_review_in_progress_state(self):
+        review_with_done_status = review.ReviewFactory(status=review_status.IN_PROGRESS)
+        self.assertEqual(
+            get_in_progress_for_mandate(review_with_done_status.mandate),
+            review_with_done_status
+        )
+
+
+class TestFindBeforeMandateState(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.mandate = AssistantMandateFactory(state=assistant_mandate_state.DONE)
@@ -65,42 +80,60 @@ class TestReviewFactory(TestCase):
             assistant_mandate=cls.mandate,
             entity=cls.entity_version3.entity
         )
-        cls.reviewer1 = reviewer.ReviewerFactory(
-            role=reviewer_role.RESEARCH,
-            entity=cls.entity_version1.entity
-        )
-        cls.review1 = review.ReviewFactory(reviewer=cls.reviewer1, status=review_status.DONE, mandate=cls.mandate)
-        cls.reviewer2 = reviewer.ReviewerFactory(
-            role=reviewer_role.SUPERVISION,
-            entity=cls.entity_version2.entity
-        )
-        cls.review2 = review.ReviewFactory(reviewer=cls.reviewer2, status=review_status.DONE, mandate=cls.mandate)
-        cls.reviewer3 = reviewer.ReviewerFactory(
-            role=reviewer_role.VICE_RECTOR_ASSISTANT,
-            entity=cls.entity_version3.entity
-        )
-        cls.review2 = review.ReviewFactory(reviewer=cls.reviewer3, status=review_status.DONE, mandate=cls.mandate)
 
     def setUp(self):
-        self.client.force_login(self.reviewer1.person.user)
-
-    def test_find_in_progress_for_mandate(self):
-        self.assertFalse(get_in_progress_for_mandate(self.review1.mandate))
-        self.review1.status = review_status.IN_PROGRESS
-        self.review1.save()
-        self.assertEqual(get_in_progress_for_mandate(self.review1.mandate), self.review1)
-        self.review1.delete()
-        self.mandate.state = assistant_mandate_state.TRTS
-        self.assertFalse(get_in_progress_for_mandate(self.review1.mandate))
-
-    def test_find_before_mandate_state(self):
-        self.assertEqual(len(find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION)), 2)
-        self.assertTrue(
-            self.review1 in find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION)
+        self.research_reviewer = reviewer.ReviewerFactory(
+            role=reviewer_role.RESEARCH,
+            entity=self.entity_version1.entity
+        )
+        self.research_review = review.ReviewFactory(
+            reviewer=self.research_reviewer,
+            status=review_status.DONE,
+            mandate=self.mandate
         )
 
-    def test_find_before_mandate_state_for_assistant(self):
-        self.assertEqual(len(find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION_ASSISTANT)), 2)
-        self.assertTrue(
-            self.review1 in find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION)
+        self.vice_rector_assistant_reviewer = reviewer.ReviewerFactory(
+            role=reviewer_role.VICE_RECTOR_ASSISTANT,
+            entity=self.entity_version3.entity
+        )
+        self.vice_rectore_assistant_review = review.ReviewFactory(
+            reviewer=self.vice_rector_assistant_reviewer,
+            status=review_status.DONE,
+            mandate=self.mandate
+        )
+
+        self.supervision_reviewer = reviewer.ReviewerFactory(
+            role=reviewer_role.SUPERVISION,
+            entity=self.entity_version2.entity
+        )
+        self.supervision_review = review.ReviewFactory(
+            reviewer=self.supervision_reviewer,
+            status=review_status.DONE,
+            mandate=self.mandate
+        )
+
+        self.client.force_login(self.research_reviewer.person.user)
+
+    def test_should_return_reviews_of_roles_with_less_or_equal_privilege(self):
+        result = find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION)
+        self.assertQuerysetEqual(
+            result,
+            [self.research_review, self.supervision_review],
+            lambda obj: obj
+        )
+
+    def test_should_consider_role_as_main_one_when_find_before_mandate_state_is_called_with_assistant_role(self):
+        result = find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION_ASSISTANT)
+        self.assertQuerysetEqual(
+            result,
+            [self.research_review, self.supervision_review],
+            lambda obj: obj
+        )
+
+    def test_should_order_queryset_by_role(self):
+        result = find_before_mandate_state(self.mandate, reviewer_role.VICE_RECTOR_ASSISTANT)
+        self.assertQuerysetEqual(
+            result,
+            [self.research_review, self.supervision_review, self.vice_rectore_assistant_review],
+            transform=lambda obj: obj
         )

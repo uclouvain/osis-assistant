@@ -25,8 +25,10 @@
 ##############################################################################
 import functools
 from itertools import takewhile
+from typing import Optional
 
 from django.db import models
+from django.db.models import Case, When, Value, IntegerField
 from django.utils import timezone
 
 from assistant.models.enums import review_status, review_advice_choices, reviewer_role
@@ -44,23 +46,23 @@ class Review(models.Model):
     changed = models.DateTimeField(default=timezone.now, null=True)
 
 
-def find_by_id(review_id):
+def find_by_id(review_id) -> Review:
     return Review.objects.get(id=review_id)
 
 
-def find_by_mandate(mandate_id):
+def find_by_mandate(mandate_id) -> Review.objects:
     return Review.objects.filter(mandate=mandate_id).order_by('changed')
 
 
-def find_review_for_mandate_by_role(mandate, role):
+def find_review_for_mandate_by_role(mandate, role) -> Optional[Review]:
     return Review.objects.filter(mandate=mandate).filter(reviewer__role__icontains=role.split('_', 1)[0]).first()
 
 
-def find_done_by_supervisor_for_mandate(mandate):
+def find_done_by_supervisor_for_mandate(mandate) -> Review:
     return Review.objects.get(reviewer=None, mandate=mandate, status='DONE')
 
 
-def get_in_progress_for_mandate(mandate):
+def get_in_progress_for_mandate(mandate) -> Optional[Review]:
     try:
         return Review.objects.get(mandate=mandate, status=review_status.IN_PROGRESS)
     except Review.DoesNotExist:
@@ -86,5 +88,22 @@ def find_before_mandate_state(mandate, current_roles):
     filter_clause_q = functools.reduce(lambda a, b: a | b, filter_clause, models.Q(reviewer__role=None))
     qs = Review.objects.filter(mandate=mandate).filter(
         filter_clause_q
-    ).filter(status=review_status.DONE)
+    ).filter(
+        status=review_status.DONE
+    ).annotate(
+        order_value=Case(
+            When(reviewer__role=reviewer_role.PHD_SUPERVISOR, then=Value(1)),
+            When(reviewer__role=reviewer_role.RESEARCH_ASSISTANT, then=Value(2)),
+            When(reviewer__role=reviewer_role.RESEARCH, then=Value(3)),
+            When(reviewer__role=reviewer_role.SUPERVISION_DAF_ASSISTANT, then=Value(4)),
+            When(reviewer__role=reviewer_role.SUPERVISION_DAF, then=Value(5)),
+            When(reviewer__role=reviewer_role.SUPERVISION_ASSISTANT, then=Value(6)),
+            When(reviewer__role=reviewer_role.SUPERVISION, then=Value(7)),
+            When(reviewer__role=reviewer_role.VICE_RECTOR_ASSISTANT_ASSISTANT, then=Value(8)),
+            When(reviewer__role=reviewer_role.VICE_RECTOR_ASSISTANT, then=Value(9)),
+            When(reviewer__role=reviewer_role.VICE_RECTOR, then=Value(10)),
+            default=Value(0),
+            output_field=IntegerField()
+        )
+    ).order_by("order_value")
     return qs
