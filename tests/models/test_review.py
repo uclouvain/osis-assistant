@@ -65,23 +65,24 @@ class TestReviewFactory(TestCase):
             assistant_mandate=cls.mandate,
             entity=cls.entity_version3.entity
         )
-        cls.reviewer1 = reviewer.ReviewerFactory(
-            role=reviewer_role.RESEARCH,
-            entity=cls.entity_version1.entity
-        )
-        cls.review1 = review.ReviewFactory(reviewer=cls.reviewer1, status=review_status.DONE, mandate=cls.mandate)
-        cls.reviewer2 = reviewer.ReviewerFactory(
-            role=reviewer_role.SUPERVISION,
-            entity=cls.entity_version2.entity
-        )
-        cls.review2 = review.ReviewFactory(reviewer=cls.reviewer2, status=review_status.DONE, mandate=cls.mandate)
-        cls.reviewer3 = reviewer.ReviewerFactory(
-            role=reviewer_role.VICE_RECTOR_ASSISTANT,
-            entity=cls.entity_version3.entity
-        )
-        cls.review2 = review.ReviewFactory(reviewer=cls.reviewer3, status=review_status.DONE, mandate=cls.mandate)
 
     def setUp(self):
+        self.reviewer1 = reviewer.ReviewerFactory(
+            role=reviewer_role.RESEARCH,
+            entity=self.entity_version1.entity
+        )
+        self.review1 = review.ReviewFactory(reviewer=self.reviewer1, status=review_status.DONE, mandate=self.mandate)
+        self.reviewer2 = reviewer.ReviewerFactory(
+            role=reviewer_role.SUPERVISION,
+            entity=self.entity_version2.entity
+        )
+        self.review2 = review.ReviewFactory(reviewer=self.reviewer2, status=review_status.DONE, mandate=self.mandate)
+        self.reviewer3 = reviewer.ReviewerFactory(
+            role=reviewer_role.VICE_RECTOR_ASSISTANT,
+            entity=self.entity_version3.entity
+        )
+        self.review3 = review.ReviewFactory(reviewer=self.reviewer3, status=review_status.DONE, mandate=self.mandate)
+
         self.client.force_login(self.reviewer1.person.user)
 
     def test_find_in_progress_for_mandate(self):
@@ -103,4 +104,12 @@ class TestReviewFactory(TestCase):
         self.assertEqual(len(find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION_ASSISTANT)), 2)
         self.assertTrue(
             self.review1 in find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION)
+        )
+
+    def test_should_order_queryset_by_role_when_data_present(self):
+        result = find_before_mandate_state(self.mandate, reviewer_role.VICE_RECTOR_ASSISTANT)
+        self.assertQuerysetEqual(
+            result,
+            [self.review1, self.review2, self.review3],
+            transform=lambda obj: obj
         )
