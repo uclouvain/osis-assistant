@@ -319,7 +319,7 @@ msgid "Edit"
 msgstr "Modifier"
 
 msgid "Email"
-msgstr "Email"
+msgstr "Courriel"
 
 msgid "Emails"
 msgstr "Courriels"
