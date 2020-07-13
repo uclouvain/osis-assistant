@@ -510,7 +510,7 @@ msgid "No promoter"
 msgstr "Pas de promoteur"
 
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
 msgid "Normal"
 msgstr "Normal"
