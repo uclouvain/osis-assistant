@@ -65,11 +65,14 @@ class AssistantFormPart3(ModelForm):
         required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '2'}))
     remark = forms.CharField(
         required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '4'}))
+    programmed_confirmation_test_date = forms.DateField(**PARAMETERS)
+    succeed_confirmation_test_date = forms.DateField(**PARAMETERS)
 
     class Meta:
         model = mdl.academic_assistant.AcademicAssistant
         fields = ('thesis_title', 'confirmation_test_date', 'remark', 'inscription',
-                  'expected_phd_date', 'phd_inscription_date', 'confirmation_test_date', 'thesis_date'
+                  'expected_phd_date', 'phd_inscription_date', 'confirmation_test_date', 'thesis_date',
+                  'programmed_confirmation_test_date', 'succeed_confirmation_test_date'
                   )
         exclude = ['supervisor']
 
@@ -81,6 +84,8 @@ class AssistantFormPart3(ModelForm):
         self.fields['confirmation_test_date'].widget.attrs['class'] = 'form-control'
         self.fields['thesis_title'].widget.attrs['class'] = 'form-control'
         self.fields['remark'].widget.attrs['class'] = 'form-control'
+        self.fields['programmed_confirmation_test_date'].widget.attrs['class'] = 'form-control'
+        self.fields['succeed_confirmation_test_date'].widget.attrs['class'] = 'form-control'
 
 
 class AssistantFormPart4(ModelForm):

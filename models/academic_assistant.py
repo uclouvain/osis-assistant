@@ -46,6 +46,8 @@ class AcademicAssistant(models.Model):
     remark = models.TextField(null=True, blank=True)
     inscription = models.CharField(max_length=12, choices=assistant_phd_inscription.PHD_INSCRIPTION_CHOICES,
                                    null=True, default=None)
+    programmed_confirmation_test_date = models.DateField(null=True, blank=True)
+    succeed_confirmation_test_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return u"%s %s" % (self.person.last_name.upper() if self.person.last_name else '', self.person.first_name)

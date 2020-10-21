@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-21 11:29+0200\n"
+"POT-Creation-Date: 2020-10-21 11:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -268,6 +268,9 @@ msgid "Date of doctoral enrollment"
 msgstr ""
 
 msgid "Date of first nomination"
+msgstr ""
+
+msgid "Date of succeeded confirmation test"
 msgstr ""
 
 msgid "Dean of Faculty"
@@ -586,6 +589,9 @@ msgid "Printing date"
 msgstr ""
 
 msgid "Prize(s) and/or distinction(s)"
+msgstr ""
+
+msgid "Programmed date of confirmation test"
 msgstr ""
 
 msgid "Promoter"
