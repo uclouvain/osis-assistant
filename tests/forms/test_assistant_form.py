@@ -35,7 +35,8 @@ class TestAssistantFormPart6(TestCase):
             'service_activities_percent': 20,
             'formation_activities_percent': 40,
             'research_percent': 10,
-            'activities_report_remark': None
+            'activities_report_remark': None,
+            'honour_declaration': True
         })
         self.assertTrue(form.is_valid())
 
@@ -45,6 +46,19 @@ class TestAssistantFormPart6(TestCase):
             'service_activities_percent': 20,
             'formation_activities_percent': 30,
             'research_percent': 10,
-            'activities_report_remark': None
+            'activities_report_remark': None,
+            'honour_declaration': True
         })
         self.assertFalse(form.is_valid())
+
+    def test_without_honour_declaration(self):
+        form = AssistantFormPart6(data={
+            'tutoring_percent': 30,
+            'service_activities_percent': 20,
+            'formation_activities_percent': 40,
+            'research_percent': 10,
+            'activities_report_remark': None,
+            'honour_declaration': False
+        })
+        self.assertFalse(form.is_valid())
+        self.assertIn('honour_declaration', form.errors.keys())
