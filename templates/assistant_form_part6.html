@@ -43,7 +43,7 @@
 <li class="active"><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
 </ul>
     <div class="panel panel-default">
-        <p class="panel-body">
+        <div class="panel-body">
             {% if msg %}
             <h5><p style="color:red">{{ msg }}</p></h5>
         {% endif %}
@@ -89,23 +89,20 @@
             {{ form.formation_activities_percent }}
             <span class="error">{{ form.formation_activities_percent.errors }}</span>
         </div>
-        <div class="panel-default">
-            <div class="panel-heading">
-                <h4>{% trans 'General comment' %}</h4>
+            <div class="panel-default">
+                <div class="panel-heading">
+                    <h4>{% trans 'General comment' %}</h4>
+                </div>
             </div>
-        </div>
             <div class="form-group">
                 <label for="{{ form.activities_report_remark.id_for_label }}">
                     {% trans 'Remark concerning the activity report' %}</label>
                 {{ form.activities_report_remark }}
                 <span class="error">{{ form.activities_report_remark.errors }}</span>
             </div>
-            <div class="form-group" style="display:flex; justify-content: space-evenly;">
-                {{ form.honour_declaration }}
-                <label for="{{ form.honour_declaration.id_for_label }}" style="display:inline-block;">
-                    {% trans 'I declare on my honour that all the information contained in this form has been verified and is correct' %} </label>
-                <span class="error">{{ form.honour_declaration.errors }}</span>
-            </div>
+            <p><strong>
+                {% trans 'I declare on my honour that all the information contained in this form has been verified and is correct' %}
+            </strong></p>
             <div class="btn-toolbar">
                 <button type="submit" class="btn btn-primary"
                         title="{% trans 'Save' %}" id="bt_pstform_part6_save">
@@ -114,18 +111,18 @@
                 <button type="submit" class="btn btn-success" title="{% trans 'Validate and submit' %}"
                         id="bt_pstform_validate_and_submit" name="validate_and_submit"
                         onclick="return confirm('{% trans 'Are you sure you want to validate and submit? This action is irreversible.' %}')">
-                    <span class="fas fa-check" aria-hidden="true">
-                    </span> {% trans 'Validate and submit' %}
-            </button>
-        </div>
-        <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
+                <span class="fas fa-check" aria-hidden="true">
+                </span> {% trans 'Validate and submit' %}
+                </button>
+            </div>
+            <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
         </form>
+        </div>
     </div>
-</div>
 {% endblock %}
 {% block script %}
-<script>
-$("#pst-form-part6 :input").change(function() {
+    <script>
+        $("#pst-form-part6 :input").change(function () {
    $("#pst-form-part6").data("changed",true);
 });
 $('a').on('click', function(e) {

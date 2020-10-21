@@ -132,10 +132,6 @@ class AssistantFormPart6(ModelForm):
     service_activities_percent = forms.IntegerField(required=True)
     formation_activities_percent = forms.IntegerField(required=True)
     research_percent = forms.IntegerField(required=True)
-    honour_declaration = forms.BooleanField(
-        required=True,
-        widget=forms.CheckboxInput(attrs={'style': 'width:15px;height:15px;'}),
-    )
 
     class Meta:
         model = mdl.assistant_mandate.AssistantMandate
