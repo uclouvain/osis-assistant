@@ -204,7 +204,7 @@ def form_part3_save(request):
     files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.PHD_DOCUMENT)
     form = AssistantFormPart3(data=request.POST, instance=assistant, prefix='mand')
     if form.is_valid():
-        form.save(commit=True)
+        form.save()
         return form_part3_edit(request)
     return render(request, "assistant_form_part3.html", {
         'assistant': assistant,
