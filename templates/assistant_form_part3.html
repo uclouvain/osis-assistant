@@ -95,19 +95,13 @@
             </div>
             <div class="form-group">
                 <label for="programmed_confirmatory_test_date">{% trans 'Programmed date of confirmation test' %}
-                </label>
-                {{ form.programmed_confirmation_test_date }}
-                <span class="error">{{ form.programmed_confirmation_test_date.errors }}</span>
-            </div>
-            <div class="form-group">
-                <label for="confirmatory_test_date">{% trans 'Date of confirmation test' %}
                     {% trans '(starting the 2nd renewal)' %}</label>
                 {{ form.confirmation_test_date }}
                 <span class="error">{{ form.confirmation_test_date.errors }}</span>
             </div>
             <div class="form-group">
                 <label for="succeed_confirmatory_test_date">{% trans 'Date of succeeded confirmation test' %}
-                </label>
+                    {% trans '(starting the 2nd renewal)' %}</label>
                 {{ form.succeed_confirmation_test_date }}
                 <span class="error">{{ form.succeed_confirmation_test_date.errors }}</span>
             </div>
