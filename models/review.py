@@ -27,11 +27,25 @@ import functools
 from itertools import takewhile
 from typing import Optional
 
+from django.contrib import admin
 from django.db import models
 from django.db.models import Case, When, Value, IntegerField
 from django.utils import timezone
 
 from assistant.models.enums import review_status, review_advice_choices, reviewer_role
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ("mandate", "reviewer", "advice", "status")
+    list_filter = ('mandate__academic_year', 'advice', 'status')
+    search_fields = (
+        "mandate__assistant__person__first_name",
+        "mandate__assistant__person__last_name",
+        "mandate__assistant__person__global_id",
+        "reviewer__person__first_name",
+        "reviewer__person__last_name",
+        "reviewer__person__global_id",
+    )
 
 
 class Review(models.Model):

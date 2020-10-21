@@ -25,18 +25,19 @@
 ##############################################################################
 from django.contrib import admin
 
-from assistant.models import reviewer, manager, settings, academic_assistant, assistant_mandate
+from assistant.models import reviewer, manager, settings, academic_assistant, assistant_mandate, mandate_entity, \
+    review, tutoring_learning_unit_year
 from assistant.models.assistant_document_file import AssistantDocumentFile
-from assistant.models.mandate_entity import MandateEntity
-from assistant.models.review import Review
-from assistant.models.tutoring_learning_unit_year import TutoringLearningUnitYear
 
 admin.site.register(assistant_mandate.AssistantMandate, assistant_mandate.AssistantMandateAdmin)
 admin.site.register(AssistantDocumentFile)
 admin.site.register(academic_assistant.AcademicAssistant, academic_assistant.AcademicAssistantAdmin)
-admin.site.register(MandateEntity)
-admin.site.register(Review)
-admin.site.register(TutoringLearningUnitYear)
+admin.site.register(mandate_entity.MandateEntity, mandate_entity.MandateEntityAdmin)
+admin.site.register(review.Review, review.ReviewAdmin)
+admin.site.register(
+    tutoring_learning_unit_year.TutoringLearningUnitYear,
+    tutoring_learning_unit_year.TutoringLearningUnitYearAdmin
+)
 admin.site.register(reviewer.Reviewer, reviewer.ReviewerAdmin)
 admin.site.register(manager.Manager, manager.ManagerAdmin)
 admin.site.register(settings.Settings, settings.SettingsAdmin)
