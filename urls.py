@@ -24,11 +24,12 @@
 #
 ##############################################################################
 from django.conf.urls import url, include
+from django.urls import path
 
 from assistant.business.assistant_mandate import find_assistant_mandate_step_backward_state
 from assistant.utils import get_persons
 from assistant.utils import send_email, import_xls_file_data, export_utils_pdf
-from assistant.views import assistant_mandate_reviews
+from assistant.views import assistant_mandate_reviews, autocomplete
 from assistant.views import manager_assistant_form
 from assistant.views import manager_reviews_view
 from assistant.views import manager_settings, reviewers_management, upload_assistant_file
@@ -40,6 +41,10 @@ urlpatterns = [
     url(r'^$', home.assistant_home, name='assistants_home'),
     url(r'^access_denied$', home.access_denied, name='access_denied'),
     url(r'^api/get_persons/', get_persons.get_persons, name='get_persons'),
+
+    path('autocomplete/', include([
+        path("tutor/", autocomplete.TutorAutocomplete.as_view(), name="assistant_tutor_autocomplete")
+    ])),
 
 
     url(r'^assistant/', include([

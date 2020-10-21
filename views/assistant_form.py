@@ -181,14 +181,7 @@ def form_part3_edit(request, msg=None):
         academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
     assistant = mandate.assistant
     files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.PHD_DOCUMENT)
-    form = AssistantFormPart3(initial={'inscription': assistant.inscription,
-                                       'expected_phd_date': assistant.expected_phd_date,
-                                       'confirmation_test_date': assistant.confirmation_test_date,
-                                       'thesis_date': assistant.thesis_date,
-                                       'phd_inscription_date': assistant.phd_inscription_date,
-                                       'thesis_title': assistant.thesis_title,
-                                       'remark': assistant.remark,
-                                       }, prefix='mand')
+    form = AssistantFormPart3(instance=assistant, prefix='mand')
 
     return render(request, "assistant_form_part3.html", {'assistant': assistant,
                                                          'mandate': mandate,
@@ -202,35 +195,23 @@ def form_part3_edit(request, msg=None):
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
 @require_http_methods(["POST"])
 def form_part3_save(request):
-    mandate = assistant_mandate.find_mandate_by_id(request.POST.get("mandate_id"))
-    if mandate:
-        assistant = mandate.assistant
-        files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.PHD_DOCUMENT)
-        form = AssistantFormPart3(data=request.POST, instance=assistant, prefix='mand')
-        if form.is_valid():
-            current_assistant = form.save(commit=False)
-            if current_assistant.inscription != assistant_phd_inscription.NO \
-                    and (not request.POST.get('person_id') and current_assistant.supervisor is None):
-                msg = _("The promoter must be identified")
-                form.add_error('inscription', msg)
-                return render(request, "assistant_form_part3.html", {'assistant': assistant, 'mandate': mandate,
-                                                                     'files': files, 'form': form})
-            if current_assistant.inscription is None:
-                msg = _("The 'Doctorate' section must be completed")
-                form.add_error('inscription', msg)
-                return render(request, "assistant_form_part3.html", {'assistant': assistant, 'mandate': mandate,
-                                                                     'files': files, 'form': form})
-            if request.POST.get('person_id'):
-                current_assistant.supervisor = person.find_by_id(request.POST.get('person_id'))
-                current_assistant.save()
-            else:
-                form.save()
-            return form_part3_edit(request)
-        else:
-            return render(request, "assistant_form_part3.html", {'assistant': assistant, 'mandate': mandate,
-                                                                 'files': files, 'form': form})
-    else:
+    mandate = assistant_mandate.find_mandate_by_assistant_for_academic_year(
+        academic_assistant.find_by_person(request.user.person), academic_year.starting_academic_year())
+    if not mandate:
         return form_part3_edit(request, msg=_("A problem occured, data have not been saved"))
+
+    assistant = mandate.assistant
+    files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.PHD_DOCUMENT)
+    form = AssistantFormPart3(data=request.POST, instance=assistant, prefix='mand')
+    if form.is_valid():
+        form.save()
+        return form_part3_edit(request)
+    return render(request, "assistant_form_part3.html", {
+        'assistant': assistant,
+        'mandate': mandate,
+        'files': files,
+        'form': form
+    })
 
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')

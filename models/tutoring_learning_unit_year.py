@@ -23,7 +23,18 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+from django.contrib import admin
 from django.db import models
+
+
+class TutoringLearningUnitYearAdmin(admin.ModelAdmin):
+    list_display = ("mandate", "learning_unit_year")
+    search_fields = [
+        "assistant_mandate__assistant__person__first_name",
+        "assistant_mandate__assistant__person__last_name",
+        "assistant_mandate__assistant__person__global_id",
+    ]
+    list_filter = ('mandate__academic_year',)
 
 
 class TutoringLearningUnitYear(models.Model):

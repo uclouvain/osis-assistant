@@ -23,9 +23,21 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+from django.contrib import admin
 from django.db import models
 
 from base.models import entity_version
+
+
+class MandateEntityAdmin(admin.ModelAdmin):
+    raw_id_fields = ('assistant_mandate', 'entity')
+    list_display = ('assistant_mandate', 'entity')
+    list_filter = ('assistant_mandate__academic_year',)
+    search_fields = [
+        "assistant_mandate__assistant__person__first_name",
+        "assistant_mandate__assistant__person__last_name",
+        "assistant_mandate__assistant__person__global_id",
+    ]
 
 
 class MandateEntity(models.Model):

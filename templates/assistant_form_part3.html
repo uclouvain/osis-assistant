@@ -2,6 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% load l10n %}
+{% load bootstrap3 %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -64,18 +65,10 @@
 			{{ form.inscription }}
             <span class="error">{{ form.inscription.errors }}</span>
         </div>
-        {% if not supervisor %}
-            <div class="form-group">
-				<label id="label_for_search_persons" for="search_persons">
-					{% trans 'Promoter' %}</label>
-				<input id="search_persons" name="search_persons" size="100" class="form-control"
-                       placeholder="{% trans 'Search by email or last name' %}">
-                <input type="hidden" name="person_id" id="person_id">
-            </div>
-        {% else %}
-            <label>{% trans 'Promoter' %}</label>
-            <div class="form-group">{{ supervisor }}</div>
-		{% endif %}
+
+        <label>{% trans 'Promoter' %}</label>
+        {% bootstrap_field form.supervisor %}
+
         <div class="form-group">
 			<label id="label_for_expected_phd_date" for="expected_phd_date">
                 {% trans 'Scheduled date of registration' %}</label>
@@ -150,6 +143,7 @@
                         id="bt_pstform_part3_save">
      			<span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
 		</div>
+        {{ form.media }}
     	</form>
 	</div>
 </div>

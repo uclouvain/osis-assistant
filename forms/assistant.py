@@ -23,15 +23,15 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
+from dal import autocomplete
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.utils.translation import gettext as _
 
 from assistant import models as mdl
-from assistant.forms.common import RADIO_SELECT_REQUIRED
 from assistant.models.enums import assistant_phd_inscription
+from base.models.person import Person
 
 
 class AssistantFormPart1(ModelForm):
@@ -54,26 +54,43 @@ class AssistantFormPart1(ModelForm):
 
 
 class AssistantFormPart3(ModelForm):
-    PARAMETERS = dict(required=False, widget=forms.DateInput(format='%d/%m/%Y', attrs={'placeholder': 'dd/mm/yyyy'}),
-                      input_formats=['%d/%m/%Y'])
-    inscription = forms.ChoiceField(choices=assistant_phd_inscription.PHD_INSCRIPTION_CHOICES, **RADIO_SELECT_REQUIRED)
-    expected_phd_date = forms.DateField(**PARAMETERS)
-    thesis_date = forms.DateField(**PARAMETERS)
-    phd_inscription_date = forms.DateField(**PARAMETERS)
-    confirmation_test_date = forms.DateField(**PARAMETERS)
+    DATE_FIELD_PARAMETERS = dict(
+        required=False,
+        widget=forms.DateInput(format='%d/%m/%Y', attrs={'placeholder': 'dd/mm/yyyy'}),
+        input_formats=['%d/%m/%Y']
+    )
+    inscription = forms.ChoiceField(
+        choices=assistant_phd_inscription.PHD_INSCRIPTION_CHOICES,
+        required=True,
+        widget=forms.RadioSelect(attrs={'onChange': 'Hide()'}))
+    expected_phd_date = forms.DateField(**DATE_FIELD_PARAMETERS)
+    thesis_date = forms.DateField(**DATE_FIELD_PARAMETERS)
+    phd_inscription_date = forms.DateField(**DATE_FIELD_PARAMETERS)
+    confirmation_test_date = forms.DateField(**DATE_FIELD_PARAMETERS)
     thesis_title = forms.CharField(
         required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '2'}))
     remark = forms.CharField(
         required=False, widget=forms.Textarea(attrs={'cols': '80', 'rows': '4'}))
-    succeed_confirmation_test_date = forms.DateField(**PARAMETERS)
+    supervisor = forms.ModelChoiceField(
+        queryset=Person.objects.filter(tutor__isnull=False),
+        required=False,
+        widget=autocomplete.ModelSelect2(
+            url='assistant_tutor_autocomplete',
+            attrs={
+                'data-theme': 'bootstrap',
+                'data-placeholder': _('Indicate the last name or email'),
+            }
+        ),
+        label='',
+    )
+    succeed_confirmation_test_date = forms.DateField(**DATE_FIELD_PARAMETERS)
 
     class Meta:
         model = mdl.academic_assistant.AcademicAssistant
         fields = ('thesis_title', 'confirmation_test_date', 'remark', 'inscription',
                   'expected_phd_date', 'phd_inscription_date', 'confirmation_test_date', 'thesis_date',
-                  'succeed_confirmation_test_date'
+                  'supervisor', 'succeed_confirmation_test_date'
                   )
-        exclude = ['supervisor']
 
     def __init__(self, *args, **kwargs):
         super(AssistantFormPart3, self).__init__(*args, **kwargs)
@@ -84,6 +101,16 @@ class AssistantFormPart3(ModelForm):
         self.fields['thesis_title'].widget.attrs['class'] = 'form-control'
         self.fields['remark'].widget.attrs['class'] = 'form-control'
         self.fields['succeed_confirmation_test_date'].widget.attrs['class'] = 'form-control'
+
+    def clean(self):
+        cleaned_data = super().clean()
+        inscription = cleaned_data.get("inscription")
+        supervisor = cleaned_data.get("supervisor")
+
+        if inscription != assistant_phd_inscription.NO and not supervisor:
+            self.add_error("supervisor", _("The promoter must be identified"))
+
+        return cleaned_data
 
 
 class AssistantFormPart4(ModelForm):
