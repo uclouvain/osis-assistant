@@ -35,7 +35,7 @@ class TestAssistantFormPart6(TestCase):
             'service_activities_percent': 20,
             'formation_activities_percent': 40,
             'research_percent': 10,
-            'activities_report_remark': None
+            'activities_report_remark': None,
         })
         self.assertTrue(form.is_valid())
 
@@ -45,6 +45,6 @@ class TestAssistantFormPart6(TestCase):
             'service_activities_percent': 20,
             'formation_activities_percent': 30,
             'research_percent': 10,
-            'activities_report_remark': None
+            'activities_report_remark': None,
         })
         self.assertFalse(form.is_valid())
