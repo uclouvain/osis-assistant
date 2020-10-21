@@ -85,29 +85,35 @@
         <div class="form-group">
             <label id="label_for_phd_inscription_date"
                    for="phd_inscription_date">{% trans 'Date of doctoral enrollment' %}</label>
-			{{ form.phd_inscription_date }}
-			<span class="error">{{ form.phd_inscription_date.errors }}</span>
+            {{ form.phd_inscription_date }}
+            <span class="error">{{ form.phd_inscription_date.errors }}</span>
         </div>
-        <div class="form-group">
-			<label for="thesis_title">{% trans 'Title (provisional) of the thesis' %}</label>
-			{{ form.thesis_title }}
-			<span class="error">{{ form.thesis_title.errors }}</span>
-        </div>
-        <div class="form-group">
-			<label for="confirmatory_test_date">{% trans 'Date of confirmation test' %}
-				{% trans '(starting the 2nd renewal)' %}</label>
-			{{ form.confirmation_test_date }}
-			<span class="error">{{ form.confirmation_test_date.errors }}</span>
-        </div>
-        <div class="form-group">
-			<label for="thesis_defence_date">{% trans 'Date of defense of thesis (if already known)' %}</label>
-			{{ form.thesis_date }}
-            <span class="error">{{ form.thesis_date.errors }}</span>
-        </div>
-        <div class="form-group">
-			<label for="remark">{% trans 'Remark' %}</label>
-			{{ form.remark }}
-			<span class="error">{{ form.remark.errors }}</span>
+            <div class="form-group">
+                <label for="thesis_title">{% trans 'Title (provisional) of the thesis' %}</label>
+                {{ form.thesis_title }}
+                <span class="error">{{ form.thesis_title.errors }}</span>
+            </div>
+            <div class="form-group">
+                <label for="programmed_confirmatory_test_date">{% trans 'Programmed date of confirmation test' %}
+                    {% trans '(starting the 2nd renewal)' %}</label>
+                {{ form.confirmation_test_date }}
+                <span class="error">{{ form.confirmation_test_date.errors }}</span>
+            </div>
+            <div class="form-group">
+                <label for="succeed_confirmatory_test_date">{% trans 'Date of succeeded confirmation test' %}
+                    {% trans '(starting the 2nd renewal)' %}</label>
+                {{ form.succeed_confirmation_test_date }}
+                <span class="error">{{ form.succeed_confirmation_test_date.errors }}</span>
+            </div>
+            <div class="form-group">
+                <label for="thesis_defence_date">{% trans 'Date of defense of thesis (if already known)' %}</label>
+                {{ form.thesis_date }}
+                <span class="error">{{ form.thesis_date.errors }}</span>
+            </div>
+            <div class="form-group">
+                <label for="remark">{% trans 'Remark' %}</label>
+                {{ form.remark }}
+                <span class="error">{{ form.remark.errors }}</span>
         </div>
         <div class="panel-default">
   			<div class="panel-heading">
