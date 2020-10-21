@@ -401,6 +401,13 @@ msgstr "Commentaire général"
 msgid "Generate a PDF file"
 msgstr "Générer un fichier PDF"
 
+msgid ""
+"I declare on my honour that all the information contained in this form has "
+"been verified and is correct"
+msgstr ""
+"Je déclare sur l’honneur que toutes les informations reprises dans ce "
+"formulaire ont été vérifiées et sont correctes"
+
 msgid "Import assistant mandates"
 msgstr "Importer les mandats d'assistant"
 

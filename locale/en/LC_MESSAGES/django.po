@@ -378,6 +378,11 @@ msgstr ""
 msgid "Generate a PDF file"
 msgstr ""
 
+msgid ""
+"I declare on my honour that all the information contained in this form has "
+"been verified and is correct"
+msgstr ""
+
 msgid "Import assistant mandates"
 msgstr ""
 
