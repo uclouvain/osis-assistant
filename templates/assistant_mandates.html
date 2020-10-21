@@ -100,7 +100,7 @@
                 {% if mandate.state != "TO_DO" and mandate.state != "DECLINED" %}
                     <form method="POST" action="{% url 'export_mandate_pdf' %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-link btn-lg no_spinner" title="{% trans 'Generate a PDF file' %}"
+                        <button type="submit" class="btn btn-link btn-lg download" title="{% trans 'Generate a PDF file' %}"
                                 id="bt_generate_pdf">
                             <span class="far fa-file-download-file" aria-hidden="true"></span> PDF
                         </button>

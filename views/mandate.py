@@ -40,6 +40,7 @@ from assistant.models.enums import reviewer_role, assistant_mandate_state
 from assistant.utils.send_email import send_message
 from base.models import academic_year, entity, person
 from base.models.enums import entity_type
+from osis_common.decorators.download import set_download_cookie
 
 
 def user_is_manager(user):
@@ -111,6 +112,7 @@ def load_mandates(request):
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')
+@set_download_cookie
 def export_mandates(request):
     xls = generate_xls()
     filename = '{}_{}.xlsx'.format(_('assistants_mandates'), time.strftime("%Y%m%d_%H%M"))

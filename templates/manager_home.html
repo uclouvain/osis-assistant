@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-1"><i class="fa fa-upload" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
-                <h4 class="media-heading"><a href="{% url 'export_mandates' %}" id="lnk_upload_mandates" class="no_spinner">
+                <h4 class="media-heading"><a href="{% url 'export_mandates' %}" id="lnk_upload_mandates" class="download">
                     {% trans 'Export of assistants mandates' %}</a></h4>
                 <p>{% trans 'Exporting files to an XLSX file' %}</p>
             </div>
@@ -69,13 +69,13 @@
         <div class="row" style="padding-top: 10px;">
             <div class="col-md-1"><i class="fa fa-upload" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
-                <h4 class="media-heading"><a href="{% url 'export_mandates_pdf' %}" id="lnk_export_mandates" class="no_spinner">
+                <h4 class="media-heading"><a href="{% url 'export_mandates_pdf' %}" id="lnk_export_mandates" class="download">
                     {% trans 'Export of assistants mandates' %}</a></h4>
                 <p>{% trans 'Exporting all data to a PDF file' %}</p>
             </div>
             <div class="col-md-1"><i class="fa fa-upload" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-5">
-                <h4 class="media-heading"><a href="{% url 'export_declined_mandates_pdf' %}" id="lnk_export_declined_mandates" class="no_spinner">
+                <h4 class="media-heading"><a href="{% url 'export_declined_mandates_pdf' %}" id="lnk_export_declined_mandates" class="download">
                     {% trans 'Export of the declined assistants mandates' %}</a></h4>
                 <p>{% trans 'Exporting assistants who declined their renewal' %}</p>
             </div>
@@ -83,7 +83,7 @@
         <div class="row" style="padding-top: 10px;">
             <div class="col-md-1"><i class="fa fa-upload" style="font-size: 400%; color: #6699FF;"></i></div>
             <div class="col-md-11">
-                <h4 class="media-heading"><a href="{% url 'export_mandates_to_sap' %}" id="lnk_export_mandates_to_sap" class="no_spinner">
+                <h4 class="media-heading"><a href="{% url 'export_mandates_to_sap' %}" id="lnk_export_mandates_to_sap" class="download">
                     {% trans 'Export mandates to sap' %}</a></h4>
                 <p>{% trans 'This export is used to add assistants form to SAP' %}</p>
             </div>

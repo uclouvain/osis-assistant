@@ -57,6 +57,7 @@ from base.models import academic_year, entity_version
 from base.models.entity import find_versions_from_entites
 from base.models.enums import entity_type
 from base.models.person import find_by_user
+from osis_common.decorators.download import set_download_cookie
 
 PAGE_SIZE = A4
 MARGIN_SIZE = 15 * mm
@@ -88,6 +89,7 @@ def export_mandates_to_sap(request):
 
 
 @login_required
+@set_download_cookie
 def build_doc(request: http.HttpRequest, mandates: Sequence[assistant_mandate.AssistantMandate], type: str = 'default'):
     if mandates:
         year = mandates[0].academic_year
