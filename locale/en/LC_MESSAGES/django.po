@@ -270,6 +270,9 @@ msgstr ""
 msgid "Date of first nomination"
 msgstr ""
 
+msgid "Date of succeeded confirmation test"
+msgstr ""
+
 msgid "Dean of Faculty"
 msgstr ""
 
@@ -589,6 +592,9 @@ msgid "Printing date"
 msgstr ""
 
 msgid "Prize(s) and/or distinction(s)"
+msgstr ""
+
+msgid "Programmed date of confirmation test"
 msgstr ""
 
 msgid "Promoter"

@@ -291,6 +291,9 @@ msgstr "Date d'inscription au doctorat"
 msgid "Date of first nomination"
 msgstr "Date de la première nomination"
 
+msgid "Date of succeeded confirmation test"
+msgstr "Date de réussite de l'épreuve de confirmation"
+
 msgid "Dean of Faculty"
 msgstr "Doyen de faculté"
 
@@ -624,6 +627,9 @@ msgstr "Date d'impression"
 
 msgid "Prize(s) and/or distinction(s)"
 msgstr "Prix et/ou distinction(s)"
+
+msgid "Programmed date of confirmation test"
+msgstr "Date programmée de l'épreuve de confirmation"
 
 msgid "Promoter"
 msgstr "Promoteur"

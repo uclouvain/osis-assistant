@@ -30,7 +30,6 @@ from django.forms import ModelForm
 from django.utils.translation import gettext as _
 
 from assistant import models as mdl
-from assistant.forms.common import RADIO_SELECT_REQUIRED
 from assistant.models.enums import assistant_phd_inscription
 from base.models.person import Person
 
@@ -84,12 +83,13 @@ class AssistantFormPart3(ModelForm):
         ),
         label='',
     )
+    succeed_confirmation_test_date = forms.DateField(**DATE_FIELD_PARAMETERS)
 
     class Meta:
         model = mdl.academic_assistant.AcademicAssistant
         fields = ('thesis_title', 'confirmation_test_date', 'remark', 'inscription',
                   'expected_phd_date', 'phd_inscription_date', 'confirmation_test_date', 'thesis_date',
-                  'supervisor'
+                  'supervisor', 'succeed_confirmation_test_date'
                   )
 
     def __init__(self, *args, **kwargs):
@@ -100,6 +100,7 @@ class AssistantFormPart3(ModelForm):
         self.fields['confirmation_test_date'].widget.attrs['class'] = 'form-control'
         self.fields['thesis_title'].widget.attrs['class'] = 'form-control'
         self.fields['remark'].widget.attrs['class'] = 'form-control'
+        self.fields['succeed_confirmation_test_date'].widget.attrs['class'] = 'form-control'
 
     def clean(self):
         cleaned_data = super().clean()
