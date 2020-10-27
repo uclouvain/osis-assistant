@@ -262,7 +262,10 @@ class ExportPdfTestCase(TestCase):
         phd_inscription_date = export_utils_pdf.format_data(self.assistant.phd_inscription_date,
                                                             _('Date of doctoral enrollment'))
         confirmation_test_date = export_utils_pdf.format_data(self.assistant.confirmation_test_date,
-                                                              _('Date of confirmation test'))
+                                                              _('Programmed date of confirmation test'))
+        succed_confirmation_test_date = export_utils_pdf.format_data(
+            self.assistant.succeed_confirmation_test_date, _('Date of succeeded confirmation test')
+        )
         thesis_date = export_utils_pdf.format_data(self.assistant.thesis_date,
                                                    _('Date of defense of thesis (if already known)'))
         expected_phd_date = export_utils_pdf.format_data(self.assistant.expected_phd_date,
@@ -272,8 +275,11 @@ class ExportPdfTestCase(TestCase):
             _('Enrolled in the Ph.D. program')
         )
         remark = export_utils_pdf.format_data(self.assistant.remark, _('Remark'))
-        self.assertEqual(inscription + phd_inscription_date + expected_phd_date + confirmation_test_date
-                         + thesis_title + thesis_date + remark, export_utils_pdf.get_phd_data(self.assistant))
+        self.assertEqual(
+            inscription + phd_inscription_date + expected_phd_date + confirmation_test_date
+            + succed_confirmation_test_date + thesis_title + thesis_date + remark,
+            export_utils_pdf.get_phd_data(self.assistant)
+        )
 
     def test_get_research_data(self):
         internships = export_utils_pdf.format_data(self.mandate.internships, _('Scientific stay(s) and/or course(s)'))
