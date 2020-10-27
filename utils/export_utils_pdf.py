@@ -316,7 +316,7 @@ def get_phd_data(assistant):
     )
     remark = format_data(assistant.remark, _('Remark'))
     return inscription + phd_inscription_date + expected_phd_date + confirmation_test_date + \
-           succed_confirmation_test_date + thesis_title + thesis_date + remark
+        succed_confirmation_test_date + thesis_title + thesis_date + remark
 
 
 def get_research_data(mandate):
