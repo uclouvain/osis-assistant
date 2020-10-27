@@ -93,7 +93,7 @@ def build_doc(request: http.HttpRequest, mandates: Sequence[assistant_mandate.As
         year = mandates[0].academic_year
     else:
         year = academic_year.starting_academic_year()
-    if type is 'export_to_sap':
+    if type == 'export_to_sap':
         filename = ('%s_%s_%s.pdf' % (mandates[0].sap_id, year, mandates[0].assistant.person))
     else:
         filename = ('%s_%s_%s.pdf' % (_('assistants_mandates'), year, time.strftime("%Y%m%d_%H%M")))
@@ -116,7 +116,7 @@ def build_doc(request: http.HttpRequest, mandates: Sequence[assistant_mandate.As
         roles = reviewer.find_by_person(find_by_user(request.user)).values_list("role", flat=True)
     else:
         roles = [user_role.ADMINISTRATOR]
-    if type is 'default' or type is 'export_to_sap':
+    if type == 'default' or type == 'export_to_sap':
         for mandate in mandates:
             add_mandate_content(content, mandate, styles, roles)
     else:
@@ -304,7 +304,10 @@ def get_comment(mandate):
 def get_phd_data(assistant):
     thesis_title = format_data(assistant.thesis_title, _('Title (provisional) of the thesis'))
     phd_inscription_date = format_data(assistant.phd_inscription_date, _('Date of doctoral enrollment'))
-    confirmation_test_date = format_data(assistant.confirmation_test_date, _('Date of confirmation test'))
+    confirmation_test_date = format_data(assistant.confirmation_test_date, _('Programmed date of confirmation test'))
+    succed_confirmation_test_date = format_data(
+        assistant.succeed_confirmation_test_date, _('Date of succeeded confirmation test')
+    )
     thesis_date = format_data(assistant.thesis_date, _('Date of defense of thesis (if already known)'))
     expected_phd_date = format_data(assistant.expected_phd_date, _('Scheduled date of registration'))
     inscription = format_data(
@@ -312,8 +315,8 @@ def get_phd_data(assistant):
         _('Enrolled in the Ph.D. program')
     )
     remark = format_data(assistant.remark, _('Remark'))
-    return inscription + phd_inscription_date + expected_phd_date + confirmation_test_date \
-        + thesis_title + thesis_date + remark
+    return inscription + phd_inscription_date + expected_phd_date + confirmation_test_date + \
+           succed_confirmation_test_date + thesis_title + thesis_date + remark
 
 
 def get_research_data(mandate):
