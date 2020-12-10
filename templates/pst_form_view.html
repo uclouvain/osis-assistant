@@ -187,7 +187,7 @@
                     </div>
                     <div class="col-md-3">
                         {% if assistant.inscription %}
-                            {{ assistant.inscription | yesno }}
+                            {{ assistant.get_inscription_display }}
                         {% endif %}
                     </div>
                     <div class="col-md-3">
@@ -227,6 +227,22 @@
                     </div>
                     <div class="col-md-9">
                         {{ assistant.thesis_date|default_if_none:"n/a" }}
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 2px;">
+                    <div class="col-md-3">
+                        {% trans 'Title (provisional) of the thesis' %}
+                    </div>
+                    <div class="col-md-9">
+                        {{ assistant.thesis_title|default_if_none:"n/a" }}
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 2px;">
+                    <div class="col-md-3">
+                        {% trans 'Remark' %}
+                    </div>
+                    <div class="col-md-9">
+                        {{ assistant.remark|default_if_none:"n/a" }}
                     </div>
                 </div>
             </div>

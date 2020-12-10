@@ -80,10 +80,10 @@
                     {% endfor %}
                 </ul>
                 </td>
-            <td>{% trans mandate.assistant_type %}</td>
+            <td>{{ mandate.get_assistant_type_display }}</td>
             <td>{{ mandate.contract_duration }}</td>
             <td>{{ mandate.contract_duration_fte }}</td>
-            <td>{% trans mandate.state %}</td>
+            <td>{{ mandate.get_state_display }}</td>
             {% if mandate.assistant.supervisor == request.user.person and mandate.state == "PHD_SUPERVISOR" %}
                 <td align="center">
                     <form method="POST" action="{% url 'phd_supervisor_review_edit' %}">
