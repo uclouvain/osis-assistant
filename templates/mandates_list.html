@@ -95,9 +95,7 @@
                                 </h6>
                             {% endif %}
                         </td>
-                        <td>{% if mandate.assistant.inscription %}
-                                {% trans mandate.assistant.inscription|yesno|title %}
-                            {% endif %}
+                        <td>{{ mandate.assistant.get_inscription_display }}
                         </td>
                         <td>{{ mandate.contract_duration }}</td>
                         <td>{{ mandate.contract_duration_fte }}</td>
