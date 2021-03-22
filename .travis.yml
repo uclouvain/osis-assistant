@@ -18,8 +18,8 @@ install:
   - cd /tmp
   - git clone https://github.com/uclouvain/osis.git
   - cd osis
-  - git checkout qa
-  - git pull origin qa
+  - git checkout $TRAVIS_BRANCH
+  - git pull origin $TRAVIS_BRANCH
   - git submodule init
   - git submodule update
   - pip install -r requirements.txt
