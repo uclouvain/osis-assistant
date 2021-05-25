@@ -48,7 +48,7 @@ def get_settings():
     return Settings.objects.first()
 
 
-def access_to_procedure_is_open():
+def access_to_procedure_is_open() -> bool:
     return Settings.objects.filter(starting_date__lt=timezone.now(),
                                    ending_date__gt=timezone.now()).count() > 0
 
