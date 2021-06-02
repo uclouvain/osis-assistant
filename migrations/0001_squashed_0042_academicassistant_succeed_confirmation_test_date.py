@@ -32,7 +32,8 @@ class Migration(migrations.Migration):
                 ('assistant', '0037_messages_templates_update'), ('assistant', '0038_auto_20180524_0938'),
                 ('assistant', '0039_messages_templates_update'), ('assistant', '0040_auto_20191220_0937'),
                 ('assistant', '0041_auto_20191220_0942'),
-                ('assistant', '0042_academicassistant_succeed_confirmation_test_date')]
+                ('assistant', '0042_academicassistant_succeed_confirmation_test_date'),
+                ('assistant', '0043_auto_20210419_1054')]
 
     initial = True
 
@@ -103,13 +104,13 @@ class Migration(migrations.Migration):
                 ('contract_duration_fte', models.CharField(max_length=30)),
                 ('assistant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='assistant.AcademicAssistant')),
                 ('service_activities_remark', models.TextField(blank=True, null=True)),
-                ('academic_year', models.ForeignKey(default=2016, on_delete=django.db.models.deletion.CASCADE, to='base.AcademicYear')),
+                ('academic_year', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.AcademicYear')),
                 ('assistant_type', models.CharField(choices=[('ASSISTANT', 'Assistant'), ('TEACHING_ASSISTANT', 'Teaching assistant')], default='ASSISTANT', max_length=20)),
-                ('end_date', models.DateField(default=datetime.datetime(2016, 6, 2, 18, 28, 17, 494727, tzinfo=utc))),
-                ('entry_date', models.DateField(default=datetime.datetime(2016, 6, 2, 18, 28, 20, 502601, tzinfo=utc))),
-                ('fulltime_equivalent', models.DecimalField(decimal_places=2, default=1, max_digits=3)),
-                ('sap_id', models.CharField(default=1, max_length=12)),
-                ('scale', models.CharField(default=1, max_length=3)),
+                ('end_date', models.DateField()),
+                ('entry_date', models.DateField()),
+                ('fulltime_equivalent', models.DecimalField(decimal_places=2, max_digits=3)),
+                ('sap_id', models.CharField(max_length=12)),
+                ('scale', models.CharField(max_length=3)),
             ],
         ),
         migrations.CreateModel(
@@ -149,7 +150,7 @@ class Migration(migrations.Migration):
                 ('exams_supervision_duration', models.PositiveIntegerField(blank=True, null=True)),
                 ('mandate', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='assistant.AssistantMandate')),
                 ('others_delivery', models.TextField(blank=True, null=True)),
-                ('learning_unit_year', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='base.LearningUnitYear')),
+                ('learning_unit_year', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.LearningUnitYear')),
             ],
         ),
         migrations.CreateModel(
@@ -158,10 +159,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('starting_date', models.DateField()),
                 ('ending_date', models.DateField()),
-                ('assistants_ending_date', models.DateField(default=datetime.datetime(2017, 5, 31, 14, 21, 58, 950224, tzinfo=utc))),
-                ('assistants_starting_date', models.DateField(default=datetime.datetime(2017, 5, 31, 14, 22, 2, 238824, tzinfo=utc))),
-                ('assistants_contract_end_ending_date', models.DateField(default=django.utils.timezone.now)),
-                ('assistants_contract_end_starting_date', models.DateField(default=django.utils.timezone.now)),
+                ('assistants_ending_date', models.DateField()),
+                ('assistants_starting_date', models.DateField()),
+                ('assistants_contract_end_ending_date', models.DateField()),
+                ('assistants_contract_end_starting_date', models.DateField()),
             ],
         ),
         migrations.CreateModel(
