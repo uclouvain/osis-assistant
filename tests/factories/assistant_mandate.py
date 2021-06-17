@@ -38,10 +38,7 @@ class AssistantMandateFactory(factory.DjangoModelFactory):
         model = 'assistant.AssistantMandate'
 
     assistant = factory.SubFactory(AcademicAssistantFactory)
-    if datetime.date.today() < datetime.date(datetime.date.today().year, 9, 15):
-        academic_year = factory.SubFactory(AcademicYearFactory, year=datetime.date.today().year-1)
-    else:
-        academic_year = factory.SubFactory(AcademicYearFactory, year=datetime.date.today().year)
+    academic_year = factory.SubFactory(AcademicYearFactory, current=True)
     assistant_type = factory.Iterator(assistant_type.ASSISTANT_TYPES, getter=lambda c: c[0])
     fulltime_equivalent = factory.fuzzy.FuzzyChoice([0.25, 0.33, 0.5, 0.75, 1])
     entry_date = datetime.datetime(datetime.date.today().year - 2, 9, 15)
