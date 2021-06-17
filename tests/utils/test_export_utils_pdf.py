@@ -64,12 +64,7 @@ class ExportPdfTestCase(TestCase):
     def setUpTestData(cls):
         cls.settings = SettingsFactory()
         cls.manager = ManagerFactory()
-        today = datetime.date.today()
-        cls.current_academic_year = AcademicYearFactory(
-            start_date=today.replace(year=today.year - 1),
-            end_date=today.replace(year=today.year + 1),
-            year=today.year - 1,
-        )
+        cls.current_academic_year = AcademicYearFactory(current=True)
         cls.supervisor = PersonFactory()
         cls.assistant = AcademicAssistantFactory(
             phd_inscription_date=datetime.date(cls.current_academic_year.year - 3, 10, 2),
