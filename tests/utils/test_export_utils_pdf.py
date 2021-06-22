@@ -105,6 +105,7 @@ class ExportPdfTestCase(TestCase):
             justification=None,
             external_contract='',
             external_functions='',
+            state=assistant_mandate_state.TO_DO
         )
 
         self.mandate2 = AssistantMandateFactory(
