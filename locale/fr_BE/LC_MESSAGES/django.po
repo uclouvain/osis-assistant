@@ -359,7 +359,7 @@ msgstr ""
 "assumez personnellement"
 
 msgid "Export list of declined mandate assistants "
-msgstr "Exportation de la liste des assistants avec mandat décliné"
+msgstr "Exporter la liste des assistants avec mandat décliné"
 
 msgid "Export mandates to sap"
 msgstr "Exporter tous les dossiers vers un zip"
