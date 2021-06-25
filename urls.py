@@ -119,6 +119,8 @@ urlpatterns = [
                 name='export_list_declined_mandates_pdf'),
             url(r'^export_declined_pdf/$', export_utils_pdf.export_declined_mandates,
                 name='export_declined_mandates_pdf'),
+            url(r'^download_declined_pdf/$', export_utils_pdf.download_declined_mandates,
+                name='download_declined_mandates_pdf'),
         ])),
         url(r'^messages/', include([
             url(r'^history/$', messages.show_history, name='messages_history'),
