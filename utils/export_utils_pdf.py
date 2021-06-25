@@ -149,9 +149,15 @@ def export_mandates(request):
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
-def export_declined_mandates(request):
+def export_list_declined_mandates(request):
     mandates = assistant_mandate.find_declined_by_academic_year(academic_year.starting_academic_year())
     return build_doc(request, mandates, type='declined')
+
+
+@user_passes_test(manager_access.user_is_manager, login_url='access_denied')
+def export_declined_mandates(request):
+    mandates = assistant_mandate.find_declined_by_academic_year(academic_year.starting_academic_year())
+    return build_doc(request, mandates)
 
 
 def add_declined_mandates(mandates, style):

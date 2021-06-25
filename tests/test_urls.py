@@ -27,7 +27,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from assistant.business.assistant_mandate import find_assistant_mandate_step_backward_state
-from assistant.utils.export_utils_pdf import export_declined_mandates
+from assistant.utils.export_utils_pdf import export_list_declined_mandates
 from assistant.utils.export_utils_pdf import export_mandates_for_entity
 from assistant.utils.export_utils_pdf import export_mandates_to_sap
 from assistant.utils.send_email import send_message_to_assistants, send_message_to_reviewers
@@ -64,7 +64,7 @@ class AssistantURLsTestCase(TestCase):
 
     def test_url_resolves_to_manager_export_declined_mandates(self):
         found = resolve(reverse('export_declined_mandates_pdf'))
-        self.assertEqual(found.func, export_declined_mandates)
+        self.assertEqual(found.func, export_list_declined_mandates)
 
     def test_url_resolves_to_reviewer_export_mandates(self):
         found = resolve(reverse('export_mandates_for_entity_pdf', args=[1]))
