@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-27 09:13+0100\n"
+"POT-Creation-Date: 2021-06-25 13:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,6 +335,12 @@ msgid ""
 "you personally assume"
 msgstr ""
 
+msgid "Export"
+msgstr ""
+
+msgid "Export list of declined mandate assistants "
+msgstr ""
+
 msgid "Export mandates to sap"
 msgstr ""
 
@@ -348,6 +354,9 @@ msgid "Exporting all data to a PDF file"
 msgstr ""
 
 msgid "Exporting assistants who declined their renewal"
+msgstr ""
+
+msgid "Exporting data for which mandate has been declined"
 msgstr ""
 
 msgid "Exporting files to an XLSX file"

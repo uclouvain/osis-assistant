@@ -31,7 +31,9 @@ from typing import Sequence, List, Union
 
 from django import http
 from django.contrib.auth.decorators import user_passes_test, login_required
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -48,6 +50,7 @@ from reportlab.lib.units import mm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak, Table, TableStyle
 
 from assistant.business import users_access
+from assistant.forms.export_declined_mandate import ExportDeclineMandateForm
 from assistant.models import academic_assistant, assistant_mandate, review, reviewer, tutoring_learning_unit_year
 from assistant.models.enums import review_status, assistant_type, user_role, assistant_mandate_renewal
 from assistant.models.enums.assistant_phd_inscription import PHD_INSCRIPTION_CHOICES
@@ -119,6 +122,9 @@ def build_doc(request: http.HttpRequest, mandates: Sequence[assistant_mandate.As
     if type == 'default' or type == 'export_to_sap':
         for mandate in mandates:
             add_mandate_content(content, mandate, styles, roles)
+    if type == 'declined_to_sap':
+        for mandate in mandates:
+            add_declined_mandate_content(content, mandate, styles)
     else:
         content.append(create_paragraph("%s (%s)<br />" % (_('Assistants who have declined their renewal'), year),
                                         '',
@@ -149,9 +155,28 @@ def export_mandates(request):
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
-def export_declined_mandates(request):
+def export_list_declined_mandates(request):
     mandates = assistant_mandate.find_declined_by_academic_year(academic_year.starting_academic_year())
     return build_doc(request, mandates, type='declined')
+
+
+@user_passes_test(manager_access.user_is_manager, login_url='access_denied')
+def export_declined_mandates(request):
+    current_academic_year = academic_year.starting_academic_year()
+    return render(
+        request,
+        'export_declined_mandates.html',
+        {'form': ExportDeclineMandateForm(initial={'academic_year': current_academic_year})}
+    )
+
+
+@user_passes_test(manager_access.user_is_manager, login_url='access_denied')
+def download_declined_mandates(request):
+    form = ExportDeclineMandateForm(request.GET)
+    if form.is_valid():
+        mandates = assistant_mandate.find_declined_by_academic_year(form.cleaned_data['academic_year'])
+        return build_doc(request, mandates, type='declined_to_sap')
+    raise PermissionDenied
 
 
 def add_declined_mandates(mandates, style):
@@ -232,6 +257,28 @@ def add_mandate_content(
                 styles['StandardWithBorder'])
             )
         content.append(PageBreak())
+
+
+def add_declined_mandate_content(
+        content: List[Union[Paragraph, PageBreak]],
+        mandate: assistant_mandate.AssistantMandate,
+        styles: StyleSheet1,
+):
+    content.append(
+        create_paragraph(
+            "%s (%s)" % (mandate.assistant.person, mandate.academic_year),
+            get_administrative_data(mandate),
+            styles['StandardWithBorder']
+        )
+    )
+    content.append(create_paragraph("%s" % (_('Entities')), get_entities(mandate), styles['StandardWithBorder']))
+    content.append(
+        create_paragraph("<strong>%s</strong>" % (_('Absences')), get_absences(mandate), styles['StandardWithBorder'])
+    )
+    content.append(
+        create_paragraph("<strong>%s</strong>" % (_('Comment')), get_comment(mandate), styles['StandardWithBorder'])
+    )
+    content.append(PageBreak())
 
 
 def format_data(data, title, underlined: bool = False) -> str:
