@@ -39,7 +39,7 @@ from assistant.models import *
 from assistant.models.enums import assistant_mandate_state, assistant_phd_inscription
 from assistant.models.enums import document_type
 from assistant.utils.assistant_access import user_is_assistant_and_procedure_is_open_and_workflow_is_assistant
-from assistant.utils.send_email import send_message
+from assistant.views.mails import send_message
 from base.models import person_address, person, learning_unit_year, academic_year
 from base.models.enums import entity_type
 from base.models.learning_unit_year import search

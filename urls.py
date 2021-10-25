@@ -28,14 +28,14 @@ from django.urls import path
 
 from assistant.business.assistant_mandate import find_assistant_mandate_step_backward_state
 from assistant.utils import get_persons
-from assistant.utils import send_email, import_xls_file_data, export_utils_pdf
-from assistant.views import assistant_mandate_reviews, autocomplete
+from assistant.utils import import_xls_file_data, export_utils_pdf
+from assistant.views import assistant_mandate_reviews, autocomplete, mails
 from assistant.views import manager_assistant_form
 from assistant.views import manager_reviews_view
 from assistant.views import manager_settings, reviewers_management, upload_assistant_file
 from assistant.views import mandate, home, assistant_form, assistant, phd_supervisor_review
 from assistant.views import mandates_list, reviewer_mandates_list, reviewer_review, reviewer_delegation
-from assistant.views import messages, phd_supervisor_assistants_list
+from assistant.views import phd_supervisor_assistants_list
 
 urlpatterns = [
     url(r'^$', home.assistant_home, name='assistants_home'),
@@ -123,9 +123,11 @@ urlpatterns = [
                 name='download_declined_mandates_pdf'),
         ])),
         url(r'^messages/', include([
-            url(r'^history/$', messages.show_history, name='messages_history'),
-            url(r'^send/to_all_assistants/$', send_email.send_message_to_assistants, name='send_message_to_assistants'),
-            url(r'^send/to_reviewers/$', send_email.send_message_to_reviewers, name='send_message_to_reviewers'),
+            url(r'^history/$', mails.show_history, name='messages_history'),
+            url(r'^send/to_all_assistants/$',
+                mails.send_message_to_assistants, name='send_message_to_assistants'),
+            url(r'^send/to_reviewers/$',
+                mails.send_message_to_reviewers, name='send_message_to_reviewers'),
         ])),
         url(r'^reviewers/', include([
             url(r'^$', reviewers_management.reviewers_index, name='reviewers_list'),
@@ -154,7 +156,7 @@ urlpatterns = [
     ])),
 
     url(r'^reviewer/', include([
-        url(r'^$', reviewer_mandates_list.MandatesListView.as_view(), { 'filter': False },
+        url(r'^$', reviewer_mandates_list.MandatesListView.as_view(), {'filter': False},
             name='reviewer_mandates_list'),
         url(r'^delegate/add/$', reviewer_delegation.add_reviewer_for_structure,
             name='reviewer_delegation_add'),
