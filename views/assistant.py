@@ -40,7 +40,7 @@ from assistant.models import tutoring_learning_unit_year
 from assistant.models.assistant_mandate import AssistantMandate
 from assistant.models.enums import document_type, assistant_mandate_state, reviewer_role
 from assistant.utils import assistant_access
-from assistant.utils.send_email import send_message
+from assistant.views.mails import send_message
 from base.models import person, academic_year
 from base.models.enums import entity_type
 
