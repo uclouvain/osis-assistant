@@ -40,7 +40,7 @@ def reviews_view(request, mandate_id):
     mandate = assistant_mandate.find_mandate_by_id(mandate_id)
     can_go_backward = mandate_can_go_backward(mandate)
 
-    history_uuid = history._generate_history_uuid(mandate)
+    history_uuid = mandate.uuid
     return render(request, 'manager_reviews_view.html', {
             'mandate_id': mandate_id,
             'year': mandate.academic_year.year + 1,

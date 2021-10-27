@@ -22,16 +22,14 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import uuid
 
 from django.utils import translation
+from django.utils.translation import gettext_lazy as _
 from osis_history.utilities import add_history_entry
 
 from assistant.models.assistant_mandate import AssistantMandate
 from assistant.models.review import Review
 from base.models.person import Person
-from django.utils.translation import gettext_lazy as _
-
 
 TAGS = ["review"]
 
@@ -60,8 +58,4 @@ def _generate_text(review: Review) -> str:
 
 
 def _generate_history_uuid(mandate: AssistantMandate) -> str:
-    name = "{assistant_sap_id}_{year}".format(
-        assistant_sap_id=mandate.sap_id,
-        year=mandate.academic_year.year
-    )
-    return str(uuid.uuid3(uuid.NAMESPACE_OID, name=name))
+    return mandate.uuid

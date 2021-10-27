@@ -23,6 +23,8 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+import uuid
+
 from django.contrib import admin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -98,6 +100,14 @@ class AssistantMandate(HistoryDeleteMixin, models.Model):
 
     def __str__(self):
         return "{obj.assistant} ({obj.academic_year})".format(obj=self)
+
+    @property
+    def uuid(self) -> str:
+        name = "{assistant_sap_id}_{year}".format(
+            assistant_sap_id=self.sap_id,
+            year=self.academic_year.year
+        )
+        return str(uuid.uuid3(uuid.NAMESPACE_OID, name=name))
 
 
 def find_mandate_by_assistant_for_academic_year(assistant, this_academic_year):
