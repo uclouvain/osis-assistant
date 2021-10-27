@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-25 14:42+0200\n"
+"POT-Creation-Date: 2021-10-27 09:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,9 @@ msgstr " à la ligne numéro : "
 #, python-format
 msgid "%% FTE"
 msgstr "%% FTE"
+
+msgid "(%(state)s) Remark has been updated: %(remark)s"
+msgstr "(%(state)s) Remarque a été modifiée: %(remark)s"
 
 msgid "(starting the 2nd renewal)"
 msgstr "(à partir du 2ème renouvellement)"
@@ -412,6 +415,9 @@ msgstr "Commentaire général"
 
 msgid "Generate a PDF file"
 msgstr "Générer un fichier PDF"
+
+msgid "History reviews"
+msgstr "Historique évaluations"
 
 msgid ""
 "I declare on my honour that all the information contained in this form has "

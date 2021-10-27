@@ -26,6 +26,7 @@
 from django.contrib import admin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from osis_history.models import HistoryDeleteMixin
 
 from assistant.models.enums import assistant_mandate_state, assistant_type, assistant_mandate_renewal, \
     assistant_mandate_appeal
@@ -39,7 +40,7 @@ class AssistantMandateAdmin(admin.ModelAdmin):
     search_fields = ('assistant__person__first_name', 'assistant__person__last_name')
 
 
-class AssistantMandate(models.Model):
+class AssistantMandate(HistoryDeleteMixin, models.Model):
 
     assistant = models.ForeignKey('AcademicAssistant', on_delete=models.CASCADE)
     academic_year = models.ForeignKey('base.AcademicYear', on_delete=models.CASCADE)

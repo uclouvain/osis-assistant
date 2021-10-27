@@ -30,7 +30,7 @@ from django.views.decorators.http import require_http_methods
 from assistant.business.assistant_mandate import mandate_can_go_backward
 from assistant.models import assistant_mandate
 from assistant.models.review import find_by_mandate
-from assistant.utils import manager_access
+from assistant.utils import manager_access, history
 
 
 @require_http_methods(["GET"])
@@ -40,12 +40,12 @@ def reviews_view(request, mandate_id):
     mandate = assistant_mandate.find_mandate_by_id(mandate_id)
     can_go_backward = mandate_can_go_backward(mandate)
 
-    return render(
-        request, 'manager_reviews_view.html',
-        {
+    history_uuid = history._generate_history_uuid(mandate)
+    return render(request, 'manager_reviews_view.html', {
             'mandate_id': mandate_id,
             'year': mandate.academic_year.year + 1,
             'reviews': reviews,
-            'can_go_backward': can_go_backward
+            'can_go_backward': can_go_backward,
+            'history_uuid': history_uuid,
         }
     )
