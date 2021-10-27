@@ -40,6 +40,7 @@ from assistant.models import assistant_mandate, review, mandate_entity, tutoring
 from assistant.models import reviewer, assistant_document_file
 from assistant.models.enums import assistant_mandate_renewal, review_advice_choices
 from assistant.models.enums import review_status, assistant_mandate_state, reviewer_role, document_type
+from assistant.utils import history
 from base.models import entity_version
 from base.models.enums import entity_type
 
@@ -144,6 +145,8 @@ def review_save(request):
     menu = generate_reviewer_menu_tabs(role, mandate, role)
     if form.is_valid():
         current_review = form.save(commit=False)
+        if form.has_remark_been_modified():
+            history.add_review_history_entry(form.instance, request.user.person)
         if 'validate_and_submit' in request.POST:
             valid_advice_choices = (k for k, v in review_advice_choices.REVIEW_ADVICE_CHOICES)
             if current_review.advice not in valid_advice_choices:

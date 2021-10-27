@@ -36,6 +36,7 @@ from assistant.views import manager_settings, reviewers_management, upload_assis
 from assistant.views import mandate, home, assistant_form, assistant, phd_supervisor_review
 from assistant.views import mandates_list, reviewer_mandates_list, reviewer_review, reviewer_delegation
 from assistant.views import phd_supervisor_assistants_list
+from assistant.views.history import ReviewHistoryView
 
 urlpatterns = [
     url(r'^$', home.assistant_home, name='assistants_home'),
@@ -136,6 +137,7 @@ urlpatterns = [
             url(r'^replace/$', reviewers_management.reviewer_replace, name='reviewer_replace'),
         ])),
         url(r'^reviews/(?P<mandate_id>\d+)/$', manager_reviews_view.reviews_view, name='manager_reviews_view'),
+        path("history/<uuid:uuid>/", ReviewHistoryView.as_view(), name="review_history"),
         url(r'^settings/', include([
             url(r'^edit/$', manager_settings.settings_edit, name='settings_edit'),
             url(r'^save/$', manager_settings.settings_save, name='settings_save'),

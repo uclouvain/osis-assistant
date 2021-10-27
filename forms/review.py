@@ -43,3 +43,6 @@ class ReviewForm(ModelForm):
                 and not justification:
             msg = _("A justification is required if the opinion is unfavourable or conditional")
             self.add_error('justification', msg)
+
+    def has_remark_been_modified(self) -> bool:
+        return "remark" in self.changed_data
