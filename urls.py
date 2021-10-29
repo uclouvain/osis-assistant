@@ -34,9 +34,11 @@ from assistant.views import manager_assistant_form
 from assistant.views import manager_reviews_view
 from assistant.views import manager_settings, reviewers_management, upload_assistant_file
 from assistant.views import mandate, home, assistant_form, assistant, phd_supervisor_review
-from assistant.views import mandates_list, reviewer_mandates_list, reviewer_review, reviewer_delegation
+from assistant.views import reviewer_mandates_list, reviewer_review, reviewer_delegation
+from assistant.views.manager.mandates import list
 from assistant.views import phd_supervisor_assistants_list
 from assistant.views.history import ReviewHistoryView
+from assistant.views.manager.mandates.list import ManagerMandatesListView
 
 urlpatterns = [
     url(r'^$', home.assistant_home, name='assistants_home'),
@@ -105,8 +107,8 @@ urlpatterns = [
         path('', home.manager_home, name='manager_home'),
         url(r'^assistant_form/(?P<mandate_id>\d+)/$', manager_assistant_form.assistant_form_view,
             name='manager_assistant_form_view'),
-        url(r'^mandates/', include([
-            url(r'^$', mandates_list.MandatesListView.as_view(), name='mandates_list'),
+        path('mandates/', include([
+            path('', ManagerMandatesListView.as_view(), name='mandates_list'),
             url(r'^edit/$', mandate.mandate_edit, name='mandate_read'),
             url(r'^save/$', mandate.mandate_save, name='mandate_save'),
             url(r'^go_backward/$', find_assistant_mandate_step_backward_state, name='assistant_mandate_step_back'),

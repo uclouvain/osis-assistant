@@ -42,7 +42,7 @@ from base.models.entity_version import EntityVersion
 SELECTED_ACADEMIC_YEAR_KEY_SESSION = 'selected_academic_year'
 
 
-class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
+class ManagerMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
     context_object_name = 'mandates_list'
     template_name = 'mandates_list.html'
     form_class = MandatesArchivesForm
@@ -96,7 +96,7 @@ class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMi
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super(MandatesListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['year'] = academic_year.find_academic_year_by_id(
                 self.request.session.get('selected_academic_year')).year
         context['assistant_mandate_state'] = assistant_mandate_state
