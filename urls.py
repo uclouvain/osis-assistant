@@ -101,8 +101,8 @@ urlpatterns = [
         ])),
     ])),
 
-    url(r'^manager/', include([
-        url(r'^$', home.manager_home, name='manager_home'),
+    path('manager/', include([
+        path('', home.manager_home, name='manager_home'),
         url(r'^assistant_form/(?P<mandate_id>\d+)/$', manager_assistant_form.assistant_form_view,
             name='manager_assistant_form_view'),
         url(r'^mandates/', include([
