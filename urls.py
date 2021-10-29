@@ -30,13 +30,13 @@ from assistant.business.assistant_mandate import find_assistant_mandate_step_bac
 from assistant.utils import get_persons
 from assistant.utils import import_xls_file_data, export_utils_pdf
 from assistant.views import assistant_mandate_reviews, autocomplete, mails
+from assistant.views import home, assistant_form, assistant, phd_supervisor_review
 from assistant.views import manager_reviews_view
 from assistant.views import manager_settings, reviewers_management, upload_assistant_file
-from assistant.views import mandate, home, assistant_form, assistant, phd_supervisor_review
-from assistant.views import reviewer_mandates_list, reviewer_review, reviewer_delegation
-from assistant.views.manager.mandates import detail
 from assistant.views import phd_supervisor_assistants_list
+from assistant.views import reviewer_mandates_list, reviewer_review, reviewer_delegation
 from assistant.views.history import ReviewHistoryView
+from assistant.views.manager.mandates import detail, edit, load, export
 from assistant.views.manager.mandates.list import ManagerMandatesListView
 
 urlpatterns = [
@@ -107,21 +107,20 @@ urlpatterns = [
         path('assistant_form/<int:mandate_id>/', detail.view_mandate, name='view_mandate'),
         path('mandates/', include([
             path('', ManagerMandatesListView.as_view(), name='mandates_list'),
-            url(r'^edit/$', mandate.mandate_edit, name='mandate_read'),
-            url(r'^save/$', mandate.mandate_save, name='mandate_save'),
-            url(r'^go_backward/$', find_assistant_mandate_step_backward_state, name='assistant_mandate_step_back'),
-            url(r'^load/$', mandate.load_mandates, name='load_mandates'),
-            url(r'^upload/$', import_xls_file_data.upload_mandates_file, name='upload_mandates_file'),
-            url(r'^export/$', mandate.export_mandates, name='export_mandates'),
-            url(r'^export_mandates_to_sap/$', export_utils_pdf.export_mandates_to_sap,
-                name='export_mandates_to_sap'),
-            url(r'^export_pdf/$', export_utils_pdf.export_mandates, name='export_mandates_pdf'),
-            url(r'^export_list_declined_pdf/$', export_utils_pdf.export_list_declined_mandates,
-                name='export_list_declined_mandates_pdf'),
-            url(r'^export_declined_pdf/$', export_utils_pdf.export_declined_mandates,
-                name='export_declined_mandates_pdf'),
-            url(r'^download_declined_pdf/$', export_utils_pdf.download_declined_mandates,
-                name='download_declined_mandates_pdf'),
+            path('edit/', edit.mandate_edit, name='mandate_read'),
+            path('save/', edit.mandate_save, name='mandate_save'),
+            path('go_backward/', find_assistant_mandate_step_backward_state, name='assistant_mandate_step_back'),
+            path('load/', load.load_mandates, name='load_mandates'),
+            path('upload/', import_xls_file_data.upload_mandates_file, name='upload_mandates_file'),
+            path('export/', export.export_mandates, name='export_mandates'),
+            path('export_mandates_to_sap/', export_utils_pdf.export_mandates_to_sap, name='export_mandates_to_sap'),
+            path('export_pdf/', export_utils_pdf.export_mandates, name='export_mandates_pdf'),
+            path('export_list_declined_pdf/', export_utils_pdf.export_list_declined_mandates,
+                 name='export_list_declined_mandates_pdf'),
+            path('export_declined_pdf/', export_utils_pdf.export_declined_mandates,
+                 name='export_declined_mandates_pdf'),
+            path('download_declined_pdf/', export_utils_pdf.download_declined_mandates,
+                 name='download_declined_mandates_pdf'),
         ])),
         url(r'^messages/', include([
             url(r'^history/$', mails.show_history, name='messages_history'),
