@@ -128,11 +128,13 @@
                              color: #EFC345;"
                         {% endif %}
                         {% if review.reviewer %}
-                            title="{% trans review.reviewer.role %} : {{ review.reviewer.person }}">
+                            title="{{ review.reviewer.get_role_display }} : {{ review.reviewer.person }}">
                         {% else %}
                             title="{% trans 'Thesis promoter' %} : {{ mandate.assistant.supervisor }}">
                         {% endif %}
                         </i>
+                     {% elif review.status == review_status.IN_PROGRESS and  "VICE_RECTOR" in review.reviewer.role %}
+                        <i id="rev" class="fas fa-circle" style="font-size: 100%;  color: #79C84F;"></i>
                     {% endif %}
                 {% endfor %}
             </td>
