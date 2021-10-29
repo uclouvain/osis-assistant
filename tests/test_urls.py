@@ -31,7 +31,6 @@ from assistant.utils.export_utils_pdf import export_list_declined_mandates
 from assistant.utils.export_utils_pdf import export_mandates_for_entity
 from assistant.utils.export_utils_pdf import export_mandates_to_sap
 from assistant.views.mails import show_history, send_message_to_assistants, send_message_to_reviewers
-from assistant.views.manager.mandates.detail import view_mandate
 from assistant.views.manager_reviews_view import reviews_view
 
 
@@ -52,10 +51,6 @@ class AssistantURLsTestCase(TestCase):
     def test_url_resolves_to_manager_reviews_view(self):
         found = resolve(reverse('manager_reviews_view', args=[1]))
         self.assertEqual(found.func, reviews_view)
-
-    def test_url_resolves_to_manager_assistant_form(self):
-        found = resolve(reverse('view_mandate', args=[1]))
-        self.assertEqual(found.func, view_mandate)
 
     def test_url_resolves_to_manager_assistant_mandate_go_backward(self):
         found = resolve(reverse('assistant_mandate_step_back'))

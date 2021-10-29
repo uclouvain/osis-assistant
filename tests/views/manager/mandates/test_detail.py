@@ -25,6 +25,7 @@
 ##############################################################################
 import datetime
 
+from django.http import HttpResponse, HttpResponseForbidden
 from django.test import TestCase
 from django.urls import reverse
 
@@ -46,18 +47,22 @@ class ViewMandateTestCase(TestCase):
         today = datetime.date.today()
         cls.manager = ManagerFactory()
         cls.assistant = AcademicAssistantFactory()
-        cls.current_academic_year = AcademicYearFactory(start_date=today,
-                                                        end_date=today.replace(year=today.year + 1),
-                                                        year=today.year)
-        cls.assistant_mandate = AssistantMandateFactory(academic_year=cls.current_academic_year,
-                                                        state=assistant_mandate_state.RESEARCH)
+        cls.current_academic_year = AcademicYearFactory(
+            start_date=today,
+            end_date=today.replace(year=today.year + 1),
+            year=today.year
+        )
+        cls.assistant_mandate = AssistantMandateFactory(
+            academic_year=cls.current_academic_year,
+            state=assistant_mandate_state.RESEARCH
+        )
 
     def test_assistant_form_view(self):
         self.client.force_login(self.manager.person.user)
         response = self.client.get(reverse("view_mandate", args=[self.assistant_mandate.id]))
-        self.assertEqual(response.status_code, HTTP_OK)
+        self.assertEqual(response.status_code, HttpResponse.status_code)
 
     def test_user_is_not_manager(self):
         self.client.force_login(self.assistant.person.user)
         response = self.client.get(reverse("view_mandate", args=[self.assistant_mandate.id]))
-        self.assertEqual(response.status_code, HTTP_FOUND)
+        self.assertEqual(response.status_code, HttpResponseForbidden.status_code)

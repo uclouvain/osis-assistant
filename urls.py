@@ -37,6 +37,7 @@ from assistant.views import phd_supervisor_assistants_list
 from assistant.views import reviewer_mandates_list, reviewer_review, reviewer_delegation
 from assistant.views.history import ReviewHistoryView
 from assistant.views.manager.mandates import detail, edit, load, export
+from assistant.views.manager.mandates.detail import ManagerMandateDetailView
 from assistant.views.manager.mandates.list import ManagerMandatesListView
 
 urlpatterns = [
@@ -104,7 +105,7 @@ urlpatterns = [
 
     path('manager/', include([
         path('', home.manager_home, name='manager_home'),
-        path('assistant_form/<int:mandate_id>/', detail.view_mandate, name='view_mandate'),
+        path('assistant_form/<int:mandate_id>/', ManagerMandateDetailView.as_view(), name='view_mandate'),
         path('mandates/', include([
             path('', ManagerMandatesListView.as_view(), name='mandates_list'),
             path('edit/', edit.mandate_edit, name='mandate_read'),
