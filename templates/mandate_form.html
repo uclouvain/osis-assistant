@@ -41,7 +41,7 @@
     <h3>{% trans 'Assistant mandate renewal application processing' %} {{ mandate.academic_year.year|add:1 }}</h3>
     <ul class="nav nav-tabs">
 	    <li class="active"><a href="#">{% trans 'Administrative data' %}</a></li>
-        <li><a href="{% url 'manager_assistant_form_view' mandate_id=mandate.id %}">{% trans 'Assistant file' %}</a></li>
+        <li><a href="{% url 'view_mandate' mandate_id=mandate.id %}">{% trans 'Assistant file' %}</a></li>
         <li><a href="{% url 'manager_reviews_view' mandate_id=mandate.id %}">{% trans 'Workflow and reviews' %}</a></li>
     </ul>
 </div>

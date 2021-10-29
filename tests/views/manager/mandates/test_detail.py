@@ -39,7 +39,7 @@ HTTP_OK = 200
 HTTP_FOUND = 302
 
 
-class ManagerAssistantForm(TestCase):
+class ViewMandateTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.settings = SettingsFactory()
@@ -54,10 +54,10 @@ class ManagerAssistantForm(TestCase):
 
     def test_assistant_form_view(self):
         self.client.force_login(self.manager.person.user)
-        response = self.client.get(reverse("manager_assistant_form_view", args=[self.assistant_mandate.id]))
+        response = self.client.get(reverse("view_mandate", args=[self.assistant_mandate.id]))
         self.assertEqual(response.status_code, HTTP_OK)
 
     def test_user_is_not_manager(self):
         self.client.force_login(self.assistant.person.user)
-        response = self.client.get(reverse("manager_assistant_form_view", args=[self.assistant_mandate.id]))
+        response = self.client.get(reverse("view_mandate", args=[self.assistant_mandate.id]))
         self.assertEqual(response.status_code, HTTP_FOUND)

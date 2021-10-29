@@ -38,7 +38,7 @@ from assistant.utils import manager_access
 
 @require_http_methods(["GET"])
 @user_passes_test(manager_access.user_is_manager, login_url='access_denied')
-def assistant_form_view(request, mandate_id):
+def view_mandate(request, mandate_id):
     mandate = assistant_mandate.find_mandate_by_id(mandate_id)
     learning_units = tutoring_learning_unit_year.find_by_mandate(mandate)
     phd_files = assistant_document_file.find_by_assistant_mandate_and_description(mandate,

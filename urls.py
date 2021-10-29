@@ -30,12 +30,11 @@ from assistant.business.assistant_mandate import find_assistant_mandate_step_bac
 from assistant.utils import get_persons
 from assistant.utils import import_xls_file_data, export_utils_pdf
 from assistant.views import assistant_mandate_reviews, autocomplete, mails
-from assistant.views import manager_assistant_form
 from assistant.views import manager_reviews_view
 from assistant.views import manager_settings, reviewers_management, upload_assistant_file
 from assistant.views import mandate, home, assistant_form, assistant, phd_supervisor_review
 from assistant.views import reviewer_mandates_list, reviewer_review, reviewer_delegation
-from assistant.views.manager.mandates import list
+from assistant.views.manager.mandates import detail
 from assistant.views import phd_supervisor_assistants_list
 from assistant.views.history import ReviewHistoryView
 from assistant.views.manager.mandates.list import ManagerMandatesListView
@@ -105,8 +104,7 @@ urlpatterns = [
 
     path('manager/', include([
         path('', home.manager_home, name='manager_home'),
-        url(r'^assistant_form/(?P<mandate_id>\d+)/$', manager_assistant_form.assistant_form_view,
-            name='manager_assistant_form_view'),
+        path('assistant_form/<int:mandate_id>/', detail.view_mandate, name='view_mandate'),
         path('mandates/', include([
             path('', ManagerMandatesListView.as_view(), name='mandates_list'),
             url(r'^edit/$', mandate.mandate_edit, name='mandate_read'),
