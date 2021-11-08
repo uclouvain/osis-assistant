@@ -37,7 +37,7 @@ from assistant.business.users_access import user_is_reviewer_and_procedure_is_op
 from assistant.forms.reviewer import ReviewerDelegationForm
 from assistant.models import reviewer
 from assistant.models.academic_assistant import is_supervisor
-from assistant.utils.send_email import send_message
+from assistant.views.mails import send_message
 from base.models import academic_year, person, entity, entity_version
 
 

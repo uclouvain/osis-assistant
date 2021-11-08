@@ -26,119 +26,145 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link href="{% static 'osis_history/osis-history.css' %}" rel="stylesheet"/>
 {% endblock %}
+
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
-<li><a href="{% url 'mandates_list' %}" id="lnk_assistants">{% trans 'List of mandates' %}</a></li>
-<li class="active">{% trans 'Assistant file' %}</li>
+    <li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+    <li><a href="{% url 'mandates_list' %}" id="lnk_assistants">{% trans 'List of mandates' %}</a></li>
+    <li class="active">{% trans 'Assistant file' %}</li>
 {% endblock %}
+
 {% block content %}
-<div class="page-header">
-    <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year }} </h3>
-    <ul class="nav nav-tabs">
-        <li>
-            <form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
-                {{ form.non_field_errors }}
-                {% csrf_token %}
-                <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                <button type="submit" class="btn btn-link" title="{% trans 'Administrative data'%}">
-                    {% trans 'Administrative data'%}
-                </button>
-            </form>
-        </li>
-        <li><a href="{% url 'manager_assistant_form_view' mandate_id=mandate_id %}">{% trans 'Assistant file' %}</a></li>
-        <li class="active"><a href="#">{% trans 'Workflow and reviews' %}</a></li>
-    </ul>
-</div>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <dl class="row">
-            {% for review in reviews %}
-                <dt class="col-sm-2">{% trans 'Reviewer' %}</dt>
-                <dd class="col-sm-10">
-                    <p>
-                    {% if review.status == 'DONE' %}
-                        <span class="far fa-check-square" style="font-size: 14pt" aria-hidden="true"></span>
-                    {% else %}
-                        <span class="fas fa-pencil-alt" style="font-size: 14pt" aria-hidden="true"></span>
-                    {% endif %}
-                    {% if review.reviewer is None %}
-                        {{ review.mandate.assistant.supervisor }} - {% trans 'Promoter' %}
-                    {% else %}
-                        {{ review.reviewer.person }} ({{  review.reviewer.role | display }}) -
-                        {{ review.reviewer.entity.most_recent_acronym }}
-                    {% endif %}
-                    </p>
-                </dd>
-                <dt class="col-sm-2">
-                    {% trans 'Opinion' %}
-                </dt>
-                <dd class="col-sm-10">
-                    <p>
-                    {% if review.advice == "FAVORABLE" %}
-                        <span class="far fa-thumbs-up"
-                              style="font-size: 14pt; color: green" aria-hidden="true"></span>
-                    {% elif review.advice == "UNFAVOURABLE" %}
-                        <span class="far fa-thumbs-down" style="font-size: 14pt; color: red" aria-hidden="true"></span>
-                    {% else %}
-                        <span class="fas fa-exclamation-triangle" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
-                    {% endif %}
-                    {{ review.get_advice_display }}
-                    </p>
-                </dd>
-                {% if review.justification %}
-                    <dt class="col-sm-2">
-                        {% trans 'Justification' %}
-                    </dt>
-                    <dd class="col-sm-10">
-                        <p>
-                            {{ review.justification }}
-                        </p>
-                    </dd>
-                {% endif %}
-                {% if review.remark %}
-                    <dt class="col-sm-2">
-                        {% trans 'Remark' %}
-                    </dt>
-                    <dd class="col-sm-10">
-                        <p>
-                            {{ review.remark }}
-                        </p>
-                    </dd>
-                {% endif %}
-                {% if review.confidential %}
-                    <dt class="col-sm-2">
-                        {% trans 'Confidential' %}
-                    </dt>
-                    <dd class="col-sm-10">
-                        <p>
-                            {{ review.confidential }}
-                        </p>
-                    </dd>
-                {% endif %}
-                <dl class="row"></dl>
-            {% endfor %}
-        </dl>
-        <form method="POST" action="{% url 'assistant_mandate_step_back' %}">
-            {{ form.non_field_errors }}
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            <input type="hidden" value="{{ mandate_id }}" name="mandate_id" >
-            <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_add_reviewer_save"
-                    {% if can_go_backward %}onclick="return confirm_click();"{% else %}disabled{% endif %}>
-                <span class="fas fa-step-backward" aria-hidden="true"></span> {% trans 'Accomplish a workflow step back'%}
-            </button>
-        </form>
+    <div class="page-header">
+        <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year }} </h3>
+        <ul class="nav nav-tabs">
+            <li>
+                <form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
+                    {{ form.non_field_errors }}
+                    {% csrf_token %}
+                    <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
+                    <button type="submit" class="btn btn-link" title="{% trans 'Administrative data'%}">
+                        {% trans 'Administrative data'%}
+                    </button>
+                </form>
+            </li>
+            <li><a href="{% url 'manager_assistant_form_view' mandate_id=mandate_id %}">{% trans 'Assistant file' %}</a></li>
+            <li class="active"><a href="#">{% trans 'Workflow and reviews' %}</a></li>
+        </ul>
     </div>
-</div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <dl class="row">
+                        {% for review in reviews %}
+                            <dt class="col-sm-2">{% trans 'Reviewer' %}</dt>
+                            <dd class="col-sm-10">
+                                <p>
+                                {% if review.status == 'DONE' %}
+                                    <span class="far fa-check-square" style="font-size: 14pt" aria-hidden="true"></span>
+                                {% else %}
+                                    <span class="fas fa-pencil-alt" style="font-size: 14pt" aria-hidden="true"></span>
+                                {% endif %}
+                                {% if review.reviewer is None %}
+                                    {{ review.mandate.assistant.supervisor }} - {% trans 'Promoter' %}
+                                {% else %}
+                                    {{ review.reviewer.person }} ({{  review.reviewer.role | display }}) -
+                                    {{ review.reviewer.entity.most_recent_acronym }}
+                                {% endif %}
+                                </p>
+                            </dd>
+                            <dt class="col-sm-2">
+                                {% trans 'Opinion' %}
+                            </dt>
+                            <dd class="col-sm-10">
+                                <p>
+                                {% if review.advice == "FAVORABLE" %}
+                                    <span class="far fa-thumbs-up"
+                                          style="font-size: 14pt; color: green" aria-hidden="true"></span>
+                                {% elif review.advice == "UNFAVOURABLE" %}
+                                    <span class="far fa-thumbs-down" style="font-size: 14pt; color: red" aria-hidden="true"></span>
+                                {% else %}
+                                    <span class="fas fa-exclamation-triangle" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
+                                {% endif %}
+                                {{ review.get_advice_display }}
+                                </p>
+                            </dd>
+                            {% if review.justification %}
+                                <dt class="col-sm-2">
+                                    {% trans 'Justification' %}
+                                </dt>
+                                <dd class="col-sm-10">
+                                    <p>
+                                        {{ review.justification }}
+                                    </p>
+                                </dd>
+                            {% endif %}
+                            {% if review.remark %}
+                                <dt class="col-sm-2">
+                                    {% trans 'Remark' %}
+                                </dt>
+                                <dd class="col-sm-10">
+                                    <p>
+                                        {{ review.remark }}
+                                    </p>
+                                </dd>
+                            {% endif %}
+                            {% if review.confidential %}
+                                <dt class="col-sm-2">
+                                    {% trans 'Confidential' %}
+                                </dt>
+                                <dd class="col-sm-10">
+                                    <p>
+                                        {{ review.confidential }}
+                                    </p>
+                                </dd>
+                            {% endif %}
+                            <dl class="row"></dl>
+                        {% endfor %}
+                    </dl>
+
+                    <form method="POST" action="{% url 'assistant_mandate_step_back' %}">
+                        {{ form.non_field_errors }}
+                        {% csrf_token %}
+                        {% for hidden in form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+                        <input type="hidden" value="{{ mandate_id }}" name="mandate_id" >
+                        <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_add_reviewer_save"
+                                {% if can_go_backward %}onclick="return confirm_click();"{% else %}disabled{% endif %}>
+                            <span class="fas fa-step-backward" aria-hidden="true"></span> {% trans 'Accomplish a workflow step back'%}
+                        </button>
+                    </form>
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {% trans 'History reviews' %}
+                        </div>
+                        <div class="panel-body"><div class="history-viewer" data-url="{% url 'review_history' history_uuid %}"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 {% endblock %}
+
 {% block script %}
-<script>
-function confirm_click() {
-    return confirm("{% trans 'Are you sure you want to step back the mandate? This action is irreversible.' %}");
-}
-</script>
+    <script type="text/javascript" src="https://unpkg.com/vue@2/dist/vue.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vue-i18n@8.24.4/dist/vue-i18n.min.js"></script>
+    <script type="text/javascript" src="{% static 'osis_history/osis-history.umd.min.js' %}"></script>
+    <script>
+        function confirm_click() {
+            return confirm("{% trans 'Are you sure you want to step back the mandate? This action is irreversible.' %}");
+        }
+    </script>
 {% endblock %}

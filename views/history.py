@@ -1,4 +1,3 @@
-##############################################################################
 #
 #    OSIS stands for Open Student Information System. It's an application
 #    designed to manage the core business of higher education institutions,
@@ -6,7 +5,7 @@
 #    The core business involves the administration of students, teachers,
 #    courses, programs and so on.
 #
-#    Copyright (C) 2015-2019 Université catholique de Louvain (http://www.uclouvain.be)
+#    Copyright (C) 2015-2021 Université catholique de Louvain (http://www.uclouvain.be)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -15,7 +14,7 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU General Public License for more details.
 #
 #    A copy of this license - GNU General Public License - is available
@@ -23,14 +22,13 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render
+from osis_history.contrib.mixins import HistoryEntryListAPIMixin
+from rules.contrib.views import UserPassesTestMixin
 
-from assistant.models.enums import message_type
-from assistant.models.message import find_all
-from assistant.utils import manager_access
+from assistant.utils.manager_access import user_is_manager
 
 
-@user_passes_test(manager_access.user_is_manager, login_url='access_denied')
-def show_history(request):
-    return render(request, 'messages.html', {'sent_messages': find_all(), 'message_type': message_type})
+class ReviewHistoryView(UserPassesTestMixin, HistoryEntryListAPIMixin):
+
+    def test_func(self) -> bool:
+        return user_is_manager(self.request.user)

@@ -30,10 +30,9 @@ from assistant.business.assistant_mandate import find_assistant_mandate_step_bac
 from assistant.utils.export_utils_pdf import export_list_declined_mandates
 from assistant.utils.export_utils_pdf import export_mandates_for_entity
 from assistant.utils.export_utils_pdf import export_mandates_to_sap
-from assistant.utils.send_email import send_message_to_assistants, send_message_to_reviewers
+from assistant.views.mails import show_history, send_message_to_assistants, send_message_to_reviewers
 from assistant.views.manager_assistant_form import assistant_form_view
 from assistant.views.manager_reviews_view import reviews_view
-from assistant.views.messages import show_history
 
 
 class AssistantURLsTestCase(TestCase):

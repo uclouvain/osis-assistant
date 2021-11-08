@@ -25,19 +25,17 @@
 * at the root of the source code of this program.  If not,
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
-{% block style %}
-<link rel="stylesheet" href="{% static 'css/custom.css' %}">
-{% endblock %}
 {% block breadcrumb %}
-{% if role != "PHD_SUPERVISOR" %}
-    <li><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_mandates_list">
-        {% trans 'List of files' %}</a></li>
-{% else %}
-    <li><a href="{% url 'phd_supervisor_assistants_list' %}" id="lnk_phd_supervisor_assistants_list">
-        {% trans 'List of files (as a thesis promoter)' %}</a></li>
-{% endif %}
-<li class="active">{% trans 'Assistant file' %}</li>
+    {% if role != "PHD_SUPERVISOR" %}
+        <li><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_mandates_list">
+            {% trans 'List of files' %}</a></li>
+    {% else %}
+        <li><a href="{% url 'phd_supervisor_assistants_list' %}" id="lnk_phd_supervisor_assistants_list">
+            {% trans 'List of files (as a thesis promoter)' %}</a></li>
+    {% endif %}
+        <li class="active">{% trans 'Assistant file' %}</li>
 {% endblock %}
+
 {% block content %}
 <div class="page-header">
     {% if current_reviewer %}
@@ -123,38 +121,18 @@
         <div class="form-group" style="padding-top: 10px;">
             <div class="row" style="padding-top: 2px;">
                 <div class="col-md-3">
-                    {% trans 'Renewal type' %}
+                    {% trans 'Assistant type' %}
                 </div>
                 <div class="col-md-9">
-                    {% trans mandate.renewal_type %}
+                    {% trans mandate.get_assistant_type_display %}
                 </div>
             </div>
-            {% if mandate.renewal_type == assistant_mandate_renewal.EXCEPTIONAL %}
-                <div class="row" style="padding-top: 2px;">
-                <div class="col-md-3">
-                    {% trans 'Justification' %}
-                </div>
-                <div class="col-md-9">
-                    {{mandate.justification}}
-                </div>
-            </div>
-            {% endif %}
-            {% for this_entity in entities %}
-                <div class="row" style="padding-top: 2px;">
-                    <div class="col-md-3">
-                        {% trans this_entity.entity_type %}
-                    </div>
-                    <div class="col-md-9">
-                        {{this_entity.acronym}}
-                    </div>
-                </div>
-            {% endfor %}
             <div class="row" style="padding-top: 2px;">
                 <div class="col-md-3">
-                    {% trans 'Full-time equivalent' %}
+                    {% trans 'Registration number' %}
                 </div>
                 <div class="col-md-9">
-                    {{mandate.fulltime_equivalent}}
+                    {{ mandate.sap_id }}
                 </div>
             </div>
             <div class="row" style="padding-top: 2px;">
@@ -167,13 +145,101 @@
             </div>
             <div class="row" style="padding-top: 2px;">
                 <div class="col-md-3">
-                    {% trans 'Mandate type' %}
+                    {% trans 'Renewal type' %}
                 </div>
                 <div class="col-md-9">
-                    {% trans mandate.assistant_type %}
+                    {% trans mandate.get_renewal_type_display %}
                 </div>
             </div>
+
+            <div class="row" style="padding-top: 2px;">
+                <div class="col-md-3">
+                    {% trans 'Contract length' %}
+                </div>
+                <div class="col-md-9">
+                    {{ mandate.contract_duration }}
+                </div>
+            </div>
+            <div class="row" style="padding-top: 2px;">
+                <div class="col-md-3">
+                    {% trans 'Full-time equivalent' %}
+                </div>
+                <div class="col-md-9">
+                    {{ mandate.contract_duration_fte }}
+                </div>
+            </div>
+            <div class="row" style="padding-top: 2px;">
+                <div class="col-md-3">
+                    {% trans 'Percentage of occupancy' %}
+                </div>
+                <div class="col-md-9">
+                    {{ mandate.fulltime_equivalent }}
+                </div>
+            </div>
+
+            {% if mandate.renewal_type == assistant_mandate_renewal.EXCEPTIONAL %}
+                <div class="row" style="padding-top: 2px;">
+                <div class="col-md-3">
+                    {% trans 'Justification' %}
+                </div>
+                <div class="col-md-9">
+                    {{mandate.justification}}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="row" style="padding-top: 2px;">
+                <div class="col-md-3">
+                    {% trans 'Promoter' %}
+                </div>
+                <div class="col-md-9">
+                    {{mandate.assistant.supervisor|default:'n/a' }}
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 2px;">
+                <div class="col-md-3">
+                    {% trans 'Entities' %}
+                </div>
+                <div class="col-md-9">
+                    {% for this_entity in entities %}
+                        <div class="row">
+                            <div class="col-md-1">
+                                {% trans this_entity.get_entity_type_display %}
+                            </div>
+                            <div class="col-md-11">{{this_entity.acronym}}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 2px;">
+                <div class="col-md-3">
+                    {% trans 'Comment' %}
+                </div>
+                <div class="col-md-9">
+                    {{mandate.comment|default_if_none:''}}
+                </div>
+            </div>
+            <div class="row" style="padding-top: 2px;">
+                <div class="col-md-3">
+                    {% trans 'Absences' %}
+                </div>
+                <div class="col-md-9">
+                    {{mandate.absences|default_if_none:''}}
+                </div>
+            </div>
+            <div class="row" style="padding-top: 2px;">
+                <div class="col-md-3">
+                    {% trans 'Other status' %}
+                </div>
+                <div class="col-md-9">
+                    {{mandate.other_status|default_if_none:''}}
+                </div>
+            </div>
+
         </div>
+
   		{% if mandate.assistant_type == 'ASSISTANT' %}
             <div class="panel-default">
   			    <div class="panel-heading">
