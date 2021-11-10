@@ -24,16 +24,20 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.utils import timezone
 
-from assistant.models import assistant_mandate, settings, manager, reviewer
-from assistant.models.enums import message_type, assistant_mandate_renewal
-from assistant.models.enums import reviewer_role
-from assistant.models.message import Message
+from assistant.models import assistant_mandate, reviewer, manager, settings
+from assistant.models.enums import message_type, assistant_mandate_renewal, reviewer_role
+from assistant.models.message import find_all, Message
 from assistant.utils import manager_access
 from base.models import academic_year, entity_version
 from osis_common.messaging import message_config, send_message as message_service
+
+
+@user_passes_test(manager_access.user_is_manager, login_url='access_denied')
+def show_history(request):
+    return render(request, 'messages.html', {'sent_messages': find_all(), 'message_type': message_type})
 
 
 @user_passes_test(manager_access.user_is_manager, login_url='assistants_home')
@@ -41,13 +45,15 @@ def send_message_to_assistants(request):
     mandates_for_current_academic_year = assistant_mandate.find_by_academic_year(
         academic_year.starting_academic_year())
     for mandate in mandates_for_current_academic_year:
-        if mandate.renewal_type == assistant_mandate_renewal.NORMAL or \
-                mandate.renewal_type == assistant_mandate_renewal.SPECIAL:
+        if mandate.renewal_type == assistant_mandate_renewal.NORMAL:
             html_template_ref = 'assistant_assistants_startup_normal_renewal_html'
             txt_template_ref = 'assistant_assistants_startup_normal_renewal_txt'
-        else:
+        elif mandate.renewal_type == assistant_mandate_renewal.EXCEPTIONAL:
             html_template_ref = 'assistant_assistants_startup_except_renewal_html'
             txt_template_ref = 'assistant_assistants_startup_except_renewal_txt'
+        else:
+            html_template_ref = 'assistant_assistants_startup_special_renewal_html'
+            txt_template_ref = 'assistant_assistants_startup_special_renewal_txt'
         send_message(mandate.assistant.person, html_template_ref, txt_template_ref)
     save_message_history(request, message_type.TO_ALL_ASSISTANTS)
     return redirect('messages_history')

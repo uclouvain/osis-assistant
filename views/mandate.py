@@ -37,7 +37,7 @@ from assistant import models as assistant_mdl
 from assistant.forms.mandate import MandateForm, entity_inline_formset
 from assistant.models import assistant_mandate, review
 from assistant.models.enums import reviewer_role, assistant_mandate_state
-from assistant.utils.send_email import send_message
+from assistant.views.mails import send_message
 from base.models import academic_year, entity, person
 from base.models.enums import entity_type
 
