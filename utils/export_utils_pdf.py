@@ -122,7 +122,7 @@ def build_doc(request: http.HttpRequest, mandates: Sequence[assistant_mandate.As
     if type == 'default' or type == 'export_to_sap':
         for mandate in mandates:
             add_mandate_content(content, mandate, styles, roles)
-    if type == 'declined_to_sap':
+    elif type == 'declined_to_sap':
         for mandate in mandates:
             add_declined_mandate_content(content, mandate, styles)
     else:
