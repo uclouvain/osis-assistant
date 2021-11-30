@@ -265,14 +265,6 @@
                 </div>
                 <div class="row" style="padding-top: 2px;">
                     <div class="col-md-3">
-                        {% trans 'Promoter' %}
-                    </div>
-                    <div class="col-md-9">
-                        {{ assistant.supervisor|default_if_none:"n/a" }}
-                    </div>
-                </div>
-                <div class="row" style="padding-top: 2px;">
-                    <div class="col-md-3">
                         {% trans 'Date of doctoral enrollment' %}
                     </div>
                     <div class="col-md-9">
@@ -281,10 +273,18 @@
                 </div>
                 <div class="row" style="padding-top: 2px;">
                     <div class="col-md-3">
-                        {% trans 'Date of confirmation test' %}<h6>{% trans '(starting the 2nd renewal)' %}</h6>
+                        {% trans 'Programmed date of confirmation test' %}<h6>{% trans '(starting the 2nd renewal)' %}</h6>
                     </div>
                     <div class="col-md-9">
                         {{ assistant.confirmation_test_date|default_if_none:"n/a" }}
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 2px;">
+                    <div class="col-md-3">
+                        {% trans 'Date of succeeded confirmation test' %}<h6>{% trans '(starting the 2nd renewal)' %}</h6>
+                    </div>
+                    <div class="col-md-9">
+                        {{ assistant.succeed_confirmation_test_date|default_if_none:"n/a" }}
                     </div>
                 </div>
                 <div class="row" style="padding-top: 2px;">
