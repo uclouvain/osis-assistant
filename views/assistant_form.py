@@ -122,6 +122,7 @@ def tutoring_learning_unit_edit(request, tutoring_learning_unit_id=None):
 
     form = TutoringLearningUnitForm(
         initial={
+            'learning_unit_year_id': edited_tutoring_learning_unit_year.learning_unit_year_id,
             'mandate_id': edited_tutoring_learning_unit_year.mandate_id,
             'tutoring_learning_unit_year_id': edited_tutoring_learning_unit_year.id,
             'sessions_duration': edited_tutoring_learning_unit_year.sessions_duration,
@@ -138,8 +139,8 @@ def tutoring_learning_unit_edit(request, tutoring_learning_unit_id=None):
                       'form': form,
                       'assistant_type': mandate.assistant_type,
                       'mandate_id': mandate_id,
-                      'learning_unit_year_id': edited_tutoring_learning_unit_year.learning_unit_year.id,
-                      'search_learning_units_year': search_learning_units_year
+                      # 'learning_unit_year_id': edited_tutoring_learning_unit_year.learning_unit_year.id,
+                      # 'search_learning_units_year': search_learning_units_year
                   })
 
 

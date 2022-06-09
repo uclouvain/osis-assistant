@@ -33,7 +33,7 @@ from assistant import models as mdl
 
 
 class TutoringLearningUnitForm(ModelForm):
-    learning_unit_year_id = forms.ModelChoiceField(queryset=LearningUnitYear.objects.none(),
+    learning_unit_year_id = forms.ModelChoiceField(queryset=search(),  # LearningUnitYear.objects.none(), => no init if we use this
                                                    label=_('Learning unit'),
                                                    widget=autocomplete.ModelSelect2(
                                                        url="/assistants/assistant/form/part2"
@@ -44,11 +44,10 @@ class TutoringLearningUnitForm(ModelForm):
                                                            # Only trigger autocompletion after 2 characters have been
                                                            # typed
                                                            'data-minimum-input-length': 2,
+                                                           'onchange': (
+                                                               'clearAutocomplete("learning_unit_year_id");'
+                                                           )
                                                        },
-                                                       #  ??  'onchange': (
-                                                       #        'clearAutocomplete("learning_unit_year_id");'
-                                                       #    )
-                                                       # }
                                                    )
                                                    )
     sessions_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'input session_number',
