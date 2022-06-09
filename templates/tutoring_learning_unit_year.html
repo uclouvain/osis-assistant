@@ -54,6 +54,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit_test">
+                {% trans 'TEST Learning unit' %}</label>
+            {{ form.media }}
+            {{ form.test }}
+            <span class="error">{{ form.test.errors }}</span>
+        </div>
+        <div class="form-group">
             <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit">
                 {% trans 'Learning unit' %}</label>
             {% if search_learning_units_year %}
@@ -169,5 +176,17 @@ $(function() {
         .appendTo( ul );
     };
 });
+/* test jog */
+  $(':input[name$=test]').on('change', function() {
+      // test var val_array = $(this).find("option:selected").val().split('|');
+      // useful? var prefix = $(this).getFormPrefix();
+      var learning_unit_year_id = $(this).find("option:selected").val();
+      $( "#learning_unit_year_id" ).val(learning_unit_year_id);
+      $( "#search_learning_units_year" ).val($(this).find("option:selected").text()); // old=> ui.item.value + ' (' + ui.item.academic_year + ')'
+      $('#id_sessions_number').focus();
+
+      //console.log("change fired " + $(this).find("option:selected").val() + " " + $(this).find("option:selected").text());
+
+  });
    </script>
 {% endblock %}
