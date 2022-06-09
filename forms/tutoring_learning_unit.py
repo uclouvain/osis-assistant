@@ -27,28 +27,30 @@ from django import forms
 from django.forms import ModelForm
 from dal import autocomplete
 from base.models.learning_unit_year import LearningUnitYear, search
+from django.utils.translation import gettext as _
 
 from assistant import models as mdl
 
 
 class TutoringLearningUnitForm(ModelForm):
-    test = forms.ModelChoiceField(queryset=LearningUnitYear.objects.none(),
-                                  # TEST  search(acronym='LDICI')[:50], # objects.all().filter(acronym__istartswith='LDICI2200'),
-                                  label='Test',
-                                  widget=autocomplete.ModelSelect2(
-                                      url="/assistants/assistant/form/part2/get_learning_units_year_new?term=LDICI2200",
-                                      attrs={
-                                          # Set some placeholder
-                                          'data-placeholder': 'search by course acronym',
-                                          # Only trigger autocompletion after 3 characters have been typed
-                                          'data-minimum-input-length': 2,
-                                      },
-                                      #  ??  'onchange': (
-                                      #        'clearAutocomplete("Test");'
-                                      #    )
-                                      # }
-                                  )
-                                  )
+    learning_unit_year_id = forms.ModelChoiceField(queryset=LearningUnitYear.objects.none(),
+                                                   label=_('Learning unit'),
+                                                   widget=autocomplete.ModelSelect2(
+                                                       url="/assistants/assistant/form/part2"
+                                                           "/get_learning_units_year",
+                                                       attrs={
+                                                           # Set some placeholder
+                                                           'data-placeholder': _('search by course acronym'),
+                                                           # Only trigger autocompletion after 2 characters have been
+                                                           # typed
+                                                           'data-minimum-input-length': 2,
+                                                       },
+                                                       #  ??  'onchange': (
+                                                       #        'clearAutocomplete("learning_unit_year_id");'
+                                                       #    )
+                                                       # }
+                                                   )
+                                                   )
     sessions_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'input session_number',
                                                                          'style': 'width:6ch'}))
     sessions_duration = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'input session_duration',

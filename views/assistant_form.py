@@ -44,22 +44,22 @@ from base.models import person_address, person, learning_unit_year, academic_yea
 from base.models.enums import entity_type
 from base.models.learning_unit_year import search
 
-
-@login_required
-def get_learning_units_year(request):
-    if request.is_ajax() and 'term' in request.GET:
-        q = request.GET.get('term')
-        learning_units_year = search(acronym=q)[:50]
-        response_data = []
-        for luy in learning_units_year:
-            response_data.append({'value': luy.acronym,
-                                  'title': luy.complete_title,
-                                  'academic_year': str(luy.academic_year),
-                                  'id': luy.id
-                                  })
-    else:
-        response_data = []
-    return JsonResponse(response_data, safe=False)
+# Old version for autocomplete
+# @login_required
+# def get_learning_units_year(request):
+#     if request.is_ajax() and 'term' in request.GET:
+#         q = request.GET.get('term')
+#         learning_units_year = search(acronym=q)[:50]
+#         response_data = []
+#         for luy in learning_units_year:
+#             response_data.append({'value': luy.acronym,
+#                                   'title': luy.complete_title,
+#                                   'academic_year': str(luy.academic_year),
+#                                   'id': luy.id
+#                                   })
+#     else:
+#         response_data = []
+#     return JsonResponse(response_data, safe=False)
 
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')

@@ -26,7 +26,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
 from base.models.person import Person
-from base.models.person import Person
 from base.models.learning_unit_year import LearningUnitYear
 from base.models.learning_unit_year import search
 
@@ -51,7 +50,7 @@ class LearningUnitYearAutocomplete(LoginRequiredMixin, autocomplete.Select2Query
         if self.q:
             qs = search(acronym=self.q)
 
-        return qs.order_by("academic_year")[:50]
+        return qs.order_by("-academic_year")
 
     def get_result_label(self, result):
         return "{learningUnit.acronym} ({learningUnit.academic_year})".format(learningUnit=result)

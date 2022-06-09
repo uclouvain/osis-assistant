@@ -54,12 +54,13 @@
             </div>
         </div>
         <div class="form-group">
-            <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit_test">
-                {% trans 'TEST Learning unit' %}</label>
+            <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit">
+                {% trans 'Learning unit' %}</label>
             {{ form.media }}
-            {{ form.test }}
-            <span class="error">{{ form.test.errors }}</span>
+            {{ form.learning_unit_year_id }}
+            <span class="error">{{ form.learning_unit_year_id.errors }}</span>
         </div>
+        <!-- OLD element for autocomplete
         <div class="form-group">
             <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit">
                 {% trans 'Learning unit' %}</label>
@@ -77,6 +78,7 @@
 
             {{ form.non_field_errors }}
         </div>
+        -->
         <div class="form-group">
             <label for="{{ form.sessions_number.id_for_label }}">
                 {% trans 'Number of sessions planned for this course' %}</label>
@@ -176,7 +178,7 @@ $(function() {
         .appendTo( ul );
     };
 });
-/* test jog */
+/* test jog
   $(':input[name$=test]').on('change', function() {
       // test var val_array = $(this).find("option:selected").val().split('|');
       // useful? var prefix = $(this).getFormPrefix();
@@ -188,5 +190,6 @@ $(function() {
       //console.log("change fired " + $(this).find("option:selected").val() + " " + $(this).find("option:selected").text());
 
   });
+*/
    </script>
 {% endblock %}

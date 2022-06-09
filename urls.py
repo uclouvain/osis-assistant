@@ -64,10 +64,11 @@ urlpatterns = [
                 url(r'^save/$', assistant_form.form_part1_save, name='form_part1_save'),
             ])),
             url(r'^part2/', include([
-                url(r'^get_learning_units_year/', assistant_form.get_learning_units_year,
+                # OLD
+                # url(r'^get_learning_units_year/', assistant_form.get_learning_units_year,
+                #    name='get_learning_units_year'),
+                url(r'^get_learning_units_year/', autocomplete.LearningUnitYearAutocomplete.as_view(),
                     name='get_learning_units_year'),
-                url(r'^get_learning_units_year_new/', autocomplete.LearningUnitYearAutocomplete.as_view(),
-                    name='get_learning_units_year_new'),
                 url(r'^$', assistant.AssistantLearningUnitsListView.as_view(),
                     name='mandate_learning_units'),
                 url(r'^add/$', assistant_form.tutoring_learning_unit_add,
