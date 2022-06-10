@@ -44,6 +44,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
         <form method="POST" action="{% url 'tutoring_learning_unit_save' %}">
+        {{ form.non_field_errors }}
         {% csrf_token %}
  		{% for hidden in form.hidden_fields %}
 			{{ hidden }}
@@ -60,10 +61,6 @@
             {{ form.learning_unit_year }}
             <span class="error">{{ form.learning_unit_year.errors }}</span>
         </div>
-        <!-- Needed ??
-            {{ form.non_field_errors }}
-        </div>
-        -->
         <div class="form-group">
             <label for="{{ form.sessions_number.id_for_label }}">
                 {% trans 'Number of sessions planned for this course' %}</label>
