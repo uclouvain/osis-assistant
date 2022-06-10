@@ -70,8 +70,8 @@ class TutoringLearningUnitForm(ModelForm):
 
     class Meta:
         model = mdl.tutoring_learning_unit_year.TutoringLearningUnitYear
-        fields = ('learning_unit_year', 'sessions_number', 'sessions_duration', 'series_number', 'face_to_face_duration',
-                  'attendees', 'exams_supervision_duration', 'others_delivery')
+        fields = ('learning_unit_year', 'sessions_number', 'sessions_duration', 'series_number',
+                  'face_to_face_duration', 'attendees', 'exams_supervision_duration', 'others_delivery')
         exclude = ['mandate']
 
     def __init__(self, *args, **kwargs):
