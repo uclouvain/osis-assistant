@@ -33,9 +33,9 @@ from assistant import models as mdl
 
 
 class TutoringLearningUnitForm(ModelForm):
-    learning_unit_year_id = forms.ModelChoiceField(
+    learning_unit_year = forms.ModelChoiceField(
         queryset=search(),
-        # LearningUnitYear.objects.none(), => no init if we use this
+        # queryset=LearningUnitYear.objects.none(), => no init if we use this
         label=_('Learning unit'),
         widget=autocomplete.ModelSelect2(
             url="/assistants/assistant/form/part2"
@@ -46,9 +46,9 @@ class TutoringLearningUnitForm(ModelForm):
                 # Only trigger autocompletion after 2 characters have been
                 # typed
                 'data-minimum-input-length': 2,
-                'onchange': (
-                    'clearAutocomplete("learning_unit_year_id");'
-                )
+                # 'onchange': (
+                # ??   'clearAutocomplete("learning_unit_year");'
+                # )
             },
         )
     )
@@ -70,9 +70,9 @@ class TutoringLearningUnitForm(ModelForm):
 
     class Meta:
         model = mdl.tutoring_learning_unit_year.TutoringLearningUnitYear
-        fields = ('sessions_number', 'sessions_duration', 'series_number', 'face_to_face_duration',
+        fields = ('learning_unit_year', 'sessions_number', 'sessions_duration', 'series_number', 'face_to_face_duration',
                   'attendees', 'exams_supervision_duration', 'others_delivery')
-        exclude = ['learning_unit_year', 'mandate']
+        exclude = ['mandate']
 
     def __init__(self, *args, **kwargs):
         super(TutoringLearningUnitForm, self).__init__(*args, **kwargs)

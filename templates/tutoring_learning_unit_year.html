@@ -57,25 +57,10 @@
             <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit">
                 {% trans 'Learning unit' %}</label>
             {{ form.media }}
-            {{ form.learning_unit_year_id }}
-            <span class="error">{{ form.learning_unit_year_id.errors }}</span>
+            {{ form.learning_unit_year }}
+            <span class="error">{{ form.learning_unit_year.errors }}</span>
         </div>
-        <!-- OLD element for autocomplete
-        <div class="form-group">
-            <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit">
-                {% trans 'Learning unit' %}</label>
-            {% if search_learning_units_year %}
-                <div class="controls">{{ search_learning_units_year }}</div>
-                <input type="hidden" name="learning_unit_year_id" id="learning_unit_year_id"
-                       value={{ learning_unit_year_id }} />
-            {% else %}
-                <input id="search_learning_units_year"
-                       class="form-control"
-                       name="search_learning_units_year" size="100"
-                       placeholder="{% trans 'search by course acronym' %}">
-                <input type="hidden" name="learning_unit_year_id" id="learning_unit_year_id" />
-            {% endif %}
-
+        <!-- Needed ??
             {{ form.non_field_errors }}
         </div>
         -->
@@ -146,7 +131,7 @@
 <script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
 <script>
     window.onload = function () {
-        //?? $('#learning_unit_year_id').empty();
+        // ?? $('#learning_unit_year_id').empty();
         var session_number = document.getElementById('id_sessions_number');
         var session_duration = document.getElementById('id_sessions_duration');
         var series_number = document.getElementById('id_series_number');
@@ -159,38 +144,5 @@
         session_duration.onchange = trigFunc;
         series_number.onchange = trigFunc;
     };
-
-/* test jog
-$(function() {
-  $("#search_learning_units_year").autocomplete({
-	source: "/assistants/assistant/form/part2/get_learning_units_year/",
-	minLength: 2,
-    delay: 100,
-    select: function(event, ui) {
-    	var learning_unit_year_id = ui.item.id;
-    	$( "#learning_unit_year_id" ).val(learning_unit_year_id);
-    	$( "#search_learning_units_year" ).val( ui.item.value + ' (' + ui.item.academic_year + ')');
-    	$('#id_sessions_number').focus();
-    	return False;
-    	}
-  }).autocomplete( "instance" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( item.value + " (" + item.academic_year + ")" )
-        .appendTo( ul );
-    };
-});
-
-  $(':input[name$=test]').on('change', function() {
-      // test var val_array = $(this).find("option:selected").val().split('|');
-      // useful? var prefix = $(this).getFormPrefix();
-      var learning_unit_year_id = $(this).find("option:selected").val();
-      $( "#learning_unit_year_id" ).val(learning_unit_year_id);
-      $( "#search_learning_units_year" ).val($(this).find("option:selected").text()); // old=> ui.item.value + ' (' + ui.item.academic_year + ')'
-      $('#id_sessions_number').focus();
-
-      //console.log("change fired " + $(this).find("option:selected").val() + " " + $(this).find("option:selected").text());
-
-  });
-*/
    </script>
 {% endblock %}

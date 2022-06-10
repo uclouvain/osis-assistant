@@ -26,8 +26,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
 from base.models.person import Person
-from base.models.learning_unit_year import LearningUnitYear
-from base.models.learning_unit_year import search
+from base.models.learning_unit_year import LearningUnitYear, search
 
 
 class TutorAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
