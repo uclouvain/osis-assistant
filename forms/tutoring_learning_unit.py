@@ -35,7 +35,6 @@ from assistant import models as mdl
 class TutoringLearningUnitForm(ModelForm):
     learning_unit_year = forms.ModelChoiceField(
         queryset=search(),
-        # queryset=LearningUnitYear.objects.none(), => no init if we use this
         label=_('Learning unit'),
         widget=autocomplete.ModelSelect2(
             url="/assistants/assistant/form/part2"
@@ -46,9 +45,6 @@ class TutoringLearningUnitForm(ModelForm):
                 # Only trigger autocompletion after 2 characters have been
                 # typed
                 'data-minimum-input-length': 2,
-                # 'onchange': (
-                # ??   'clearAutocomplete("learning_unit_year");'
-                # )
             },
         )
     )
