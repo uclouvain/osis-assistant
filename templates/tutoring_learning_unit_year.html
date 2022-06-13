@@ -113,7 +113,6 @@
 </div>
 {% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
 <style>
     input[type=number]{
         width: 50px;
@@ -125,7 +124,6 @@
 </style>
 {% endblock %}
 {% block script %}
-<script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
 <script>
     window.onload = function () {
         var session_number = document.getElementById('id_sessions_number');
