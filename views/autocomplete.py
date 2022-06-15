@@ -21,6 +21,8 @@
 #  at the root of the source code of this program.  If not,
 #  see http://www.gnu.org/licenses/.
 # ############################################################################
+import datetime
+
 from dal import autocomplete
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
@@ -47,8 +49,9 @@ class LearningUnitYearAutocomplete(LoginRequiredMixin, autocomplete.Select2Query
     def get_queryset(self):
         qs = LearningUnitYear.objects.none()
         if self.q:
-            qs = search(acronym=self.q)
-
+            # qs = search(acronym=self.q)
+            qs = LearningUnitYear.objects.filter(academic_year__year__lte=datetime.date.today().strftime("%Y"),
+                                                 acronym__icontains=self.q)
         return qs.order_by("-academic_year")
 
     def get_result_label(self, result):
