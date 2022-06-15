@@ -104,7 +104,7 @@ def mandate_change_state(request):
                 send_message(person=faculty_dean.person, html_template_ref=html_template_ref,
                              txt_template_ref=txt_template_ref, assistant=assistant)
         mandate.save()
-    return HttpResponseRedirect(reverse('form_part1_edit'))  #OLD => 'assistant_mandates'
+    return HttpResponseRedirect(reverse('form_part1_edit'))
 
 
 class AssistantLearningUnitsListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
