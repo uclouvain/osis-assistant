@@ -46,7 +46,6 @@ from base.models.enums import entity_type
 
 
 class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
-
     context_object_name = 'assistant_mandates_list'
     template_name = 'assistant_mandates.html'
     form_class = forms.Form
@@ -105,7 +104,7 @@ def mandate_change_state(request):
                 send_message(person=faculty_dean.person, html_template_ref=html_template_ref,
                              txt_template_ref=txt_template_ref, assistant=assistant)
         mandate.save()
-    return HttpResponseRedirect(reverse('assistant_mandates'))
+    return HttpResponseRedirect(reverse('form_part1_edit'))  #OLD => 'assistant_mandates'
 
 
 class AssistantLearningUnitsListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
