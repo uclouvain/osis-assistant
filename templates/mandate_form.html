@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load bootstrap3 i18n %}
 {% load static %}
 {% load i18n %}
 {
@@ -131,20 +132,56 @@
                  <label for="txt_other_status">{% trans 'Other status' %}</label>
                  {{ form.other_status }}<span class="error">{{ form.other_status.errors }}</span>
             </div>
+            <div class="panel-default">
+                <div class="panel-heading">
+                    <h4>{% trans 'Report of the steering committee (mandatory from the second renewal application)' %}</h4>
+                </div>
+            </div>
+            {% for file in files %}
+                <div class="row" style="padding-top: 15px;">
+                    <div class="col-md-10" id="hdn_filename" style="text-align: left">
+                       <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
+                    </div>
+                    <div class="col-md-2" style="text-align: left">
+                        <a class="btn btn-default btn-danger btn-sm" id="btn_delete_file" style="margin-right: 5px;"
+                           title="{% trans 'Delete file'%}"
+                           onclick="location.href='{% url 'delete_pdf_file' file.id 'mandate_read' mandate.id %}';">
+                        <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
+                            {% trans 'Delete' %}</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="form-group" style="padding-top: 15px;">
+                <a href="{% url 'upload_pdf_file' mandate.id %}" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#form-ajax-modal" title="{% trans 'Add file'%}">{% trans 'Attach a PDF file' %}</a>
+            </div>
+
             <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
             <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_mandate_save"><span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
             <a class="btn btn-default" id="lnk_mandate_cancel" href="{% url 'mandates_list' %}">
                 <span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
         </form>
+{#  Jog  Already in page ?? #}
+{#        <!-- Modal HTML -->#}
+{#        <div id="myModal" class="modal fade">#}
+{#            <div class="modal-dialog">#}
+{#                <div class="modal-content">#}
+{#                    <!-- Content will be loaded here from ... -->#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
     </div>
 </div>
+
 {% endblock %}
 {% block script %}
 <script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
+
 <script>
 window.onload = function() {
     $('#person_id').empty();
 };
+
 $(function() {
     $("#search_persons").autocomplete({
         source: "/assistants/api/get_persons/",

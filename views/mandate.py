@@ -34,9 +34,11 @@ from openpyxl import Workbook
 from openpyxl.writer.excel import save_virtual_workbook
 
 from assistant import models as assistant_mdl
-from assistant.forms.mandate import MandateForm, entity_inline_formset
-from assistant.models import assistant_mandate, review
-from assistant.models.enums import reviewer_role, assistant_mandate_state
+from osis_common.models import document_file as document_file
+
+from assistant.forms.mandate import MandateForm, entity_inline_formset, UploadPdfForm
+from assistant.models import assistant_mandate, review, assistant_document_file
+from assistant.models.enums import reviewer_role, assistant_mandate_state, document_type
 from assistant.views.mails import send_message
 from base.models import academic_year, entity, person
 from base.models.enums import entity_type
@@ -48,28 +50,32 @@ def user_is_manager(user):
             return assistant_mdl.manager.Manager.objects.get(person=user.person)
     except ObjectDoesNotExist:
         return False
-    
+
 
 @user_passes_test(user_is_manager, login_url='assistants_home')
-def mandate_edit(request):
-    mandate_id = request.POST.get("mandate_id")
+def mandate_edit(request, mandate_id=None):
+    if mandate_id is None:
+        mandate_id = request.POST.get("mandate_id")
     mandate = assistant_mdl.assistant_mandate.find_mandate_by_id(mandate_id)
+    files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.PHD_DOCUMENT)
     supervisor = mandate.assistant.supervisor
     form = MandateForm(initial={'comment': mandate.comment,
                                 'renewal_type': mandate.renewal_type,
                                 'absences': mandate.absences,
                                 'other_status': mandate.other_status,
                                 'contract_duration': mandate.contract_duration,
-                                'contract_duration_fte': mandate.contract_duration_fte
+                                'contract_duration_fte': mandate.contract_duration_fte,
                                 }, prefix="mand", instance=mandate)
     formset = entity_inline_formset(instance=mandate, prefix="entity")
-    
+
     return render(request, 'mandate_form.html', {
         'mandate': mandate,
         'form': form,
         'formset': formset,
         'assistant_mandate_state': assistant_mandate_state,
-        'supervisor': supervisor
+        'supervisor': supervisor,
+        'document_type': document_type.PHD_DOCUMENT,
+        'files': files,
     })
 
 
@@ -210,3 +216,35 @@ def get_reviews(mandate):
         reviews_details += [vrs_review.remark] if vrs_review.remark is not None else ['']
         reviews_details += [vrs_review.confidential] if vrs_review.confidential is not None else ['']
     return reviews_details
+
+
+# Jog new upload form
+def upload_pdf_file(request, mandate_id):
+    if request.method == 'POST':
+        form = UploadPdfForm(request.POST, request.FILES)
+        if form.is_valid():
+            assistant_mandate = assistant_mdl.assistant_mandate.find_mandate_by_id(request.POST['mandate_id'])
+            file_selected = request.FILES['file']
+            file = file_selected
+            file_name = file_selected.name
+            content_type = file_selected.content_type
+            description = request.POST['description']
+            storage_duration = request.POST['storage_duration']
+            new_document = document_file.DocumentFile(file_name=file_name,
+                                                      file=file,
+                                                      description=description,
+                                                      storage_duration=storage_duration,
+                                                      application_name='assistant',
+                                                      content_type=content_type,
+                                                      update_by=request.user)
+
+            new_document.save()
+            assistant_mandate_document_file = assistant_mdl.assistant_document_file.AssistantDocumentFile()
+            assistant_mandate_document_file.assistant_mandate = assistant_mandate
+            assistant_mandate_document_file.document_file = new_document
+            assistant_mandate_document_file.save()
+
+            return mandate_edit(request)
+    else:
+        form = UploadPdfForm()
+    return render(request, 'new_modal_document.html', {'form': form, 'mandate_id': mandate_id})

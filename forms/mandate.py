@@ -29,9 +29,10 @@ from django.forms import ModelForm, Textarea, inlineformset_factory
 import base.models
 from assistant import models as mdl
 from assistant.forms.common import EntityChoiceField
-from assistant.models.enums import assistant_mandate_renewal, assistant_type
+from assistant.models.enums import assistant_mandate_renewal, assistant_type, document_type
 from base.models import academic_year, entity
 from base.models.enums import entity_type
+from django.core.exceptions import ValidationError
 
 
 class MandateForm(ModelForm):
@@ -51,6 +52,8 @@ class MandateForm(ModelForm):
         required=True, max_length=30, strip=True)
     fulltime_equivalent = forms.NumberInput()
 
+    # test jog phd_document = forms.FileField(widget=forms.FileInput(attrs={'accept':'.pdf'}))
+
     class Meta:
         model = mdl.assistant_mandate.AssistantMandate
         fields = ('comment', 'absences', 'other_status', 'renewal_type', 'assistant_type', 'sap_id',
@@ -60,6 +63,32 @@ class MandateForm(ModelForm):
         super(MandateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+
+
+class UploadPdfForm(forms.Form):
+    description = forms.CharField(widget=forms.HiddenInput())
+    storage_duration = forms.IntegerField(widget=forms.HiddenInput())
+    # content_type = forms.CharField(widget=forms.HiddenInput())
+    # filename = forms.CharField(widget=forms.HiddenInput())
+    # ? mandate_id = forms.IntegerField()
+    file = forms.FileField(widget=forms.FileInput(attrs={'accept': '.pdf'}))
+
+    def __init__(self, *args, **kwargs):
+        initial = kwargs.get('initial', {})
+        initial['storage_duration'] = 0
+        initial['content_type'] = document_type.PHD_DOCUMENT
+        initial['description'] = document_type.PHD_DOCUMENT
+        kwargs['initial'] = initial
+        super(UploadPdfForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        description = cleaned_data.get("description")
+
+        if description != document_type.PHD_DOCUMENT:
+            raise ValidationError(
+                    "Only PHd doc in description are possible"
+                )
 
 
 class MandatesArchivesForm(ModelForm):
