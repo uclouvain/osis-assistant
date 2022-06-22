@@ -147,11 +147,11 @@
         <div class="form-group">
             <div class="row" style="padding-top: 15px;">
                 <div class="col-md-4" style="text-align: left">
-                    <a class="btn btn-default btn-primary"
+                    <a class="btn btn-default"
                        data-toggle="modal" data-target="#form-ajax-modal" id="btn_upload_pdf"
                        title="{% trans 'Add file' %}"
                        href="{% url 'upload_pdf_file' mandate.id %}">
-                        {% trans 'Attach a PDF file' %}
+                        <span class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></span>{% trans 'Attach a PDF file' %}
                     </a>
                 </div>
                 {% if error_upload %}
@@ -170,7 +170,7 @@
                 <div class="col-md-4" style="text-align: left">
                     <a class="btn btn-default btn-danger btn-sm " style="margin-right: 5px;"
                        title="{% trans 'Delete file' %}"
-                       onclick="if($('form').data('changed')) {alert('{% trans 'Please save your change or cancel.' %}');}
+                       onclick="if($('form').data('changed')) {alert('{% trans 'Please save your change in the form at first or cancel.' %}');}
                                 else {location.href='{% url 'delete_pdf_file' file.id 'mandate_read' mandate.id %}';}">
                         <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
                         {% trans 'Delete' %}</a>
@@ -207,7 +207,7 @@ $('form').find('*').on('change', function() {
 $(document).ready(function () {
     $("#btn_upload_pdf").click(function (event) {
         if($('form').data('changed')==true) {
-            alert('{% trans 'Please save your change or cancel.' %}');
+            alert('{% trans 'Please save your change in the form at first or cancel.' %}');
             event.preventDefault();
             event.stopImmediatePropagation();
         }
