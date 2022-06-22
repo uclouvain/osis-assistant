@@ -33,7 +33,7 @@ from assistant.models.enums import assistant_mandate_renewal, assistant_type, do
 from base.models import academic_year, entity
 from base.models.enums import entity_type
 from django.core.exceptions import ValidationError
-
+from django.utils.translation import gettext as _
 
 class MandateForm(ModelForm):
     comment = forms.CharField(required=False, widget=Textarea(
@@ -68,14 +68,15 @@ class MandateForm(ModelForm):
 class UploadPdfForm(forms.Form):
     description = forms.CharField(widget=forms.HiddenInput())
     storage_duration = forms.IntegerField(widget=forms.HiddenInput())
-    # content_type = forms.CharField(widget=forms.HiddenInput())
-    # filename = forms.CharField(widget=forms.HiddenInput())
+    content_type = forms.CharField(widget=forms.HiddenInput())
+    filename = forms.CharField(widget=forms.HiddenInput())
     # ? mandate_id = forms.IntegerField()
     file = forms.FileField(widget=forms.FileInput(attrs={'accept': '.pdf'}))
 
     def __init__(self, *args, **kwargs):
         initial = kwargs.get('initial', {})
         initial['storage_duration'] = 0
+        initial['filename'] = 'default'
         initial['content_type'] = document_type.PHD_DOCUMENT
         initial['description'] = document_type.PHD_DOCUMENT
         kwargs['initial'] = initial
@@ -87,8 +88,21 @@ class UploadPdfForm(forms.Form):
 
         if description != document_type.PHD_DOCUMENT:
             raise ValidationError(
-                    "Only PHd doc in description are possible"
+                    "Only PHd doc in description is possible"
                 )
+
+        file = cleaned_data.get('file')
+        content_type = file.content_type
+        file_name = file.name
+        if content_type == 'application/pdf':
+            if len(file_name) > 100:
+                raise forms.ValidationError(_('The length of filename may not exceed 100 characters.'))
+        else:
+            raise forms.ValidationError(_('You must select a PDF file'))
+        cleaned_data['content_type'] = content_type
+        cleaned_data['filename'] = file_name
+
+        return cleaned_data
 
 
 class MandatesArchivesForm(ModelForm):

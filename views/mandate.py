@@ -24,6 +24,7 @@
 #
 ##############################################################################
 import time
+import json
 
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
@@ -76,6 +77,7 @@ def mandate_edit(request, mandate_id=None):
         'supervisor': supervisor,
         'document_type': document_type.PHD_DOCUMENT,
         'files': files,
+        'error_upload': request.POST.get('error_upload', '')
     })
 
 
@@ -218,12 +220,16 @@ def get_reviews(mandate):
     return reviews_details
 
 
-# Jog new upload form
 def upload_pdf_file(request, mandate_id):
     if request.method == 'POST':
         form = UploadPdfForm(request.POST, request.FILES)
         if form.is_valid():
-            assistant_mandate = assistant_mdl.assistant_mandate.find_mandate_by_id(request.POST['mandate_id'])
+            try:
+                assistant_mandate = assistant_mdl.assistant_mandate.find_mandate_by_id(request.POST['mandate_id'])
+            except:
+                return HttpResponse(
+                    json.dumps({"error": True, "message": _('Error during saving the file, try again')}),
+                    content_type="application/json")
             file_selected = request.FILES['file']
             file = file_selected
             file_name = file_selected.name
@@ -244,7 +250,11 @@ def upload_pdf_file(request, mandate_id):
             assistant_mandate_document_file.document_file = new_document
             assistant_mandate_document_file.save()
 
-            return mandate_edit(request)
+        else:
+            _mutable = request.POST._mutable
+            request.POST._mutable = True
+            request.POST['error_upload'] = form.errors
+        return mandate_edit(request)
     else:
         form = UploadPdfForm()
-    return render(request, 'new_modal_document.html', {'form': form, 'mandate_id': mandate_id})
+        return render(request, 'new_modal_document.html', {'form': form, 'mandate_id': mandate_id})
