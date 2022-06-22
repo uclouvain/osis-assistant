@@ -147,7 +147,7 @@
         <div class="form-group">
             <div class="row" style="padding-top: 15px;">
                 <div class="col-md-4" style="text-align: left">
-                    <a class="btn btn-lg btn-primary"
+                    <a class="btn btn-default btn-primary"
                        data-toggle="modal" data-target="#form-ajax-modal" id="btn_upload_pdf"
                        title="{% trans 'Add file' %}"
                        href="{% url 'upload_pdf_file' mandate.id %}">
@@ -155,7 +155,7 @@
                     </a>
                 </div>
                 {% if error_upload %}
-                    <div class="col-md-2" style="text-align: left">
+                    <div class="col-md-4" style="color:red;text-align: left;vertical-align: middle;">
                         {{ error_upload }}
                     </div>
                 {% endif %}
@@ -167,7 +167,7 @@
                     <a href="{% url 'assistant_file_download' document_file_id=file.id %}"
                        class="no_spinner">{{ file.document_file }}</a>
                 </div>
-                <div class="col-md-2" style="text-align: left">
+                <div class="col-md-4" style="text-align: left">
                     <a class="btn btn-default btn-danger btn-sm " style="margin-right: 5px;"
                        title="{% trans 'Delete file' %}"
                        onclick="if($('form').data('changed')) {alert('Please save your change before');}

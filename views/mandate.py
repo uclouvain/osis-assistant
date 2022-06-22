@@ -253,7 +253,8 @@ def upload_pdf_file(request, mandate_id):
         else:
             _mutable = request.POST._mutable
             request.POST._mutable = True
-            request.POST['error_upload'] = form.errors
+            request.POST['error_upload'] = form.errors['__all__'][0] if len(form.errors['__all__']) == 1 else \
+                form.errors['__all__']
         return mandate_edit(request)
     else:
         form = UploadPdfForm()

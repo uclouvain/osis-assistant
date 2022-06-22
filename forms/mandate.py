@@ -70,7 +70,6 @@ class UploadPdfForm(forms.Form):
     storage_duration = forms.IntegerField(widget=forms.HiddenInput())
     content_type = forms.CharField(widget=forms.HiddenInput())
     filename = forms.CharField(widget=forms.HiddenInput())
-    # ? mandate_id = forms.IntegerField()
     file = forms.FileField(widget=forms.FileInput(attrs={'accept': '.pdf'}))
 
     def __init__(self, *args, **kwargs):
@@ -81,13 +80,14 @@ class UploadPdfForm(forms.Form):
         initial['description'] = document_type.PHD_DOCUMENT
         kwargs['initial'] = initial
         super(UploadPdfForm, self).__init__(*args, **kwargs)
+        self.fields['file'].label = _("Choose the pdf file")
 
     def clean(self):
         cleaned_data = super().clean()
         description = cleaned_data.get("description")
 
         if description != document_type.PHD_DOCUMENT:
-            raise ValidationError(
+            raise forms.ValidationError(
                     "Only PHd doc in description is possible"
                 )
 
