@@ -224,9 +224,8 @@ def upload_pdf_file(request, mandate_id):
     if request.method == 'POST':
         form = UploadPdfForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                assistant_mandate = assistant_mdl.assistant_mandate.find_mandate_by_id(request.POST['mandate_id'])
-            except:
+            assistant_mandate = assistant_mdl.assistant_mandate.find_mandate_by_id(request.POST['mandate_id'])
+            if not assistant_mandate:
                 return HttpResponse(
                     json.dumps({"error": True, "message": _('Error during saving the file, try again')}),
                     content_type="application/json")

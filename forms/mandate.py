@@ -35,6 +35,7 @@ from base.models.enums import entity_type
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
+
 class MandateForm(ModelForm):
     comment = forms.CharField(required=False, widget=Textarea(
         attrs={'rows': '4', 'cols': '80'}))
@@ -76,7 +77,7 @@ class UploadPdfForm(forms.Form):
         initial = kwargs.get('initial', {})
         initial['storage_duration'] = 0
         initial['filename'] = 'default'
-        initial['content_type'] = document_type.PHD_DOCUMENT
+        initial['content_type'] = 'default'
         initial['description'] = document_type.PHD_DOCUMENT
         kwargs['initial'] = initial
         super(UploadPdfForm, self).__init__(*args, **kwargs)
@@ -88,8 +89,8 @@ class UploadPdfForm(forms.Form):
 
         if description != document_type.PHD_DOCUMENT:
             raise forms.ValidationError(
-                    "Only PHd doc in description is possible"
-                )
+                "Only PHd doc in description is possible"
+            )
 
         file = cleaned_data.get('file')
         content_type = file.content_type
