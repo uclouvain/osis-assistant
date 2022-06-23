@@ -28,6 +28,7 @@ from django.forms import ModelForm, Textarea, inlineformset_factory
 
 import base.models
 from assistant import models as mdl
+from osis_common.models import document_file as document_file
 from assistant.forms.common import EntityChoiceField
 from assistant.models.enums import assistant_mandate_renewal, assistant_type, document_type
 from base.models import academic_year, entity
@@ -64,37 +65,40 @@ class MandateForm(ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
 
 
-class DocumentFileForm(forms.Form):
+class DocumentFileForm(ModelForm):
     description = forms.CharField(widget=forms.HiddenInput())
     storage_duration = forms.IntegerField(widget=forms.HiddenInput())
     content_type = forms.CharField(widget=forms.HiddenInput())
-    filename = forms.CharField(max_length=100, widget=forms.HiddenInput())
+    file_name = forms.CharField(max_length=100, widget=forms.HiddenInput())
     file = forms.FileField(widget=forms.FileInput(attrs={'accept': '.pdf'}))  # TO test with max_length filename here
+    update_by = forms.CharField(widget=forms.HiddenInput())
+    application_name = forms.CharField(widget=forms.HiddenInput())
+    size = forms.IntegerField(widget=forms.HiddenInput())
+
+    class Meta:
+        model = document_file.DocumentFile
+        fields = ('description', 'file_name', 'content_type', 'storage_duration', 'file', 'update_by',
+                  'application_name', 'size')
 
     def __init__(self, *args, **kwargs):
         initial = kwargs.get('initial', {})
-        initial['storage_duration'] = 0
-        initial['filename'] = 'default_assistant_file'
+        initial['file_name'] = 'default_assistant_file'
         initial['content_type'] = 'default_type_file'
-        initial['description'] = document_type.PHD_DOCUMENT
+        initial['size'] = 0
         kwargs['initial'] = initial
         super(DocumentFileForm, self).__init__(*args, **kwargs)
         self.fields['file'].label = _("Upload a new pdf file")
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
 
     def clean(self):
-
         cleaned_data = super().clean()
-
-        if cleaned_data.get("description") != document_type.PHD_DOCUMENT:
-            raise forms.ValidationError(
-                "Only PHd doc in description is possible"
-            )
-
         file = cleaned_data.get('file')
         cleaned_data['content_type'] = file.content_type
-        cleaned_data['filename'] = file.name
+        cleaned_data['file_name'] = file.name
+        cleaned_data['size'] = file.size
         if cleaned_data.get('content_type') == 'application/pdf':
-            if len(cleaned_data.get('filename')) > 100:
+            if len(cleaned_data.get('file_name')) > 100:
                 raise forms.ValidationError(_('The length of filename may not exceed 100 characters.'))
         else:
             raise forms.ValidationError(_('You must select a PDF file'))

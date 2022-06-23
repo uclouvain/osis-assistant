@@ -24,7 +24,6 @@
 #
 ##############################################################################
 import time
-import json
 
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
@@ -67,7 +66,11 @@ def mandate_edit(request, mandate_id=None):
                                 'contract_duration': mandate.contract_duration,
                                 'contract_duration_fte': mandate.contract_duration_fte,
                                 }, prefix="mand", instance=mandate)
-    document_form = DocumentFileForm(prefix='doc')
+    document_form = DocumentFileForm(initial={'update_by': request.user,
+                                              'application_name': 'assistant',
+                                              'description': document_type.PHD_DOCUMENT,
+                                              'storage_duration': 0
+                                              }, prefix='doc')
     formset = entity_inline_formset(instance=mandate, prefix="entity")
 
     return render(request, 'mandate_form.html', {
@@ -108,14 +111,14 @@ def mandate_save(request):
     if form.is_valid():
         form.save()
         if document_form.is_valid():
-            new_document = document_file.DocumentFile(file_name=document_form.cleaned_data['filename'],
-                                                      file=document_form.cleaned_data['file'],
-                                                      description=document_form.cleaned_data['description'],
-                                                      storage_duration=document_form.cleaned_data['storage_duration'],
-                                                      application_name='assistant',
-                                                      content_type=document_form.cleaned_data['content_type'],
-                                                      update_by=request.user)
-            new_document.save()
+            # new_document = document_file.DocumentFile(file_name=document_form.cleaned_data['filename'],
+            #                                           file=document_form.cleaned_data['file'],
+            #                                           description=document_form.cleaned_data['description'],
+            #                                           storage_duration=document_form.cleaned_data['storage_duration'],
+            #                                           application_name='assistant',
+            #                                           content_type=document_form.cleaned_data['content_type'],
+            #                                           update_by=request.user)
+            new_document = document_form.save()
             assistant_mandate_document_file = assistant_mdl.assistant_document_file.AssistantDocumentFile()
             assistant_mandate_document_file.assistant_mandate = mandate
             assistant_mandate_document_file.document_file = new_document
