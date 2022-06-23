@@ -111,13 +111,6 @@ def mandate_save(request):
     if form.is_valid():
         form.save()
         if document_form.is_valid():
-            # new_document = document_file.DocumentFile(file_name=document_form.cleaned_data['filename'],
-            #                                           file=document_form.cleaned_data['file'],
-            #                                           description=document_form.cleaned_data['description'],
-            #                                           storage_duration=document_form.cleaned_data['storage_duration'],
-            #                                           application_name='assistant',
-            #                                           content_type=document_form.cleaned_data['content_type'],
-            #                                           update_by=request.user)
             new_document = document_form.save()
             assistant_mandate_document_file = assistant_mdl.assistant_document_file.AssistantDocumentFile()
             assistant_mandate_document_file.assistant_mandate = mandate

@@ -70,7 +70,7 @@ class DocumentFileForm(ModelForm):
     storage_duration = forms.IntegerField(widget=forms.HiddenInput())
     content_type = forms.CharField(widget=forms.HiddenInput())
     file_name = forms.CharField(max_length=100, widget=forms.HiddenInput())
-    file = forms.FileField(widget=forms.FileInput(attrs={'accept': '.pdf'}))  # TO test with max_length filename here
+    file = forms.FileField(max_length=100, widget=forms.FileInput(attrs={'accept': '.pdf'}))
     update_by = forms.CharField(widget=forms.HiddenInput())
     application_name = forms.CharField(widget=forms.HiddenInput())
     size = forms.IntegerField(widget=forms.HiddenInput())
@@ -83,7 +83,7 @@ class DocumentFileForm(ModelForm):
     def __init__(self, *args, **kwargs):
         initial = kwargs.get('initial', {})
         initial['file_name'] = 'default_assistant_file'
-        initial['content_type'] = 'default_type_file'
+        initial['content_type'] = 'application/pdf'
         initial['size'] = 0
         kwargs['initial'] = initial
         super(DocumentFileForm, self).__init__(*args, **kwargs)
@@ -94,15 +94,12 @@ class DocumentFileForm(ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         file = cleaned_data.get('file')
-        cleaned_data['content_type'] = file.content_type
-        cleaned_data['file_name'] = file.name
-        cleaned_data['size'] = file.size
-        if cleaned_data.get('content_type') == 'application/pdf':
-            if len(cleaned_data.get('file_name')) > 100:
-                raise forms.ValidationError(_('The length of filename may not exceed 100 characters.'))
-        else:
-            raise forms.ValidationError(_('You must select a PDF file'))
-
+        if file is not None:
+            cleaned_data['content_type'] = file.content_type
+            cleaned_data['file_name'] = file.name
+            cleaned_data['size'] = file.size
+            if cleaned_data.get('content_type') != 'application/pdf':
+                raise forms.ValidationError(_('You must select a PDF file'))
         return cleaned_data
 
 
