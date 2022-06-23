@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 09:10+0200\n"
+"POT-Creation-Date: 2022-06-23 16:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,7 @@ msgstr " à la ligne numéro : "
 msgid "%% FTE"
 msgstr "%% FTE"
 
+#, python-format
 msgid "(%(state)s) Remark has been updated: %(remark)s"
 msgstr "(%(state)s) Remarque a été modifiée: %(remark)s"
 
@@ -281,9 +282,6 @@ msgstr "Tableau de bord"
 
 msgid "Date"
 msgstr "Date"
-
-msgid "Date of confirmation test"
-msgstr "Date de l'épreuve de confirmation"
 
 msgid "Date of defense of thesis (if already known)"
 msgstr "Date de défense de thèse (si déjà connue)"
@@ -875,6 +873,9 @@ msgstr "Type"
 msgid "Unfavourable"
 msgstr "Défavorable"
 
+msgid "Upload a new pdf file"
+msgstr "Charger un nouveau fichier pdf"
+
 msgid "Validate and submit"
 msgstr "Valider et soumettre"
 
@@ -937,3 +938,6 @@ msgstr "nombre d'heures par an"
 
 msgid "search by course acronym"
 msgstr "recherche par acronyme du cours"
+
+#~ msgid "Date of confirmation test"
+#~ msgstr "Date de l'épreuve de confirmation"
