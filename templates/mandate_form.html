@@ -151,8 +151,8 @@
                     <div class="col-md-4" style="text-align: left">
                         <a class="btn btn-default btn-danger btn-sm " style="margin-right: 5px;"
                            title="{% trans 'Delete file' %}"
-                           onclick="if($('form').data('changed')) { alert('{% trans 'Please save your change in the form at first or cancel.' %}');}
-                                else {location.href='{% url 'delete_pdf_file' file.id 'mandate_read' mandate.id %}';}">
+                           onclick="if($('form').data('changed')) { alert('Please save your change in the form at first or cancel.');}
+                                    else {location.href='{% url 'delete_pdf_file' file.id 'mandate_read' mandate.id %}';}">
                             <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
                             {% trans 'Delete' %}</a>
                     </div>
