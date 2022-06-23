@@ -53,8 +53,6 @@ class MandateForm(ModelForm):
         required=True, max_length=30, strip=True)
     fulltime_equivalent = forms.NumberInput()
 
-    # test jog phd_document = forms.FileField(widget=forms.FileInput(attrs={'accept':'.pdf'}))
-
     class Meta:
         model = mdl.assistant_mandate.AssistantMandate
         fields = ('comment', 'absences', 'other_status', 'renewal_type', 'assistant_type', 'sap_id',
@@ -66,42 +64,40 @@ class MandateForm(ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
 
 
-class UploadPdfForm(forms.Form):
+class DocumentFileForm(forms.Form):
     description = forms.CharField(widget=forms.HiddenInput())
     storage_duration = forms.IntegerField(widget=forms.HiddenInput())
     content_type = forms.CharField(widget=forms.HiddenInput())
-    filename = forms.CharField(widget=forms.HiddenInput())
-    file = forms.FileField(widget=forms.FileInput(attrs={'accept': '.pdf'}))
+    filename = forms.CharField(max_length=100, widget=forms.HiddenInput())
+    file = forms.FileField(widget=forms.FileInput(attrs={'accept': '.pdf'}))  # TO test with max_length filename here
 
     def __init__(self, *args, **kwargs):
         initial = kwargs.get('initial', {})
         initial['storage_duration'] = 0
-        initial['filename'] = 'default'
-        initial['content_type'] = 'default'
+        initial['filename'] = 'default_assistant_file'
+        initial['content_type'] = 'default_type_file'
         initial['description'] = document_type.PHD_DOCUMENT
         kwargs['initial'] = initial
-        super(UploadPdfForm, self).__init__(*args, **kwargs)
-        self.fields['file'].label = _("Choose the pdf file")
+        super(DocumentFileForm, self).__init__(*args, **kwargs)
+        self.fields['file'].label = _("Upload a new pdf file")
 
     def clean(self):
-        cleaned_data = super().clean()
-        description = cleaned_data.get("description")
 
-        if description != document_type.PHD_DOCUMENT:
+        cleaned_data = super().clean()
+
+        if cleaned_data.get("description") != document_type.PHD_DOCUMENT:
             raise forms.ValidationError(
                 "Only PHd doc in description is possible"
             )
 
         file = cleaned_data.get('file')
-        content_type = file.content_type
-        file_name = file.name
-        if content_type == 'application/pdf':
-            if len(file_name) > 100:
+        cleaned_data['content_type'] = file.content_type
+        cleaned_data['filename'] = file.name
+        if cleaned_data.get('content_type') == 'application/pdf':
+            if len(cleaned_data.get('filename')) > 100:
                 raise forms.ValidationError(_('The length of filename may not exceed 100 characters.'))
         else:
             raise forms.ValidationError(_('You must select a PDF file'))
-        cleaned_data['content_type'] = content_type
-        cleaned_data['filename'] = file_name
 
         return cleaned_data
 

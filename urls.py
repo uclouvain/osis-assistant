@@ -114,7 +114,6 @@ urlpatterns = [
             url(r'^save/$', mandate.mandate_save, name='mandate_save'),
             url(r'^go_backward/$', find_assistant_mandate_step_backward_state, name='assistant_mandate_step_back'),
             url(r'^load/$', mandate.load_mandates, name='load_mandates'),
-            url(r'^upload_pdf_file/(?P<mandate_id>\d+)/$', mandate.upload_pdf_file, name='upload_pdf_file'),
             url(r'^delete/(?P<document_file_id>\d+)/(?P<url>[\w\-]+)/(?P<mandate_id>\d+)/',
                 upload_assistant_file.delete, name='delete_pdf_file'),
             url(r'^upload/$', import_xls_file_data.upload_mandates_file, name='upload_mandates_file'),
