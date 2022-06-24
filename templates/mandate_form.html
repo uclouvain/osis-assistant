@@ -29,6 +29,9 @@
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+ <style>
+     .errorlist {color: red;}
+ </style>
 {% endblock %}
 {% block breadcrumb %}
 <li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
@@ -138,10 +141,6 @@
                 </div>
             </div>
 
-            <div class="form-group" style="padding-top: 15px;">
-                {{ document_form }}
-            </div>
-
             {% for file in files %}
                 <div class="row" style="padding-top: 15px;">
                     <div class="col-md-4" id="hdn_filename" style="text-align: left">
@@ -157,6 +156,9 @@
                     </div>
                 </div>
             {% endfor %}
+            <div class="form-group" style="padding-top: 15px;">
+                {{ document_form }}
+            </div>
             <br>
             <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
             <button type="submit" class="btn btn-primary" title="{% trans 'Save' %}" id="bt_mandate_save"><span
