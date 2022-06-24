@@ -110,18 +110,18 @@ def mandate_save(request):
     files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.PHD_DOCUMENT)
     if form.is_valid():
         form.save()
-        if document_form.is_valid():
-            new_document = document_form.save()
-            assistant_mandate_document_file = assistant_mdl.assistant_document_file.AssistantDocumentFile()
-            assistant_mandate_document_file.assistant_mandate = mandate
-            assistant_mandate_document_file.document_file = new_document
-            assistant_mandate_document_file.save()
-            if formset.is_valid():
-                formset.save()
+        if formset.is_valid():
+            formset.save()
+            if document_form.is_valid():
+                new_document = document_form.save()
+                assistant_mandate_document_file = assistant_mdl.assistant_document_file.AssistantDocumentFile()
+                assistant_mandate_document_file.assistant_mandate = mandate
+                assistant_mandate_document_file.document_file = new_document
+                assistant_mandate_document_file.save()
                 return mandate_edit(request)
             else:
                 return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset,
-                                                             'files': files})
+                                                             'document_form': document_form, 'files': files})
         else:
             return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset,
                                                          'document_form': document_form, 'files': files})
