@@ -157,6 +157,7 @@
                     </div>
                 </div>
             {% endfor %}
+            <br>
             <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
             <button type="submit" class="btn btn-primary" title="{% trans 'Save' %}" id="bt_mandate_save"><span
                     class="far fa-save" aria-hidden="true"></span> {% trans 'Save' %}</button>
@@ -203,10 +204,3 @@ $(function() {
 });
 </script>
 {% endblock %}
-
-
-
-
-
-
-

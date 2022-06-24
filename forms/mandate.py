@@ -70,7 +70,7 @@ class DocumentFileForm(ModelForm):
     storage_duration = forms.IntegerField(widget=forms.HiddenInput())
     content_type = forms.CharField(widget=forms.HiddenInput())
     file_name = forms.CharField(max_length=100, widget=forms.HiddenInput())
-    file = forms.FileField(max_length=100, widget=forms.FileInput(attrs={'accept': '.pdf'}))
+    file = forms.FileField(required=False, max_length=100, widget=forms.FileInput(attrs={'accept': '.pdf'}))
     update_by = forms.CharField(widget=forms.HiddenInput())
     application_name = forms.CharField(widget=forms.HiddenInput())
     size = forms.IntegerField(widget=forms.HiddenInput())

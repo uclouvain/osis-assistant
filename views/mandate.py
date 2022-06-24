@@ -112,7 +112,7 @@ def mandate_save(request):
         form.save()
         if formset.is_valid():
             formset.save()
-            if document_form.is_valid():
+            if 'doc-file' in request.FILES and document_form.is_valid():
                 new_document = document_form.save()
                 assistant_mandate_document_file = assistant_mdl.assistant_document_file.AssistantDocumentFile()
                 assistant_mandate_document_file.assistant_mandate = mandate
