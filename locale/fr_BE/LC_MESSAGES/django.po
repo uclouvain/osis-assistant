@@ -941,6 +941,3 @@ msgstr "nombre d'heures par an"
 
 msgid "search by course acronym"
 msgstr "recherche par acronyme du cours"
-
-#~ msgid "Date of confirmation test"
-#~ msgstr "Date de l'épreuve de confirmation"
