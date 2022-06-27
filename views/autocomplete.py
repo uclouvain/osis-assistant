@@ -49,7 +49,6 @@ class LearningUnitYearAutocomplete(LoginRequiredMixin, autocomplete.Select2Query
     def get_queryset(self):
         qs = LearningUnitYear.objects.none()
         if self.q:
-            # qs = search(acronym=self.q)
             qs = LearningUnitYear.objects.filter(academic_year__year__lte=datetime.date.today().strftime("%Y"),
                                                  acronym__icontains=self.q)
         return qs.order_by("-academic_year")
