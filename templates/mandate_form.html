@@ -143,7 +143,7 @@
 
             {% for file in files %}
                 <div class="row" style="padding-top: 15px;">
-                    <div class="col-md-4" id="hdn_filename" style="text-align: left">
+                    <div class="col-md-4" id="pnl_filename" style="text-align: left">
                         <a href="{% url 'assistant_file_download' document_file_id=file.id %}"
                            class="no_spinner">{{ file.document_file }}</a>
                     </div>
@@ -151,7 +151,7 @@
                         <a class="btn btn-default btn-danger btn-sm " style="margin-right: 5px;"
                            title="{% trans 'Delete file' %}"
                            onclick="if (formIsChanged()){location.href='{% url 'delete_pdf_file' file.id 'mandate_read' mandate.id %}';}">
-                            <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
+                            <span class="fas fa-times" aria-hidden="true" id="lnk_delete_file"></span>
                             {% trans 'Delete' %}</a>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
                 {{ document_form }}
             </div>
             <br>
-            <input type="hidden" name="mandate_id" value="{{ mandate.id }}">
+            <input type="hidden" id="hdn_mandate_id" name="mandate_id" value="{{ mandate.id }}">
             <button type="submit" class="btn btn-primary" title="{% trans 'Save' %}" id="bt_mandate_save"><span
                     class="far fa-save" aria-hidden="true"></span> {% trans 'Save' %}</button>
             <a class="btn btn-default" id="lnk_mandate_cancel" href="{% url 'mandates_list' %}">
