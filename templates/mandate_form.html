@@ -65,7 +65,7 @@
                             <span class="fas fa-times-circle" aria-hidden="true"></span> {% trans 'Refuse'%}
                         </button>
                     {% else %}
-                        {% trans 'State' %} {{ mandate.state }}
+                        {% trans 'State' %} : {% trans mandate.get_state_display %}
                     {% endif %}
                 </div>
             </div>
