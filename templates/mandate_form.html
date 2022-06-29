@@ -50,7 +50,26 @@
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-        <h3>{{ mandate.assistant }} ({{ mandate.assistant.person.gender }})</h3>
+        <form method="post" action=" {% url 'assistant_mandate_change_state' %} ">
+            {% csrf_token %}
+            <div class="row" style="display: inline;float: none;">
+                <div class="col-sm-6">
+                    <h3>{{ mandate.assistant }} ({{ mandate.assistant.person.gender }})</h3>
+                </div>
+
+                <div class="col-sm-6" style="text-align: right;">
+                    {% if mandate.state == "TO_DO" %}
+                        <input type="hidden" id="hdn_change_state_mandate_id" name="mandate_id" value="{{ mandate.id }}">
+                        <button type="submit" class="btn btn-danger" title="{% trans 'Refuse'%}" id="bt_mandate_decline"
+                                name="bt_mandate_decline" onclick="return confirm('{% trans 'Are you sure you want to decline the renewal request? This action is irreversible.' %}')">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span> {% trans 'Refuse'%}
+                        </button>
+                    {% else %}
+                        {% trans 'State' %} {{ mandate.state }}
+                    {% endif %}
+                </div>
+            </div>
+        </form>
         <form method="post" enctype="multipart/form-data" action=" {% url 'mandate_save' %} ">
             {% csrf_token %}
             {{ mandate.assistant.person.email }}

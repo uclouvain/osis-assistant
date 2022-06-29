@@ -28,6 +28,8 @@ import time
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 from openpyxl import Workbook
@@ -38,6 +40,7 @@ from osis_common.models import document_file as document_file
 
 from assistant.forms.mandate import MandateForm, entity_inline_formset, DocumentFileForm
 from assistant.models import assistant_mandate, review, assistant_document_file
+from assistant.models import reviewer, mandate_entity
 from assistant.models.enums import reviewer_role, assistant_mandate_state, document_type
 from assistant.views.mails import send_message
 from base.models import academic_year, entity, person
@@ -128,6 +131,27 @@ def mandate_save(request):
     else:
         return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset,
                                                      'document_form': document_form, 'files': files})
+
+
+@user_passes_test(user_is_manager, login_url='access_denied')
+def mandate_change_state(request):
+    mandate = assistant_mandate.find_mandate_by_id(request.POST.get("mandate_id"))
+    if mandate:
+        if 'bt_mandate_decline' in request.POST:
+            mandate.state = assistant_mandate_state.DECLINED
+            faculty = mandate_entity.find_by_mandate_and_type(mandate, entity_type.FACULTY)
+            if faculty:
+                faculty_dean = reviewer.find_by_entity_and_role(
+                    faculty.first().entity, reviewer_role.SUPERVISION).first()
+                # To REMOVE because it's the manager as person => pers = person.find_by_user(request.user)
+                # Idem => assistant = academic_assistant.find_by_person(pers)
+                assistant = mandate.assistant
+                html_template_ref = 'assistant_dean_assistant_decline_html'
+                txt_template_ref = 'assistant_dean_assistant_decline_txt'
+                send_message(person=faculty_dean.person, html_template_ref=html_template_ref,
+                             txt_template_ref=txt_template_ref, assistant=assistant)
+        mandate.save()
+    return HttpResponseRedirect(reverse("mandate_read", args=[request.POST.get("mandate_id")]))
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')
