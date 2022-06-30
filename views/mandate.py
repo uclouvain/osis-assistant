@@ -143,8 +143,6 @@ def mandate_change_state(request):
             if faculty:
                 faculty_dean = reviewer.find_by_entity_and_role(
                     faculty.first().entity, reviewer_role.SUPERVISION).first()
-                # To REMOVE because it's the manager as person => pers = person.find_by_user(request.user)
-                # Idem => assistant = academic_assistant.find_by_person(pers)
                 assistant = mandate.assistant
                 html_template_ref = 'assistant_dean_assistant_decline_html'
                 txt_template_ref = 'assistant_dean_assistant_decline_txt'
