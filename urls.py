@@ -64,7 +64,7 @@ urlpatterns = [
                 url(r'^save/$', assistant_form.form_part1_save, name='form_part1_save'),
             ])),
             url(r'^part2/', include([
-                url(r'^get_learning_units_year/', assistant_form.get_learning_units_year,
+                url(r'^get_learning_units_year/', autocomplete.LearningUnitYearAutocomplete.as_view(),
                     name='get_learning_units_year'),
                 url(r'^$', assistant.AssistantLearningUnitsListView.as_view(),
                     name='mandate_learning_units'),
@@ -107,10 +107,15 @@ urlpatterns = [
             name='manager_assistant_form_view'),
         url(r'^mandates/', include([
             url(r'^$', mandates_list.MandatesListView.as_view(), name='mandates_list'),
-            url(r'^edit/$', mandate.mandate_edit, name='mandate_read'),
+            url(r'^edit/', include([
+                url(r'^$', mandate.mandate_edit, name='mandate_read'),
+                url(r'^(?P<mandate_id>\d+)/$', mandate.mandate_edit, name='mandate_read'),
+            ])),
             url(r'^save/$', mandate.mandate_save, name='mandate_save'),
             url(r'^go_backward/$', find_assistant_mandate_step_backward_state, name='assistant_mandate_step_back'),
             url(r'^load/$', mandate.load_mandates, name='load_mandates'),
+            url(r'^delete/(?P<document_file_id>\d+)/(?P<url>[\w\-]+)/(?P<mandate_id>\d+)/',
+                upload_assistant_file.delete, name='delete_pdf_file'),
             url(r'^upload/$', import_xls_file_data.upload_mandates_file, name='upload_mandates_file'),
             url(r'^export/$', mandate.export_mandates, name='export_mandates'),
             url(r'^export_mandates_to_sap/$', export_utils_pdf.export_mandates_to_sap,

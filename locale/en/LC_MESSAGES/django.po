@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 09:10+0200\n"
+"POT-Creation-Date: 2022-06-23 16:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,9 +260,6 @@ msgid "Dashboard"
 msgstr ""
 
 msgid "Date"
-msgstr ""
-
-msgid "Date of confirmation test"
 msgstr ""
 
 msgid "Date of defense of thesis (if already known)"
@@ -592,6 +589,9 @@ msgstr ""
 msgid "Please enter the number of hours per year"
 msgstr ""
 
+msgid "Please save your change in the form at first or cancel."
+msgstr ""
+
 msgid "Please select the XLSX file"
 msgstr ""
 
@@ -830,6 +830,9 @@ msgstr ""
 
 msgid "Unfavourable"
 msgstr ""
+
+msgid "Upload a new pdf file"
+msgstr "Upload a new pdf file"
 
 msgid "Validate and submit"
 msgstr ""

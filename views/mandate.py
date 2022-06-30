@@ -34,9 +34,11 @@ from openpyxl import Workbook
 from openpyxl.writer.excel import save_virtual_workbook
 
 from assistant import models as assistant_mdl
-from assistant.forms.mandate import MandateForm, entity_inline_formset
-from assistant.models import assistant_mandate, review
-from assistant.models.enums import reviewer_role, assistant_mandate_state
+from osis_common.models import document_file as document_file
+
+from assistant.forms.mandate import MandateForm, entity_inline_formset, DocumentFileForm
+from assistant.models import assistant_mandate, review, assistant_document_file
+from assistant.models.enums import reviewer_role, assistant_mandate_state, document_type
 from assistant.views.mails import send_message
 from base.models import academic_year, entity, person
 from base.models.enums import entity_type
@@ -48,28 +50,38 @@ def user_is_manager(user):
             return assistant_mdl.manager.Manager.objects.get(person=user.person)
     except ObjectDoesNotExist:
         return False
-    
+
 
 @user_passes_test(user_is_manager, login_url='assistants_home')
-def mandate_edit(request):
-    mandate_id = request.POST.get("mandate_id")
+def mandate_edit(request, mandate_id=None):
+    if mandate_id is None:
+        mandate_id = request.POST.get("mandate_id")
     mandate = assistant_mdl.assistant_mandate.find_mandate_by_id(mandate_id)
+    files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.PHD_DOCUMENT)
     supervisor = mandate.assistant.supervisor
     form = MandateForm(initial={'comment': mandate.comment,
                                 'renewal_type': mandate.renewal_type,
                                 'absences': mandate.absences,
                                 'other_status': mandate.other_status,
                                 'contract_duration': mandate.contract_duration,
-                                'contract_duration_fte': mandate.contract_duration_fte
+                                'contract_duration_fte': mandate.contract_duration_fte,
                                 }, prefix="mand", instance=mandate)
+    document_form = DocumentFileForm(initial={'update_by': request.user,
+                                              'application_name': 'assistant',
+                                              'description': document_type.PHD_DOCUMENT,
+                                              'storage_duration': 0
+                                              }, prefix='doc')
     formset = entity_inline_formset(instance=mandate, prefix="entity")
-    
+
     return render(request, 'mandate_form.html', {
         'mandate': mandate,
         'form': form,
+        'document_form': document_form,
         'formset': formset,
         'assistant_mandate_state': assistant_mandate_state,
-        'supervisor': supervisor
+        'supervisor': supervisor,
+        'document_type': document_type.PHD_DOCUMENT,
+        'files': files,
     })
 
 
@@ -93,16 +105,29 @@ def mandate_save(request):
         except ObjectDoesNotExist:
             pass
     form = MandateForm(data=request.POST, instance=mandate, prefix='mand')
+    document_form = DocumentFileForm(request.POST, request.FILES, prefix='doc')
     formset = entity_inline_formset(request.POST, request.FILES, instance=mandate, prefix='entity')
+    files = assistant_document_file.find_by_assistant_mandate_and_description(mandate, document_type.PHD_DOCUMENT)
     if form.is_valid():
         form.save()
         if formset.is_valid():
             formset.save()
-            return mandate_edit(request)
+            if 'doc-file' in request.FILES and document_form.is_valid():
+                new_document = document_form.save()
+                assistant_mandate_document_file = assistant_mdl.assistant_document_file.AssistantDocumentFile()
+                assistant_mandate_document_file.assistant_mandate = mandate
+                assistant_mandate_document_file.document_file = new_document
+                assistant_mandate_document_file.save()
+                return mandate_edit(request)
+            else:
+                return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset,
+                                                             'document_form': document_form, 'files': files})
         else:
-            return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
+            return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset,
+                                                         'document_form': document_form, 'files': files})
     else:
-        return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset})
+        return render(request, "mandate_form.html", {'mandate': mandate, 'form': form, 'formset': formset,
+                                                     'document_form': document_form, 'files': files})
 
 
 @user_passes_test(user_is_manager, login_url='access_denied')
