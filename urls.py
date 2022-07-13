@@ -111,6 +111,7 @@ urlpatterns = [
                 url(r'^$', mandate.mandate_edit, name='mandate_read'),
                 url(r'^(?P<mandate_id>\d+)/$', mandate.mandate_edit, name='mandate_read'),
             ])),
+            url(r'^change_state/$', mandate.mandate_change_state, name='assistant_mandate_change_state'),
             url(r'^save/$', mandate.mandate_save, name='mandate_save'),
             url(r'^go_backward/$', find_assistant_mandate_step_backward_state, name='assistant_mandate_step_back'),
             url(r'^load/$', mandate.load_mandates, name='load_mandates'),
