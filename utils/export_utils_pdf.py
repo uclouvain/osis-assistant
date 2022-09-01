@@ -436,7 +436,7 @@ def get_service_activities(mandate):
     )
     events_organisation_service = format_data(
         str(mandate.events_organisation_service),
-        _("Organization of seminars, conferences, visits, study tours, grounds, seminars… (not taken in account in "
+        _("Organization of seminars, conferences, visits, study tours, grounds, seminars... (not taken in account in "
           "the 'Teaching units' section)")
     )
     publishing_field_service = format_data(str(mandate.publishing_field_service),
@@ -448,9 +448,10 @@ def get_service_activities(mandate):
 
 
 def get_formation_activities(mandate):
-    return format_data(mandate.formations,
-                       _('Scientific, pedagogical or other training you have attended (LLL, SMCS, RHUM, Summer School)')
-                       )
+    return format_data(
+        mandate.formations,
+        _('Scientific, pedagogical or other training you have attended...(LLL, SMCS, RHUM, Summer School)')
+    )
 
 
 def get_review_details_for_mandate(mandate, rev):

@@ -539,7 +539,7 @@ msgstr ""
 
 msgid ""
 "Organization of seminars, conferences, visits, study tours, grounds, "
-"seminars… (not taken in account in the 'Teaching units' section)"
+"seminars... (not taken in account in the 'Teaching units' section)"
 msgstr ""
 
 msgid "Other status"
@@ -691,7 +691,7 @@ msgid "Scientific stay(s) and/or course(s)"
 msgstr ""
 
 msgid ""
-"Scientific, pedagogical or other training you have attended (LLL, SMCS, "
+"Scientific, pedagogical or other training you have attended...(LLL, SMCS, "
 "RHUM, Summer School)"
 msgstr ""
 
