@@ -281,7 +281,7 @@ def check_file_format(request, titles_rows):
 def check_date_format(date):
     if len(date) != 10:
         return False
-    day, month, year = re.split('-|/', date)
+    day, month, year = re.split('[./-]', date)
     try:
         correct_date = datetime.datetime(int(year), int(month), int(day))
         return correct_date
