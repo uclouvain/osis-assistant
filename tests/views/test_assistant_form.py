@@ -62,16 +62,16 @@ class AssistantFormViewTestCase(TestCase):
 
     def test_get_learning_units_year(self):
         response = self.client.generic(method='get',
-                                       path='/assistants/assistant/form/part2/get_learning_units_year/?term=LBIR1211',
+                                       path='/assistants/assistant/form/part2/get_learning_units_year/?q=LBIR1211',
                                        HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         data = json.loads(response.content.decode('utf-8'))
-        self.assertEqual(data[0]['value'], 'LBIR1211')
-        self.assertEqual(len(data), 1)
+        self.assertEqual(data['results'][0]['text'][:8], 'LBIR1211')
+        self.assertEqual(len(data['results']), 1)
         response = self.client.generic(method='get',
-                                       path='/assistants/assistant/form/part2/get_learning_units_year/?term=LBIR12',
+                                       path='/assistants/assistant/form/part2/get_learning_units_year/?q=LBIR12',
                                        HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         data = json.loads(response.content.decode('utf-8'))
-        self.assertEqual(len(data), 2)
+        self.assertEqual(len(data['results']), 2)
 
 
 class PhDTabFormView(TestCase):

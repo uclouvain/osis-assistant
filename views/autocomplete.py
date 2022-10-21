@@ -21,11 +21,14 @@
 #  at the root of the source code of this program.  If not,
 #  see http://www.gnu.org/licenses/.
 # ############################################################################
+import datetime
+
 from dal import autocomplete
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
 from base.models.person import Person
+from base.models.learning_unit_year import LearningUnitYear, search
 
 
 class TutorAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
@@ -40,3 +43,18 @@ class TutorAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
 
     def get_result_label(self, result: 'Person'):
         return "{person.last_name} {person.first_name} ({person.email})".format(person=result)
+
+
+class LearningUnitYearAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = LearningUnitYear.objects.none()
+        if self.q:
+            qs = LearningUnitYear.objects.filter(academic_year__year__lte=datetime.date.today().strftime("%Y"),
+                                                 acronym__icontains=self.q)
+        return qs.order_by("-academic_year")
+
+    def get_result_label(self, result):
+        return "{learningUnit.acronym} ({learningUnit.academic_year})".format(learningUnit=result)
+
+    def get_result_value(self, result):
+        return "{learningUnit.id}".format(learningUnit=result)

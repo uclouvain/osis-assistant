@@ -329,7 +329,7 @@ class ExportPdfTestCase(TestCase):
         )
         events_organisation_service = export_utils_pdf.format_data(
             str(self.mandate.events_organisation_service),
-            _("Organization of seminars, conferences, visits, study tours, grounds, seminars… (not taken in account in "
+            _("Organization of seminars, conferences, visits, study tours, grounds, seminars... (not taken in account in "
               "the 'Teaching units' section)")
         )
         publishing_field_service = export_utils_pdf.format_data(
@@ -347,7 +347,7 @@ class ExportPdfTestCase(TestCase):
     def test_get_formation_activities(self):
         formations = export_utils_pdf.format_data(
             self.mandate.formations,
-            _('Scientific, pedagogical or other training you have attended (LLL, SMCS, RHUM, Summer School)')
+            _('Scientific, pedagogical or other training you have attended...(LLL, SMCS, RHUM, Summer School)')
         )
         self.assertEqual(formations, export_utils_pdf.get_formation_activities(self.mandate))
 

@@ -25,11 +25,29 @@
 ##############################################################################
 from django import forms
 from django.forms import ModelForm
+from dal import autocomplete
+from base.models.learning_unit_year import LearningUnitYear, search
+from django.utils.translation import gettext as _
 
 from assistant import models as mdl
 
 
 class TutoringLearningUnitForm(ModelForm):
+    learning_unit_year = forms.ModelChoiceField(
+        queryset=search(),
+        label=_('Learning unit'),
+        widget=autocomplete.ModelSelect2(
+            url="/assistants/assistant/form/part2"
+                "/get_learning_units_year",
+            attrs={
+                # Set some placeholder
+                'data-placeholder': _('search by course acronym'),
+                # Only trigger autocompletion after 2 characters have been
+                # typed
+                'data-minimum-input-length': 2,
+            },
+        )
+    )
     sessions_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'input session_number',
                                                                          'style': 'width:6ch'}))
     sessions_duration = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'input session_duration',
@@ -48,9 +66,9 @@ class TutoringLearningUnitForm(ModelForm):
 
     class Meta:
         model = mdl.tutoring_learning_unit_year.TutoringLearningUnitYear
-        fields = ('sessions_number', 'sessions_duration', 'series_number', 'face_to_face_duration',
-                  'attendees', 'exams_supervision_duration', 'others_delivery')
-        exclude = ['learning_unit_year', 'mandate']
+        fields = ('learning_unit_year', 'sessions_number', 'sessions_duration', 'series_number',
+                  'face_to_face_duration', 'attendees', 'exams_supervision_duration', 'others_delivery')
+        exclude = ['mandate']
 
     def __init__(self, *args, **kwargs):
         super(TutoringLearningUnitForm, self).__init__(*args, **kwargs)
