@@ -28,10 +28,13 @@ from django.forms import ModelForm, Textarea, inlineformset_factory
 
 import base.models
 from assistant import models as mdl
+from osis_common.models import document_file as document_file
 from assistant.forms.common import EntityChoiceField
-from assistant.models.enums import assistant_mandate_renewal, assistant_type
+from assistant.models.enums import assistant_mandate_renewal, assistant_type, document_type
 from base.models import academic_year, entity
 from base.models.enums import entity_type
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
 
 
 class MandateForm(ModelForm):
@@ -60,6 +63,44 @@ class MandateForm(ModelForm):
         super(MandateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+
+
+class DocumentFileForm(ModelForm):
+    description = forms.CharField(widget=forms.HiddenInput())
+    storage_duration = forms.IntegerField(widget=forms.HiddenInput())
+    content_type = forms.CharField(widget=forms.HiddenInput())
+    file_name = forms.CharField(max_length=100, widget=forms.HiddenInput())
+    file = forms.FileField(required=False, max_length=100, widget=forms.FileInput(attrs={'accept': '.pdf'}))
+    update_by = forms.CharField(widget=forms.HiddenInput())
+    application_name = forms.CharField(widget=forms.HiddenInput())
+    size = forms.IntegerField(widget=forms.HiddenInput())
+
+    class Meta:
+        model = document_file.DocumentFile
+        fields = ('description', 'file_name', 'content_type', 'storage_duration', 'file', 'update_by',
+                  'application_name', 'size')
+
+    def __init__(self, *args, **kwargs):
+        initial = kwargs.get('initial', {})
+        initial['file_name'] = 'default_assistant_file'
+        initial['content_type'] = 'application/pdf'
+        initial['size'] = 0
+        kwargs['initial'] = initial
+        super(DocumentFileForm, self).__init__(*args, **kwargs)
+        self.fields['file'].label = _("Upload a new pdf file")
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+
+    def clean(self):
+        cleaned_data = super().clean()
+        file = cleaned_data.get('file')
+        if file is not None:
+            cleaned_data['content_type'] = file.content_type
+            cleaned_data['file_name'] = file.name
+            cleaned_data['size'] = file.size
+            if cleaned_data.get('content_type') != 'application/pdf':
+                raise forms.ValidationError(_('You must select a PDF file'))
+        return cleaned_data
 
 
 class MandatesArchivesForm(ModelForm):
