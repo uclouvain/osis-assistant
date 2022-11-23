@@ -138,7 +138,10 @@ def find_declined_by_academic_year(academic_year):
 
 
 def find_before_year_for_assistant(year, assistant):
-    return AssistantMandate.objects.filter(academic_year__year__lt=year).filter(assistant=assistant)
+    return AssistantMandate.objects.filter(
+        academic_year__year__lt=year,
+        assistant=assistant
+    ).order_by('-academic_year__year')
 
 
 def find_for_supervisor_for_academic_year(supervisor, academic_year):
