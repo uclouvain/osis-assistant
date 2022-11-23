@@ -28,6 +28,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.forms import forms
 from django.http.response import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 from django.views.generic.edit import FormMixin
@@ -91,20 +92,26 @@ def mandate_change_state(request):
     if mandate:
         if 'bt_mandate_accept' in request.POST:
             mandate.state = assistant_mandate_state.TRTS
+            mandate.save()
+            return redirect(reverse('form_part1_edit'))
         elif 'bt_mandate_decline' in request.POST:
             mandate.state = assistant_mandate_state.DECLINED
             faculty = mandate_entity.find_by_mandate_and_type(mandate, entity_type.FACULTY)
             if faculty:
                 faculty_dean = reviewer.find_by_entity_and_role(
-                    faculty.first().entity, reviewer_role.SUPERVISION).first()
+                    faculty.first().entity,
+                    reviewer_role.SUPERVISION
+                ).first()
                 pers = person.find_by_user(request.user)
                 assistant = academic_assistant.find_by_person(pers)
-                html_template_ref = 'assistant_dean_assistant_decline_html'
-                txt_template_ref = 'assistant_dean_assistant_decline_txt'
-                send_message(person=faculty_dean.person, html_template_ref=html_template_ref,
-                             txt_template_ref=txt_template_ref, assistant=assistant)
-        mandate.save()
-    return HttpResponseRedirect(reverse('form_part1_edit'))
+                send_message(
+                    person=faculty_dean.person,
+                    html_template_ref='assistant_dean_assistant_decline_html',
+                    txt_template_ref='assistant_dean_assistant_decline_txt',
+                    assistant=assistant
+                )
+            mandate.save()
+    return redirect(reverse('assistant_mandates'))
 
 
 class AssistantLearningUnitsListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
