@@ -159,8 +159,8 @@
 {% endblock %}
 
 {% block script %}
-    <script type="text/javascript" src="https://unpkg.com/vue@2/dist/vue.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/vue-i18n@8.24.4/dist/vue-i18n.min.js"></script>
+    <script src="{% static "js/vue.min.js" %}"></script>
+    <script src="{% static "js/vue-i18n.min.js" %}"></script>
     <script type="text/javascript" src="{% static 'osis_history/osis-history.umd.min.js' %}"></script>
     <script>
         function confirm_click() {
