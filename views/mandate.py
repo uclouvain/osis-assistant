@@ -167,7 +167,7 @@ def export_mandates(request):
 
 
 def generate_xls():
-    workbook = Workbook(encoding='utf-8')
+    workbook = Workbook()
     worksheet = workbook.active
     worksheet.title = _('Mandates')
     worksheet.append([_("Sector"),
