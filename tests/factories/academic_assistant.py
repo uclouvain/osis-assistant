@@ -29,7 +29,7 @@ from assistant.models.enums import assistant_phd_inscription
 from base.tests.factories.person import PersonFactory
 
 
-class AcademicAssistantFactory(factory.DjangoModelFactory):
+class AcademicAssistantFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = 'assistant.AcademicAssistant'
 

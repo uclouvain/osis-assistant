@@ -33,7 +33,7 @@ from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from assistant.tests.factories.reviewer import ReviewerFactory
 
 
-class ReviewFactory(factory.DjangoModelFactory):
+class ReviewFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = 'assistant.Review'
 
