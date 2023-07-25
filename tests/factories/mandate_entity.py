@@ -29,7 +29,7 @@ from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from base.tests.factories.entity import EntityFactory
 
 
-class MandateEntityFactory(factory.DjangoModelFactory):
+class MandateEntityFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = 'assistant.MandateEntity'
 
