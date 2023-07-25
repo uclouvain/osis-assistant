@@ -29,15 +29,12 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
-from django.urls import reverse
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from openpyxl import Workbook
-from openpyxl.writer.excel import save_virtual_workbook
 
 from assistant import models as assistant_mdl
-from osis_common.models import document_file as document_file
-
 from assistant.forms.mandate import MandateForm, entity_inline_formset, DocumentFileForm
 from assistant.models import assistant_mandate, review, assistant_document_file
 from assistant.models import reviewer, mandate_entity
@@ -45,6 +42,7 @@ from assistant.models.enums import reviewer_role, assistant_mandate_state, docum
 from assistant.views.mails import send_message
 from base.models import academic_year, entity, person
 from base.models.enums import entity_type
+from osis_common.document.xls_build import save_virtual_workbook
 
 
 def user_is_manager(user):
