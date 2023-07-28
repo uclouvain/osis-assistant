@@ -42,24 +42,6 @@ from assistant.utils.assistant_access import user_is_assistant_and_procedure_is_
 from assistant.views.mails import send_message
 from base.models import person_address, person, learning_unit_year, academic_year
 from base.models.enums import entity_type
-from base.models.learning_unit_year import search
-
-
-@login_required
-def get_learning_units_year(request):
-    if request.is_ajax() and 'term' in request.GET:
-        q = request.GET.get('term')
-        learning_units_year = search(acronym=q)[:50]
-        response_data = []
-        for luy in learning_units_year:
-            response_data.append({'value': luy.acronym,
-                                  'title': luy.complete_title,
-                                  'academic_year': str(luy.academic_year),
-                                  'id': luy.id
-                                  })
-    else:
-        response_data = []
-    return JsonResponse(response_data, safe=False)
 
 
 @user_passes_test(user_is_assistant_and_procedure_is_open_and_workflow_is_assistant, login_url='access_denied')
@@ -122,6 +104,7 @@ def tutoring_learning_unit_edit(request, tutoring_learning_unit_id=None):
 
     form = TutoringLearningUnitForm(
         initial={
+            'learning_unit_year': edited_tutoring_learning_unit_year.learning_unit_year,
             'mandate_id': edited_tutoring_learning_unit_year.mandate_id,
             'tutoring_learning_unit_year_id': edited_tutoring_learning_unit_year.id,
             'sessions_duration': edited_tutoring_learning_unit_year.sessions_duration,
@@ -138,8 +121,8 @@ def tutoring_learning_unit_edit(request, tutoring_learning_unit_id=None):
                       'form': form,
                       'assistant_type': mandate.assistant_type,
                       'mandate_id': mandate_id,
-                      'learning_unit_year_id': edited_tutoring_learning_unit_year.learning_unit_year.id,
-                      'search_learning_units_year': search_learning_units_year
+                      # 'learning_unit_year_id': edited_tutoring_learning_unit_year.learning_unit_year.id,
+                      # 'search_learning_units_year': search_learning_units_year
                   })
 
 
@@ -148,7 +131,7 @@ def tutoring_learning_unit_edit(request, tutoring_learning_unit_id=None):
 def tutoring_learning_unit_save(request):
     tutoring_learning_unit_year_id = request.POST.get('tutoring_learning_unit_year_id')
     mandate_id = request.POST.get('mandate_id')
-    learning_unit_year_id = request.POST.get('learning_unit_year_id')
+    learning_unit_year_id = request.POST.get('learning_unit_year')
     if tutoring_learning_unit_year_id:
         current_tutoring_learning_unit = mdl.tutoring_learning_unit_year.find_by_id(tutoring_learning_unit_year_id)
     else:

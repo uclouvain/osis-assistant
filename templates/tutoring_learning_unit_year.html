@@ -44,6 +44,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
         <form method="POST" action="{% url 'tutoring_learning_unit_save' %}">
+        {{ form.non_field_errors }}
         {% csrf_token %}
  		{% for hidden in form.hidden_fields %}
 			{{ hidden }}
@@ -56,19 +57,9 @@
         <div class="form-group">
             <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit">
                 {% trans 'Learning unit' %}</label>
-            {% if search_learning_units_year %}
-                <div class="controls">{{ search_learning_units_year }}</div>
-                <input type="hidden" name="learning_unit_year_id" id="learning_unit_year_id"
-                       value={{ learning_unit_year_id }} />
-            {% else %}
-                <input id="search_learning_units_year"
-                       class="form-control"
-                       name="search_learning_units_year" size="100"
-                       placeholder="{% trans 'search by course acronym' %}">
-                <input type="hidden" name="learning_unit_year_id" id="learning_unit_year_id" />
-            {% endif %}
-
-            {{ form.non_field_errors }}
+            {{ form.media }}
+            {{ form.learning_unit_year }}
+            <span class="error">{{ form.learning_unit_year.errors }}</span>
         </div>
         <div class="form-group">
             <label for="{{ form.sessions_number.id_for_label }}">
@@ -122,7 +113,6 @@
 </div>
 {% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
 <style>
     input[type=number]{
         width: 50px;
@@ -134,10 +124,8 @@
 </style>
 {% endblock %}
 {% block script %}
-<script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
 <script>
     window.onload = function () {
-        $('#learning_unit_year_id').empty();
         var session_number = document.getElementById('id_sessions_number');
         var session_duration = document.getElementById('id_sessions_duration');
         var series_number = document.getElementById('id_series_number');
@@ -150,24 +138,5 @@
         session_duration.onchange = trigFunc;
         series_number.onchange = trigFunc;
     };
-
-$(function() {
-  $("#search_learning_units_year").autocomplete({
-	source: "/assistants/assistant/form/part2/get_learning_units_year/",
-	minLength: 2,
-    delay: 100,
-    select: function(event, ui) {
-    	var learning_unit_year_id = ui.item.id;
-    	$( "#learning_unit_year_id" ).val(learning_unit_year_id);
-    	$( "#search_learning_units_year" ).val( ui.item.value + ' (' + ui.item.academic_year + ')');
-    	$('#id_sessions_number').focus();
-    	return False;
-    	}
-  }).autocomplete( "instance" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( item.value + " (" + item.academic_year + ")" )
-        .appendTo( ul );
-    };
-});
    </script>
 {% endblock %}
