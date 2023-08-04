@@ -33,7 +33,7 @@ from assistant.tests.factories.academic_assistant import AcademicAssistantFactor
 from base.tests.factories.academic_year import AcademicYearFactory
 
 
-class AssistantMandateFactory(factory.DjangoModelFactory):
+class AssistantMandateFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = 'assistant.AssistantMandate'
 

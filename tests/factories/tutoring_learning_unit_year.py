@@ -29,7 +29,7 @@ from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from base.tests.factories.learning_unit_year import LearningUnitYearFactory
 
 
-class TutoringLearningUnitYearFactory(factory.DjangoModelFactory):
+class TutoringLearningUnitYearFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = 'assistant.TutoringLearningUnitYear'
         django_get_or_create = ('mandate','learning_unit_year',)

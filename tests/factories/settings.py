@@ -28,7 +28,7 @@ from django.utils import timezone
 from factory import fuzzy
 
 
-class SettingsFactory(factory.DjangoModelFactory):
+class SettingsFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = 'assistant.Settings'
 
