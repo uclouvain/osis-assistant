@@ -30,7 +30,7 @@ from base.tests.factories.entity import EntityFactory
 from base.tests.factories.person import PersonFactory
 
 
-class ReviewerFactory(factory.DjangoModelFactory):
+class ReviewerFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = 'assistant.Reviewer'
 
