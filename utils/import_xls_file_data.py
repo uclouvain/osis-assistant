@@ -76,8 +76,8 @@ def read_xls_mandates(request, file_name):
     except KeyError:
         display_error_messages(request, _('File must be xlsx'))
         return False
-    first_sheet = workbook.sheetnames[0]
-    worksheet = workbook[first_sheet]
+    first_sheet = workbook.get_sheet_names()[0]
+    worksheet = workbook.get_sheet_by_name(first_sheet)
     titles_row = []
     current_row = 1
     for row in worksheet.iter_rows():
