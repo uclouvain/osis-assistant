@@ -46,7 +46,8 @@ def add_review_history_entry(review: Review, person: Person) -> None:
         message_fr,
         message_en,
         author=str(person),
-        tags=TAGS
+        tags=TAGS,
+        extra_data={'mandate_uuid': review.mandate.uuid}
     )
 
 
