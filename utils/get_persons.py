@@ -29,7 +29,7 @@ from base.models.person import find_by_last_name_or_email
 
 
 def get_persons(request):
-    if request.is_ajax() and 'term' in request.GET:
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and 'term' in request.GET:
         q = request.GET.get('term')
         persons = find_by_last_name_or_email(q)[:50]
         response_data = []
