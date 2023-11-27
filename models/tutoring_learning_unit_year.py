@@ -30,9 +30,10 @@ from django.db import models
 class TutoringLearningUnitYearAdmin(admin.ModelAdmin):
     list_display = ("mandate", "learning_unit_year")
     search_fields = [
-        "assistant_mandate__assistant__person__first_name",
-        "assistant_mandate__assistant__person__last_name",
-        "assistant_mandate__assistant__person__global_id",
+        "mandate__assistant__person__first_name",
+        "mandate__assistant__person__last_name",
+        "mandate__assistant__person__global_id",
+        "learning_unit_year__acronym"
     ]
     list_filter = ('mandate__academic_year',)
 
