@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n display_role %}
 
@@ -30,43 +30,43 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
-    <li><a href="{% url 'mandates_list' %}" id="lnk_assistants">{% trans 'List of mandates' %}</a></li>
-    <li class="active">{% trans 'Assistant file' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'mandates_list' %}" id="lnk_assistants">{% trans 'List of mandates' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Assistant file' %}</li>
 {% endblock %}
 
 {% block content %}
-    <div class="page-header">
+    <div class="page-header mb-0 border-bottom-0 pb-0">
         <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year }} </h3>
         <ul class="nav nav-tabs">
-            <li>
+            <li class="nav-item">
                 <form id=mandate_id method="POST" action="{% url 'mandate_read' %}">
                     {{ form.non_field_errors }}
                     {% csrf_token %}
                     <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                    <button type="submit" class="btn btn-link" title="{% trans 'Administrative data'%}">
+                    <button type="submit" class="btn btn-link nav-link" title="{% trans 'Administrative data'%}">
                         {% trans 'Administrative data'%}
                     </button>
                 </form>
             </li>
-            <li><a href="{% url 'manager_assistant_form_view' mandate_id=mandate_id %}">{% trans 'Assistant file' %}</a></li>
-            <li class="active"><a href="#">{% trans 'Workflow and reviews' %}</a></li>
+            <li class="nav-item"><a href="{% url 'manager_assistant_form_view' mandate_id=mandate_id %}" class="nav-link">{% trans 'Assistant file' %}</a></li>
+            <li class="nav-item"><a href="#" class="nav-link active">{% trans 'Workflow and reviews' %}</a></li>
         </ul>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card border-top-0">
+        <div class="card-body">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-lg-8">
 
                     <dl class="row">
                         {% for review in reviews %}
-                            <dt class="col-sm-2">{% trans 'Reviewer' %}</dt>
-                            <dd class="col-sm-10">
-                                <p>
+                            <dt class="col-md-2">{% trans 'Reviewer' %}</dt>
+                            <dd class="col-md-10">
+                                <p class="mb-0">
                                 {% if review.status == 'DONE' %}
-                                    <span class="far fa-check-square" style="font-size: 14pt" aria-hidden="true"></span>
+                                    <i class="far fa-check-square fs-4" aria-hidden="true"></i>
                                 {% else %}
-                                    <span class="fas fa-pencil-alt" style="font-size: 14pt" aria-hidden="true"></span>
+                                    <i class="fas fa-pencil-alt fs-4" aria-hidden="true"></i>
                                 {% endif %}
                                 {% if review.reviewer is None %}
                                     {{ review.mandate.assistant.supervisor }} - {% trans 'Promoter' %}
@@ -76,48 +76,48 @@
                                 {% endif %}
                                 </p>
                             </dd>
-                            <dt class="col-sm-2">
+                            <dt class="col-md-2">
                                 {% trans 'Opinion' %}
                             </dt>
-                            <dd class="col-sm-10">
-                                <p>
+                            <dd class="col-md-10">
+                                <p class="mb-0">
                                 {% if review.advice == "FAVORABLE" %}
-                                    <span class="far fa-thumbs-up"
-                                          style="font-size: 14pt; color: green" aria-hidden="true"></span>
+                                    <i class="far fa-thumbs-up fs-4 text-success"
+                                          aria-hidden="true"></i>
                                 {% elif review.advice == "UNFAVOURABLE" %}
-                                    <span class="far fa-thumbs-down" style="font-size: 14pt; color: red" aria-hidden="true"></span>
+                                    <i class="far fa-thumbs-down text-danger fs-4" aria-hidden="true"></i>
                                 {% else %}
-                                    <span class="fas fa-exclamation-triangle" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
+                                    <i class="fas fa-exclamation-triangle text-warning fs-4" aria-hidden="true"></i>
                                 {% endif %}
                                 {{ review.get_advice_display }}
                                 </p>
                             </dd>
                             {% if review.justification %}
-                                <dt class="col-sm-2">
+                                <dt class="col-md-2">
                                     {% trans 'Justification' %}
                                 </dt>
-                                <dd class="col-sm-10">
-                                    <p>
+                                <dd class="col-md-10">
+                                    <p class="mb-0">
                                         {{ review.justification }}
                                     </p>
                                 </dd>
                             {% endif %}
                             {% if review.remark %}
-                                <dt class="col-sm-2">
+                                <dt class="col-md-2">
                                     {% trans 'Remark' %}
                                 </dt>
-                                <dd class="col-sm-10">
-                                    <p>
+                                <dd class="col-md-10">
+                                    <p class="mb-0">
                                         {{ review.remark }}
                                     </p>
                                 </dd>
                             {% endif %}
                             {% if review.confidential %}
-                                <dt class="col-sm-2">
+                                <dt class="col-md-2">
                                     {% trans 'Confidential' %}
                                 </dt>
-                                <dd class="col-sm-10">
-                                    <p>
+                                <dd class="col-md-10">
+                                    <p class="mb-0">
                                         {{ review.confidential }}
                                     </p>
                                 </dd>
@@ -141,12 +141,12 @@
 
                 </div>
 
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-heading">
                             {% trans 'History reviews' %}
                         </div>
-                        <div class="panel-body"><div class="history-viewer" data-url="{% url 'review_history' history_uuid %}"></div>
+                        <div class="card-body"><div class="history-viewer" data-url="{% url 'review_history' history_uuid %}"></div>
                         </div>
                     </div>
 
@@ -159,8 +159,8 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static "js/vue.min.js" %}"></script>
-    <script src="{% static "js/vue-i18n.min.js" %}"></script>
+    <script src="{% static 'js/vue.min.js' %}"></script>
+    <script src="{% static 'js/vue-i18n.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'osis_history/osis-history.umd.min.js' %}"></script>
     <script>
         function confirm_click() {
