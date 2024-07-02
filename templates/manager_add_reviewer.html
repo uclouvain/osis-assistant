@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -26,20 +26,21 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/osis.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap5/dataTables.bootstrap5.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
-<li><a href="{% url 'reviewers_list' %}" id="lnk_reviewers_list">{% trans 'Reviewers' %}</a></li>
-<li class="active">{% trans 'Add' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li class="breadcrumb-item"><a href="{% url 'reviewers_list' %}" id="lnk_reviewers_list">{% trans 'Reviewers' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Add' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
     <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 </div>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="card">
+    <div class="card-body">
         <form method="POST" action="{% url 'reviewer_add' %}">
         {{ form.non_field_errors }}
  		    {% csrf_token %}
@@ -63,9 +64,9 @@
 		<input type="hidden" name="reviewer_id" id="reviewer.id" value="{{ reviewer.id }}">
 		<button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_add_reviewer_save"
 				onclick="return confirm('{% trans 'Are you sure you want to add this reviewer? This action is irreversible.' %}')">
-			<span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
+			<i class="far fa-save" aria-hidden="true"></i> {% trans 'Save'%}</button>
 			<a class="btn btn-default" id="lnk_upload_cancel" href="{% url 'reviewers_list' %}">
-				<span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
+				<i class="fas fa-times" aria-hidden="true"></i> {% trans 'Cancel'%}</a>
     	</form>
     </div>
 </div>
