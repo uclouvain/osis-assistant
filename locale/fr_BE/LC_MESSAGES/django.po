@@ -61,7 +61,7 @@ msgid "Accomplish a workflow step back"
 msgstr "Effectuer un retour en arrière d'une étape dans le workflow"
 
 msgid "Acronym"
-msgstr "Acronyme"
+msgstr "Sigle"
 
 msgid "Action"
 msgstr "Action"
@@ -308,7 +308,7 @@ msgid "Delete"
 msgstr "Supprimer"
 
 msgid "Delete file"
-msgstr "Supprimer fichier"
+msgstr "Supprimer le fichier"
 
 msgid "Doctorate opinion"
 msgstr "Avis doctorat"
@@ -447,6 +447,7 @@ msgstr "Injecter"
 msgid "Inject xls file"
 msgstr "Injecter le fichier xls"
 
+msgctxt "assistant"
 msgid "Institute"
 msgstr "Institution"
 
@@ -718,7 +719,7 @@ msgid "Role"
 msgstr "Rôle"
 
 msgid "Save"
-msgstr "Sauver"
+msgstr "Enregistrer"
 
 msgid "Scheduled date of registration"
 msgstr "Date prévue d'inscription"
