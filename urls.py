@@ -23,7 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.conf.urls import include
+from django.urls import include
 from django.urls import re_path, path
 
 from assistant.business.assistant_mandate import find_assistant_mandate_step_backward_state
