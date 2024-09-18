@@ -421,10 +421,6 @@ msgstr ""
 msgid "Inject xls file"
 msgstr ""
 
-msgctxt "assistant"
-msgid "Institute"
-msgstr ""
-
 msgid "Institution"
 msgstr ""
 
