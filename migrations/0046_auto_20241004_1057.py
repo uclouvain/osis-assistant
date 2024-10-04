@@ -20,7 +20,7 @@ SET reference = 'assistant_reviewers_startup_txt',
 
 <p>&nbsp;</p>
 
-<p>TEST Ceci est un message automatique g&eacute;n&eacute;r&eacute; par le serveur OSIS &ndash; Merci de ne pas y r&eacute;pondre.<br />
+<p>Ceci est un message automatique g&eacute;n&eacute;r&eacute; par le serveur OSIS &ndash; Merci de ne pas y r&eacute;pondre.<br />
 <br />
 Nous venons de lancer la proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }}&nbsp;et le {{ end_date }}.<br />
 Nous attirons votre attention sur le fait que les assistant&middot;e&middot;s ayant une &eacute;ch&eacute;ance au {{ end_date }} n&#39;ont pas &eacute;t&eacute; int&eacute;gr&eacute;s &agrave; la proc&eacute;dure.<br />
