@@ -26,7 +26,7 @@ Nous venons de lancer la proc&eacute;dure de renouvellement des mandats des assi
 Nous attirons votre attention sur le fait que les assistant&middot;e&middot;s ayant une &eacute;ch&eacute;ance au {{ end_date }} n&#39;ont pas &eacute;t&eacute; int&eacute;gr&eacute;s &agrave; la proc&eacute;dure.<br />
 Elle s&#39;effectue int&eacute;gralement par voie &eacute;lectronique.<br />
 <br />
-Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante :&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant-evaluateurs''>http://www.uclouvain.be/renouvellement-assistant-evaluateurs</a><br />
+Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a><br />
 <br />
 Pour rappel, toute demande de renouvellement introduite par un&middot;e assistant&middot;e doit &ecirc;tre mise dans le circuit et ne peut &ecirc;tre bloqu&eacute;e sous pr&eacute;texte que les avis sont n&eacute;gatifs car l&#39;assistant&middot;e a, dans ce cas, le droit d&#39;introduire un recours selon l&#39;article 50 du RAMCS.</p>
 
@@ -100,7 +100,7 @@ SET reference = 'assistant_assistants_startup_normal_renewal_txt',
 <br />
 La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }}&nbsp;et le {{ end_date }} vient de d&eacute;buter. Celle-ci s&rsquo;effectue int&eacute;gralement par voie &eacute;lectronique.<br />
 <br />
-Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page&nbsp;suivante :&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page&nbsp;suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 
 <p>Cordialement,<br />
 Administration des Ressources Humaines<br />
@@ -123,7 +123,7 @@ SET reference = 'assistant_assistants_startup_normal_renewal_txt',
 <br />
 The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }}&nbsp;and the {{ end_date }} has just begun. It is conducted by electronic means only.<br />
 <br />
-In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 
 <p>Regards,<br />
 Human Resources Administration<br />
@@ -148,7 +148,7 @@ SET reference = 'assistant_assistants_startup_normal_renewal_html',
 <br />
 The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }}&nbsp;and the {{ end_date }} has just begun. It is conducted by electronic means only.<br />
 <br />
-In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 
 <p>Regards,<br />
 Human Resources Administration<br />
@@ -176,7 +176,7 @@ Nous venons de lancer la proc&eacute;dure de renouvellement des mandats des assi
 Nous attirons votre attention sur le fait que les assistant&middot;e&middot;s ayant une &eacute;ch&eacute;ance au {{ end_date }} n&#39;ont pas &eacute;t&eacute; int&eacute;gr&eacute;s &agrave; la proc&eacute;dure.<br />
 Elle s&#39;effectue int&eacute;gralement par voie &eacute;lectronique.<br />
 <br />
-Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante :&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant-evaluateurs''>http://www.uclouvain.be/renouvellement-assistant-evaluateurs</a><br />
+Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a><br />
 <br />
 Pour rappel, toute demande de renouvellement introduite par un&middot;e assistant&middot;e doit &ecirc;tre mise dans le circuit et ne peut &ecirc;tre bloqu&eacute;e sous pr&eacute;texte que les avis sont n&eacute;gatifs car l&#39;assistant&middot;e a, dans ce cas, le droit d&#39;introduire un recours selon l&#39;article 50 du RAMCS.</p>
 
@@ -205,7 +205,7 @@ SET reference = 'assistant_assistants_startup_normal_renewal_html',
 <br />
 La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }}&nbsp;et le {{ end_date }} vient de d&eacute;buter. Celle-ci s&rsquo;effectue int&eacute;gralement par voie &eacute;lectronique.<br />
 <br />
-Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page&nbsp;suivante :&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page&nbsp;suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 
 <p>Cordialement,<br />
 Administration des Ressources Humaines<br />
@@ -231,7 +231,7 @@ La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;
 <br />
 Vous recevez ce message en tant que superviseur de th&egrave;se pour {{ assistant }}.<br />
 <br />
-Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante : <a href=''http://www.uclouvain.be/renouvellement-assistant-evaluateurs''>http://www.uclouvain.be/renouvellement-assistant-evaluateurs</a></p>
+Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a></p>
 
 <p>Cordialement,<br />
 Administration des Ressources Humaines<br />
@@ -258,7 +258,7 @@ The procedure for renewing the mandates of assistants whose contract expires bet
 <br />
 You receive this message as a supervisor for {{ assistant }}.<br />
 <br />
-In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant-evaluateurs''>http://www.uclouvain.be/renouvellement-assistant-evaluateurs</a></p>
+In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a></p>
 
 <p><br />
 Regards,</p>
@@ -288,7 +288,7 @@ La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;
 <br />
 Vous recevez ce message en tant que superviseur de th&egrave;se pour {{ assistant }}.<br />
 <br />
-Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante :&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant-evaluateurs''>http://www.uclouvain.be/renouvellement-assistant-evaluateurs</a></p>
+Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a></p>
 
 <p>Cordialement,<br />
 Administration des Ressources Humaines<br />
@@ -360,7 +360,7 @@ The procedure for renewing the mandates of assistants whose contract expires bet
 <br />
 You receive this message as a supervisor for {{ assistant }}.<br />
 <br />
-In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant-evaluateurs''>http://www.uclouvain.be/renouvellement-assistant-evaluateurs</a></p>
+In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a></p>
 
 <p><br />
 Regards,</p>
@@ -387,7 +387,7 @@ We have just started the procedure for renewing the mandates of assistants whose
 We would like to draw your attention to the fact that the assistants with a {{ end_date }} deadline have not been integrated in the procedure.<br />
 It is conducted by electronic means only.<br />
 <br />
-In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant-evaluateurs''>http://www.uclouvain.be/renouvellement-assistant-evaluateurs</a><br />
+In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a><br />
 <br />
 As a reminder, any renewal application made by an assistant must be put in the circuit and cannot be blocked on the pretext of negative opinions since the assistant has, in this case, the right of appeal against the decision under article 50 of the RAMCS.</p>
 
@@ -418,7 +418,7 @@ We have just started the procedure for renewing the mandates of assistants whose
 We would like to draw your attention to the fact that the assistants with a {{ end_date }} deadline have not been integrated in the procedure.<br />
 It is conducted by electronic means only.<br />
 <br />
-In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''http://www.uclouvain.be/renouvellement-assistant-evaluateurs''>http://www.uclouvain.be/renouvellement-assistant-evaluateurs</a><br />
+In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a><br />
 <br />
 As a reminder, any renewal application made by an assistant must be put in the circuit and cannot be blocked on the pretext of negative opinions since the assistant has, in this case, the right of appeal against the decision under article 50 of the RAMCS.</p>
 
@@ -442,7 +442,7 @@ SET reference = 'assistant_assistants_startup_special_renewal_html',
 <pThis is an automatic message generated by the OSIS server – Please do not reply to this message.</p>
 <p>The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }} has just begun. It is conducted by electronic means only.</p>
 <p>In your case, you are in a <b>special renewal procedure</b> : you have almost reached the maximum number of years authorized for a mandate but have yet to surpass it. If you so desire, you can apply for a a renewal period of one year, and this, without having to give a particular justification.</p>
-<p>In order to gain access to the procedure, simply click on the following link: <a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+<p>In order to gain access to the procedure, simply click on the following link: <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Regards,</br>
 Human Resources Administration</br>
 Contact: Marie-Dominique Heureux
@@ -459,7 +459,7 @@ SET reference = 'assistant_assistants_startup_special_renewal_txt',
 <pThis is an automatic message generated by the OSIS server – Please do not reply to this message.</p>
 <p>The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }} has just begun. It is conducted by electronic means only.</p>
 <p>In your case, you have reached the maximum number of years allowed to apply for a normal renewal. You may however, if you so desire and if it can be justified by exceptional circumstances, apply for a one-off renewal period of one year. Therefore, we ask you to provide detailed arguments in order to facilitate the decision of the authorities on the exceptional nature or not of these circumstances.</p>
-<p>In order to gain access to the procedure, simply click on the following link: <a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+<p>In order to gain access to the procedure, simply click on the following link: <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Regards,</br>
 Human Resources Administration</br>
 Contact: Marie-Dominique Heureux
@@ -477,7 +477,7 @@ SET reference = 'assistant_assistants_startup_special_renewal_html',
 <p>Ceci est un message automatique généré par le serveur OSIS – Merci de ne pas y répondre.</p>
 <p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
 <p>En ce qui vous concerne, vous êtes dans le cas d’une demande de <b>renouvellement spécial</b> : vous êtes proche du nombre maximum d’années de mandat autorisées sans pour autant avoir dépassé ce nombre. Si vous le souhaitez, vous pouvez donc introduire une demande de renouvellement spécial pour une durée de 1 an, et ce sans donner de justification particulière.</p>
-<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Cordialement,</br>
 Administration des Ressources Humaines</br>
 Contact: Marie-Dominique Heureux
@@ -494,7 +494,7 @@ SET reference = 'assistant_assistants_startup_special_renewal_txt',
 <p>Ceci est un message automatique généré par le serveur OSIS – Merci de ne pas y répondre.</p>
 <p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
 <p>En ce qui vous concerne, vous êtes dans le cas d’une demande de renouvellement spécial : vous êtes proche du nombre maximum d’années de mandat autorisées sans pour autant avoir dépassé ce nombre. Si vous le souhaitez, vous pouvez donc introduire une demande de renouvellement spécial pour une durée de 1 an, et ce sans donner de justification particulière.</p>
-<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Cordialement,</br>
 Administration des Ressources Humaines</br>
 Contact: Marie-Dominique Heureux
@@ -512,7 +512,7 @@ SET reference = 'assistant_assistants_startup_except_renewal_html',
 <p>Ceci est un message automatique généré par le serveur OSIS – Merci de ne pas y répondre.</p>
 <p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
 <p>Dans votre cas, vous avez atteint le nombre maximum d''années de mandat autorisées pour demander un renouvellement normal, donc si vous le souhaitez et si vous avez des circonstances exceptionnelles qui le justifient, vous pouvez introduire une demande de renouvellement exceptionnel d''un an. Pour cela, nous vous demandons d''apporter une argumentation approfondie pour faciliter la décision des autorités sur le caractère exceptionnel ou non de ces circonstances.</p>
-<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Cordialement,</br>
 Administration des Ressources Humaines</br>
 Contact: Marie-Dominique Heureux
@@ -529,7 +529,7 @@ SET reference = 'assistant_assistants_startup_except_renewal_txt',
 <p>Ceci est un message automatique généré par le serveur OSIS – Merci de ne pas y répondre.</p>
 <p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
 <p>Dans votre cas, vous avez atteint le nombre maximum d''années de mandat autorisées pour demander un renouvellement normal, donc si vous le souhaitez et si vous avez des circonstances exceptionnelles qui le justifient, vous pouvez introduire une demande de renouvellement exceptionnel d''un an. Pour cela, nous vous demandons d''apporter une argumentation approfondie pour faciliter la décision des autorités sur le caractère exceptionnel ou non de ces circonstances.</p>
-<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Cordialement,</br>
 Administration des Ressources Humaines</br>
 Contact: Marie-Dominique Heureux
@@ -547,7 +547,7 @@ SET reference = 'assistant_assistants_startup_except_renewal_html',
 <pThis is an automatic message generated by the OSIS server – Please do not reply to this message.</p>
 <p>The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }} has just begun. It is conducted by electronic means only.</p>
 <p>In your case, you have reached the maximum number of years allowed to apply for a normal renewal. You may however, if you so desire and if it can be justified by exceptional circumstances, apply for a one-off renewal period of one year. Therefore, we ask you to provide detailed arguments in order to facilitate the decision of the authorities on the exceptional nature or not of these circumstances.</p>
-<p>In order to gain access to the procedure, simply click on the following link: <a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+<p>In order to gain access to the procedure, simply click on the following link: <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Regards,</br>
 Human Resources Administration</br>
 Contact: Marie-Dominique Heureux
@@ -564,7 +564,7 @@ SET reference = 'assistant_assistants_startup_except_renewal_txt',
 <pThis is an automatic message generated by the OSIS server – Please do not reply to this message.</p>
 <p>The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }} has just begun. It is conducted by electronic means only.</p>
 <p>In your case, you have reached the maximum number of years allowed to apply for a normal renewal. You may however, if you so desire and if it can be justified by exceptional circumstances, apply for a one-off renewal period of one year. Therefore, we ask you to provide detailed arguments in order to facilitate the decision of the authorities on the exceptional nature or not of these circumstances.</p>
-<p>In order to gain access to the procedure, simply click on the following link: <a href=''http://www.uclouvain.be/renouvellement-assistant''>http://www.uclouvain.be/renouvellement-assistant</a></p>
+<p>In order to gain access to the procedure, simply click on the following link: <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Regards,</br>
 Human Resources Administration</br>
 Contact: Marie-Dominique Heureux
