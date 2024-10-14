@@ -270,7 +270,7 @@ Regards,</p>
 
 <p>The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
-If you are supervisor for an assistant hired one the Saint-Louis site - Contact Catherine Demain
+If you are supervisor for an assistant hired on the Saint-Louis site - Contact Catherine Demain
 {% endautoescape %}</p>
 
 <p>&nbsp;</p>'
