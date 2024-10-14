@@ -80,7 +80,7 @@ Vous recevez ce message car&nbsp;{{ assistant }} a d&eacute;clin&eacute; sa dema
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
-Si vous êtes doyen&middot;ne sur le site de Saint-Louis, votre contact est Catherine Demain</p>
+Si vous &ecirc;tes doyen&middot;ne sur le site de Saint-Louis, votre contact est Catherine Demain</p>
 
 <p>&nbsp;</p>'
 WHERE id = 76;"""),
@@ -326,7 +326,7 @@ Vous recevez ce message car&nbsp;{{ assistant }} a d&eacute;clin&eacute; sa dema
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
-Si vous êtes doyen&middot;ne sur le site de Saint-Louis, votre contact est Catherine Demain
+Si vous &ecirc;tes doyen&middot;ne sur le site de Saint-Louis, votre contact est Catherine Demain
 {% endautoescape %}</p>
 
 <p>&nbsp;</p>'
@@ -480,10 +480,10 @@ SET reference = 'assistant_assistants_startup_special_renewal_html',
     format    = 'HTML',
     template  = e'{% autoescape off %}
 <p>Bonjour {{ first_name }} {{ last_name }},</p>
-<p>Ceci est un message automatique généré par le serveur OSIS – Merci de ne pas y répondre.</p>
-<p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
-<p>En ce qui vous concerne, vous êtes dans le cas d’une demande de <b>renouvellement spécial</b> : vous êtes proche du nombre maximum d’années de mandat autorisées sans pour autant avoir dépassé ce nombre. Si vous le souhaitez, vous pouvez donc introduire une demande de renouvellement spécial pour une durée de 1 an, et ce sans donner de justification particulière.</p>
-<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
+<p>Ceci est un message automatique g&eacute;n&eacute;r&eacute; par le serveur OSIS – Merci de ne pas y r&eacute;pondre.</p>
+<p>La proc&eacute;dure de renouvellement des mandats des assistant·e·s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }} et le {{ end_date }} vient de d&eacute;buter. Celle-ci s’effectue int&eacute;gralement par voie &eacute;lectronique.</p>
+<p>En ce qui vous concerne, vous &ecirc;tes dans le cas d’une demande de <b>renouvellement sp&eacute;cial</b> : vous &ecirc;tes proche du nombre maximum d’ann&eacute;es de mandat autoris&eacute;es sans pour autant avoir d&eacute;pass&eacute; ce nombre. Si vous le souhaitez, vous pouvez donc introduire une demande de renouvellement sp&eacute;cial pour une dur&eacute;e de 1 an, et ce sans donner de justification particuli&egrave;re.</p>
+<p>Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact: Marie-Dominique Heureux<br />
@@ -500,12 +500,12 @@ SET reference = 'assistant_assistants_startup_special_renewal_txt',
     template  = e'<p>Bonjour {{ first_name }} {{ last_name }},</p>
 <p>Ceci est un message automatique généré par le serveur OSIS – Merci de ne pas y répondre.</p>
 <p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
-<p>En ce qui vous concerne, vous êtes dans le cas d’une demande de renouvellement spécial : vous êtes proche du nombre maximum d’années de mandat autorisées sans pour autant avoir dépassé ce nombre. Si vous le souhaitez, vous pouvez donc introduire une demande de renouvellement spécial pour une durée de 1 an, et ce sans donner de justification particulière.</p>
+<p>En ce qui vous concerne, vous êtes dans le cas d’une demande de renouvellement spécial : vous êtes proche du nombre maximum d''années de mandat autorisées sans pour autant avoir dépassé ce nombre. Si vous le souhaitez, vous pouvez donc introduire une demande de renouvellement spécial pour une durée de 1 an, et ce sans donner de justification particulière.</p>
 <p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact: Marie-Dominique Heureux<br />
-Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain<br />'
+Si vous avez été engagé sur le site de Saint-Louis, votre contact est Catherine Demain<br />'
 WHERE id = 64;"""),
 
         migrations.RunSQL("""
@@ -516,10 +516,10 @@ SET reference = 'assistant_assistants_startup_except_renewal_html',
     format    = 'HTML',
     template  = e'{% autoescape off %}
 <p>Bonjour {{ first_name }} {{ last_name }},</p>
-<p>Ceci est un message automatique généré par le serveur OSIS – Merci de ne pas y répondre.</p>
-<p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
-<p>Dans votre cas, vous avez atteint le nombre maximum d''années de mandat autorisées pour demander un renouvellement normal, donc si vous le souhaitez et si vous avez des circonstances exceptionnelles qui le justifient, vous pouvez introduire une demande de renouvellement exceptionnel d''un an. Pour cela, nous vous demandons d''apporter une argumentation approfondie pour faciliter la décision des autorités sur le caractère exceptionnel ou non de ces circonstances.</p>
-<p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
+<p>Ceci est un message automatique g&eacute;n&eacute;r&eacute; par le serveur OSIS – Merci de ne pas y r&eacute;pondre.</p>
+<p>La proc&eacute;dure de renouvellement des mandats des assistant·e·s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }} et le {{ end_date }} vient de d&eacute;buter. Celle-ci s''effectue int&eacute;gralement par voie &eacute;lectronique.</p>
+<p>Dans votre cas, vous avez atteint le nombre maximum d''ann&eacute;es de mandat autoris&eacute;es pour demander un renouvellement normal, donc si vous le souhaitez et si vous avez des circonstances exceptionnelles qui le justifient, vous pouvez introduire une demande de renouvellement exceptionnel d''un an. Pour cela, nous vous demandons d''apporter une argumentation approfondie pour faciliter la d&eacute;cision des autorit&eacute;s sur le caract&egrave;re exceptionnel ou non de ces circonstances.</p>
+<p>Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact: Marie-Dominique Heureux<br />
@@ -541,7 +541,7 @@ SET reference = 'assistant_assistants_startup_except_renewal_txt',
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact: Marie-Dominique Heureux<br />
-Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain<br />'
+Si vous avez été engagé sur le site de Saint-Louis, votre contact est Catherine Demain<br />'
 WHERE id = 171;"""),
 
         migrations.RunSQL("""
