@@ -16,15 +16,13 @@ SET reference = 'assistant_reviewers_startup_txt',
     subject   = 'Renouvellement des mandats des assistant·e·s',
     language  = 'fr-be',
     format    = 'PLAIN',
-    template  = e'<p>{% if role == roles.RESEARCH %}Madame la pr&eacute;sidente, Monsieur le pr&eacute;sident de l&#39;institut {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Madame la d&eacute;l&eacute;gu&eacute;e de pr&eacute;sident, Monsieur le d&eacute;l&eacute;gu&eacute; de pr&eacute;sident d&#39;institut,{% elif role == roles.SUPERVISION %}Madame la doyenne, Monsieur le doyen de la facult&eacute; {{ entity }},{% elif roles.SUPERVISION_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de doyen, Monsieur le d&eacute;l&eacute;gu&eacute; de doyen de facult&eacute;,{% elif roles.SUPERVISION_DAF_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de DAF, Monsieur le d&eacute;l&eacute;gu&eacute; de DAF de facult&eacute;,{% elif roles.SUPERVISION_DAF in role %}Madame la DAF, Monsieur le DAF de facult&eacute;,{% elif role == roles.VICE_RECTOR %}Madame la vice-rectrice, Monsieur le vice-recteur du secteur {{ entity }},{% elif role == roles.VICE_RECTOR_ASSISTANT %}Che(&egrave;)r(e) DAS/CAS du secteur {{ entity }},{% endif %}</p>
+    template  = e'<p>{% if role == roles.RESEARCH %}Madame la pr&eacute;sidente, Monsieur le pr&eacute;sident de l&#39;institut {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Madame la d&eacute;l&eacute;gu&eacute;e de pr&eacute;sident, Monsieur le d&eacute;l&eacute;gu&eacute; de pr&eacute;sident d&#39;institut,{% elif role == roles.SUPERVISION %}Madame la doyenne, Monsieur le doyen de la facult&eacute; {{ entity }},{% elif roles.SUPERVISION_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de doyen, Monsieur le d&eacute;l&eacute;gu&eacute; de doyen de facult&eacute;,{% elif roles.SUPERVISION_DAF_ASSISTANT in role %}Madame, Monsieur,{% elif roles.SUPERVISION_DAF in role %}Madame, Monsieur,{% elif role == roles.VICE_RECTOR %}Madame la vice-rectrice, Monsieur le vice-recteur,{% elif role == roles.VICE_RECTOR_ASSISTANT %}Madame, Monsieur,{% endif %}</p>
 
 <p>&nbsp;</p>
 
 <p>Ceci est un message automatique g&eacute;n&eacute;r&eacute; par le serveur OSIS &ndash; Merci de ne pas y r&eacute;pondre.<br />
 <br />
-Nous venons de lancer la proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }}&nbsp;et le {{ end_date }}.<br />
-Nous attirons votre attention sur le fait que les assistant&middot;e&middot;s ayant une &eacute;ch&eacute;ance au {{ end_date }} n&#39;ont pas &eacute;t&eacute; int&eacute;gr&eacute;s &agrave; la proc&eacute;dure.<br />
-Elle s&#39;effectue int&eacute;gralement par voie &eacute;lectronique.<br />
+Nous venons de lancer la proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }}&nbsp;et le {{ end_date }}.
 <br />
 Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a><br />
 <br />
@@ -32,8 +30,9 @@ Pour rappel, toute demande de renouvellement introduite par un&middot;e assistan
 
 <p><br />
 Cordialement,<br />
-Administration des Ressources Humaines<br />
-Contact : Marie-Dominique Heureux</p>
+Les Ressources Humaines<br />
+Contact : Marie-Dominique Heureux<br />
+Pour le site de Saint Louis - Contact : Catherine Demain</p>
 
 <p>&nbsp;</p>'
 WHERE id = 68;"""),
@@ -56,8 +55,9 @@ The procedure for renewing the mandates of assistants whose contract expires bet
 You receive this message because {{ assistant }} has declined his renewal application.</p>
 <br />
 Regards,<br />
-Human Resources Administration<br />
+The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
+If you are a dean on the Saint-Louis Site, your contact is Catherine Demain<br />
 {% endautoescape %}'
 WHERE id = 77;"""),
 
@@ -78,8 +78,9 @@ La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;
 Vous recevez ce message car&nbsp;{{ assistant }} a d&eacute;clin&eacute; sa demande de renouvellement.</p>
 
 <p>Cordialement,<br />
-Administration des Ressources Humaines<br />
-Contact : Marie-Dominique Heureux</p>
+Les Ressources Humaines<br />
+Contact : Marie-Dominique Heureux<br />
+Si vous êtes doyen&middot;ne sur le site de Saint-Louis, votre contact est Catherine Demain</p>
 
 <p>&nbsp;</p>'
 WHERE id = 76;"""),
@@ -103,8 +104,9 @@ La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;
 Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page&nbsp;suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 
 <p>Cordialement,<br />
-Administration des Ressources Humaines<br />
-Contact : Marie-Dominique Heureux</p>
+Les Ressources Humaines<br />
+Contact : Marie-Dominique Heureux<br />
+Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain</p>
 
 <p>&nbsp;</p>'
 WHERE id = 60;"""),
@@ -126,9 +128,10 @@ The procedure for renewing the mandates of assistants whose contract expires bet
 In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 
 <p>Regards,<br />
-Human Resources Administration<br />
-Contact : Marie-Dominique Heureux</p>
-
+The Human Resources<br />
+Contact : Marie-Dominique Heureux<br />
+If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br />
+</p>
 <p>&nbsp;</p>'
     WHERE id = 62;"""),
 
@@ -151,8 +154,9 @@ The procedure for renewing the mandates of assistants whose contract expires bet
 In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 
 <p>Regards,<br />
-Human Resources Administration<br />
+The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
+If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br />
 {% endautoescape %}</p>
 
 <p>&nbsp;</p>'
@@ -166,15 +170,13 @@ SET reference = 'assistant_reviewers_startup_html',
     format    = 'HTML',
     template  = e'<p>{% autoescape off %}</p>
 
-<p>{% if role == roles.RESEARCH %}Madame la pr&eacute;sidente, Monsieur le pr&eacute;sident de l&#39;institut {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Madame la d&eacute;l&eacute;gu&eacute;e de pr&eacute;sident, Monsieur le d&eacute;l&eacute;gu&eacute; de pr&eacute;sident d&#39;institut,{% elif role == roles.SUPERVISION %}Madame la doyenne, Monsieur le doyen de la facult&eacute; {{ entity }},{% elif roles.SUPERVISION_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de doyen, Monsieur le d&eacute;l&eacute;gu&eacute; de doyen de facult&eacute;,{% elif roles.SUPERVISION_DAF_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de DAF, Monsieur le d&eacute;l&eacute;gu&eacute; de DAF de facult&eacute;,{% elif roles.SUPERVISION_DAF in role %}Madame la DAF, Monsieur le DAF de facult&eacute;,{% elif role == roles.VICE_RECTOR %}Madame la vice-rectrice, Monsieur le vice-recteur du secteur {{ entity }},{% elif role == roles.VICE_RECTOR_ASSISTANT %}Che(&egrave;)r(e) DAS/CAS du secteur {{ entity }},{% endif %}</p>
+<p>{% if role == roles.RESEARCH %}Madame la pr&eacute;sidente, Monsieur le pr&eacute;sident de l&#39;institut {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Madame la d&eacute;l&eacute;gu&eacute;e de pr&eacute;sident, Monsieur le d&eacute;l&eacute;gu&eacute; de pr&eacute;sident d&#39;institut,{% elif role == roles.SUPERVISION %}Madame la doyenne, Monsieur le doyen de la facult&eacute; {{ entity }},{% elif roles.SUPERVISION_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de doyen, Monsieur le d&eacute;l&eacute;gu&eacute; de doyen de facult&eacute;,{% elif roles.SUPERVISION_DAF_ASSISTANT in role %}Madame, Monsieur,{% elif roles.SUPERVISION_DAF in role %}Madame, Monsieur,{% elif role == roles.VICE_RECTOR %}Madame la vice-rectrice, Monsieur le vice-recteur,{% elif role == roles.VICE_RECTOR_ASSISTANT %}Madame, Monsieur,{% endif %}</p>
 
 <p>&nbsp;</p>
 
 <p>Ceci est un message automatique g&eacute;n&eacute;r&eacute; par le serveur OSIS &ndash; Merci de ne pas y r&eacute;pondre.<br />
 <br />
 Nous venons de lancer la proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }}&nbsp;et le {{ end_date }}.<br />
-Nous attirons votre attention sur le fait que les assistant&middot;e&middot;s ayant une &eacute;ch&eacute;ance au {{ end_date }} n&#39;ont pas &eacute;t&eacute; int&eacute;gr&eacute;s &agrave; la proc&eacute;dure.<br />
-Elle s&#39;effectue int&eacute;gralement par voie &eacute;lectronique.<br />
 <br />
 Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a><br />
 <br />
@@ -182,8 +184,9 @@ Pour rappel, toute demande de renouvellement introduite par un&middot;e assistan
 
 <p><br />
 Cordialement,<br />
-Administration des Ressources Humaines<br />
+Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
+Pour le site de Saint Louis - Contact : Catherine Demain<br />
 {% endautoescape %}</p>
 
 <p>&nbsp;</p>'
@@ -208,8 +211,9 @@ La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;
 Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page&nbsp;suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
 
 <p>Cordialement,<br />
-Administration des Ressources Humaines<br />
+Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
+Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain
 {% endautoescape %}</p>
 
 <p>&nbsp;</p>'
@@ -229,13 +233,14 @@ SET reference = 'assistant_phd_supervisor_txt',
 <br />
 La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }}&nbsp;et le {{ end_date }} vient de d&eacute;buter. Elle s&#39;effectue int&eacute;gralement par voie &eacute;lectronique.<br />
 <br />
-Vous recevez ce message en tant que superviseur de th&egrave;se pour {{ assistant }}.<br />
+Vous recevez ce message en tant que promoteur&middot;rice de recherche pour {{ assistant }}.<br />
 <br />
 Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a></p>
 
 <p>Cordialement,<br />
-Administration des Ressources Humaines<br />
-Contact : Marie-Dominique Heureux</p>
+Les Ressources Humaines<br />
+Contact : Marie-Dominique Heureux<br />
+Si vous &ecirc;tes promoteur&middot;rice de recherche d''un&middot;e assistant&middot;e engag&eacute;&middot;e sur le site de Saint-Louis - Contact : Catherine Demain</p>
 
 <p>&nbsp;</p>'
 WHERE id = 72;"""),
@@ -263,8 +268,9 @@ In order to gain access to the procedure, simply click on the following link:&nb
 <p><br />
 Regards,</p>
 
-<p>Human Resources Administration<br />
+<p>The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
+If you are supervisor for an assistant hired one the Saint-Louis site - Contact Catherine Demain
 {% endautoescape %}</p>
 
 <p>&nbsp;</p>'
@@ -286,13 +292,14 @@ SET reference = 'assistant_phd_supervisor_html',
 <br />
 La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;s dont le contrat arrive &agrave; &eacute;ch&eacute;ance entre le {{ start_date }}&nbsp;et le {{ end_date }} vient de d&eacute;buter. Elle s&#39;effectue int&eacute;gralement par voie &eacute;lectronique.<br />
 <br />
-Vous recevez ce message en tant que superviseur de th&egrave;se pour {{ assistant }}.<br />
+Vous recevez ce message en tant que promoteur&middot;rice de recherche pour {{ assistant }}.<br />
 <br />
 Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre sur le portail &agrave; la page suivante :&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a></p>
 
 <p>Cordialement,<br />
-Administration des Ressources Humaines<br />
+Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
+Si vous &ecirc;tes promoteur&middot;rice de recherche d''un&middot;e assistant&middot;e engag&eacute;&middot;e sur le site de Saint-Louis - Contact : Catherine Demain<br />
 {% endautoescape %}</p>
 
 <p>&nbsp;</p>'
@@ -317,8 +324,9 @@ La proc&eacute;dure de renouvellement des mandats des assistant&middot;e&middot;
 Vous recevez ce message car&nbsp;{{ assistant }} a d&eacute;clin&eacute; sa demande de renouvellement.</p>
 
 <p>Cordialement,<br />
-Administration des Ressources Humaines<br />
+Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
+Si vous êtes doyen&middot;ne sur le site de Saint-Louis, votre contact est Catherine Demain
 {% endautoescape %}</p>
 
 <p>&nbsp;</p>'
@@ -340,8 +348,9 @@ The procedure for renewing the mandates of assistants whose contract expires bet
 You receive this message because {{ assistant }} has declined his renewal application.</p>
 <br />
 Regards,<br />
-Human Resources Administration<br />
-Contact : Marie-Dominique Heureux'
+The Human Resources<br />
+Contact : Marie-Dominique Heureux<br />
+If you are a dean on the Saint-Louis Site, your contact is Catherine Demain<br />'
 WHERE id = 78;"""),
 
         migrations.RunSQL("""
@@ -365,9 +374,9 @@ In order to gain access to the procedure, simply click on the following link:&nb
 <p><br />
 Regards,</p>
 
-<p>Human Resources Administration<br />
-Contact : Marie-Dominique Heureux</p>
-
+<p>The Human Resources<br />
+Contact : Marie-Dominique Heureux<br />
+If you are supervisor for an assistant hired one the Saint-Louis site - Contact Catherine Demain</p>
 <p>&nbsp;</p>'
 WHERE id = 74;"""),
 
@@ -377,16 +386,13 @@ SET reference = 'assistant_reviewers_startup_txt',
     subject   = 'Assistants mandates renewal',
     language  = 'en',
     format    = 'PLAIN',
-    template  = e'<p>{% if role == roles.RESEARCH %}Dear President of {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Dear Representative of the Institute President,{% elif role == roles.SUPERVISION %}Dear Dean of {{ entity }},{% elif role == roles.SUPERVISION_ASSISTANT %}Dear Dean of Faculty representative,{% elif role == roles.SUPERVISION_DAF %}Dear DAF of {{ entity }},{% elif role == roles.SUPERVISION__DAF_ASSISTANT %}Dear DAF of Faculty representative,{% elif role == roles.VICE_RECTOR %}Dear Vice Rector of {{ entity }},{% elif role == roles.VICE_RECTOR_ASSISTANT %}Dear DAS/CAS of {{ entity }},{% endif %}</p>
+    template  = e'<p>{% if role == roles.RESEARCH %}Dear President of {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Dear Representative of the Institute President,{% elif role == roles.SUPERVISION %}Dear Dean of {{ entity }},{% elif role == roles.SUPERVISION_ASSISTANT %}Dear Dean of Faculty representative,{% elif role == roles.SUPERVISION_DAF %}Dear Madam, Dear Sir,{% elif role == roles.SUPERVISION__DAF_ASSISTANT %}Dear Madam, Dear Sir,{% elif role == roles.VICE_RECTOR %}Dear Vice Rector,{% elif role == roles.VICE_RECTOR_ASSISTANT %}Dear Madam, Dear Sir,{% endif %}</p>
 
 <p>&nbsp;</p>
 
 <p>This is an automatic message generated by the OSIS server &ndash; Please do not reply to this message.<br />
 <br />
 We have just started the procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }}.<br />
-We would like to draw your attention to the fact that the assistants with a {{ end_date }} deadline have not been integrated in the procedure.<br />
-It is conducted by electronic means only.<br />
-<br />
 In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a><br />
 <br />
 As a reminder, any renewal application made by an assistant must be put in the circuit and cannot be blocked on the pretext of negative opinions since the assistant has, in this case, the right of appeal against the decision under article 50 of the RAMCS.</p>
@@ -394,9 +400,9 @@ As a reminder, any renewal application made by an assistant must be put in the c
 <p><br />
 Regards,</p>
 
-<p>Human Resources Administration<br />
-Contact : Marie-Dominique Heureux</p>
-
+<p>The Human Resources<br />
+Contact : Marie-Dominique Heureux<br />
+For the Saint-Louis site - Contact Catherine Demain</p>
 <p>&nbsp;</p>'
 WHERE id = 70;"""),
 
@@ -408,15 +414,13 @@ SET reference = 'assistant_reviewers_startup_html',
     format    = 'HTML',
     template  = e'<p>{% autoescape off %}</p>
 
-<p>{% if role == roles.RESEARCH %}Dear President of {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Dear Representative of the Institute President,{% elif role == roles.SUPERVISION %}Dear Dean of {{ entity }},{% elif role == roles.SUPERVISION_ASSISTANT %}Dear Dean of Faculty representative,{% elif role == roles.SUPERVISION_DAF %}Dear DAF of {{ entity }},{% elif role == roles.SUPERVISION__DAF_ASSISTANT %}Dear DAF of Faculty representative,{% elif role == roles.VICE_RECTOR %}Dear Vice Rector of {{ entity }},{% elif role == roles.VICE_RECTOR_ASSISTANT %}Dear DAS/CAS of {{ entity }},{% endif %}</p>
+<p>{% if role == roles.RESEARCH %}Dear President of {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Dear Representative of the Institute President,{% elif role == roles.SUPERVISION %}Dear Dean of {{ entity }},{% elif role == roles.SUPERVISION_ASSISTANT %}Dear Dean of Faculty representative,{% elif role == roles.SUPERVISION_DAF %}Dear Madam, Dear Sir,{% elif role == roles.SUPERVISION__DAF_ASSISTANT %}Dear Madam, Dear Sir,{% elif role == roles.VICE_RECTOR %}Dear Vice Rector,{% elif role == roles.VICE_RECTOR_ASSISTANT %}Dear Madam, Dear Sir,{% endif %}</p>
 
 <p>&nbsp;</p>
 
 <p>This is an automatic message generated by the OSIS server &ndash; Please do not reply to this message.<br />
 <br />
 We have just started the procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }}.<br />
-We would like to draw your attention to the fact that the assistants with a {{ end_date }} deadline have not been integrated in the procedure.<br />
-It is conducted by electronic means only.<br />
 <br />
 In order to gain access to the procedure, simply click on the following link:&nbsp;<a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088''>https://uclouvain.atlassian.net/servicedesk/customer/portal/11/article/926483088</a><br />
 <br />
@@ -424,8 +428,9 @@ As a reminder, any renewal application made by an assistant must be put in the c
 
 <p><br />
 Regards,<br />
-Human Resources Administration<br />
+The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
+For the Saint-Louis site - Contact Catherine Demain<br />
 {% endautoescape %}</p>
 
 <p>&nbsp;</p>'
@@ -443,9 +448,10 @@ SET reference = 'assistant_assistants_startup_special_renewal_html',
 <p>The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }} has just begun. It is conducted by electronic means only.</p>
 <p>In your case, you are in a <b>special renewal procedure</b> : you have almost reached the maximum number of years authorized for a mandate but have yet to surpass it. If you so desire, you can apply for a a renewal period of one year, and this, without having to give a particular justification.</p>
 <p>In order to gain access to the procedure, simply click on the following link: <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
-<p>Regards,</br>
-Human Resources Administration</br>
-Contact: Marie-Dominique Heureux
+<p>Regards,<br />
+The Human Resources<br />
+Contact: Marie-Dominique Heureux<br />
+If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br />
 {% endautoescape %}'
 WHERE id = 65;"""),
 
@@ -460,10 +466,10 @@ SET reference = 'assistant_assistants_startup_special_renewal_txt',
 <p>The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }} has just begun. It is conducted by electronic means only.</p>
 <p>In your case, you have reached the maximum number of years allowed to apply for a normal renewal. You may however, if you so desire and if it can be justified by exceptional circumstances, apply for a one-off renewal period of one year. Therefore, we ask you to provide detailed arguments in order to facilitate the decision of the authorities on the exceptional nature or not of these circumstances.</p>
 <p>In order to gain access to the procedure, simply click on the following link: <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
-<p>Regards,</br>
-Human Resources Administration</br>
-Contact: Marie-Dominique Heureux
-'
+<p>Regards,<br />
+The Human Resources<br />
+Contact: Marie-Dominique Heureux<br />
+If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br /><p/>'
 WHERE id = 66;"""),
 
         migrations.RunSQL("""
@@ -478,9 +484,10 @@ SET reference = 'assistant_assistants_startup_special_renewal_html',
 <p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
 <p>En ce qui vous concerne, vous êtes dans le cas d’une demande de <b>renouvellement spécial</b> : vous êtes proche du nombre maximum d’années de mandat autorisées sans pour autant avoir dépassé ce nombre. Si vous le souhaitez, vous pouvez donc introduire une demande de renouvellement spécial pour une durée de 1 an, et ce sans donner de justification particulière.</p>
 <p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
-<p>Cordialement,</br>
-Administration des Ressources Humaines</br>
-Contact: Marie-Dominique Heureux
+<p>Cordialement,<br />
+Les Ressources Humaines<br />
+Contact: Marie-Dominique Heureux<br />
+Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain<br />
 {% endautoescape %}'
 WHERE id = 63;"""),
 
@@ -495,10 +502,10 @@ SET reference = 'assistant_assistants_startup_special_renewal_txt',
 <p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
 <p>En ce qui vous concerne, vous êtes dans le cas d’une demande de renouvellement spécial : vous êtes proche du nombre maximum d’années de mandat autorisées sans pour autant avoir dépassé ce nombre. Si vous le souhaitez, vous pouvez donc introduire une demande de renouvellement spécial pour une durée de 1 an, et ce sans donner de justification particulière.</p>
 <p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
-<p>Cordialement,</br>
-Administration des Ressources Humaines</br>
-Contact: Marie-Dominique Heureux
-'
+<p>Cordialement,<br />
+Les Ressources Humaines<br />
+Contact: Marie-Dominique Heureux<br />
+Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain<br />'
 WHERE id = 64;"""),
 
         migrations.RunSQL("""
@@ -513,9 +520,10 @@ SET reference = 'assistant_assistants_startup_except_renewal_html',
 <p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
 <p>Dans votre cas, vous avez atteint le nombre maximum d''années de mandat autorisées pour demander un renouvellement normal, donc si vous le souhaitez et si vous avez des circonstances exceptionnelles qui le justifient, vous pouvez introduire une demande de renouvellement exceptionnel d''un an. Pour cela, nous vous demandons d''apporter une argumentation approfondie pour faciliter la décision des autorités sur le caractère exceptionnel ou non de ces circonstances.</p>
 <p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
-<p>Cordialement,</br>
-Administration des Ressources Humaines</br>
-Contact: Marie-Dominique Heureux
+<p>Cordialement,<br />
+Les Ressources Humaines<br />
+Contact: Marie-Dominique Heureux<br />
+Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain<br /></p>'
 {% endautoescape %}'
 WHERE id = 170;"""),
 
@@ -530,10 +538,10 @@ SET reference = 'assistant_assistants_startup_except_renewal_txt',
 <p>La procédure de renouvellement des mandats des assistant·e·s dont le contrat arrive à échéance entre le {{ start_date }} et le {{ end_date }} vient de débuter. Celle-ci s’effectue intégralement par voie électronique.</p>
 <p>Dans votre cas, vous avez atteint le nombre maximum d''années de mandat autorisées pour demander un renouvellement normal, donc si vous le souhaitez et si vous avez des circonstances exceptionnelles qui le justifient, vous pouvez introduire une demande de renouvellement exceptionnel d''un an. Pour cela, nous vous demandons d''apporter une argumentation approfondie pour faciliter la décision des autorités sur le caractère exceptionnel ou non de ces circonstances.</p>
 <p>Pour accéder à la procédure, il vous suffit de vous rendre sur le portail à la page suivante : <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
-<p>Cordialement,</br>
-Administration des Ressources Humaines</br>
-Contact: Marie-Dominique Heureux
-'
+<p>Cordialement,<br />
+Les Ressources Humaines<br />
+Contact: Marie-Dominique Heureux<br />
+Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain<br />'
 WHERE id = 171;"""),
 
         migrations.RunSQL("""
@@ -548,9 +556,10 @@ SET reference = 'assistant_assistants_startup_except_renewal_html',
 <p>The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }} has just begun. It is conducted by electronic means only.</p>
 <p>In your case, you have reached the maximum number of years allowed to apply for a normal renewal. You may however, if you so desire and if it can be justified by exceptional circumstances, apply for a one-off renewal period of one year. Therefore, we ask you to provide detailed arguments in order to facilitate the decision of the authorities on the exceptional nature or not of these circumstances.</p>
 <p>In order to gain access to the procedure, simply click on the following link: <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
-<p>Regards,</br>
-Human Resources Administration</br>
-Contact: Marie-Dominique Heureux
+<p>Regards,<br />
+The Human Resources<br />
+Contact: Marie-Dominique Heureux<br />
+If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br />
 {% endautoescape %}'
 WHERE id = 172;"""),
 
@@ -565,10 +574,10 @@ SET reference = 'assistant_assistants_startup_except_renewal_txt',
 <p>The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }} has just begun. It is conducted by electronic means only.</p>
 <p>In your case, you have reached the maximum number of years allowed to apply for a normal renewal. You may however, if you so desire and if it can be justified by exceptional circumstances, apply for a one-off renewal period of one year. Therefore, we ask you to provide detailed arguments in order to facilitate the decision of the authorities on the exceptional nature or not of these circumstances.</p>
 <p>In order to gain access to the procedure, simply click on the following link: <a href=''https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212''>https://uclouvain.atlassian.net/servicedesk/customer/portal/12/article/947421212</a></p>
-<p>Regards,</br>
-Human Resources Administration</br>
-Contact: Marie-Dominique Heureux
-'
+<p>Regards,<br />
+The Human Resources<br />
+Contact: Marie-Dominique Heureux<br />
+If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br />'
 WHERE id = 173;"""),
 
     ]
