@@ -32,9 +32,7 @@ Pour rappel, toute demande de renouvellement introduite par un&middot;e assistan
 Cordialement,<br />
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
-Pour le site de Saint Louis - Contact : Catherine Demain</p>
-
-<p>&nbsp;</p>'
+Pour le site de Saint Louis - Contact : Catherine Demain</p>'
 WHERE id = 68;"""),
 
         migrations.RunSQL("""
@@ -80,9 +78,7 @@ Vous recevez ce message car&nbsp;{{ assistant }} a d&eacute;clin&eacute; sa dema
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
-Si vous &ecirc;tes doyen&middot;ne sur le site de Saint-Louis, votre contact est Catherine Demain</p>
-
-<p>&nbsp;</p>'
+Si vous &ecirc;tes doyen&middot;ne sur le site de Saint-Louis, votre contact est Catherine Demain</p>'
 WHERE id = 76;"""),
 
         migrations.RunSQL("""
@@ -106,8 +102,7 @@ Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre 
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
-Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain</p>
-<p>&nbsp;</p>'
+Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain</p>'
 WHERE id = 60;"""),
 
         migrations.RunSQL("""
@@ -129,8 +124,7 @@ In order to gain access to the procedure, simply click on the following link:&nb
 <p>Regards,<br />
 The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
-If you have been hired on the Saint-Louis site, the contact is Catherine Demain</p>
-<p>&nbsp;</p>'
+If you have been hired on the Saint-Louis site, the contact is Catherine Demain</p>'
     WHERE id = 62;"""),
 
         migrations.RunSQL("""
@@ -155,9 +149,7 @@ In order to gain access to the procedure, simply click on the following link:&nb
 The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
 If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br />
-{% endautoescape %}</p>
-
-<p>&nbsp;</p>'
+{% endautoescape %}</p>'
 WHERE id = 61;"""),
 
         migrations.RunSQL("""
@@ -185,9 +177,7 @@ Cordialement,<br />
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
 Pour le site de Saint Louis - Contact : Catherine Demain<br />
-{% endautoescape %}</p>
-
-<p>&nbsp;</p>'
+{% endautoescape %}</p>'
 WHERE id = 67;"""),
 
         migrations.RunSQL("""
@@ -212,9 +202,7 @@ Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre 
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
 Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain
-{% endautoescape %}</p>
-
-<p>&nbsp;</p>'
+{% endautoescape %}</p>'
 WHERE id = 59;"""),
 
         migrations.RunSQL("""
@@ -238,9 +226,7 @@ Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre 
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
-Si vous &ecirc;tes promoteur&middot;rice de recherche d''un&middot;e assistant&middot;e engag&eacute;&middot;e sur le site de Saint-Louis - Contact : Catherine Demain</p>
-
-<p>&nbsp;</p>'
+Si vous &ecirc;tes promoteur&middot;rice de recherche d''un&middot;e assistant&middot;e engag&eacute;&middot;e sur le site de Saint-Louis - Contact : Catherine Demain</p>'
 WHERE id = 72;"""),
 
         migrations.RunSQL("""
@@ -269,9 +255,7 @@ Regards,</p>
 <p>The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
 If you are supervisor for an assistant hired on the Saint-Louis site - Contact Catherine Demain
-{% endautoescape %}</p>
-
-<p>&nbsp;</p>'
+{% endautoescape %}</p>'
 WHERE id = 73;"""),
 
         migrations.RunSQL("""
@@ -298,9 +282,7 @@ Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre 
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
 Si vous &ecirc;tes promoteur&middot;rice de recherche d''un&middot;e assistant&middot;e engag&eacute;&middot;e sur le site de Saint-Louis - Contact : Catherine Demain<br />
-{% endautoescape %}</p>
-
-<p>&nbsp;</p>'
+{% endautoescape %}</p>'
 WHERE id = 71;"""),
 
         migrations.RunSQL("""
@@ -325,9 +307,7 @@ Vous recevez ce message car&nbsp;{{ assistant }} a d&eacute;clin&eacute; sa dema
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
 Si vous &ecirc;tes doyen&middot;ne sur le site de Saint-Louis, votre contact est Catherine Demain
-{% endautoescape %}</p>
-
-<p>&nbsp;</p>'
+{% endautoescape %}</p>'
 WHERE id = 75;"""),
 
         migrations.RunSQL("""
@@ -429,9 +409,7 @@ Regards,<br />
 The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
 For the Saint-Louis site - Contact Catherine Demain<br />
-{% endautoescape %}</p>
-
-<p>&nbsp;</p>'
+{% endautoescape %}</p>'
 WHERE id = 69;"""),
 
         migrations.RunSQL("""
@@ -467,7 +445,7 @@ SET reference = 'assistant_assistants_startup_special_renewal_txt',
 <p>Regards,<br />
 The Human Resources<br />
 Contact: Marie-Dominique Heureux<br />
-If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br /><p/>'
+If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br /></p>'
 WHERE id = 66;"""),
 
         migrations.RunSQL("""
@@ -521,7 +499,7 @@ SET reference = 'assistant_assistants_startup_except_renewal_html',
 <p>Cordialement,<br />
 Les Ressources Humaines<br />
 Contact: Marie-Dominique Heureux<br />
-Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain<br /></p>'
+Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain<br /></p>
 {% endautoescape %}'
 WHERE id = 170;"""),
 
