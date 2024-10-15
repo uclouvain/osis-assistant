@@ -16,7 +16,7 @@ SET reference = 'assistant_reviewers_startup_txt',
     subject   = 'Renouvellement des mandats des assistant·e·s',
     language  = 'fr-be',
     format    = 'PLAIN',
-    template  = e'<p>{% if role == roles.RESEARCH %}Madame la pr&eacute;sidente, Monsieur le pr&eacute;sident de l&#39;institut {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Madame la d&eacute;l&eacute;gu&eacute;e de pr&eacute;sident, Monsieur le d&eacute;l&eacute;gu&eacute; de pr&eacute;sident d&#39;institut,{% elif role == roles.SUPERVISION %}Madame la doyenne, Monsieur le doyen de la facult&eacute; {{ entity }},{% elif roles.SUPERVISION_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de doyen, Monsieur le d&eacute;l&eacute;gu&eacute; de doyen de facult&eacute;,{% elif roles.SUPERVISION_DAF_ASSISTANT in role %}Madame, Monsieur,{% elif roles.SUPERVISION_DAF in role %}Madame, Monsieur,{% elif role == roles.VICE_RECTOR %}Madame la vice-rectrice, Monsieur le vice-recteur,{% elif role == roles.VICE_RECTOR_ASSISTANT %}Madame, Monsieur,{% endif %}</p>
+    template  = e'<p>{% if role == roles.RESEARCH %}Madame la pr&eacute;sidente, Monsieur le pr&eacute;sident de l&#39;institut {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Madame la d&eacute;l&eacute;gu&eacute;e de pr&eacute;sident, Monsieur le d&eacute;l&eacute;gu&eacute; de pr&eacute;sident d&#39;institut,{% elif role == roles.SUPERVISION %}Madame la doyenne, Monsieur le doyen de la facult&eacute; {{ entity }},{% elif roles.SUPERVISION_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de doyen, Monsieur le d&eacute;l&eacute;gu&eacute; de doyen de facult&eacute;,{% elif role == roles.VICE_RECTOR %}Madame la vice-rectrice, Monsieur le vice-recteur,{% else %}Madame, Monsieur,{% endif %}</p>
 
 <p>&nbsp;</p>
 
@@ -53,12 +53,12 @@ SET reference = 'assistant_dean_assistant_decline_html',
 The procedure for renewing the mandates of assistants whose contract expires between the {{ start_date }} and the {{ end_date }} has just begun. It is conducted by electronic means only.<br />
 <br />
 You receive this message because {{ assistant }} has declined his renewal application.</p>
-<br />
-Regards,<br />
+
+<p>Regards,<br />
 The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
 If you are a dean on the Saint-Louis Site, your contact is Catherine Demain<br />
-{% endautoescape %}'
+{% endautoescape %}</p>'
 WHERE id = 77;"""),
 
         migrations.RunSQL("""
@@ -107,7 +107,6 @@ Pour acc&eacute;der &agrave; la proc&eacute;dure, il vous suffit de vous rendre 
 Les Ressources Humaines<br />
 Contact : Marie-Dominique Heureux<br />
 Si vous avez &eacute;t&eacute; engag&eacute; sur le site de Saint-Louis, votre contact est Catherine Demain</p>
-
 <p>&nbsp;</p>'
 WHERE id = 60;"""),
 
@@ -130,8 +129,7 @@ In order to gain access to the procedure, simply click on the following link:&nb
 <p>Regards,<br />
 The Human Resources<br />
 Contact : Marie-Dominique Heureux<br />
-If you have been hired on the Saint-Louis site, the contact is Catherine Demain<br />
-</p>
+If you have been hired on the Saint-Louis site, the contact is Catherine Demain</p>
 <p>&nbsp;</p>'
     WHERE id = 62;"""),
 
@@ -170,7 +168,7 @@ SET reference = 'assistant_reviewers_startup_html',
     format    = 'HTML',
     template  = e'<p>{% autoescape off %}</p>
 
-<p>{% if role == roles.RESEARCH %}Madame la pr&eacute;sidente, Monsieur le pr&eacute;sident de l&#39;institut {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Madame la d&eacute;l&eacute;gu&eacute;e de pr&eacute;sident, Monsieur le d&eacute;l&eacute;gu&eacute; de pr&eacute;sident d&#39;institut,{% elif role == roles.SUPERVISION %}Madame la doyenne, Monsieur le doyen de la facult&eacute; {{ entity }},{% elif roles.SUPERVISION_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de doyen, Monsieur le d&eacute;l&eacute;gu&eacute; de doyen de facult&eacute;,{% elif roles.SUPERVISION_DAF_ASSISTANT in role %}Madame, Monsieur,{% elif roles.SUPERVISION_DAF in role %}Madame, Monsieur,{% elif role == roles.VICE_RECTOR %}Madame la vice-rectrice, Monsieur le vice-recteur,{% elif role == roles.VICE_RECTOR_ASSISTANT %}Madame, Monsieur,{% endif %}</p>
+<p>{% if role == roles.RESEARCH %}Madame la pr&eacute;sidente, Monsieur le pr&eacute;sident de l&#39;institut {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Madame la d&eacute;l&eacute;gu&eacute;e de pr&eacute;sident, Monsieur le d&eacute;l&eacute;gu&eacute; de pr&eacute;sident d&#39;institut,{% elif role == roles.SUPERVISION %}Madame la doyenne, Monsieur le doyen de la facult&eacute; {{ entity }},{% elif roles.SUPERVISION_ASSISTANT in role %}Madame la d&eacute;l&eacute;gu&eacute;e de doyen, Monsieur le d&eacute;l&eacute;gu&eacute; de doyen de facult&eacute;,{% elif role == roles.VICE_RECTOR %}Madame la vice-rectrice, Monsieur le vice-recteur,{% else %}Madame, Monsieur,{% endif %}</p>
 
 <p>&nbsp;</p>
 
@@ -386,7 +384,7 @@ SET reference = 'assistant_reviewers_startup_txt',
     subject   = 'Assistants mandates renewal',
     language  = 'en',
     format    = 'PLAIN',
-    template  = e'<p>{% if role == roles.RESEARCH %}Dear President of {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Dear Representative of the Institute President,{% elif role == roles.SUPERVISION %}Dear Dean of {{ entity }},{% elif role == roles.SUPERVISION_ASSISTANT %}Dear Dean of Faculty representative,{% elif role == roles.SUPERVISION_DAF %}Dear Madam, Dear Sir,{% elif role == roles.SUPERVISION__DAF_ASSISTANT %}Dear Madam, Dear Sir,{% elif role == roles.VICE_RECTOR %}Dear Vice Rector,{% elif role == roles.VICE_RECTOR_ASSISTANT %}Dear Madam, Dear Sir,{% endif %}</p>
+    template  = e'<p>{% if role == roles.RESEARCH %}Dear President of {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Dear Representative of the Institute President,{% elif role == roles.SUPERVISION %}Dear Dean of {{ entity }},{% elif role == roles.SUPERVISION_ASSISTANT %}Dear Dean of Faculty representative,{% elif role == roles.VICE_RECTOR %}Dear Vice Rector,{% else %}Dear Madam, Dear Sir,{% endif %}</p>
 
 <p>&nbsp;</p>
 
@@ -414,7 +412,7 @@ SET reference = 'assistant_reviewers_startup_html',
     format    = 'HTML',
     template  = e'<p>{% autoescape off %}</p>
 
-<p>{% if role == roles.RESEARCH %}Dear President of {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Dear Representative of the Institute President,{% elif role == roles.SUPERVISION %}Dear Dean of {{ entity }},{% elif role == roles.SUPERVISION_ASSISTANT %}Dear Dean of Faculty representative,{% elif role == roles.SUPERVISION_DAF %}Dear Madam, Dear Sir,{% elif role == roles.SUPERVISION__DAF_ASSISTANT %}Dear Madam, Dear Sir,{% elif role == roles.VICE_RECTOR %}Dear Vice Rector,{% elif role == roles.VICE_RECTOR_ASSISTANT %}Dear Madam, Dear Sir,{% endif %}</p>
+<p>{% if role == roles.RESEARCH %}Dear President of {{ entity }},{% elif role == roles.RESEARCH_ASSISTANT %}Dear Representative of the Institute President,{% elif role == roles.SUPERVISION %}Dear Dean of {{ entity }},{% elif role == roles.SUPERVISION_ASSISTANT %}Dear Dean of Faculty representative,{% elif role == roles.VICE_RECTOR %}Dear Vice Rector,{% else %}Dear Madam, Dear Sir,{% endif %}</p>
 
 <p>&nbsp;</p>
 
