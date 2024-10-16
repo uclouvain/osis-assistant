@@ -95,8 +95,8 @@ class StructuresListView(ReviewerDelegationDataMixin, TestCase):
         entities_vers_qs = entity_version.EntityVersion.objects.filter(
             pk__in=[self.institute.pk, self.institute_child.pk]
         )
-        self.assertQuerysetEqual(context['object_list'], entities_vers_qs, transform=lambda x: x, ordered=False)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(context['object_list'], entities_vers_qs, transform=lambda x: x, ordered=False)
+        self.assertQuerySetEqual(
             context["object_list"],
             [tuple(), (self.research_assistant_reviewer,)],
             transform=lambda x: tuple(x.entity.delegated_reviewer),

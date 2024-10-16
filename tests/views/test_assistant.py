@@ -50,7 +50,7 @@ class TestAssistantListView(TestCase):
     def test_should_show_mandate_for_current_year(self):
         response = self.client.get(self.url)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context["assistant_mandates_list"],
             [self.assistant_mandate],
             transform=lambda obj: obj
@@ -69,7 +69,7 @@ class TestAssistantListView(TestCase):
 
         response = self.client.get(self.url)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context["assistant_mandates_list"],
             [past_completed_mandate, self.assistant_mandate],
             transform=lambda obj: obj
@@ -84,7 +84,7 @@ class TestAssistantListView(TestCase):
 
         response = self.client.get(self.url)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context["assistant_mandates_list"],
             [past_refused_mandate, self.assistant_mandate],
             transform=lambda obj: obj
@@ -99,7 +99,7 @@ class TestAssistantListView(TestCase):
 
         response = self.client.get(self.url)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context["assistant_mandates_list"],
             [self.assistant_mandate],
             transform=lambda obj: obj

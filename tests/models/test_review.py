@@ -116,7 +116,7 @@ class TestFindBeforeMandateState(TestCase):
 
     def test_should_return_reviews_of_roles_with_less_or_equal_privilege(self):
         result = find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             result,
             [self.research_review, self.supervision_review],
             lambda obj: obj
@@ -124,7 +124,7 @@ class TestFindBeforeMandateState(TestCase):
 
     def test_should_consider_role_as_main_one_when_find_before_mandate_state_is_called_with_assistant_role(self):
         result = find_before_mandate_state(self.mandate, reviewer_role.SUPERVISION_ASSISTANT)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             result,
             [self.research_review, self.supervision_review],
             lambda obj: obj
@@ -132,7 +132,7 @@ class TestFindBeforeMandateState(TestCase):
 
     def test_should_order_queryset_by_role(self):
         result = find_before_mandate_state(self.mandate, reviewer_role.VICE_RECTOR_ASSISTANT)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             result,
             [self.research_review, self.supervision_review, self.vice_rectore_assistant_review],
             transform=lambda obj: obj
