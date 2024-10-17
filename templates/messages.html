@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -26,16 +26,16 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
-<li class="active">{% trans 'Messages' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Messages' %}</li>
 {% endblock %}
 
 {% block content %}
 <div class="page-header">
     <h3>{% trans 'Assistant mandate renewal application processing' %} {{ year|add:1 }}</h3>
 </div>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="card">
+    <div class="card-body">
         <div class="list-group">
             <div class="list-group-item">
                 <h4 class="list-group-item-heading">{% trans 'Assistants' %}</h4>
@@ -43,21 +43,24 @@
                     {% trans 'Startup procedure' %} <br>
                     <small>{% trans 'The assistant in special renewal procedure will receive a different email' %}.</small>
                 </p>
-                <p style="margin-top: 10px;"><a href="{% url 'send_message_to_assistants' %}" class="btn btn-info"
-                                                role="button"
-                                                onclick="return confirm('{% trans 'Are you sure you want to send these emails? This action is irreversible.' %}')">
+                <p class="mt-2">
+                    <a href="{% url 'send_message_to_assistants' %}" class="btn btn-info"
+                    role="button"
+                    onclick="return confirm('{% trans 'Are you sure you want to send these emails? This action is irreversible.' %}')">
                     {% trans 'Send an email to all assistants' %}</a></p>
             </div>
             <div class="list-group-item">
                 <h4 class="list-group-item-heading">{% trans 'Reviewers' %}</h4>
                 <p class="list-group-item-text">{% trans 'Startup procedure' %}</p>
-                <p style="margin-top: 10px;"><a href="{% url 'send_message_to_reviewers' %}" class="btn btn-info"
-                                                role="button"
-                                                onclick="return confirm('{% trans 'Are you sure you want to send these emails? This action is irreversible.' %}')">
+                <p class="mt-2">
+                    <a href="{% url 'send_message_to_reviewers' %}"
+                        class="btn btn-info"
+                        role="button"
+                        onclick="return confirm('{% trans 'Are you sure you want to send these emails? This action is irreversible.' %}')">
                     {% trans 'Send an email to reviewers' %}</a></p>
             </div>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive mt-3">
             <table id="myTable" class="table table-hover table-condensed table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
