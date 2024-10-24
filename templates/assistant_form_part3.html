@@ -1,8 +1,8 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 {% load l10n %}
-{% load bootstrap3 %}
+{% load django_bootstrap5 %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -31,23 +31,23 @@
 <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
-<li class="active">{% trans 'Renewal application form' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
 <ul class="nav nav-tabs ">
-<li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
-<li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
-<li><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
-<li class="active"><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
-<li><a href="{% url 'form_part4_edit' %}">{% trans 'Research' %}</a></li>
-<li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
-<li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
-</ul>
-<div class="panel panel-default">
-	<div class="panel-body">
+    <li class="nav-item"><a href="{% url 'assistant_mandates' %}" class="nav-link">{% trans 'My mandates' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part1_edit' %}" class="nav-link">{% trans 'Administrative' %}</a></li>
+    <li class="nav-item"><a href="{% url 'mandate_learning_units' %}" class="nav-link">{% trans 'Learning units' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part3_edit' %}" class="nav-link active">{% trans 'Ph.D.' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part4_edit' %}" class="nav-link">{% trans 'Research' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part5_edit' %}" class="nav-link">{% trans 'Activities' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part6_edit' %}" class="nav-link">{% trans 'Summary' %}</a></li>
+    </ul>
+<div class="card">
+	<div class="card-body">
         {% if msg %}
-            <h5><p style="color:red">{{ msg }}</p></h5>
+            <h5><p class="text-danger">{{ msg }}</p></h5>
         {% endif %}
  		<form id="pst-form-part3" method="POST" enctype="multipart/form-data" action="{% url 'form_part3_save' %}">
  		{{ form.non_field_errors }}
@@ -55,9 +55,9 @@
  		{% for hidden in form.hidden_fields %}
 			{{ hidden }}
 		{% endfor %}
- 		<div class="panel-default">
-  			<div class="panel-heading">
-  				<h4>{% trans 'Ph.D.' %}</h4>
+ 		<div class="card border-0">
+  			<div class="card-heading border-bottom">
+  				<h4 class="fs-5 my-2">{% trans 'Ph.D.' %}</h4>
     		</div>
     	</div>
     	<div class="form-group">
@@ -108,29 +108,29 @@
                 {{ form.remark }}
                 <span class="error">{{ form.remark.errors }}</span>
         </div>
-        <div class="panel-default">
-  			<div class="panel-heading">
-  				<h4>{% trans 'Report of the steering committee (mandatory from the second renewal application)' %}</h4>
+        <div class="card border-0">
+  			<div class="card-heading border-bottom">
+  				<h4 class="fs-5 my-2">{% trans 'Report of the steering committee (mandatory from the second renewal application)' %}</h4>
     		</div>
     	</div>
         {% for file in files %}
-            <div class="row" style="padding-top: 15px;">
-                <div class="col-md-2" style="text-align: left">
-                    <a class="btn btn-default btn-danger btn-sm" id="btn_delete_file" style="margin-right: 5px;"
+            <div class="row pt-3">
+                <div class="col-lg-2" style="text-align: left">
+                    <a class="btn btn-danger btn-md me-2" id="btn_delete_file"
                        title="{% trans 'Delete file'%}"
                        onclick="location.href='{% url 'assistant_file_delete' file.id 'form_part3_edit' %}';">
-                    <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
+                    <i class="fas fa-times" aria-hidden="true" id="spn_delete_file"></i>
                         {% trans 'Delete' %}</a>
                 </div>
-                <div class="col-md-10" id="hdn_filename" style="text-align: left">
+                <div class="col-lg-10 text-start" id="hdn_filename">
                    <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
                 </div>
             </div>
         {% endfor %}
-		<div class="form-group" style="padding-top: 15px;">
-			<a class="btn btn-default" data-toggle="modal" data-target="#pnl_upload_documents"
-               id="btn_add_file" style="margin-right: 5px;" title="{% trans 'Add file'%}">
-                <span class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></span>
+		<div class="form-group pt-3">
+			<a class="btn btn-default me-2" data-bs-toggle="modal" data-bs-target="#pnl_upload_documents"
+               id="btn_add_file" title="{% trans 'Add file'%}">
+                <i class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></i>
                 {% trans 'Attach a PDF file' %}</a>
 		</div>
         <hr>
@@ -141,7 +141,7 @@
 		<div class="form-group">
      			<button type="submit" class="btn btn-primary" title="{% trans 'Save'%}"
                         id="bt_pstform_part3_save">
-     			<span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
+     			<i class="far fa-save" aria-hidden="true"></i> {% trans 'Save'%}</button>
 		</div>
         {{ form.media }}
     	</form>
