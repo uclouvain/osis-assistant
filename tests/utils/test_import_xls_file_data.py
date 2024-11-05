@@ -59,11 +59,6 @@ HTTP_OK = 200
 class ExportImportXlsFile(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.client = Client()
-        cls.request = cls.client.post('/assistants/manager/mandates/upload/')
-        cls.request._messages = FakeMessages()
-        cls.manager = ManagerFactory()
-        cls.request.user = cls.manager.person.user
         now = timezone.now()
         AcademicYearFactory.produce_in_past()
         cls.previous_academic_year = academic_year.find_academic_year_by_year(now.year - 2)
@@ -108,6 +103,11 @@ class ExportImportXlsFile(TestCase):
         )
 
     def setUp(self):
+        self.client = Client()
+        self.request = self.client.post('/assistants/manager/mandates/upload/')
+        self.request._messages = FakeMessages()
+        self.manager = ManagerFactory()
+        self.request.user = self.manager.person.user
         self.client.force_login(self.manager.person.user)
 
     def test_upload_mandates_file(self):
