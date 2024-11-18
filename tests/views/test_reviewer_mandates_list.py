@@ -90,7 +90,7 @@ class ReviewerMandatesListViewTestCase(TestCase):
         self.assertEqual(response.context['reviewer'], self.reviewer)
         self.assertTrue(response.context['can_delegate'])
         mandates_id = find_by_entity(self.reviewer.entity).values_list('assistant_mandate_id', flat=True)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['object_list'],
             find_by_academic_year(self.current_academic_year).filter(id__in=mandates_id),
             transform=lambda x: x
@@ -102,7 +102,7 @@ class ReviewerMandatesListViewTestCase(TestCase):
         self.assertEqual(response.context['reviewer'], self.reviewer)
         self.assertTrue(response.context['can_delegate'])
         mandates_id = find_by_entity(self.reviewer.entity).values_list('assistant_mandate_id', flat=True)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['object_list'],
             find_by_academic_year(self.previous_academic_year).filter(id__in=mandates_id),
             transform=lambda x: x

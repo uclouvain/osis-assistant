@@ -53,7 +53,7 @@ class TestReviewerFactory(TestCase):
         cls.reviewer6 = ReviewerFactory(role=reviewer_role.VICE_RECTOR_ASSISTANT, entity=cls.entity1)
 
     def test_find_by_person(self):
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             reviewer.find_by_person(self.reviewer1.person),
             [self.reviewer1],
             transform=lambda x: x
