@@ -81,7 +81,7 @@ class AssistantsListViewTestCase(TestCase):
         entities_id = self.assistant_mandate.mandateentity_set.all().order_by('id').values_list('entity', flat=True)
         self.assistant_mandate.entities = find_versions_from_entites(entities_id, None)
         self.assistant_mandate.save()
-        self.assertQuerysetEqual(response.context['object_list'],
+        self.assertQuerySetEqual(response.context['object_list'],
                                  find_for_supervisor_for_academic_year(self.phd_supervisor, self.current_academic_year),
                                  transform=lambda x: x
                                  )
