@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 {% load messages %}
@@ -27,18 +27,18 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
-<li class="active">{% trans 'Import assistant mandates' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Import assistant mandates' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
     <h3>{% trans 'Assistant mandate renewal application processing' %}</h3>
     <h5>{% trans 'Importing files from an XLSX file'%}</h5>
 </div>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="card">
+    <div class="card-body">
     {% if imported_mandates >= 0 or updated_mandates >= 0 %}
-        <div class="form-group" style="padding-top: 5px;">
+        <div class="form-group pt-2">
             <ul>
                 <li>{{ imported_assistants }} assistants importés.</li>
                 <li>{{ updated_assistants }} assistants mis à jour.</li>
@@ -55,10 +55,10 @@
          {% endfor %}
          </ul>
      {% endif %}
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#pnl_upload_mandates_modal"
+            <button type="button" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#pnl_upload_mandates_modal"
                     id="btn_upload_mandates_modal"
                     title="{% trans 'Select Excel file to inject mandates' %}">
-                <span class="fas fa-arrow-circle-up" aria-hidden="true"></span> {% trans 'Inject xls file' %}
+                <i class="fas fa-arrow-circle-up" aria-hidden="true"></i> {% trans 'Inject xls file' %}
             </button>
 
 	</div>
@@ -70,9 +70,8 @@
             <form method="post" enctype="multipart/form-data" action="{% url 'upload_mandates_file' %}">
                 {% csrf_token %}
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                            id="bt_close_upload_mandates_modal"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="uploadMandatesLabel">{% trans 'Assistant mandates importation' %}</h4>
+                    <h4 class="modal-title"  id="uploadMandatesLabel">{% trans 'Assistant mandates importation' %}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  id="bt_close_upload_mandates_modal"></button>
                 </div>
                 <div class="modal-body">
                     <label for="file_mandates_input_file" class="btn btn-default" >{% trans 'Choose a file' %}</label>
@@ -81,7 +80,7 @@
                     <p class="help-block">{% trans 'Please select the XLSX file' %}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal"
                             id="bt_cancel_upload_mandates_modal">{% trans 'Cancel' %}</button>
                     <input type="submit" class="btn btn-primary" value="{% trans 'Inject'%}"
                            onclick="document.getElementById('files').style.visibility='visible'"

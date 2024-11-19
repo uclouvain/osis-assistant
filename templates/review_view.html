@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -29,16 +29,16 @@
 {% endblock %}
 {% block breadcrumb %}
 {% if role != "PHD_SUPERVISOR" %}
-    <li><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_mandates_list">
+    <li class="breadcrumb-item"><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_mandates_list">
         {% trans 'List of files' %}</a></li>
 {% else %}
-    <li><a href="{% url 'phd_supervisor_assistants_list' %}" id="lnk_phd_supervisor_assistants_list">
+    <li class="breadcrumb-item"><a href="{% url 'phd_supervisor_assistants_list' %}" id="lnk_phd_supervisor_assistants_list">
         {% trans 'List of files (as a thesis promoter)' %}</a></li>
 {% endif %}
-<li class="active">{% trans 'Assistant file and opinion' %}</li>
+<li class="breadcrumb-item active">{% trans 'Assistant file and opinion' %}</li>
 {% endblock %}
 {% block content %}
-<div class="page-header">
+<div class="page-header mb-0 border-bottom-0 pb-0">
     {% if current_reviewer %}
         <h6>{% trans 'You are connected as' %} {{ current_reviewer.person }} ({% trans current_reviewer.role %}) - {{ entity.acronym }}</h6>
     {% else %}
@@ -48,22 +48,22 @@
     <h4>{{ assistant.person }}</h4>
     <ul class="nav nav-tabs">
 	    {% if menu_type == 'phd_supervisor_menu' %}
-            <li><a href="#">
+            <li class="nav-item"><a href="#" class="nav-link">
                 <form method="POST" action="{% url 'phd_supervisor_pst_form_view' %}">
                     {% csrf_token %}
                     <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                    <button type="submit" class="btn btn-link" title="{% trans 'View'%}">
+                    <button type="submit" class="btn btn-link text-decoration-none" title="{% trans 'View'%}">
                         {% trans 'Assistant file' %}
                     </button>
                 </form>
                 </a>
             </li>
         {% else %}
-	        <li><a href="#">
+	        <li class="nav-item"><a href="#" class="nav-link">
                 <form method="POST" action="{% url 'pst_form_view' %}">
                     {% csrf_token %}
                     <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                    <button type="submit" class="btn btn-link" title="{% trans 'View'%}">
+                    <button type="submit" class="btn btn-link text-decoration-none" title="{% trans 'View'%}">
                         {% trans 'Assistant file' %}
                     </button>
                 </form>
@@ -71,31 +71,31 @@
             </li>
         {% endif %}
         {% for dict in menu %}
-            <li class={{ dict.class}}><a href="#">
+            <li class="nav-item"><a href="#" class="nav-link {{ dict.class}}">
                 {% if menu_type == 'phd_supervisor_menu' %}
                     {% if dict.action == 'edit' %}
                         <form method="POST" action="{% url 'phd_supervisor_review_edit' %}">
                             {% csrf_token %}
                             <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                            <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
+                            <button type="submit" class="btn btn-link text-decoration-none" title="{% trans 'Edit'%}">
                     {% elif dict.action == 'view' %}
                         <form method="POST" action="{% url 'phd_supervisor_review_view' %}">
                             {% csrf_token %}
                             <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                            <button type="submit" class="btn btn-link" title="{% trans 'View'%}">
+                            <button type="submit" class="btn btn-link text-decoration-none" title="{% trans 'View'%}">
                     {% endif %}
                 {% else %}
                     {% if dict.action == 'edit' %}
                         <form method="POST" action="{% url 'review_edit' %}">
                             {% csrf_token %}
                             <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
-                            <button type="submit" class="btn btn-link" title="{% trans 'Edit'%}">
+                            <button type="submit" class="btn btn-link text-decoration-none" title="{% trans 'Edit'%}">
                     {% elif dict.action == 'view' %}
                         <form method="POST" action="{% url 'review_view' %}">
                             {% csrf_token %}
                             <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
                             <input type="hidden" name="role" value="{{ dict.item }}">
-                            <button type="submit" class="btn btn-link" title="{% trans 'View'%}">
+                            <button type="submit" class="btn btn-link text-decoration-none" title="{% trans 'View'%}">
                     {% endif %}
                 {% endif %}
                 {% if dict.item == 'PHD_SUPERVISOR' %}
@@ -112,8 +112,8 @@
         {% endfor %}
     </ul>
 </div>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="card border-top-0">
+    <div class="card-body">
         <h4>
             {% if review.reviewer is None %}
                 {{ review.mandate.assistant.supervisor }}
@@ -127,11 +127,11 @@
             </label>
             <div class="controls">
                 {% if review.advice == "FAVORABLE" %}
-                    <span class="far fa-thumbs-up" style="font-size: 14pt; color: green" aria-hidden="true"></span>
+                    <i class="far fa-thumbs-up fs-4 text-success" aria-hidden="true"></i>
                 {% elif review.advice == "UNFAVOURABLE" %}
-                    <span class="far fa-thumbs-down" style="font-size: 14pt; color: red" aria-hidden="true"></span>
+                    <i class="far fa-thumbs-down fs-4 text-danger" aria-hidden="true"></i>
                 {% else %}
-                    <span class="fas fa-exclamation-triangle" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
+                    <i class="fas fa-exclamation-triangle fs-4 text-warning" aria-hidden="true"></i>
                 {% endif %}
                 {% trans review.advice %}
             </div>

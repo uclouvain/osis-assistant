@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -26,43 +26,42 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
-<li class="active">{% trans 'Reviews' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Reviews' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
     <h2>{% trans 'Assistant mandate renewal application' %}</h2>
 </div>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="card">
+    <div class="card-body">
     {% for review in reviews %}
         {% if review.reviewer %}
-            <h4>{{ review.changed }} - {% trans review.reviewer.role %} : {{ review.reviewer.person }}</h4>
+            <h4 class="fs-5">{{ review.changed }} - {% trans review.reviewer.role %} : {{ review.reviewer.person }}</h4>
         {% else %}
-            <h4>{{ review.changed }} - {% trans 'Thesis promoter' %} : {{ review.mandate.assistant.supervisor }}</h4>
+            <h4 class="fs-5">{{ review.changed }} - {% trans 'Thesis promoter' %} : {{ review.mandate.assistant.supervisor }}</h4>
         {% endif %}
-        <div class="list-group">
-            <div class="list-group-item">
+        <div class="list-group mb-4">
+            <div class="list-group-item pt-3">
                 <h4 class="list-group-item-text">{% trans 'Opinion' %}</h4>
-                <p style="margin-top: 10px;">
+                <p class="my-3">
                     {% if review.advice == "FAVORABLE" %}
-                    <span class="far fa-thumbs-up" style="font-size: 14pt; color: green"
-                          aria-hidden="true"></span>
+                    <i class="far fa-thumbs-up fs-4 text-success" aria-hidden="true"></i>
                     {% elif review.advice == "UNFAVOURABLE" %}
-                    <span class="far fa-thumbs-down" style="font-size: 14pt; color: red" aria-hidden="true"></span>
+                    <i class="far fa-thumbs-down fs-4 text-danger" aria-hidden="true"></i>
                     {% else %}
-                    <span class="fas fa-exclamation-triangle" style="font-size: 14pt; color: orange" aria-hidden="true"></span>
+                    <i class="fas fa-exclamation-triangle fs-4 text-warning" aria-hidden="true"></i>
                     {% endif %}
                     {% trans review.advice %}
                 </p>
                 {% if review.advice != "FAVORABLE" %}
                     <h4 class="list-group-item-text">{% trans 'Justification' %}</h4>
-                    <p style="margin-top: 10px;">
+                    <p class="mt-2">
                         {{ review.justification }}
                     </p>
                 {% endif %}
                 <h4 class="list-group-item-text">{% trans 'Remark' %}</h4>
-                    <p style="margin-top: 10px;">
+                    <p class="mt-2">
                         {{ review.remark }}
                     </p>
             </div>

@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -26,36 +26,36 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-<li><a href="{% url 'assistant_mandates' %}" id="lnk_assistant_mandates">{% trans 'My mandates' %}</a></li>
-<li class="active">{% trans 'Renewal application form' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'assistant_mandates' %}" id="lnk_assistant_mandates">{% trans 'My mandates' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
 <ul class="nav nav-tabs ">
-<li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
-<li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
-<li class="active"><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
-{% if assistant_type == "ASSISTANT" %}
-    <li><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
-{% endif %}
-<li><a href="{% url 'form_part4_edit'%}">{% trans 'Research' %}</a></li>
-<li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
-<li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
+    <li class="nav-item"><a href="{% url 'assistant_mandates' %}" class="nav-link">{% trans 'My mandates' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part1_edit' %}" class="nav-link">{% trans 'Administrative' %}</a></li>
+    <li class="nav-item"><a href="{% url 'mandate_learning_units' %}" class="nav-link active">{% trans 'Learning units' %}</a></li>
+    {% if assistant_type == "ASSISTANT" %}
+        <li class="nav-item"><a href="{% url 'form_part3_edit' %}" class="nav-link">{% trans 'Ph.D.' %}</a></li>
+    {% endif %}
+    <li class="nav-item"><a href="{% url 'form_part4_edit'%}" class="nav-link">{% trans 'Research' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part5_edit' %}" class="nav-link">{% trans 'Activities' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part6_edit' %}" class="nav-link">{% trans 'Summary' %}</a></li>
 </ul>
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
         <form method="POST" action="{% url 'tutoring_learning_unit_save' %}">
         {{ form.non_field_errors }}
         {% csrf_token %}
  		{% for hidden in form.hidden_fields %}
 			{{ hidden }}
 		{% endfor %}
-        <div class="panel-info">
-            <div class="panel-heading">
+        <div class="card-info bg-info">
+            <div class="card-heading">
                 <h4>{% trans 'Learning unit' %}</h4>
             </div>
         </div>
         <div class="form-group">
-            <label style="padding-top: 15px" for="txt_learning_unit" id="id_learning_unit">
+            <label class="pt-3" for="txt_learning_unit" id="id_learning_unit">
                 {% trans 'Learning unit' %}</label>
             {{ form.media }}
             {{ form.learning_unit_year }}
@@ -104,9 +104,9 @@
             <span class="error">{{ form.others_delivery.errors }}</span>
         </div>
         <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_save_tutoring_learning_unit">
-        <span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
+        <i class="far fa-save" aria-hidden="true"></i> {% trans 'Save'%}</button>
         <a class="btn btn-default" id="lnk_cancel" href="{% url 'mandate_learning_units' %}">
-        <span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
+        <i class="fas fa-times" aria-hidden="true"></i> {% trans 'Cancel'%}</a>
         <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
     </form>
     </div>

@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n display_role %}
 
@@ -26,15 +26,15 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
-<li class="active">{% trans 'Reviewers' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Reviewers' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
     <h3>{% trans 'Assistant mandate renewal application processing' %}</h3>
 </div>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="card">
+    <div class="card-body">
         <form action="{% url 'reviewer_action' %}" method="post">
             {% csrf_token %}
             {{ reviewers_formset.management_form }}
