@@ -840,6 +840,7 @@ msgstr "Cette information n'est transmise qu'aux DAS/CAS et Vice-Recteur"
 msgid "This information will not be transmitted to the assistant"
 msgstr "Cette information ne sera pas transmise à l'assistant"
 
+msgctxt "assistant"
 msgid "Title"
 msgstr "Intitulé"
 
