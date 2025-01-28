@@ -784,6 +784,7 @@ msgstr "Procédure de démarrage"
 msgid "State"
 msgstr "État"
 
+msgctxt "assistant"
 msgid "Status"
 msgstr "Statut"
 

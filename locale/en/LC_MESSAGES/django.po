@@ -740,6 +740,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
+msgctxt "assistant"
 msgid "Status"
 msgstr ""
 
