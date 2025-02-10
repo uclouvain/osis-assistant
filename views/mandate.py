@@ -31,7 +31,7 @@ from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, pgettext_lazy
 from openpyxl import Workbook
 
 from assistant import models as assistant_mdl
@@ -178,7 +178,7 @@ def generate_xls():
                       _("Email"),
                       "FGS",
                       _("Age"),
-                      _("Status"),
+                      pgettext_lazy("assistant", "Status"),
                       _("Renewal type"),
                       _("Assistant type"),
                       _("Full-time equivalent"),
