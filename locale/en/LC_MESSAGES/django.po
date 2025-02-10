@@ -740,6 +740,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
+msgctxt "assistant"
 msgid "Status"
 msgstr ""
 
@@ -795,6 +796,7 @@ msgstr ""
 msgid "This information will not be transmitted to the assistant"
 msgstr ""
 
+msgctxt "assistant"
 msgid "Title"
 msgstr ""
 
