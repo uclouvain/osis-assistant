@@ -33,13 +33,10 @@
                 <form method="post" enctype="multipart/form-data" >
                     {% csrf_token %}
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                id="bt_close_upload_file_modal"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="upload_assistant_file">
-                            <label id="lbl_description_label"></label>
-                        </h4>
+                        <h4 class="modal-title" id="upload_assistant_file"><label id="lbl_description_label"></label></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="bt_close_upload_file_modal"></button>
                         <div class="row" style="padding-top: 4px;">
-                            <div class="col-md-4" style="text-align: left">
+                            <div class="col-lg-4 text-start">
                                 <span class="error" id="error_modal_upload">{{ pnl_modal_upload }}</span>
                             </div>
                         </div>
@@ -50,9 +47,9 @@
                         <br>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal"
                                 id="bt_cancel_upload_file_modal">{% trans 'Cancel' %}</button>
-                        <input type="submit" class="btn btn-primary" value="{% trans 'Save'%}" data-dismiss="modal"
+                        <input type="submit" class="btn btn-primary" value="{% trans 'Save'%}" data-bs-dismiss="modal"
                                id="bt_upload_document"/>
                         <input type="hidden" name="description" value="" id="hdn_description"/>
                         <input type="hidden" id="hdn_filename" />

@@ -1,6 +1,6 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static i18n%}
-{% load bootstrap3 %}
+{% load django_bootstrap5 %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -26,25 +26,25 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-    <li><a href="{% url 'institution' %}" id="lnk_institution">{% trans 'Institution' %}</a></li>
-    <li><a href="{% url 'mandates' %}" id="lnk_mandates">{% trans 'Mandates' %}</a></li>
-    <li><a href="{% url 'assistants_home' %}" id="lnk_mandates">{% trans 'Assistants' %}</a></li>
-    <li class="active">{% trans 'Export of the declined assistants mandates' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'institution' %}" id="lnk_institution">{% trans 'Institution' %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'mandates' %}" id="lnk_mandates">{% trans 'Mandates' %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'assistants_home' %}" id="lnk_mandates">{% trans 'Assistants' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Export of the declined assistants mandates' %}</li>
 {% endblock %}
 {% block content %}
     <div class="page-header">
         <h3>{% trans 'Export of the declined assistants mandates' %}</h3>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
             <form method="get" action="{% url 'download_declined_mandates_pdf' %} ">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-lg-3">
                         {% bootstrap_field form.academic_year show_label=False %}
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-lg-2">
                         {% trans 'Export' as trans_export %}
-                        {% bootstrap_button button_type='submit' icon='glyphicon glyphicon-floppy-open' content=trans_export button_class='btn-default no_spinner'%}
+                        {% bootstrap_button button_type='submit' icon='fa-solid fa-file-arrow-up' content=trans_export button_class='btn-default no_spinner'%}
                     </div>
                 </div>
 

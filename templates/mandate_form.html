@@ -1,7 +1,6 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
-{
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -33,35 +32,35 @@
  </style>
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
-<li><a href="{% url 'mandates_list' %}" id="lnk_assistants">{% trans 'List of mandates' %}</a></li>
-<li class="active">{% trans 'Mandate edition' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
+<li class="breadcrumb-item"><a href="{% url 'mandates_list' %}" id="lnk_assistants">{% trans 'List of mandates' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Mandate edition' %}</li>
 
 {% endblock %}
 {% block content %}
-<div class="page-header">
+<div class="page-header mb-0 border-bottom-0 pb-0">
     <h3>{% trans 'Assistant mandate renewal application processing' %} {{ mandate.academic_year.year|add:1 }}</h3>
     <ul class="nav nav-tabs">
-	    <li class="active"><a href="#">{% trans 'Administrative data' %}</a></li>
-        <li><a href="{% url 'manager_assistant_form_view' mandate_id=mandate.id %}">{% trans 'Assistant file' %}</a></li>
-        <li><a href="{% url 'manager_reviews_view' mandate_id=mandate.id %}">{% trans 'Workflow and reviews' %}</a></li>
+	    <li class="nav-item"><a href="#" class="nav-link active">{% trans 'Administrative data' %}</a></li>
+        <li class="nav-item"><a href="{% url 'manager_assistant_form_view' mandate_id=mandate.id %}" class="nav-link">{% trans 'Assistant file' %}</a></li>
+        <li class="nav-item"><a href="{% url 'manager_reviews_view' mandate_id=mandate.id %}" class="nav-link">{% trans 'Workflow and reviews' %}</a></li>
     </ul>
 </div>
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="card border-top-0">
+    <div class="card-body">
         <form method="post" action=" {% url 'assistant_mandate_change_state' %} ">
             {% csrf_token %}
             <div class="row">
-                <div class="col-sm-6" style="vertical-align: middle;">
+                <div class="col-md-6 align-middle">
                     <h3>{{ mandate.assistant }} ({{ mandate.assistant.person.gender }})</h3>
                 </div>
 
-                <div class="col-sm-6" style="text-align: right;vertical-align: bottom;">
+                <div class="col-md-6 text-end align-bottom">
                     {% if mandate.state == "TO_DO" %}
                         <input type="hidden" id="hdn_change_state_mandate_id" name="mandate_id" value="{{ mandate.id }}">
                         <button type="submit" class="btn btn-danger" title="{% trans 'Refuse'%}" id="bt_mandate_decline"
                                 name="bt_mandate_decline" onclick="return confirm('{% trans 'Are you sure you want to decline the renewal request? This action is irreversible.' %}')">
-                            <span class="fas fa-times-circle" aria-hidden="true"></span> {% trans 'Refuse'%}
+                            <i class="fas fa-times-circle" aria-hidden="true"></i> {% trans 'Refuse'%}
                         </button>
                     {% else %}
                         {% trans 'State' %} : {% trans mandate.get_state_display %}
@@ -74,15 +73,15 @@
             {{ mandate.assistant.person.email }}
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <label for="txt_assistant_type">{% trans 'Assistant type' %}</label>
                         {{ form.assistant_type }}<span class="error">{{ form.assistant_type.errors }}</span>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <label for="txt_matricule_number">{% trans 'Registration number' %}</label>
                         {{ form.sap_id }}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <label for="txt_renewal_type">{% trans 'Renewal type' %}</label>
 
                             {{ form.renewal_type }}<span class="error">{{ form.renewal_type.errors }}</span>
@@ -92,15 +91,15 @@
             <div class="form-group">
                 <div class="row">
 
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <label for="txt_contract_duration">{% trans 'Contract length' %}</label>
                         {{ form.contract_duration }}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <label for="txt_contract_duration_fte">{% trans 'Full-time equivalent' %}</label>
                         {{ form.contract_duration_fte }}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <label for="txt_fulltime_equivalent">{% trans 'Percentage of occupancy' %}</label>
                         {{ form.fulltime_equivalent }}
                     </div>
@@ -133,7 +132,7 @@
                 {% for form in formset %}
                     {% for field in form %}
                         {% if field.name == "DELETE" %}
-                            <div class="controls">{{ field }} {% trans 'Delete' %}<span class="error">{{ field.errors }}</span></div>
+                            <div class="controls mt-2 mb-3">{{ field }} {% trans 'Delete' %}<span class="error">{{ field.errors }}</span></div>
                         {% else %}
                             <div class="controls">{{ field }}<span class="error">{{ field.errors }}</span></div>
                         {% endif %}
@@ -153,36 +152,36 @@
                  {{ form.other_status }}<span class="error">{{ form.other_status.errors }}</span>
             </div>
             <br>
-            <div class="panel-default">
-                <div class="panel-heading">
+            <div class="card">
+                <div class="card-heading">
                     <h4>{% trans 'Report of the steering committee (mandatory from the second renewal application)' %}</h4>
                 </div>
             </div>
 
             {% for file in files %}
-                <div class="row" style="padding-top: 15px;">
-                    <div class="col-md-4" id="pnl_filename" style="text-align: left">
+                <div class="row pt-3">
+                    <div class="col-lg-4 text-start" id="pnl_filename">
                         <a href="{% url 'assistant_file_download' document_file_id=file.id %}"
                            class="no_spinner">{{ file.document_file }}</a>
                     </div>
-                    <div class="col-md-4" style="text-align: left">
-                        <a class="btn btn-default btn-danger btn-sm " style="margin-right: 5px;"
+                    <div class="col-lg-4 text-start">
+                        <a class="btn btn-danger btn-md me-2"
                            title="{% trans 'Delete file' %}"
                            onclick="if (formIsChanged()){location.href='{% url 'delete_pdf_file' file.id 'mandate_read' mandate.id %}';}">
-                            <span class="fas fa-times" aria-hidden="true" id="lnk_delete_file"></span>
+                            <i class="fas fa-times" aria-hidden="true" id="lnk_delete_file"></i>
                             {% trans 'Delete' %}</a>
                     </div>
                 </div>
             {% endfor %}
-            <div class="form-group" style="padding-top: 15px;">
+            <div class="form-group pt-3">
                 {{ document_form }}
             </div>
             <br>
             <input type="hidden" id="hdn_mandate_id" name="mandate_id" value="{{ mandate.id }}">
-            <button type="submit" class="btn btn-primary" title="{% trans 'Save' %}" id="bt_mandate_save"><span
-                    class="far fa-save" aria-hidden="true"></span> {% trans 'Save' %}</button>
+            <button type="submit" class="btn btn-primary" title="{% trans 'Save' %}" id="bt_mandate_save"><i
+                    class="far fa-save" aria-hidden="true"></i> {% trans 'Save' %}</button>
             <a class="btn btn-default" id="lnk_mandate_cancel" href="{% url 'mandates_list' %}">
-                <span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel' %}</a>
+                <i class="fas fa-times" aria-hidden="true"></i> {% trans 'Cancel' %}</a>
         </form>
     </div>
 </div>
