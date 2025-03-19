@@ -31,7 +31,7 @@ from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.utils.translation import gettext as _, pgettext_lazy
+from django.utils.translation import gettext as _, pgettext
 from openpyxl import Workbook
 
 from assistant import models as assistant_mdl
@@ -168,31 +168,32 @@ def generate_xls():
     workbook = Workbook()
     worksheet = workbook.active
     worksheet.title = _('Mandates')
-    worksheet.append([_("Sector"),
-                      _("Faculty"),
-                      _("Logistics entity"),
-                      _("Institution"),
-                      _("Registration number"),
-                      _("Name"),
-                      _("Firstname"),
-                      _("Email"),
-                      "FGS",
-                      _("Age"),
-                      pgettext_lazy("assistant", "Status"),
-                      _("Renewal type"),
-                      _("Assistant type"),
-                      _("Full-time equivalent"),
-                      _("Full-time equivalent"),
-                      _("Contract length"),
-                      _("Contract start date"),
-                      _("End date"),
-                      _("Comment"),
-                      _("Absences"),
-                      _("Opinion of the sector vice-rector"),
-                      _("Justification"),
-                      _("Comment"),
-                      _("Confidential"),
-                      ])
+    worksheet.append([
+        _("Sector"),
+        _("Faculty"),
+        _("Logistics entity"),
+        _("Institution"),
+        _("Registration number"),
+        _("Name"),
+        _("Firstname"),
+        _("Email"),
+        "FGS",
+        _("Age"),
+        pgettext("assistant", "Status"),
+        _("Renewal type"),
+        _("Assistant type"),
+        _("Full-time equivalent"),
+        _("Full-time equivalent"),
+        _("Contract length"),
+        _("Contract start date"),
+        _("End date"),
+        _("Comment"),
+        _("Absences"),
+        _("Opinion of the sector vice-rector"),
+        _("Justification"),
+        _("Comment"),
+        _("Confidential"),
+    ])
     mandates = assistant_mandate.find_by_academic_year(academic_year.starting_academic_year())
     for mandate in mandates:
         line = construct_line(mandate)
@@ -231,8 +232,10 @@ def construct_line(mandate):
 def get_entities_for_mandate(mandate):
     ent_type = {entity_type.SECTOR, entity_type.FACULTY, entity_type.LOGISTICS_ENTITY, entity_type.INSTITUTE}
     entities_id = mandate.mandateentity_set.all().order_by('id').values_list('entity', flat=True)
-    entities = (ent for ent in entity.find_versions_from_entites(entities_id, mandate.academic_year.start_date)
-                if ent.entity_type in ent_type)
+    entities = (
+        ent for ent in entity.find_versions_from_entites(entities_id, mandate.academic_year.start_date)
+        if ent.entity_type in ent_type
+    )
     mandate_entities = [''] * 4
     for ent in entities:
         if ent.entity_type == entity_type.SECTOR:
