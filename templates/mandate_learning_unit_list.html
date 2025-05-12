@@ -153,6 +153,7 @@
             fileName = file.name;
             $("#hdn_filename").val(fileName);
             if (fileName.length > 100) {
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
                 document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
                 $("#txt_file").val('')
                 $('#pnl_upload_error').remove();
@@ -160,10 +161,12 @@
                 event.stopImmediatePropagation();
                 return false;
             } else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
                 document.getElementById("error_modal_upload").innerHTML = "";
             }
             res = /.*[()%$,;:/=+].*/i.test(fileName);
             if (res) {
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
                 document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
                 $("#txt_file").val('')
                 $('#pnl_upload_error').remove();
@@ -171,6 +174,7 @@
                 event.stopImmediatePropagation();
                 return false;
             } else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
                 document.getElementById("error_modal_upload").innerHTML = "";
             }
         });
@@ -218,6 +222,7 @@
                     });
                     return true;
                 } else {
+                    document.getElementById('error_modal_upload_alert').classList.remove('d-none');
                     document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
                     $("#txt_file").val('')
                     $('#pnl_upload_error').remove();

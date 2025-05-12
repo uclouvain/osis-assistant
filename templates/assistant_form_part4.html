@@ -85,21 +85,18 @@
                 <h4 class="fs-5 my-2">{% trans 'List of publications in PDF format (DIAL)' %}</h4>
     		</div>
     	</div>
-        {% for file in files %}
-            <div class="row pt-3">
-                <div class="col-lg-2" style="text-align: left">
-                    <a class="btn btn-danger btn-md me-2" id="btn_delete_file"
-                       title="{% trans 'Delete'%}"
-                       onclick="location.href='{% url 'assistant_file_delete' file.id 'form_part4_edit' %}';">
-                    <i class="fas fa-times" aria-hidden="true" id="spn_delete_file"></i>
-                        {% trans 'Delete file' %}</a>
-                </div>
-                <div class="col-lg-10 text-start" id="hdn_filename">
-                   <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
-                </div>
+        <div class="list-group">
+            {% for file in files %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <a id="hdn_filename" href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
+                <button class="btn btn-danger" id="btn_delete_file" onclick="location.href='{% url 'assistant_file_delete' file.id 'form_part4_edit' %}';">
+                    <i class="fa fa-times"></i>
+                    {% trans 'Delete' %}
+                </button>
             </div>
-        {% endfor %}
-        <div class="row px-3">
+            {% endfor %}
+        </div>
+        <div class="row mt-3 px-3">
             <a class="btn btn-default me-2" data-bs-toggle="modal" data-bs-target="#pnl_upload_documents"
                id="btn_add_file" title="{% trans 'Add file'%}">
                 <i class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></i>
@@ -127,6 +124,7 @@
        fileName = file.name;
        $("#hdn_filename").val(fileName);
        if(fileName.length > 100){
+            document.getElementById('error_modal_upload_alert').classList.remove('d-none');
             document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
             $("#txt_file").val('')
             $('#pnl_upload_error').remove();
@@ -135,11 +133,12 @@
             return false;
         }
         else {
+            document.getElementById('error_modal_upload_alert').classList.add('d-none');
             document.getElementById("error_modal_upload").innerHTML = "";
         }
         res = /.*[()%$,;:/=+].*/i.test(fileName);
-        if(res)
-            {
+        if(res) {
+            document.getElementById('error_modal_upload_alert').classList.remove('d-none');
             document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
             $("#txt_file").val('')
             $('#pnl_upload_error').remove();
@@ -148,6 +147,7 @@
             return false;
         }
         else {
+            document.getElementById('error_modal_upload_alert').classList.add('d-none');
             document.getElementById("error_modal_upload").innerHTML = "";
         }
     });
@@ -196,6 +196,7 @@
             return true;
         }
         else {
+            document.getElementById('error_modal_upload_alert').classList.remove('d-none');
             document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
             $("#txt_file").val('')
             $('#pnl_upload_error').remove();
