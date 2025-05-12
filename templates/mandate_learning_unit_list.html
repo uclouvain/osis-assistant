@@ -144,5 +144,93 @@
             });
         });
     </script>
-    <script type="text/javascript" src="{% static 'js/file_upload.js' %}"></script>
+    <script>
+        //***************************
+        //File upload
+        //***************************
+        $("#txt_file").on("change", function () {
+            var file = this.files[0];
+            fileName = file.name;
+            $("#hdn_filename").val(fileName);
+            if (fileName.length > 100) {
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
+                $("#txt_file").val('')
+                $('#pnl_upload_error').remove();
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                return false;
+            } else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "";
+            }
+            res = /.*[()%$,;:/=+].*/i.test(fileName);
+            if (res) {
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
+                $("#txt_file").val('')
+                $('#pnl_upload_error').remove();
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                return false;
+            } else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "";
+            }
+        });
+        $('[id^="bt_load_doc_"]').click(function (event) {
+            var target = $(event.target);
+            var id = target.attr("id");
+            var pos = id.indexOf('bt_load_doc_');
+            var description = id.substring(pos + 12);
+        });
+        $("#bt_upload_document").click(function (event) {
+            var target = $(event.target);
+            var id = target.attr("id");
+            var form = target.form;
+            var description = $("#hdn_description").val();
+            //Clear existing fields
+            $('#hdn_file_' + $("#txt_file").val()).remove();
+            $('#hdn_file_name_' + description).remove();
+            $('#hdn_file_description_' + description).remove();
+            var fileSelect = document.getElementById('txt_file');
+            var files = fileSelect.files;
+            var file = files[0];
+            var data = new FormData();
+            data.append('description', description);
+            data.append('storage_duration', 0);
+            data.append('content_type', file.type);
+            data.append('filename', $("#txt_file").val());
+            data.append('mandate_id', $("#hdn_current_mandate_id").val());
+            var accepted_types = ['application/pdf'];
+            if (file) {
+                if ($.inArray(file.type, accepted_types) >= 0) {
+                    data.append('file', file);
+                    $.ajax({
+                        url: "{% url 'assistant_file_upload' %}",
+                        enctype: 'multipart/form-data',
+                        type: 'POST',
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        complete: function (xhr, statusText) {
+                            var data_response = xhr.responseText;
+                            var jsonResponse = JSON.parse(data_response);
+                            window.location.reload(true);
+                            alert(jsonResponse["message"]);
+                        }
+                    });
+                    return true;
+                } else {
+                    document.getElementById('error_modal_upload_alert').classList.remove('d-none');
+                    document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
+                    $("#txt_file").val('')
+                    $('#pnl_upload_error').remove();
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    return false;
+                }
+            }
+        });
+    </script>
 {% endblock %}
