@@ -187,10 +187,7 @@
                 processData: false,
                 contentType: false,
                 complete: function(xhr, statusText) {
-                    var data_response=xhr.responseText;
-                    var jsonResponse = JSON.parse(data_response);
                     window.location.reload(true);
-                    alert(jsonResponse["message"]);
                 }
             });
             return true;

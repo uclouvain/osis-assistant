@@ -33,6 +33,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 
 from assistant import models as mdl
+from base.views.common import display_success_messages
 from osis_common.models import document_file as document_file
 
 
@@ -94,6 +95,7 @@ def save_uploaded_file(request):
         assistant_mandate_document_file.assistant_mandate = assistant_mandate
         assistant_mandate_document_file.document_file = new_document
         assistant_mandate_document_file.save()
+        display_success_messages(request, file_selected.name + ' ' + _('file uploaded'))
         return HttpResponse(
             json.dumps({"success": True, "message": file_selected.name + ' ' + _('file uploaded')}),
             content_type="application/json")
@@ -101,5 +103,3 @@ def save_uploaded_file(request):
         return HttpResponse(
             json.dumps({"error": True, "message": _('Error during saving the file, try again')}),
             content_type="application/json")
-
-

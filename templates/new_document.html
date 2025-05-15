@@ -30,7 +30,7 @@
          tabindex="-1" role="dialog" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form method="post" enctype="multipart/form-data" >
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="modal-header">
                         <h5 class="modal-title" id="upload_assistant_file">
@@ -49,8 +49,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-bs-dismiss="modal"
                                 id="bt_cancel_upload_file_modal">{% trans 'Cancel' %}</button>
-                        <input type="submit" class="btn btn-primary" value="{% trans 'Save'%}"
-                               id="bt_upload_document"/>
+                        <button type="button" class="btn btn-primary"
+                               id="bt_upload_document">{% trans 'Save' %}</button>
                         <input type="hidden" name="description" value="" id="hdn_description"/>
                         <input type="hidden" id="hdn_filename" />
                     </div>
