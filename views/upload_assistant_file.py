@@ -33,7 +33,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 
 from assistant import models as mdl
-from base.views.common import display_success_messages, display_error_messages
+from base.views.common import display_success_messages
 from osis_common.models import document_file as document_file
 
 

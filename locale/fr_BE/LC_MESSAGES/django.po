@@ -20,6 +20,9 @@ msgstr ""
 msgid " at line number : "
 msgstr " à la ligne numéro : "
 
+msgid " has been deleted"
+msgstr " a été effacé"
+
 #, python-format
 msgid "%% FTE"
 msgstr "%% FTE"
