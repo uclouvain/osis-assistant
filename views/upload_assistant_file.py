@@ -33,7 +33,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 
 from assistant import models as mdl
-from base.views.common import display_success_messages
+from base.views.common import display_success_messages, display_error_messages
 from osis_common.models import document_file as document_file
 
 
@@ -51,8 +51,10 @@ def download(request, document_file_id):
 def delete(request, document_file_id, url, mandate_id=None):
     assistant_mandate_document = mdl.assistant_document_file.find_by_id(document_file_id)
     document = document_file.find_by_id(assistant_mandate_document.document_file.id)
+    filename = assistant_mandate_document.document_file.file_name
     assistant_mandate_document.delete()
     document.delete()
+    display_success_messages(request, filename + ' ' + _(' has been deleted'))
     if mandate_id is not None:
         return HttpResponseRedirect(reverse(url, kwargs={'mandate_id': mandate_id}))
     else:
