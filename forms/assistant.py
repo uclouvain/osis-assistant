@@ -77,7 +77,6 @@ class AssistantFormPart3(ModelForm):
         widget=autocomplete.ModelSelect2(
             url='assistant_tutor_autocomplete',
             attrs={
-                'data-theme': 'bootstrap',
                 'data-placeholder': _('Indicate the last name or email'),
             }
         ),
