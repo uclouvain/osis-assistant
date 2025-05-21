@@ -89,7 +89,7 @@
             {% for file in files %}
             <div class="list-group-item d-flex justify-content-between align-items-center">
                 <a id="hdn_filename" href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
-                <button type="button" class="btn btn-danger" id="btn_delete_file" onclick="location.href='{% url 'assistant_file_delete' file.id 'form_part4_edit' %}';">
+                <button type="button" class="btn btn-danger" id="btn_delete_file" onclick="if (no_change()) location.href='{% url 'assistant_file_delete' file.id 'form_part4_edit' %}';">
                     <i class="fa fa-times"></i>
                     {% trans 'Delete' %}
                 </button>
@@ -212,8 +212,15 @@
                 if (choice == true) {
                     e.preventDefault();
                     $('form#pst-form-part4').submit();
-               }
+                }
             }
         });
+        function no_change(){
+            if ($("#pst-form-part4").data("changed")) {
+                alert("{% trans 'You have modified the form, please save your change before to delete the attached file.' %}");
+                return false;
+            }
+            return true;
+        }
     </script>
 {% endblock %}
