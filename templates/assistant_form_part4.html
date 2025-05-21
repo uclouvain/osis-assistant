@@ -207,8 +207,8 @@
             $("#pst-form-part4").data("changed",true);
         });
         $('a').on('click', function(e) {
-            if ($("#pst-form-part4").data("changed") ) {
-            var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
+            if ($("#pst-form-part4").data("changed")) {
+                var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
                 if (choice == true) {
                     e.preventDefault();
                     $('form#pst-form-part4').submit();
