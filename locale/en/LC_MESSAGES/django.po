@@ -872,6 +872,11 @@ msgid "You are connected as"
 msgstr ""
 
 msgid ""
+"You have modified the form, please save your change before to delete the "
+"attached file."
+msgstr ""
+
+msgid ""
 "You must add at least one teaching unit under the heading 'Teaching Units'"
 msgstr ""
 
