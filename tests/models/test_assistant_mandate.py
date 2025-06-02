@@ -27,19 +27,26 @@ import datetime
 
 import factory
 from django.test import TestCase
+import random
 
 from assistant.models import assistant_mandate
 from assistant.models.assistant_mandate import find_by_academic_year_by_excluding_declined
 from assistant.models.assistant_mandate import find_declined_by_academic_year
 from assistant.models.enums import assistant_mandate_state
+from assistant.models.enums.assistant_mandate_state import ASSISTANT_MANDATE_STATES
 from assistant.tests.factories.assistant_mandate import AssistantMandateFactory
 from base.tests.factories.academic_year import AcademicYearFactory
 
 
 class TestAssistantMandateFactory(TestCase):
     def setUp(self):
+        etat_valide = random.choice(
+            [state for state,_ in ASSISTANT_MANDATE_STATES if state != assistant_mandate_state.DECLINED]
+        )
         self.mandate = AssistantMandateFactory(
-            academic_year=factory.SubFactory(AcademicYearFactory, year=datetime.date.today().year - 1))
+            academic_year=factory.SubFactory(AcademicYearFactory, year=datetime.date.today().year - 1),
+            state=etat_valide,
+        )
         self.mandate2 = AssistantMandateFactory(
             academic_year=factory.SubFactory(AcademicYearFactory, year=datetime.date.today().year))
         self.researched_academic_year = self.mandate.academic_year
