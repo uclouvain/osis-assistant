@@ -20,6 +20,9 @@ msgstr ""
 msgid " at line number : "
 msgstr " à la ligne numéro : "
 
+msgid " has been deleted"
+msgstr " a été effacé"
+
 #, python-format
 msgid "%% FTE"
 msgstr "%% FTE"
@@ -916,6 +919,11 @@ msgstr "Oui"
 
 msgid "You are connected as"
 msgstr "Vous êtes connecté en tant que"
+
+msgid ""
+"You have modified the form, please save your change before to delete the "
+"attached file."
+msgstr "Vous avez modifié le formulaire, veuillez sauvegarder vos changements avant de supprimer le fichier."
 
 msgid ""
 "You must add at least one teaching unit under the heading 'Teaching Units'"

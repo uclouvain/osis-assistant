@@ -20,6 +20,9 @@ msgstr ""
 msgid " at line number : "
 msgstr ""
 
+msgid " has been deleted"
+msgstr ""
+
 #, python-format
 msgid "%% FTE"
 msgstr "%% FTE"
@@ -866,6 +869,11 @@ msgid "Yes"
 msgstr ""
 
 msgid "You are connected as"
+msgstr ""
+
+msgid ""
+"You have modified the form, please save your change before to delete the "
+"attached file."
 msgstr ""
 
 msgid ""

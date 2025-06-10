@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -27,13 +27,13 @@
 {% endcomment %}
 {% block breadcrumb %}
 {% if role != "PHD_SUPERVISOR" %}
-    <li><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_mandates_list">
+    <li class="breadcrumb-item"><a href="{% url 'reviewer_mandates_list' %}" id="lnk_reviewer_mandates_list">
         {% trans 'List of files' %}</a></li>
 {% else %}
-    <li><a href="{% url 'phd_supervisor_assistants_list' %}" id="lnk_phd_supervisor_assistants_list">
+    <li class="breadcrumb-item"><a href="{% url 'phd_supervisor_assistants_list' %}" id="lnk_phd_supervisor_assistants_list">
         {% trans 'List of files (as a thesis promoter)' %}</a></li>
 {% endif %}
-<li class="active">{% trans 'Submit an opinion' %}</li>
+<li class="breadcrumb-item active">{% trans 'Submit an opinion' %}</li>
 {% endblock %}
 {% block content %}
 <div class="page-header">
@@ -46,7 +46,7 @@
     <h4>{{ assistant.person }}</h4>
     <ul class="nav nav-tabs">
 	    {% if menu_type == 'phd_supervisor_menu' %}
-            <li><a href="#">
+            <li class="nav-item"><a href="#" class="nav-link">
                 <form method="POST" action="{% url 'phd_supervisor_pst_form_view' %}">
                     {% csrf_token %}
                     <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
@@ -57,7 +57,7 @@
                 </a>
             </li>
         {% else %}
-	        <li><a href="#">
+	        <li class="nav-item"><a href="#" class="nav-link">
                 <form method="POST" action="{% url 'pst_form_view' %}">
                     {% csrf_token %}
                     <input type="hidden" name="mandate_id" value="{{ mandate_id }}">
@@ -69,7 +69,7 @@
             </li>
         {% endif %}
         {% for dict in menu %}
-            <li class={{ dict.class}}><a href="#">
+            <li class="nav-item"><a href="#" class="nav-link {{ dict.class}}">
                 {% if menu_type == 'phd_supervisor_menu' %}
                     {% if dict.action == 'edit' %}
                         <form method="POST" action="{% url 'phd_supervisor_review_edit' %}">
@@ -111,8 +111,8 @@
     </ul>
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-body">
+<div class="card border-top-0">
+    <div class="card-body">
         {% if menu_type == 'phd_supervisor_menu' %}
             <form method="post" action="{% url 'phd_supervisor_review_save' %}">
         {% else %}
@@ -177,20 +177,20 @@
             </div>
         {% endif %}
         <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_mandate_save"
-                name="save"><span class="far fa-save" aria-hidden="true">
-        </span> {% trans 'Save'%}</button>
+                name="save"><i class="far fa-save" aria-hidden="true">
+                </i> {% trans 'Save'%}</button>
         {% if menu_type == 'phd_supervisor_menu' %}
             <a class="btn btn-default" id="lnk_mandate_cancel"
                href="{% url 'phd_supervisor_assistants_list' %}">
         {% else %}
             <a class="btn btn-default" id="lnk_mandate_cancel" href="{% url 'reviewer_mandates_list' %}">
         {% endif %}
-        <span class="fas fa-times" aria-hidden="true"></span> {% trans 'Cancel'%}</a>
+        <i class="fas fa-times" aria-hidden="true"></i> {% trans 'Cancel'%}</a>
         {% if can_validate %}
             <button type="submit" class="btn btn-success" title="{% trans 'Validate and submit'%}"
                     id="bt_pstform_validate_and_submit" name="validate_and_submit"
                     onclick="return confirm('{% trans 'Are you sure you want to validate and submit? This action is irreversible.' %}')">
-            <span class="far fa-saved" aria-hidden="true"></span>{% trans 'Validate and submit'%}</button>
+            <i class="far fa-saved" aria-hidden="true"></i>{% trans 'Validate and submit'%}</button>
         {% endif %}
         <input type="hidden" name="mandate_id" value="{{mandate_id | default_if_none:''}}">
         <input type="hidden" name="review_id" value="{{review.id | default_if_none:''}}">

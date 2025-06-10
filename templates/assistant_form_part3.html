@@ -1,8 +1,8 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 {% load l10n %}
-{% load bootstrap3 %}
+{% load django_bootstrap5 %}
 
 {% comment "License" %}
 * OSIS stands for Open Student Information System. It's an application
@@ -31,23 +31,23 @@
 <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
-<li class="active">{% trans 'Renewal application form' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
 <ul class="nav nav-tabs ">
-<li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
-<li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
-<li><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
-<li class="active"><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
-<li><a href="{% url 'form_part4_edit' %}">{% trans 'Research' %}</a></li>
-<li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
-<li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
-</ul>
-<div class="panel panel-default">
-	<div class="panel-body">
+    <li class="nav-item"><a href="{% url 'assistant_mandates' %}" class="nav-link">{% trans 'My mandates' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part1_edit' %}" class="nav-link">{% trans 'Administrative' %}</a></li>
+    <li class="nav-item"><a href="{% url 'mandate_learning_units' %}" class="nav-link">{% trans 'Learning units' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part3_edit' %}" class="nav-link active">{% trans 'Ph.D.' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part4_edit' %}" class="nav-link">{% trans 'Research' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part5_edit' %}" class="nav-link">{% trans 'Activities' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part6_edit' %}" class="nav-link">{% trans 'Summary' %}</a></li>
+    </ul>
+<div class="card">
+	<div class="card-body">
         {% if msg %}
-            <h5><p style="color:red">{{ msg }}</p></h5>
+            <h5><p class="text-danger">{{ msg }}</p></h5>
         {% endif %}
  		<form id="pst-form-part3" method="POST" enctype="multipart/form-data" action="{% url 'form_part3_save' %}">
  		{{ form.non_field_errors }}
@@ -55,9 +55,9 @@
  		{% for hidden in form.hidden_fields %}
 			{{ hidden }}
 		{% endfor %}
- 		<div class="panel-default">
-  			<div class="panel-heading">
-  				<h4>{% trans 'Ph.D.' %}</h4>
+ 		<div class="card border-0">
+  			<div class="card-heading border-bottom">
+  				<h4 class="fs-5 my-2">{% trans 'Ph.D.' %}</h4>
     		</div>
     	</div>
     	<div class="form-group">
@@ -108,30 +108,28 @@
                 {{ form.remark }}
                 <span class="error">{{ form.remark.errors }}</span>
         </div>
-        <div class="panel-default">
-  			<div class="panel-heading">
-  				<h4>{% trans 'Report of the steering committee (mandatory from the second renewal application)' %}</h4>
+        <div class="card border-0">
+  			<div class="card-heading border-bottom">
+  				<h4 class="fs-5 my-2">{% trans 'Report of the steering committee (mandatory from the second renewal application)' %}</h4>
     		</div>
     	</div>
-        {% for file in files %}
-            <div class="row" style="padding-top: 15px;">
-                <div class="col-md-2" style="text-align: left">
-                    <a class="btn btn-default btn-danger btn-sm" id="btn_delete_file" style="margin-right: 5px;"
-                       title="{% trans 'Delete file'%}"
-                       onclick="location.href='{% url 'assistant_file_delete' file.id 'form_part3_edit' %}';">
-                    <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
-                        {% trans 'Delete' %}</a>
-                </div>
-                <div class="col-md-10" id="hdn_filename" style="text-align: left">
-                   <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
-                </div>
+        <div class="list-group">
+            {% for file in files %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <a id="hdn_filename" href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
+                <button type="button" class="btn btn-danger" id="btn_delete_file" onclick="if (no_change()) location.href='{% url 'assistant_file_delete' file.id 'form_part3_edit' %}';">
+                    <i class="fa fa-times"></i>
+                    {% trans 'Delete' %}
+                </button>
             </div>
-        {% endfor %}
-		<div class="form-group" style="padding-top: 15px;">
-			<a class="btn btn-default" data-toggle="modal" data-target="#pnl_upload_documents"
-               id="btn_add_file" style="margin-right: 5px;" title="{% trans 'Add file'%}">
-                <span class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></span>
-                {% trans 'Attach a PDF file' %}</a>
+            {% endfor %}
+        </div>
+		<div class="form-group pt-3">
+			<a class="btn btn-default me-2" data-bs-toggle="modal" data-bs-target="#pnl_upload_documents"
+               id="btn_add_file" title="{% trans 'Add file'%}">
+                <i class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></i>
+                {% trans 'Attach a PDF file' %}
+            </a>
 		</div>
         <hr>
         <input type="hidden" value="{{mandate.id | default_if_none:''}}" id="hdn_current_mandate_id"
@@ -139,9 +137,9 @@
 	    <input type="hidden" value="{{ document_type }}" id="hdn_description" name="description"
                title="description">
 		<div class="form-group">
-     			<button type="submit" class="btn btn-primary" title="{% trans 'Save'%}"
-                        id="bt_pstform_part3_save">
-     			<span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
+            <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}"
+                    id="bt_pstform_part3_save">
+            <i class="far fa-save" aria-hidden="true"></i> {% trans 'Save'%}</button>
 		</div>
         {{ form.media }}
     	</form>
@@ -150,167 +148,147 @@
 {% include "new_document.html" %}
 {% endblock %}
 {% block script %}
-<script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
-<script>
-window.onload = function() {
-    $('#person_id').empty();
-};
-$(function() {
-    $("#search_persons").autocomplete({
-        source: "/assistants/api/get_persons/",
-        minLength: 3,
-        delay: 100,
-        select: function(event, ui) {
-            var person_id = ui.item.id;
-            $("#person_id").val(person_id);
-            $("#search_persons").val(ui.item.first_name + ', ' + ui.item.last_name + ' (' + ui.item.value + ')');
-            $('#id_phd_inscription_date').focus();
-            return False;
+    <script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
+    <script>
+        function Hide() {
+            if (document.getElementById('id_mand-inscription_0').checked == true) {
+                document.getElementById('id_mand-expected_phd_date').style.display = 'none';
+                document.getElementById('id_mand-expected_phd_date').value = '';
+                document.getElementById('label_for_expected_phd_date').style.display = 'none';
+                document.getElementById('id_mand-phd_inscription_date').style.display = 'block';
+                document.getElementById('label_for_phd_inscription_date').style.display = 'block';
+            } else if (document.getElementById('id_mand-inscription_1').checked == true) {
+                document.getElementById('id_mand-expected_phd_date').style.display = 'none';
+                document.getElementById('id_mand-expected_phd_date').value = '';
+                document.getElementById('label_for_expected_phd_date').style.display = 'none';
+                document.getElementById('id_mand-phd_inscription_date').style.display = 'none';
+                document.getElementById('id_mand-phd_inscription_date').value = '';
+                document.getElementById('label_for_phd_inscription_date').style.display = 'none';
+            } else if (document.getElementById('id_mand-inscription_2').checked == true) {
+                document.getElementById('id_mand-phd_inscription_date').style.display = 'none';
+                document.getElementById('id_mand-phd_inscription_date').value = '';
+                document.getElementById('label_for_phd_inscription_date').style.display = 'none';
+                document.getElementById('id_mand-expected_phd_date').style.display = '';
+                document.getElementById('label_for_expected_phd_date').style.display = 'block';
+            } else {
+                document.getElementById('id_mand-expected_phd_date').style.display = 'block';
+                document.getElementById('label_for_expected_phd_date').style.display = 'block';
+                document.getElementById('id_mand-phd_inscription_date').style.display = 'block';
+                document.getElementById('label_for_phd_inscription_date').style.display = 'block';
+            }
         }
-    });
-});
 
-function Hide() {
+        window.onload = function() {
+            Hide();
+        };
 
-    if (document.getElementById('id_mand-inscription_0').checked == true) {
-        document.getElementById('id_mand-expected_phd_date').style.display = 'none';
-        document.getElementById('id_mand-expected_phd_date').value = '';
-        document.getElementById('label_for_expected_phd_date').style.display = 'none';
-        document.getElementById('id_mand-phd_inscription_date').style.display = 'block';
-        document.getElementById('label_for_phd_inscription_date').style.display = 'block';
-        document.getElementById('search_persons').style.display = 'block';
-        document.getElementById('label_for_search_persons').style.display = 'block';
-    } else if (document.getElementById('id_mand-inscription_1').checked == true) {
-        document.getElementById('id_mand-expected_phd_date').style.display = 'none';
-        document.getElementById('id_mand-expected_phd_date').value = '';
-        document.getElementById('label_for_expected_phd_date').style.display = 'none';
-        document.getElementById('id_mand-phd_inscription_date').style.display = 'none';
-        document.getElementById('id_mand-phd_inscription_date').value = '';
-        document.getElementById('label_for_phd_inscription_date').style.display = 'none';
-        document.getElementById('search_persons').style.display = 'none';
-        document.getElementById('search_persons').value = '';
-        document.getElementById('label_for_search_persons').style.display = 'none';
-    } else if (document.getElementById('id_mand-inscription_2').checked == true) {
-        document.getElementById('id_mand-phd_inscription_date').style.display = 'none';
-        document.getElementById('id_mand-phd_inscription_date').value = '';
-        document.getElementById('label_for_phd_inscription_date').style.display = 'none';
-        document.getElementById('id_mand-expected_phd_date').style.display = '';
-        document.getElementById('label_for_expected_phd_date').style.display = 'block';
-        document.getElementById('search_persons').style.display = 'block';
-        document.getElementById('label_for_search_persons').style.display = 'block';
-    } else {
-
-        document.getElementById('id_mand-expected_phd_date').style.display = 'block';
-        document.getElementById('label_for_expected_phd_date').style.display = 'block';
-        document.getElementById('id_mand-phd_inscription_date').style.display = 'block';
-        document.getElementById('label_for_phd_inscription_date').style.display = 'block';
-        document.getElementById('search_persons').style.display = 'block';
-        document.getElementById('label_for_search_persons').style.display = 'block';
-    }
-}
-
-window.onload = function() {
-    Hide();
-};
-
-$("#pst-form-part3 :input").change(function() {
-    $("#pst-form-part3").data("changed", true);
-});
-$('a').on('click', function(e) {
-    if ($("#pst-form-part3").data("changed")) {
-        var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
-        if (choice == true) {
-            e.preventDefault();
-            $('form#pst-form-part3').submit();
-        }
-    }
-});
-//***************************
-//File upload
-//***************************
-$("#txt_file").on("change", function() {
-    var file = this.files[0];
-    fileName = file.name;
-    $("#hdn_filename").val(fileName);
-    if(fileName.length > 100){
-        document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
-        $("#txt_file").val('')
-        $('#pnl_upload_error').remove();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        return false;
-    }
-    else {
-        document.getElementById("error_modal_upload").innerHTML = "";
-    }
-    res = /.*[()%$,;:/=+].*/i.test(fileName);
-    if(res)
-        {
-        document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
-        $("#txt_file").val('')
-        $('#pnl_upload_error').remove();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        return false;
-    }
-    else {
-        document.getElementById("error_modal_upload").innerHTML = "";
-    }
-});
-
-$('[id^="bt_load_doc_"]').click(function(event) {
-    var target = $(event.target);
-    var id = target.attr("id");
-    var pos = id.indexOf('bt_load_doc_');
-    var description = id.substring(pos + 12);
-});
-$("#bt_upload_document").click(function(event) {
-    var target = $(event.target);
-    var id = target.attr("id");
-    var form = target.form;
-    var description = $("#hdn_description").val();
-    //Clear existing fields
-    $('#hdn_file_' + $("#txt_file").val()).remove();
-    $('#hdn_file_name_' + description).remove();
-    $('#hdn_file_description_' + description).remove();
-    var fileSelect = document.getElementById('txt_file');
-    var files = fileSelect.files;
-    var file = files[0];
-    var data = new FormData();
-    data.append('description', description);
-    data.append('storage_duration', 0);
-    data.append('content_type', file.type);
-    data.append('filename', $("#txt_file").val());
-    data.append('mandate_id', $("#hdn_current_mandate_id").val());
-    var accepted_types = ['application/pdf'];
-    if (file) {
-        if ($.inArray(file.type, accepted_types) >= 0) {
-            data.append('file', file);
-            $.ajax({
-                url: "{% url 'assistant_file_upload' %}",
-                enctype: 'multipart/form-data',
-                type: 'POST',
-                data: data,
-                processData: false,
-                contentType: false,
-                complete: function(xhr, statusText) {
-                    var data_response=xhr.responseText;
-                    var jsonResponse = JSON.parse(data_response);
-                    window.location.reload(true);
-                    alert(jsonResponse["message"]);
+        $("#pst-form-part3 :input").change(function() {
+            $("#pst-form-part3").data("changed", true);
+        });
+        $('a').on('click', function(e) {
+            if ($("#pst-form-part3").data("changed")) {
+                var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
+                if (choice == true) {
+                    e.preventDefault();
+                    $('form#pst-form-part3').submit();
                 }
-            });
+            }
+        });
+        function no_change(){
+            if ($("#pst-form-part3").data("changed")) {
+                alert("{% trans 'You have modified the form, please save your change before to delete the attached file.' %}");
+                return false;
+            }
             return true;
         }
-        else {
-            document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
-            $("#txt_file").val('')
-            $('#pnl_upload_error').remove();
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            return false;
-        }
-    }
-});
+        //***************************
+        //File upload
+        //***************************
+        $("#txt_file").on("change", function() {
+            var file = this.files[0];
+            fileName = file.name;
+            $("#hdn_filename").val(fileName);
+            if(fileName.length > 100){
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
+                $("#txt_file").val('')
+                $('#pnl_upload_error').remove();
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                return false;
+            }
+            else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "";
+            }
+            res = /.*[()%$,;:/=+].*/i.test(fileName);
+            if(res)
+                {
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
+                $("#txt_file").val('')
+                $('#pnl_upload_error').remove();
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                return false;
+            }
+            else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "";
+            }
+        });
+
+        $('[id^="bt_load_doc_"]').click(function(event) {
+            var target = $(event.target);
+            var id = target.attr("id");
+            var pos = id.indexOf('bt_load_doc_');
+            var description = id.substring(pos + 12);
+        });
+        $("#bt_upload_document").click(function(event) {
+            var target = $(event.target);
+            var id = target.attr("id");
+            var form = target.form;
+            var description = $("#hdn_description").val();
+            //Clear existing fields
+            $('#hdn_file_' + $("#txt_file").val()).remove();
+            $('#hdn_file_name_' + description).remove();
+            $('#hdn_file_description_' + description).remove();
+            var fileSelect = document.getElementById('txt_file');
+            var files = fileSelect.files;
+            var file = files[0];
+            var data = new FormData();
+            data.append('description', description);
+            data.append('storage_duration', 0);
+            data.append('content_type', file.type);
+            data.append('filename', $("#txt_file").val());
+            data.append('mandate_id', $("#hdn_current_mandate_id").val());
+            var accepted_types = ['application/pdf'];
+            if (file) {
+                if ($.inArray(file.type, accepted_types) >= 0) {
+                    data.append('file', file);
+                    $.ajax({
+                        url: "{% url 'assistant_file_upload' %}",
+                        enctype: 'multipart/form-data',
+                        type: 'POST',
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        complete: function(xhr, statusText) {
+                            window.location.reload(true);
+                        }
+                    });
+                    return true;
+                }
+                else {
+                    document.getElementById('error_modal_upload_alert').classList.remove('d-none');
+                    document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
+                    $("#txt_file").val('')
+                    $('#pnl_upload_error').remove();
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    return false;
+                }
+            }
+        });
     </script>
 {% endblock %}

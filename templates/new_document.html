@@ -30,30 +30,27 @@
          tabindex="-1" role="dialog" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form method="post" enctype="multipart/form-data" >
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                id="bt_close_upload_file_modal"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="upload_assistant_file">
-                            <label id="lbl_description_label"></label>
-                        </h4>
-                        <div class="row" style="padding-top: 4px;">
-                            <div class="col-md-4" style="text-align: left">
-                                <span class="error" id="error_modal_upload">{{ pnl_modal_upload }}</span>
-                            </div>
-                        </div>
+                        <h5 class="modal-title" id="upload_assistant_file">
+                           {% trans 'Upload a new pdf file' %}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="bt_close_upload_file_modal"></button>
                     </div>
                     <div class="modal-body" id="pnl_modal_upload">
+                        <div id="error_modal_upload_alert" class="col-lg-12 alert alert-danger text-start d-none">
+                            <span class="error" id="error_modal_upload">{{ pnl_modal_upload }}</span>
+                        </div>
                         {% include "uploading/upload_file_form.html" %}
                         <div id="pnl_existing_files"></div>
                         <br>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal"
                                 id="bt_cancel_upload_file_modal">{% trans 'Cancel' %}</button>
-                        <input type="submit" class="btn btn-primary" value="{% trans 'Save'%}" data-dismiss="modal"
-                               id="bt_upload_document"/>
+                        <button type="button" class="btn btn-primary"
+                               id="bt_upload_document">{% trans 'Save' %}</button>
                         <input type="hidden" name="description" value="" id="hdn_description"/>
                         <input type="hidden" id="hdn_filename" />
                     </div>

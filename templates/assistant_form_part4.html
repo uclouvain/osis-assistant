@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 {% load l10n %}
@@ -27,27 +27,27 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block breadcrumb %}
-<li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
-<li class="active">{% trans 'Renewal application form' %}</li>
+<li class="breadcrumb-item"><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
+<li class="breadcrumb-item active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
 <ul class="nav nav-tabs ">
-<li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
-<li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
-<li><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
-<li><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
-<li class="active"><a href="{% url 'form_part4_edit' %}">{% trans 'Research' %}</a></li>
-<li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
-<li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
+    <li class="nav-item"><a href="{% url 'assistant_mandates' %}" class="nav-link">{% trans 'My mandates' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part1_edit' %}" class="nav-link">{% trans 'Administrative' %}</a></li>
+    <li class="nav-item"><a href="{% url 'mandate_learning_units' %}" class="nav-link">{% trans 'Learning units' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part3_edit' %}" class="nav-link">{% trans 'Ph.D.' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part4_edit' %}" class="nav-link active">{% trans 'Research' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part5_edit' %}" class="nav-link">{% trans 'Activities' %}</a></li>
+    <li class="nav-item"><a href="{% url 'form_part6_edit' %}" class="nav-link">{% trans 'Summary' %}</a></li>
 </ul>
-<div class="panel panel-default">
-	<div class="panel-body">
+<div class="card">
+	<div class="card-body">
  		<form id="pst-form-part4" method="POST" enctype="multipart/form-data" action="{% url 'form_part4_save' %}">
  		{% csrf_token %}
  		{{ form.non_field_errors }}
- 		<div class="panel-default">
-  			<div class="panel-heading">
-  				<h4>{% trans 'Research' %}</h4>
+ 		<div class="card border-0">
+            <div class="card-heading border-bottom">
+                <h4 class="fs-5 my-2">{% trans 'Research' %}</h4>
     		</div>
     	</div>
     	<div class="form-group" style="padding-top: 10px">
@@ -80,29 +80,26 @@
             {{ form.remark }}
             <span class="error">{{ form.remark.errors }}</span>
       	</div>
-    	<div class="panel-default">
-  			<div class="panel-heading">
-  				<h4>{% trans 'List of publications in PDF format (DIAL)' %}</h4>
+          <div class="card border-0">
+            <div class="card-heading border-bottom">
+                <h4 class="fs-5 my-2">{% trans 'List of publications in PDF format (DIAL)' %}</h4>
     		</div>
     	</div>
-        {% for file in files %}
-            <div class="row" style="padding-top: 15px;">
-                <div class="col-md-2" style="text-align: left">
-                    <a class="btn btn-default btn-danger btn-sm" id="btn_delete_file" style="margin-right: 5px;"
-                       title="{% trans 'Delete'%}"
-                       onclick="location.href='{% url 'assistant_file_delete' file.id 'form_part4_edit' %}';">
-                    <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
-                        {% trans 'Delete file' %}</a>
-                </div>
-                <div class="col-md-10" id="hdn_filename" style="text-align: left">
-                   <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
-                </div>
+        <div class="list-group">
+            {% for file in files %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <a id="hdn_filename" href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
+                <button type="button" class="btn btn-danger" id="btn_delete_file" onclick="if (no_change()) location.href='{% url 'assistant_file_delete' file.id 'form_part4_edit' %}';">
+                    <i class="fa fa-times"></i>
+                    {% trans 'Delete' %}
+                </button>
             </div>
-        {% endfor %}
-        <div class="row" style="padding-top: 15px; padding-left: 15px;">
-            <a class="btn btn-default" data-toggle="modal" data-target="#pnl_upload_documents"
-               id="btn_add_file" style="margin-right: 5px;" title="{% trans 'Add file'%}">
-                <span class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></span>
+            {% endfor %}
+        </div>
+        <div class="row mt-3 px-3">
+            <a class="btn btn-default me-2" data-bs-toggle="modal" data-bs-target="#pnl_upload_documents"
+               id="btn_add_file" title="{% trans 'Add file'%}">
+                <i class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></i>
                 {% trans 'Attach a PDF file' %}</a>
         </div>
         <hr>
@@ -110,7 +107,7 @@
 		   name="mandate_id" title="mandate_id" >
         <input type="hidden" value="{{ document_type }}" id="hdn_description" name="description" title="description">
         <button type="submit" class="btn btn-primary" title="{% trans 'Save'%}" id="bt_pstform_part3_save">
-     	<span class="far fa-save" aria-hidden="true"></span> {% trans 'Save'%}</button>
+     	<i class="far fa-save" aria-hidden="true"></i> {% trans 'Save'%}</button>
     	</form>
 	</div>
 </div>
@@ -119,103 +116,111 @@
 {% endblock %}
 {% block script %}
     <script>
-    //***************************
-    //File upload
-    //***************************
-    $("#txt_file").on("change", function(){
-       var file = this.files[0];
-       fileName = file.name;
-       $("#hdn_filename").val(fileName);
-       if(fileName.length > 100){
-            document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
-            $("#txt_file").val('')
-            $('#pnl_upload_error').remove();
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            return false;
-        }
-        else {
-            document.getElementById("error_modal_upload").innerHTML = "";
-        }
-        res = /.*[()%$,;:/=+].*/i.test(fileName);
-        if(res)
-            {
-            document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
-            $("#txt_file").val('')
-            $('#pnl_upload_error').remove();
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            return false;
-        }
-        else {
-            document.getElementById("error_modal_upload").innerHTML = "";
-        }
-    });
-    $('[id^="bt_load_doc_"]').click(function(event) {
-        var target = $(event.target);
-        var id = target.attr("id");
-        var pos = id.indexOf('bt_load_doc_');
-        var description = id.substring(pos+12);
-    });
-    $("#bt_upload_document").click(function(event) {
-    var target = $(event.target);
-    var id = target.attr("id");
-    var form = target.form;
-    var description = $("#hdn_description").val();
-    //Clear existing fields
-    $('#hdn_file_' + $("#txt_file").val()).remove();
-    $('#hdn_file_name_' + description).remove();
-    $('#hdn_file_description_' + description).remove();
-    var fileSelect = document.getElementById('txt_file');
-    var files = fileSelect.files;
-    var file = files[0];
-    var data = new FormData();
-    data.append('description', description);
-    data.append('storage_duration', 0);
-    data.append('content_type', file.type);
-    data.append('filename', $("#txt_file").val());
-    data.append('mandate_id', $("#hdn_current_mandate_id").val());
-    var accepted_types = ['application/pdf'];
-    if (file) {
-        if ($.inArray(file.type, accepted_types) >= 0) {
-            data.append('file', file);
-            $.ajax({
-                url: "{% url 'assistant_file_upload' %}",
-                enctype: 'multipart/form-data',
-                type: 'POST',
-                data: data,
-                processData: false,
-                contentType: false,
-                complete: function(xhr, statusText) {
-                    var data_response=xhr.responseText;
-                    var jsonResponse = JSON.parse(data_response);
-                    window.location.reload(true);
-                    alert(jsonResponse["message"]);
+        //***************************
+        //File upload
+        //***************************
+        $("#txt_file").on("change", function(){
+           var file = this.files[0];
+           fileName = file.name;
+           $("#hdn_filename").val(fileName);
+           if(fileName.length > 100){
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
+                $("#txt_file").val('')
+                $('#pnl_upload_error').remove();
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                return false;
+            }
+            else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "";
+            }
+            res = /.*[()%$,;:/=+].*/i.test(fileName);
+            if(res) {
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
+                $("#txt_file").val('')
+                $('#pnl_upload_error').remove();
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                return false;
+            }
+            else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
+                document.getElementById("error_modal_upload").innerHTML = "";
+            }
+        });
+        $('[id^="bt_load_doc_"]').click(function(event) {
+            var target = $(event.target);
+            var id = target.attr("id");
+            var pos = id.indexOf('bt_load_doc_');
+            var description = id.substring(pos+12);
+        });
+        $("#bt_upload_document").click(function(event) {
+            var target = $(event.target);
+            var id = target.attr("id");
+            var form = target.form;
+            var description = $("#hdn_description").val();
+            //Clear existing fields
+            $('#hdn_file_' + $("#txt_file").val()).remove();
+            $('#hdn_file_name_' + description).remove();
+            $('#hdn_file_description_' + description).remove();
+            var fileSelect = document.getElementById('txt_file');
+            var files = fileSelect.files;
+            var file = files[0];
+            var data = new FormData();
+            data.append('description', description);
+            data.append('storage_duration', 0);
+            data.append('content_type', file.type);
+            data.append('filename', $("#txt_file").val());
+            data.append('mandate_id', $("#hdn_current_mandate_id").val());
+            var accepted_types = ['application/pdf'];
+            if (file) {
+                if ($.inArray(file.type, accepted_types) >= 0) {
+                    data.append('file', file);
+                    $.ajax({
+                        url: "{% url 'assistant_file_upload' %}",
+                        enctype: 'multipart/form-data',
+                        type: 'POST',
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        complete: function(xhr, statusText) {
+                            window.location.reload(true);
+                        }
+                    });
+                    return true;
                 }
-            });
+                else {
+                    document.getElementById('error_modal_upload_alert').classList.remove('d-none');
+                    document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
+                    $("#txt_file").val('')
+                    $('#pnl_upload_error').remove();
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    return false;
+                }
+            }
+        });
+        $("#pst-form-part4 :input").change(function() {
+            $("#pst-form-part4").data("changed",true);
+        });
+        $('a').on('click', function(e) {
+            if ($("#pst-form-part4").data("changed")) {
+                var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
+                if (choice == true) {
+                    e.preventDefault();
+                    $('form#pst-form-part4').submit();
+                }
+            }
+        });
+        function no_change(){
+            if ($("#pst-form-part4").data("changed")) {
+                alert("{% trans 'You have modified the form, please save your change before to delete the attached file.' %}");
+                return false;
+            }
             return true;
         }
-        else {
-            document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
-            $("#txt_file").val('')
-            $('#pnl_upload_error').remove();
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            return false;
-        }
-    }
-});
-    $("#pst-form-part4 :input").change(function() {
-        $("#pst-form-part4").data("changed",true);
-    });
-    $('a').on('click', function(e) {
-	    if ($("#pst-form-part4").data("changed")) {
-		    var choice = confirm("{% trans 'Click OK to save the modified data before moving to another section.  Click Cancel to continue without saving.' %}");
-		    if (choice == true) {
-			    e.preventDefault();
-			    $('form#pst-form-part4').submit();
-		   }
-	    }
-    });
     </script>
 {% endblock %}

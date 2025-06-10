@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -26,28 +26,29 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/osis.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap5/dataTables.bootstrap5.min.css' %}">
 {% endblock %}
 {% block breadcrumb %}
-    <li><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
-    <li class="active">{% trans 'Renewal application form' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'assistant_mandates' %}" id="lnk_my_mandates">{% trans 'My mandates' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Renewal application form' %}</li>
 {% endblock %}
 {% block content %}
     <ul class="nav nav-tabs ">
-        <li><a href="{% url 'assistant_mandates' %}">{% trans 'My mandates' %}</a></li>
-        <li><a href="{% url 'form_part1_edit' %}">{% trans 'Administrative' %}</a></li>
-        <li class="active"><a href="{% url 'mandate_learning_units' %}">{% trans 'Learning units' %}</a></li>
+        <li class="nav-item"><a href="{% url 'assistant_mandates' %}" class="nav-link">{% trans 'My mandates' %}</a></li>
+        <li class="nav-item"><a href="{% url 'form_part1_edit' %}" class="nav-link">{% trans 'Administrative' %}</a></li>
+        <li class="nav-item"><a href="{% url 'mandate_learning_units' %}" class="nav-link active">{% trans 'Learning units' %}</a></li>
         {% if assistant_type == "ASSISTANT" %}
-            <li><a href="{% url 'form_part3_edit' %}">{% trans 'Ph.D.' %}</a></li>
-            <li><a href="{% url 'form_part4_edit' %}">{% trans 'Research' %}</a></li>
+            <li class="nav-item"><a href="{% url 'form_part3_edit' %}" class="nav-link">{% trans 'Ph.D.' %}</a></li>
+            <li class="nav-item"><a href="{% url 'form_part4_edit' %}" class="nav-link">{% trans 'Research' %}</a></li>
         {% endif %}
-        <li><a href="{% url 'form_part5_edit' %}">{% trans 'Activities' %}</a></li>
-        <li><a href="{% url 'form_part6_edit' %}">{% trans 'Summary' %}</a></li>
+        <li class="nav-item"><a href="{% url 'form_part5_edit' %}" class="nav-link">{% trans 'Activities' %}</a></li>
+        <li class="nav-item"><a href="{% url 'form_part6_edit' %}" class="nav-link">{% trans 'Summary' %}</a></li>
     </ul>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="panel-default">
-                <div class="panel-heading">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-default">
+                <div class="card-heading">
                     <h4>{% trans 'Learning units' %}</h4>
                     <h5>{% trans 'Exercises, workshops, seminars - associated with hours of volume 2, which you personally assume' %}</h5>
                 </div>
@@ -66,24 +67,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
                         {% for learning_unit in object_list %}
-                            <td>{{ learning_unit.learning_unit_year.academic_year }}</td>
-                            <td>{{ learning_unit.learning_unit_year.acronym }}</td>
-                            <td>{{ learning_unit.learning_unit_year.complete_title }}</td>
-                            <td><a href="{% url 'tutoring_learning_unit_edit' learning_unit.id %}">
-                                <button type="button" class="btn btn-link btn-lg" title="{% trans 'Edit' %}"
-                                        id="bt_learning_unit_edit">
-                                    <span class="far fa-edit" aria-hidden="true"></span>
-                                </button>
-                                {% trans 'Edit' %}</a></td>
-                            <td><a href="{% url 'tutoring_learning_unit_delete' learning_unit.id %}"
-                                   onclick="return confirm('{% trans 'Are you sure you want to delete this course?' %}')">
-                                <button type="button" class="btn btn-link btn-lg" title="{% trans 'Delete' %}"
-                                        id="bt_learning_unit_delete">
-                                    <span class="fas fa-times" aria-hidden="true"></span>
-                                </button>
-                                {% trans 'Delete' %}</a></td>
+                            <tr>
+                                <td>{{ learning_unit.learning_unit_year.academic_year }}</td>
+                                <td>{{ learning_unit.learning_unit_year.acronym }}</td>
+                                <td>{{ learning_unit.learning_unit_year.complete_title }}</td>
+                                <td><a href="{% url 'tutoring_learning_unit_edit' learning_unit.id %}">
+                                    <button type="button" class="btn btn-link btn-lg" title="{% trans 'Edit' %}"
+                                            id="bt_learning_unit_edit">
+                                        <span class="far fa-edit" aria-hidden="true"></span>
+                                    </button>
+                                    {% trans 'Edit' %}</a></td>
+                                <td><a href="{% url 'tutoring_learning_unit_delete' learning_unit.id %}"
+                                       onclick="return confirm('{% trans 'Are you sure you want to delete this course?' %}')">
+                                    <button type="button" class="btn btn-link btn-lg" title="{% trans 'Delete' %}"
+                                            id="bt_learning_unit_delete">
+                                        <i class="fas fa-times" aria-hidden="true"></i>
+                                    </button>
+                                    {% trans 'Delete' %}</a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -91,11 +93,11 @@
             </div>
             <a href="{% url 'tutoring_learning_unit_add' %}">
                 <button type="button" class="btn btn-link btn-lg" title="{% trans 'Add' %}" id="bt_reviewer_add">
-                    <span class="fas fa-plus" aria-hidden="true"></span>
+                    <i class="fas fa-plus" aria-hidden="true"></i>
                 </button>
                 {% trans 'Add a teaching unit' %}</a>
-            <div class="panel-default">
-                <div class="panel-heading">
+            <div class="card">
+                <div class="card-heading">
                     <h4>{% trans 'Evaluations (optional)' %}</h4>
                 </div>
             </div>
@@ -104,23 +106,23 @@
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 {% for file in files %}
-                    <div class="row" style="padding-top: 15px;">
-                        <div class="col-md-2" style="text-align: left">
-                            <a class="btn btn-default btn-danger btn-sm" id="btn_delete_file" style="margin-right: 5px;"
+                    <div class="row pt-3">
+                        <div class="col-lg-2 text-start me-1">
+                            <a class="btn btn-danger btn-sm" id="btn_delete_file"
                                title="{% trans 'Delete' %}"
                                onclick="location.href='{% url 'assistant_file_delete' file.id 'mandate_learning_units' %}';">
-                                <span class="fas fa-times" aria-hidden="true" id="spn_delete_file"></span>
+                                <i class="fas fa-times" aria-hidden="true" id="spn_delete_file"></i>
                                 {% trans 'Delete' %}</a>
                         </div>
-                        <div class="col-md-10" id="hdn_filename" style="text-align: left">
+                        <div class="col-lg-10" id="hdn_filename" style="text-align: left">
                             <a href="{% url 'assistant_file_download' document_file_id=file.id %}" class="no_spinner">{{ file.document_file }}</a>
                         </div>
                     </div>
                 {% endfor %}
-                <div class="form-group" style="padding-top: 15px;">
-                    <a class="btn btn-default" data-toggle="modal" data-target="#pnl_upload_documents"
-                       id="btn_add_file" style="margin-right: 5px;" title="{% trans 'Add file' %}">
-                        <span class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></span>
+                <div class="form-group pt-3">
+                    <a class="btn btn-default me-1" data-bs-toggle="modal" data-bs-target="#pnl_upload_documents"
+                       id="btn_add_file" title="{% trans 'Add file' %}">
+                        <i class="fas fa-arrow-circle-up" aria-hidden="true" id="spn_add_file"></i>
                         {% trans 'Attach a PDF file' %}</a>
                 </div>
                 <input type="hidden" value="{{ mandate_id | default_if_none:'' }}" id="hdn_current_mandate_id"
@@ -133,12 +135,12 @@
     {% include "new_document.html" %}
 {% endblock %}
 {% block script %}
-    <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap5/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap5/dataTables.bootstrap5.js' %}"></script>
     <script>
         $(document).ready(function () {
             $('#myTable').DataTable({
-                stateSave: true
+                stateSave: true,
             });
         });
     </script>
@@ -151,6 +153,7 @@
             fileName = file.name;
             $("#hdn_filename").val(fileName);
             if (fileName.length > 100) {
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
                 document.getElementById("error_modal_upload").innerHTML = "{% trans 'The length of filename may not exceed 100 characters.'%}";
                 $("#txt_file").val('')
                 $('#pnl_upload_error').remove();
@@ -158,10 +161,12 @@
                 event.stopImmediatePropagation();
                 return false;
             } else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
                 document.getElementById("error_modal_upload").innerHTML = "";
             }
             res = /.*[()%$,;:/=+].*/i.test(fileName);
             if (res) {
+                document.getElementById('error_modal_upload_alert').classList.remove('d-none');
                 document.getElementById("error_modal_upload").innerHTML = "{% trans 'Filename can not contains : ( ) % $ , ; : / = +'%}";
                 $("#txt_file").val('')
                 $('#pnl_upload_error').remove();
@@ -169,6 +174,7 @@
                 event.stopImmediatePropagation();
                 return false;
             } else {
+                document.getElementById('error_modal_upload_alert').classList.add('d-none');
                 document.getElementById("error_modal_upload").innerHTML = "";
             }
         });
@@ -208,14 +214,12 @@
                         processData: false,
                         contentType: false,
                         complete: function (xhr, statusText) {
-                            var data_response = xhr.responseText;
-                            var jsonResponse = JSON.parse(data_response);
                             window.location.reload(true);
-                            alert(jsonResponse["message"]);
                         }
                     });
                     return true;
                 } else {
+                    document.getElementById('error_modal_upload_alert').classList.remove('d-none');
                     document.getElementById("error_modal_upload").innerHTML = "{% trans 'You must select a PDF file'%}";
                     $("#txt_file").val('')
                     $('#pnl_upload_error').remove();
