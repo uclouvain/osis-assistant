@@ -23,7 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
@@ -38,7 +38,7 @@ from assistant.models.enums import review_status, review_advice_choices
 from base.models import academic_year, entity_version
 
 
-class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
+class MandatesListView(UserPassesTestMixin, ListView, FormMixin):
     context_object_name = 'reviewer_mandates_list'
     template_name = 'reviewer_mandates_list.html'
 

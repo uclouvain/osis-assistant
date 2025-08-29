@@ -23,7 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.forms import forms
 from django.urls import reverse
 from django.views.generic import ListView
@@ -35,7 +35,7 @@ from assistant.models import assistant_mandate, reviewer
 from base.models import academic_year
 
 
-class AssistantsListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
+class AssistantsListView(UserPassesTestMixin, ListView, FormMixin):
     context_object_name = 'phd_supervisor_assistants_list'
     template_name = 'phd_supervisor_assistants_list.html'
     form_class = forms.Form

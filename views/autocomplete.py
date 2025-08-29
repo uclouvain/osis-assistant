@@ -24,14 +24,13 @@
 import datetime
 
 from dal import autocomplete
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
+from base.models.learning_unit_year import LearningUnitYear
 from base.models.person import Person
-from base.models.learning_unit_year import LearningUnitYear, search
 
 
-class TutorAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
+class TutorAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Person.objects.none()
         if self.q:
@@ -45,7 +44,7 @@ class TutorAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
         return "{person.last_name} {person.first_name} ({person.email})".format(person=result)
 
 
-class LearningUnitYearAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
+class LearningUnitYearAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = LearningUnitYear.objects.none()
         if self.q:
