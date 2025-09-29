@@ -74,20 +74,6 @@ class ExportPdfTestCase(TestCase):
             supervisor=cls.supervisor
         )
 
-        cls.styles = getSampleStyleSheet()
-        cls.styles.add(ParagraphStyle(
-            name='Tiny',
-            fontSize=6,
-            font='Helvetica',
-            leading=8,
-            leftIndent=0,
-            rightIndent=0,
-            firstLineIndent=0,
-            alignment=TA_LEFT,
-            spaceBefore=0,
-            spaceAfter=0,
-            splitLongWords=1,
-        ))
         cls.reviewer3 = ReviewerFactory()
 
     def setUp(self):
@@ -155,6 +141,20 @@ class ExportPdfTestCase(TestCase):
             mandate=self.mandate,
             reviewer=None
         )
+        self.styles = getSampleStyleSheet()
+        self.styles.add(ParagraphStyle(
+            name='Tiny',
+            fontSize=6,
+            font='Helvetica',
+            leading=8,
+            leftIndent=0,
+            rightIndent=0,
+            firstLineIndent=0,
+            alignment=TA_LEFT,
+            spaceBefore=0,
+            spaceAfter=0,
+            splitLongWords=1,
+        ))
         
     def test_export_mandate(self):
         self.client.force_login(self.assistant.person.user)
