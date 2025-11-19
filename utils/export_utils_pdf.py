@@ -30,7 +30,7 @@ from io import BytesIO
 from typing import Sequence, List, Union
 
 from django import http
-from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -90,7 +90,7 @@ def export_mandates_to_sap(request):
     return response
 
 
-@login_required
+
 def build_doc(request: http.HttpRequest, mandates: Sequence[assistant_mandate.AssistantMandate], type: str = 'default'):
     if mandates:
         year = mandates[0].academic_year

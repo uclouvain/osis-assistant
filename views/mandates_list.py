@@ -23,7 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Prefetch
 from django.urls import reverse
 from django.views.generic import ListView
@@ -42,7 +42,7 @@ from base.models.entity_version import EntityVersion
 SELECTED_ACADEMIC_YEAR_KEY_SESSION = 'selected_academic_year'
 
 
-class MandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
+class MandatesListView(UserPassesTestMixin, ListView, FormMixin):
     context_object_name = 'mandates_list'
     template_name = 'mandates_list.html'
     form_class = MandatesArchivesForm
