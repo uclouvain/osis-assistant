@@ -23,7 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_not_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -53,6 +53,7 @@ def manager_home(request):
     return render(request, 'manager_home.html')
 
 
+@login_not_required
 def access_denied(request):
     response = render(request, 'access_denied.html', {})
     response.status_code = 403
