@@ -23,7 +23,6 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
@@ -34,7 +33,6 @@ from assistant.models import settings
 from assistant.utils import manager_access
 
 
-@login_required
 def assistant_home(request):
     if (settings.access_to_procedure_is_open() or settings.assistants_can_see_file()) \
             and academic_assistant.find_by_person(person=request.user.person):
