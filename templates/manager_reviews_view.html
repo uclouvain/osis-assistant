@@ -25,9 +25,6 @@
 * at the root of the source code of this program.  If not,
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
-{% block style %}
-    <link href="{% static 'osis_history/osis-history.css' %}" rel="stylesheet"/>
-{% endblock %}
 
 {% block breadcrumb %}
     <li class="breadcrumb-item"><a href="{% url 'manager_home' %}" id="lnk_manager_home">{% trans 'Assistants' %}</a></li>
@@ -159,10 +156,13 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'js/vue.min.js' %}"></script>
-    <script src="{% static 'js/vue-i18n.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'osis_history/osis-history.umd.min.js' %}"></script>
     <script>
+        if (window.OsisHistory && typeof window.OsisHistory.mountHistoryViewer === 'function') {
+            window.OsisHistory.mountHistoryViewer();
+        } else {
+            console.warn("La fonction OsisHistory.mountHistoryViewer n'est pas définie.");
+        }
+
         function confirm_click() {
             return confirm("{% trans 'Are you sure you want to step back the mandate? This action is irreversible.' %}");
         }
