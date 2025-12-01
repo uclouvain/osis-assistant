@@ -23,11 +23,13 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+from django.contrib.auth.decorators import login_not_required
 from django.http import JsonResponse
 
 from base.models.person import find_by_last_name_or_email
 
 
+@login_not_required
 def get_persons(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest' and 'term' in request.GET:
         q = request.GET.get('term')

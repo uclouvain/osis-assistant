@@ -25,7 +25,6 @@
 ##############################################################################
 import json
 
-from django.contrib.auth.decorators import login_required
 from django.db import DataError
 from django.http import *
 from django.urls import reverse
@@ -37,7 +36,6 @@ from base.views.common import display_success_messages
 from osis_common.models import document_file as document_file
 
 
-@login_required
 def download(request, document_file_id):
     assistant_mandate_document = mdl.assistant_document_file.find_by_id(document_file_id)
     document = document_file.find_by_id(assistant_mandate_document.document_file.id)
@@ -47,7 +45,7 @@ def download(request, document_file_id):
     return response
 
 
-@login_required
+
 def delete(request, document_file_id, url, mandate_id=None):
     assistant_mandate_document = mdl.assistant_document_file.find_by_id(document_file_id)
     document = document_file.find_by_id(assistant_mandate_document.document_file.id)
@@ -60,7 +58,7 @@ def delete(request, document_file_id, url, mandate_id=None):
     else:
         return HttpResponseRedirect(reverse(url))
 
-@login_required
+
 @require_http_methods(["POST"])
 def save_uploaded_file(request):
     data = request.POST
