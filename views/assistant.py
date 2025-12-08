@@ -24,10 +24,9 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q
 from django.forms import forms
-from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
@@ -46,7 +45,7 @@ from base.models import person, academic_year
 from base.models.enums import entity_type
 
 
-class AssistantMandatesListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
+class AssistantMandatesListView(UserPassesTestMixin, ListView, FormMixin):
     context_object_name = 'assistant_mandates_list'
     template_name = 'assistant_mandates.html'
     form_class = forms.Form
@@ -114,7 +113,7 @@ def mandate_change_state(request):
     return redirect(reverse('assistant_mandates'))
 
 
-class AssistantLearningUnitsListView(LoginRequiredMixin, UserPassesTestMixin, ListView, FormMixin):
+class AssistantLearningUnitsListView(UserPassesTestMixin, ListView, FormMixin):
     context_object_name = 'mandate_learning_units_list'
     template_name = 'mandate_learning_unit_list.html'
     form_class = forms.Form

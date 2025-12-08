@@ -24,12 +24,11 @@
 #
 ##############################################################################
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q, Prefetch
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView
 
@@ -41,7 +40,7 @@ from assistant.views.mails import send_message
 from base.models import academic_year, person, entity, entity_version
 
 
-class StructuresListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class StructuresListView(UserPassesTestMixin, ListView):
     context_object_name = 'reviewer_structures_list'
     template_name = 'reviewer_structures_list.html'
     form_class = ReviewerDelegationForm
