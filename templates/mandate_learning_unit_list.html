@@ -141,6 +141,7 @@
         $(document).ready(function () {
             $('#myTable').DataTable({
                 stateSave: true,
+                columnDefs: [{"className": "dt-left", "targets": "_all"}],
             });
         });
     </script>
