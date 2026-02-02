@@ -122,9 +122,10 @@
 <script type="text/javascript" src="{% static 'js/dataTables/dataTables.bootstrap5.min.js' %}"></script>
 <script>
 $(document).ready(function() {
-    $('#myTable').DataTable( {
-        stateSave: true
-        } );
-    } );
+    $('#myTable').DataTable({
+        stateSave: true,
+        columnDefs: [{"className": "dt-left", "targets": "_all"}],
+    });
+});
 </script>
 {% endblock %}
