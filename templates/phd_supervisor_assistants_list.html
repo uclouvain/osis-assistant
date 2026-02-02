@@ -27,7 +27,7 @@
 {% endcomment %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/osis.css' %}">
-<link rel="stylesheet" href="{% static 'css/bootstrap5/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/dataTables/dataTables.bootstrap5.min.css' %}">
 {% endblock %}
 {% block breadcrumb %}
 <li class="breadcrumb-item active">{% trans 'List of files (as a thesis promoter)' %}</li>
@@ -118,13 +118,14 @@
 </div>
 {% endblock %}
 {% block script %}
-<script type="text/javascript" src="{% static 'js/bootstrap5/jquery.dataTables.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/bootstrap5/dataTables.bootstrap5.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/dataTables/jquery.dataTables.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/dataTables/dataTables.bootstrap5.min.js' %}"></script>
 <script>
 $(document).ready(function() {
-    $('#myTable').DataTable( {
-        stateSave: true
-        } );
-    } );
+    $('#myTable').DataTable({
+        stateSave: true,
+        columnDefs: [{"className": "dt-left", "targets": "_all"}],
+    });
+});
 </script>
 {% endblock %}
